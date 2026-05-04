@@ -6,7 +6,6 @@ import FiltersSidebar, {
 } from "../../components/(filters)/Filters";
 import "./globals.css";
 import Header from "../../components/(Headers)/SecondHeader";
-import FormType3 from "../../components/(forms)/FormType3";
 type Flight = {
   id: number;
   airline: string;
@@ -152,7 +151,6 @@ export default function FlightPage() {
   return (
     <>
       <Header />
-      <FormType3 />
       <FilterProvider>
         <div className="Countainer" style={{ display: "flex", gap: "20px" }}>
           <FiltersSidebar

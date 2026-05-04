@@ -6,7 +6,6 @@ import FiltersSidebar, {
 } from "../../components/(filters)/Filters";
 import "../globals.css";
 import Header from "../../components/(Headers)/SecondHeader";
-import FormType3 from "../../components/(forms)/FormType3";
 
 export default function HotelResultPage() {
   type Tour = {
@@ -23,7 +22,7 @@ export default function HotelResultPage() {
     capacity?: number;
     price?: string;
     originalPrice?: string;
-    PorShode?:number;
+    PorShode?: number;
   };
   const mockTours: Tour[] = [
     {
@@ -39,7 +38,7 @@ export default function HotelResultPage() {
       meals: "صبحانه و ناهار",
       stars: 4,
       capacity: 20,
-      PorShode:18,
+      PorShode: 18,
       price: "12,500,000",
       originalPrice: "15,000,000",
     },
@@ -55,8 +54,8 @@ export default function HotelResultPage() {
       duration: "4 شب و 5 روز",
       meals: "صبحانه",
       stars: 5,
-      capacity:20,
-      PorShode:0,
+      capacity: 20,
+      PorShode: 0,
       price: "18,000,000",
     },
     {
@@ -72,7 +71,7 @@ export default function HotelResultPage() {
       meals: "صبحانه و ناهار",
       stars: 5,
       capacity: 15,
-      PorShode:15,
+      PorShode: 15,
       price: "122,000,000",
     },
     {
@@ -86,7 +85,7 @@ export default function HotelResultPage() {
       meals: "صبحانه و ناهار",
       stars: 4,
       capacity: 20,
-      PorShode:16,
+      PorShode: 16,
       price: "98,000,000",
     },
   ];
@@ -167,10 +166,8 @@ export default function HotelResultPage() {
   return (
     <>
       <Header />
-      <FormType3 />
       <FilterProvider>
         <div className="Countainer" style={{ display: "flex", gap: "20px" }}>
-          {/* Sidebar filters */}
           <FiltersSidebar
             title="تور تهران به کیش"
             resultCount={{ shown: mockTours.length, total: mockTours.length }}
@@ -179,7 +176,6 @@ export default function HotelResultPage() {
             showNotification={true}
           />
           <div className="Left">
-            {/* Tour cards */}
             {mockTours.map((tour) => (
               <div className="TourCard" key={tour.id}>
                 <div className="TourImage">
@@ -223,7 +219,7 @@ export default function HotelResultPage() {
                   </div>
                   <div className="TourFooter">
                     <div className="Capacity">
-                      <strong style={{paddingLeft:"10px"}}>ظرفیت:</strong>
+                      <strong style={{ paddingLeft: "10px" }}>ظرفیت:</strong>
                       {typeof tour.capacity === "number" ? (
                         <span>{tour.PorShode} نفر از</span>
                       ) : null}{" "}
