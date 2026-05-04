@@ -1,5 +1,5 @@
 import "../globals.css";
-export default function FlightSearch() {
+export default function FormType3() {
   return (
     <div className="List2">
       <div className="Form">

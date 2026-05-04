@@ -111,11 +111,6 @@ const PAGE_DATA = {
       externalText: "درباره ی این شرکت",
     }),
   },
-<<<<<<< HEAD
-
-=======
-  // ✅ اصلاح بخش سوالات متداول (مرتبط با هتل)
->>>>>>> aa90ea5e9e37f0eeba6b5d315b0d5e1a2248664c
   faq: {
     title: "سوالات متداول هتل",
     list: [
@@ -180,7 +175,6 @@ function HotelCard({ id, title, price, rate, image, location }: HotelCardType) {
 }
 
 export default function HotelsPage() {
-
   return (
     <>
       <Header />

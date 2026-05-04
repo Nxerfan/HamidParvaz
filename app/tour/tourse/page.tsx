@@ -6,7 +6,7 @@ import FiltersSidebar, {
 } from "../../components/(filters)/Filters";
 import "../globals.css";
 import Header from "../../components/(Headers)/SecondHeader";
-import Form from "../../components/(forms)/FormType3";
+import FormType3 from "../../components/(forms)/FormType3";
 
 export default function HotelResultPage() {
   type Tour = {
@@ -167,7 +167,7 @@ export default function HotelResultPage() {
   return (
     <>
       <Header />
-      <Form />
+      <FormType3 />
       <FilterProvider>
         <div className="Countainer" style={{ display: "flex", gap: "20px" }}>
           {/* Sidebar filters */}

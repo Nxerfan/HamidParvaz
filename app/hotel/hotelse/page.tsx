@@ -5,8 +5,9 @@ import FiltersSidebar, {
   CheckboxFilter,
 } from "../../components/(filters)/Filters";
 import "../globals.css";
+
+
 import Header from "../../components/(Headers)/SecondHeader";
-import Form from "../../components/(forms)/FormType4";
 
 export default function HotelResultPage() {
   type Hotel = {
@@ -181,7 +182,6 @@ export default function HotelResultPage() {
   return (
     <>
       <Header />
-      <Form />
       <FilterProvider>
         <div className="Countainer" style={{ display: "flex", gap: "20px" }}>
           <FiltersSidebar

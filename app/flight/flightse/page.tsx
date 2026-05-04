@@ -6,7 +6,7 @@ import FiltersSidebar, {
 } from "../../components/(filters)/Filters";
 import "./globals.css";
 import Header from "../../components/(Headers)/SecondHeader";
-import Form from "../../components/(forms)/FormType3";
+import FormType3 from "../../components/(forms)/FormType3";
 type Flight = {
   id: number;
   airline: string;
@@ -152,10 +152,9 @@ export default function FlightPage() {
   return (
     <>
       <Header />
-      <Form />
+      <FormType3 />
       <FilterProvider>
         <div className="Countainer" style={{ display: "flex", gap: "20px" }}>
-          {/* Sidebar filters */}
           <FiltersSidebar
             title="بلیط هواپیما تهران به کیش"
             resultCount={{ shown: flights.length, total: flights.length }}
@@ -164,147 +163,140 @@ export default function FlightPage() {
             showNotification={true}
           />
 
-          {/* Flight results */}
-            <div className="Left">
-              {/* Top price bar */}
-              <div className="Top">
-                <div className="Title">ارزان‌ترین قیمت در هر روز</div>
-                <div className="Price">
-                  {Array.from({ length: 14 }).map((_, i) => (
-                    <div className="Cards" key={i}>
-                      <span>سه‌شنبه 10/2</span>
-                      <p>1082 تومان</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Flight cards */}
-              <div className="Bottom">
-                {flights.map((flight) => {
-                  const isOpen = openId === flight.id;
-                  return (
-                    <div className="Cards" key={flight.id}>
-                      {/* RightCard */}
-                      <div className="RightCard">
-                        <div className="About">
-                          <div className="Icon">
-                            <img src={flight.airlineLogo} alt="Airline" />
-                            <span>{flight.airline}</span>
-                          </div>
-                          <div className="Time">
-                            <div className="Form">
-                              <span>{flight.departureTime}</span>
-                              <p>{flight.departureCity}</p>
-                            </div>
-                            <div className="i">
-                              <i className="fa-regular fa-circle-dot"></i>
-                              <hr className="line-divider" />
-                              <i className="fas fa-plane fa-flip-horizontal"></i>
-                            </div>
-                            <div className="Form">
-                              <span>{flight.arrivalTime}</span>
-                              <p>{flight.arrivalCity}</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="discriptions">
-                          <div
-                            className="More"
-                            onClick={() => toggleDetails(flight.id)}
-                          >
-                            <span>
-                              جزئیات <i className="fa-solid fa-angle-down"></i>
-                            </span>
-                          </div>
-                          <div className="Avablity">
-                            <span>{flight.flightClass}</span>
-                            <p>{flight.seatsAvailable} صندلی</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* LeftCard */}
-                      <div className="LeftCard">
-                        <div className="Top">
-                          <i className="fa-solid fa-bell"></i>
-                        </div>
-                        <div className="Bottom">
-                          <p>
-                            <span>{flight.price}</span> تومان
-                          </p>
-                          <button className="BtnPrimary">رزرو آنلاین</button>
-                        </div>
-                      </div>
-
-                      {/* Flight details */}
-                      {isOpen && (
-                        <div className="FlightDetails active">
-                          <div className="DetailsContent">
-                            <div className="row">
-                              <div className="title">
-                                <p>
-                                  {flight.departureDate} ← {flight.arrivalDate}{" "}
-                                  کلاس نرخی {flight.rateClass}
-                                </p>
-                              </div>
-                              <div className="contet">
-                                <div className="right">
-                                  <p>ساعت ورود به فرودگاه:</p>
-                                  <span>
-                                    ساعت حرکت{" "}
-                                    <i className="fa-regular fa-clock"></i>:
-                                  </span>
-                                  <p>ساعت رسیدن به مقصد:</p>
-                                </div>
-                                <div className="left">
-                                  <p>
-                                    {flight.departureCity}، فرودگاه{" "}
-                                    {flight.departureAirport.toUpperCase()} -
-                                    ترمینال {flight.departureTerminal}
-                                  </p>
-                                  <span>
-                                    {flight.departureTime} - هواپیمای شما
-                                  </span>
-                                  <p>
-                                    {flight.arrivalTime} - {flight.arrivalCity}،
-                                    فرودگاه{" "}
-                                    {flight.arrivalAirport.toUpperCase()}
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="orw">
-                              <div className="top">
-                                <p>
-                                  بزرگسال × 1{" "}
-                                  <span>{flight.adultPrice} تومان</span>
-                                </p>
-                                <p>
-                                  مجموع <span>{flight.totalPrice} تومان</span>
-                                </p>
-                              </div>
-                              <div className="bottom">
-                                <button>
-                                  <i className="fa-solid fa-bell"></i> ارزان شد
-                                  خبرم کن
-                                </button>
-                                <button>
-                                  <i className="fas fa-bolt"></i> ارزان شد رزرو
-                                  کن
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+          <div className="Left">
+            <div className="Top">
+              <div className="Title">ارزان‌ترین قیمت در هر روز</div>
+              <div className="Price">
+                {Array.from({ length: 14 }).map((_, i) => (
+                  <div className="Cards" key={i}>
+                    <span>سه‌شنبه 10/2</span>
+                    <p>1082 تومان</p>
+                  </div>
+                ))}
               </div>
             </div>
+
+            <div className="Bottom">
+              {flights.map((flight) => {
+                const isOpen = openId === flight.id;
+                return (
+                  <div className="Cards" key={flight.id}>
+                    {/* RightCard */}
+                    <div className="RightCard">
+                      <div className="About">
+                        <div className="Icon">
+                          <img src={flight.airlineLogo} alt="Airline" />
+                          <span>{flight.airline}</span>
+                        </div>
+                        <div className="Time">
+                          <div className="Form">
+                            <span>{flight.departureTime}</span>
+                            <p>{flight.departureCity}</p>
+                          </div>
+                          <div className="i">
+                            <i className="fa-regular fa-circle-dot"></i>
+                            <hr className="line-divider" />
+                            <i className="fas fa-plane fa-flip-horizontal"></i>
+                          </div>
+                          <div className="Form">
+                            <span>{flight.arrivalTime}</span>
+                            <p>{flight.arrivalCity}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="discriptions">
+                        <div
+                          className="More"
+                          onClick={() => toggleDetails(flight.id)}
+                        >
+                          <span>
+                            جزئیات <i className="fa-solid fa-angle-down"></i>
+                          </span>
+                        </div>
+                        <div className="Avablity">
+                          <span>{flight.flightClass}</span>
+                          <p>{flight.seatsAvailable} صندلی</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="LeftCard">
+                      <div className="Top">
+                        <i className="fa-solid fa-bell"></i>
+                      </div>
+                      <div className="Bottom">
+                        <p>
+                          <span>{flight.price}</span> تومان
+                        </p>
+                        <button className="BtnPrimary">رزرو آنلاین</button>
+                      </div>
+                    </div>
+
+                    {isOpen && (
+                      <div className="FlightDetails active">
+                        <div className="DetailsContent">
+                          <div className="row">
+                            <div className="title">
+                              <p>
+                                {flight.departureDate} ← {flight.arrivalDate}{" "}
+                                کلاس نرخی {flight.rateClass}
+                              </p>
+                            </div>
+                            <div className="contet">
+                              <div className="right">
+                                <p>ساعت ورود به فرودگاه:</p>
+                                <span>
+                                  ساعت حرکت{" "}
+                                  <i className="fa-regular fa-clock"></i>:
+                                </span>
+                                <p>ساعت رسیدن به مقصد:</p>
+                              </div>
+                              <div className="left">
+                                <p>
+                                  {flight.departureCity}، فرودگاه{" "}
+                                  {flight.departureAirport.toUpperCase()} -
+                                  ترمینال {flight.departureTerminal}
+                                </p>
+                                <span>
+                                  {flight.departureTime} - هواپیمای شما
+                                </span>
+                                <p>
+                                  {flight.arrivalTime} - {flight.arrivalCity}،
+                                  فرودگاه {flight.arrivalAirport.toUpperCase()}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="orw">
+                            <div className="top">
+                              <p>
+                                بزرگسال × 1{" "}
+                                <span>{flight.adultPrice} تومان</span>
+                              </p>
+                              <p>
+                                مجموع <span>{flight.totalPrice} تومان</span>
+                              </p>
+                            </div>
+                            <div className="bottom">
+                              <button>
+                                <i className="fa-solid fa-bell"></i> ارزان شد
+                                خبرم کن
+                              </button>
+                              <button>
+                                <i className="fas fa-bolt"></i> ارزان شد رزرو کن
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
+        </div>
       </FilterProvider>
     </>
   );
