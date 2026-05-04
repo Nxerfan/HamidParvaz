@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts",
+    "**/*.ts",
+<<<<<<< HEAD
+    "**/*.tsx",
+    "app/components/(Headers)/HeaderMakeYourTour.jsx",
+    "app/components/(filters)/Filters.tsx",
+    "app/flight/flightch/page.jsx",
+    "app/flight/reserve/form/page.tsx",
+    "app/tour/tourch/page.jsx",
+    "app/userpanel/page.jsx",
+    "next.config.ts",
+    "dist/types/**/*.ts",
+    "dist/dev/types/**/*.ts"
+, "app/cooperation/page.jsx"  ],
+=======
+    "**/*.tsx"
+, "app/components/(Headers)/HeaderMakeYourTour.jsx", "app/components/(filters)/Filters.tsx", "app/flight/flightch/page.jsx", "app/flight/reserve/form/page.tsx", "app/tour/tourch/page.jsx"  ],
+>>>>>>> aa90ea5e9e37f0eeba6b5d315b0d5e1a2248664c
+  "exclude": [
+    "node_modules"
+  ]
+}

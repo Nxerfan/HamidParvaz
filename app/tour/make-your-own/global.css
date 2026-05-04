@@ -1,0 +1,2067 @@
+.Countainer {
+  width: 1200px;
+  justify-self: center;
+  margin-top: 10px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  gap: 20px;
+  .Left {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    height: 100%;
+
+    .Top {
+      background-color: var(--bgWhite);
+      width: 100%;
+      display: grid;
+      box-shadow: var(--boxShadow);
+      padding: 8px 8px 0;
+      height: 100px;
+      border-radius: 12px;
+      justify-content: space-between;
+      .Title {
+        font-size: 14px;
+        color: var(--textDark);
+      }
+      .Price {
+        display: flex;
+        gap: 20px;
+        scroll-behavior: smooth;
+        position: relative;
+        anchor-name: --Price;
+        scroll-snap-type: x mandatory;
+        margin: 0 45px;
+        overflow-x: auto;
+        .Cards {
+          display: grid;
+          justify-content: space-between;
+          scroll-snap-align: start;
+          flex: 0 0 88px;
+          text-align: Right;
+          span {
+            font-size: 12px;
+            color: var(--textGray);
+          }
+          p {
+            font-size: 14.5px;
+            font-weight: bold;
+            color: var(--textDark);
+          }
+        }
+      }
+    }
+    .Bottom {
+      display: grid;
+      margin-top: 20px;
+      gap: 10px;
+      .Cards,
+      .CardsOfline {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: var(--bgWhite);
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: var(--boxShadow);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        direction: rtl;
+
+        &.CardsOfline {
+          opacity: 0.7;
+          filter: grayscale(0.5);
+        }
+
+        .RightCard {
+          width: 70%;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+
+          .About {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            .Icon {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              width: 96px;
+
+              img {
+                width: 45px;
+                height: auto;
+              }
+              span {
+                font-size: 13px;
+                color: var(--textGray);
+              }
+            }
+
+            .Time {
+              display: flex;
+              align-items: center;
+              gap: 15px;
+
+              .Form {
+                text-align: center;
+                span {
+                  font-size: 24px;
+                  font-weight: bold;
+                }
+                p {
+                  font-size: 14px;
+                  color: var(--textGray);
+                  margin: 0;
+                }
+              }
+
+              .i {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                opacity: 0.5;
+                hr {
+                  width: 40px;
+                  border: 0.5px solid var(--textGray);
+                }
+              }
+            }
+          }
+
+          .discriptions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+
+            .More {
+              cursor: pointer;
+              color: var(--goldDark);
+              font-size: 14px;
+
+              span {
+                display: flex;
+                width: max-content;
+                align-items: center;
+                gap: 5px;
+              }
+              i {
+                transition: transform 0.3s ease;
+              }
+              &.active i {
+                transform: rotate(180deg);
+              }
+            }
+
+            .Avablity {
+              display: flex;
+              gap: 15px;
+              width: 100%;
+              justify-content: space-between;
+              padding-left: 5px;
+              span {
+                background: #f5f5f5;
+                padding: 2px 8px;
+                border-radius: 5px;
+                font-size: 12px;
+              }
+              p {
+                color: tomato;
+                font-size: 13px;
+                margin: 0;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+
+        .LeftCard {
+          width: 30%;
+          border-right: var(--borderLight);
+          padding-right: 15px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .Top {
+            justify-content: end;
+            box-shadow: none;
+            height: 100%;
+            i {
+              color: var(--gold);
+              font-size: 21px;
+              cursor: pointer;
+
+              &:hover {
+                color: var(--goldDark);
+              }
+            }
+          }
+
+          .Bottom {
+            text-align: center;
+            p {
+              font-size: 18px;
+              span {
+                color: var(--goldDark);
+                font-weight: bold;
+              }
+            }
+            button {
+              background: var(--gold);
+              border: none;
+              padding: 12px;
+              border-radius: 8px;
+              width: 100%;
+              font-weight: bold;
+              font-family: var(--Font);
+              cursor: pointer;
+              &:hover {
+                background: var(--goldDark);
+              }
+            }
+          }
+        }
+
+        .FlightDetails {
+          flex-basis: 100%;
+          max-height: 0;
+          opacity: 0;
+          overflow: hidden;
+          transition: all 0.4s ease;
+
+          &.active {
+            max-height: max-content;
+            opacity: 1;
+          }
+
+          .DetailsContent {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #fcfcfc;
+            border-radius: 8px;
+            .row {
+              background: var(--bgLight);
+              padding: px;
+              display: flex;
+              flex-direction: column;
+              border-radius: 9px;
+              font-size: 13px;
+              width: calc(100% - 30%);
+              .title {
+                background: var(--grayBgHover);
+                padding: 8px 12px;
+                border-radius: 8px;
+                p {
+                  font-size: 14px;
+                }
+                span {
+                  border-right: var(--borderLight);
+                  margin: 0 8px;
+                }
+              }
+              .contet {
+                padding: 20px 0;
+                display: flex;
+                gap: 40px;
+                .right {
+                  p {
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: var(--textDark);
+                  }
+                  span {
+                    font-size: 14px;
+                    font-weight: 100;
+                    color: var(--textGray);
+                  }
+                }
+                .left {
+                  p {
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: var(--textDark);
+                  }
+                  span {
+                    font-size: 14px;
+                    font-weight: 100;
+                    color: var(--textGray);
+                  }
+                }
+              }
+            }
+            .orw {
+              border-right: var(--borderLight);
+              padding: 15px;
+              display: flex;
+              flex-direction: column;
+              width: 30%;
+              justify-content: space-between;
+              .top {
+                display: grid;
+                gap: 5px;
+                p {
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 14px;
+                  font-weight: 100;
+                  color: var(--textGray);
+                  span {
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: var(--goldText);
+                  }
+                }
+              }
+              .bottom {
+                display: grid;
+                gap: 5px;
+
+                button {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  background: none;
+                  border: none;
+                  font-family: var(--Font);
+                  font-size: 12px;
+                  color: var(--goldText);
+                  width: 100%;
+                  height: 30px;
+                  transition: 0.3s;
+                  cursor: pointer;
+                  &:hover {
+                    background-color: var(--grayBgHover);
+                    border-radius: 8px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .CardsOfline {
+        background-color: #e0e7ed;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 12px;
+        border-radius: 12px;
+        box-shadow: var(--boxShadow);
+      }
+    }
+
+    .MediaElementHotel {
+      display: flex;
+      gap: 15px;
+      background: var(--bgWhite);
+      border-radius: 12px;
+      text-align: right;
+      cursor: pointer;
+      p {
+        font-weight: bold;
+        color: var(--textDark);
+      }
+      img {
+        width: 240px;
+        height: 100%;
+        object-fit: cover;
+        background: var(--gold);
+        border-radius: 0 12px 12px 0;
+      }
+      .Down {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: calc(75% - 25%);
+        padding: 10px;
+
+        .rating {
+          display: grid;
+          gap: 10px;
+          padding-right: 10px;
+          padding-bottom: 15px;
+          .Stars {
+            display: flex;
+
+            i {
+              padding: 0 3px;
+              display: flex;
+              width: auto;
+              font-size: 14px;
+              color: var(--gold);
+            }
+            span {
+              font-size: 14px;
+              font-weight: bold;
+              margin-left: 15px;
+              color: var(--textDark);
+            }
+            p {
+              font-size: 12px;
+              font-weight: bold;
+              margin-left: 5px;
+              color: var(--textGray);
+              display: flex;
+              i {
+                padding: 0;
+              }
+            }
+          }
+          .AdditionalOptions {
+            span {
+              font-size: 12px;
+              padding: 2px 5px;
+              background-color: var(--grayBgHover);
+              border-radius: 8px;
+            }
+          }
+          .SmilyFace {
+            display: flex;
+            p {
+              font-size: 12px;
+              color: var(--textGray);
+              i {
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      }
+      .price {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+        align-items: center;
+        width: 25%;
+        cursor: default;
+        border-right: var(--borderLight);
+
+        .titel {
+          p {
+            font-size: 12px;
+            color: var(--textGray);
+          }
+        }
+        .Choose {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          p {
+            display: flex;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--textGray);
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            span {
+              color: var(--goldText);
+              font-size: 20px;
+            }
+          }
+          button {
+            background: var(--gold);
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            font-weight: bold;
+            font-family: var(--Font);
+            cursor: pointer;
+            &:hover {
+              background: var(--goldDark);
+            }
+          }
+        }
+        p {
+          font-size: 12px;
+          font-weight: bold;
+          display: grid;
+          span {
+            font-weight: normal;
+          }
+        }
+      }
+    }
+    .Titel {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      p {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      i {
+        font-size: 18px;
+      }
+    }
+    .Sorting {
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+      p {
+        font-size: 15px;
+        font-weight: bold;
+      }
+      .Card {
+        display: flex;
+        width: fit-content;
+        justify-content: space-between;
+        p {
+          font-weight: normal;
+          font-size: 16px;
+          padding: 10px;
+          cursor: pointer;
+          transition: 0.3s;
+          &:hover {
+            font-weight: bold;
+            color: tomato;
+          }
+          &.active {
+            color: var(--textDark);
+            font-weight: bold;
+            border-bottom: 4px solid tomato;
+          }
+        }
+      }
+    }
+
+    .Choose {
+      display: grid;
+      gap: 20px;
+      align-items: center;
+      label {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+      span {
+        font-size: 13px;
+      }
+      input[type="radio"] {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: var(--borderLight);
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s ease;
+
+        &:hover {
+          border-color: var(--textDark);
+        }
+
+        &:checked {
+          border-color: var(--goldDark);
+          background-color: var(--gold);
+          transform: scale(1.2);
+          box-shadow: 0 0 10px var(--goldText);
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: pop 0.3s forwards;
+          }
+        }
+      }
+
+      @keyframes pop {
+        0% {
+          transform: translate(-50%, -50%) scale(0);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.3);
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+    }
+  }
+  .Right {
+    .Titel {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      p {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      i {
+        font-size: 18px;
+      }
+    }
+    .sidebarFilters {
+      width: 240px;
+      min-width: 240px;
+      max-width: 240px;
+      flex: 0 0 240px;
+      flex-shrink: 0;
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: var(--boxShadow);
+      direction: rtl;
+
+      .filterHeader {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: bold;
+        padding-bottom: 10px;
+        border-bottom: var(--borderLight);
+        margin-bottom: 15px;
+      }
+
+      .filterContentArea {
+        .resultsCount {
+          display: block;
+          font-size: 12px;
+          color: var(--textGray);
+          margin-bottom: 15px;
+        }
+
+        .filterDropdown {
+          border-bottom: var(--borderLight);
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          .dropdownTrigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: bold;
+
+            svg {
+              transition: 0.3s;
+            }
+
+            &.open svg {
+              transform: rotate(180deg);
+            }
+          }
+
+          .dropdownPanel {
+            animation: fadeDown 0.25s ease;
+
+            @keyframes fadeDown {
+              from {
+                opacity: 0;
+                transform: translateY(-5px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+
+            /* ================= PRICE SLIDER ================= */
+
+            .priceSliderBox {
+              padding: 15px 0;
+
+              .priceLabels {
+                display: flex;
+                justify-content: space-between;
+                font-size: 12px;
+                margin-bottom: 25px;
+
+                .labelGroup {
+                  display: flex;
+                  gap: 4px;
+                  align-items: center;
+                }
+              }
+
+              .rangeSliderContainer {
+                position: relative;
+                width: 100%;
+                height: 30px;
+                direction: ltr;
+                .sliderTrack {
+                  position: absolute;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  width: 100%;
+                  height: 6px;
+                  background: #e5e5e5;
+                  border-radius: 10px;
+                }
+
+                .sliderProgress {
+                  position: absolute;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  height: 6px;
+                  background: var(--gold);
+                  border-radius: 10px;
+                }
+
+                .rangeInputs {
+                  position: relative;
+                  height: 100%;
+
+                  input[type="range"] {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: none;
+                    pointer-events: none;
+                    -webkit-appearance: none;
+                    z-index: 2;
+
+                    &::-webkit-slider-thumb {
+                      -webkit-appearance: none;
+                      pointer-events: auto;
+                      height: 18px;
+                      width: 18px;
+                      border-radius: 50%;
+                      background: #fff;
+                      border: 3px solid var(--gold);
+                      cursor: pointer;
+                      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                      position: relative;
+                      z-index: 3;
+                    }
+
+                    &::-moz-range-track {
+                      background: transparent;
+                    }
+
+                    &::-moz-range-thumb {
+                      pointer-events: auto;
+                      height: 18px;
+                      width: 18px;
+                      border-radius: 50%;
+                      background: #fff;
+                      border: 3px solid var(--gold);
+                      cursor: pointer;
+                    }
+                  }
+                }
+              }
+            }
+
+            /* ================= CHECKBOX ================= */
+
+            .checkboxGroup {
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              padding: 10px 0;
+
+              .checkboxItem {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 13px;
+                cursor: pointer;
+
+                input[type="checkbox"] {
+                  width: 16px;
+                  height: 16px;
+                  accent-color: var(--gold);
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.GridD {
+  display: grid;
+  gap: 24px;
+}
+.Card {
+  .Titel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .Mohtava {
+      display: grid;
+      gap: 5px;
+      h3 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 12px;
+        color: var(--textGray);
+      }
+      h4 {
+        font-size: 18px;
+      }
+    }
+    .Footer2 {
+      h3 {
+        font-size: 18px;
+        a {
+          text-decoration: none;
+          color: var(--goldText);
+          transition: 0.3s;
+          &:hover {
+            color: var(--goldDark);
+          }
+        }
+      }
+    }
+    button {
+      background: var(--gold);
+      border: none;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-family: var(--Font);
+      cursor: pointer;
+      &:hover {
+        background: var(--goldDark);
+      }
+    }
+  }
+  .ImageCountainer {
+    margin-top: 10px;
+    width: 100%;
+    padding: 0 160px;
+    .MainImg {
+      img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        border-radius: 4px;
+      }
+    }
+    .MoreImg {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+  .Disc {
+    padding: 0 24px;
+    font-size: 15px;
+    p {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      transition: all 0.3s ease;
+      &.open {
+        -webkit-line-clamp: unset;
+      }
+    }
+    #toggleBtn {
+      color: var(--goldText);
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 8px;
+    }
+  }
+
+  .RoomSelect {
+    direction: rtl;
+    font-family: inherit;
+    border: var(--borderLight);
+    border-radius: 12px;
+    padding: 16px;
+
+    .RoomSelectRow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .RoomSelectType {
+      flex: 3;
+
+      .RoomSelectTitle {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--textDark);
+      }
+
+      .RoomSelectSubtitle {
+        font-size: 13px;
+        color: var(--textGray);
+        margin-top: 4px;
+      }
+    }
+
+    .RoomSelectCounter {
+      flex: 1;
+      text-align: center;
+
+      .RoomSelectCounterLabel {
+        font-size: 12px;
+        color: var(--textGray);
+        margin-bottom: 6px;
+      }
+
+      .RoomSelectCounterBox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+
+    .RoomSelectBtn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: var(--borderLight);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background: var(--grayBgHover);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+
+    .RoomSelectValue {
+      min-width: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .RoomSelectFooter {
+      margin-top: 16px;
+    }
+  }
+  .RoomSelectSelectBtn {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    font-size: 18px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--gold);
+    color: var(--textDark);
+    font-family: var(--Font);
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      background-color: var(--goldDark);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}
+.container {
+  width: 1200px;
+  position: relative;
+  justify-self: center;
+  background: none;
+  display: flex;
+  gap: 20px;
+  .Right,
+  .Right2 {
+    display: grid;
+    gap: 10px;
+    .Card {
+      position: relative;
+      background-color: var(--bgWhite);
+      box-shadow: var(--boxShadow);
+      padding: 20px;
+      border-radius: 12px;
+      .Titel {
+        h3 {
+          font-size: 20px;
+        }
+        p {
+          font-size: 14px;
+          font-weight: normal;
+          color: var(--textGray);
+        }
+      }
+      .TopCard {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 20px;
+        border-bottom: var(--borderLight);
+
+        p {
+          font-size: 20px;
+          font-weight: bold;
+          color: var(--textDark);
+        }
+        .Clock {
+          display: flex;
+          gap: 5px;
+          align-items: center;
+          p {
+            font-size: 17px;
+            font-weight: 500;
+          }
+          i {
+            opacity: 1;
+          }
+        }
+      }
+      .bottomCard {
+        padding-top: 20px;
+        display: grid;
+        gap: 20px;
+        .gender {
+          display: flex;
+          justify-content: space-between;
+          width: 95%;
+          i {
+            opacity: 1;
+          }
+          .nationality {
+            display: flex;
+            gap: 20px;
+            .gender-radios {
+              display: flex;
+              gap: 12px;
+              label {
+                gap: 4px;
+              }
+            }
+            p {
+              font-size: 15px;
+              font-weight: bold;
+              color: var(--textDark);
+            }
+            label {
+              display: flex;
+              gap: 20px;
+              color: var(--goldDark);
+              label {
+                display: flex;
+                gap: 5px;
+                input[type="radio"] {
+                  appearance: none;
+                  width: 14px;
+                  height: 14px;
+                  border: 2px solid var(--goldDark);
+                  border-radius: 50%;
+                  cursor: pointer;
+                  transition: 0.2s;
+                  &:hover {
+                    background-color: #e6b8005e;
+                    transition: 0.5s;
+                  }
+                  &:checked {
+                    background-color: var(--gold);
+                    border: 2px solid var(--goldDark);
+                    transition: 0.8s;
+                  }
+                }
+              }
+            }
+            select {
+              border: none;
+              font-weight: bold;
+              color: var(--goldDark);
+              font-size: 14px;
+              font-family: var(--Font);
+              cursor: pointer;
+              appearance: none;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+              background-repeat: no-repeat;
+              background-position: left 10px center;
+              background-size: 15px;
+              padding-left: 30px;
+              padding-right: 10px;
+              option {
+                width: 190px;
+                border: none;
+              }
+              &:focus {
+                outline: none;
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+              }
+              &:focus-visible {
+                outline: none;
+              }
+            }
+          }
+          .addNew {
+            display: flex;
+            gap: 5px;
+            P {
+              font-size: 14px;
+              color: var(--goldDark);
+              font-weight: bold;
+            }
+            i {
+              color: var(--goldDark);
+              opacity: 1;
+            }
+          }
+        }
+        .Span {
+          display: grid;
+          gap: 5px;
+          span {
+            font-size: 12px;
+            color: var(--textGray);
+            &:last-of-type {
+              padding: 5px;
+              width: fit-content;
+              border-radius: 8px;
+              background-color: var(--grayBgHover);
+            }
+          }
+        }
+        .OtherInoformation {
+          width: 100%;
+          display: grid;
+          gap: 25px;
+          .top {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            label {
+              display: grid;
+              justify-content: start;
+              gap: 5px;
+              margin-right: 15px;
+              font-size: 14px;
+              input[type="text"] {
+                border: none;
+                height: 50px;
+                width: 400px;
+                background-color: var(--bgLight);
+                font-family: var(--Font);
+                color: var(--textDark);
+                border-radius: 8px;
+                padding: 0 10px;
+              }
+            }
+          }
+          .bottom {
+            display: flex;
+            justify-content: space-between;
+            label {
+              display: grid;
+              justify-content: start;
+              gap: 5px;
+              margin-right: 15px;
+              font-size: 14px;
+              input[type="text"] {
+                border: none;
+                height: 50px;
+                width: 400px;
+                background-color: var(--bgLight);
+                font-family: var(--Font);
+                color: var(--textDark);
+                border-radius: 8px;
+                padding: 0 10px;
+              }
+              .dateSelectors {
+                display: flex;
+                justify-content: start;
+                gap: 5px;
+
+                font-size: 14px;
+                input {
+                  border: none;
+                  height: 50px;
+                  width: 130px;
+                  background-color: var(--bgLight);
+                  font-family: var(--Font);
+                  color: var(--textDark);
+                  border-radius: 8px;
+                  padding: 0 10px;
+                }
+                select {
+                  border: none;
+                  width: 130px;
+                  color: var(--textDark);
+                  background-color: var(--bgLight);
+                  border-radius: 8px;
+                  padding: 0 10px;
+                  cursor: pointer;
+                  appearance: none;
+                  -webkit-appearance: none;
+                  -moz-appearance: none;
+                  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+                  background-repeat: no-repeat;
+                  background-position: left 10px center;
+                  background-size: 15px;
+                  &:focus {
+                    border: none;
+                    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+                  }
+                  &:focus-visible {
+                    outline: none;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .BottomCard {
+        padding: 12px 0 0 0;
+
+        .Titel {
+          display: flex;
+          justify-content: space-between;
+          p {
+            font-size: 14px;
+            &:last-of-type {
+              font-weight: bold;
+            }
+          }
+          .R {
+            display: flex;
+            gap: 10px;
+          }
+        }
+        .AvableFlights {
+          border: var(--borderLight);
+          border-radius: 12px;
+          display: grid;
+          gap: 12px;
+          padding: 12px 16px;
+          .Option {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: bold;
+            border-bottom: var(--borderLight);
+            padding-bottom: 8px;
+            align-items: center;
+            &:last-child {
+              border: none;
+            }
+            .R {
+              display: flex;
+              gap: 10px;
+              width: 80%;
+              height: 40px;
+              padding: 2px;
+              p {
+                margin: auto 0;
+              }
+              img {
+                width: auto;
+              }
+            }
+          }
+        }
+        .TextTi {
+          display: flex;
+          justify-content: space-between;
+          p {
+            font-size: 12px;
+            &:last-of-type {
+              font-size: 17px;
+              font-weight: bold;
+              color: var(--goldText);
+              span {
+                font-size: 14px;
+                font-weight: normal;
+              }
+            }
+          }
+        }
+        .Enable {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border: var(--borderLight);
+          padding: 12px;
+          border-radius: 12px;
+          .R {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            .Content {
+              display: grid;
+              gap: 3px;
+              p {
+                font-size: 12px;
+                font-weight: bold;
+                &:last-of-type {
+                  font-size: 14px;
+                  font-weight: normal;
+                }
+              }
+            }
+          }
+          .L {
+            .switch {
+              position: relative;
+              display: inline-block;
+              width: 44px;
+              height: 24px;
+              input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+              }
+              .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: 0.4s;
+                border-radius: 34px;
+                &::before {
+                  position: absolute;
+                  content: "";
+                  height: 20px;
+                  width: 20px;
+                  left: 2px;
+                  bottom: 2px;
+                  background-color: white;
+                  transition: 0.4s;
+                  border-radius: 50%;
+                }
+              }
+              input:checked + .slider {
+                background-color: var(--gold);
+              }
+              input:checked + .slider:before {
+                transform: translateX(20px);
+              }
+            }
+          }
+        }
+        .Rules {
+          display: grid;
+          gap: 8px;
+          p {
+            font-size: 17px;
+            font-weight: bold;
+          }
+          ul {
+            padding: 0 20px 0 0;
+            display: grid;
+            gap: 3px;
+            li {
+              font-size: 12px;
+              font-weight: bold;
+              color: var(--textGray);
+            }
+          }
+        }
+      }
+      .Sec {
+        display: grid;
+        gap: 24px;
+        .Titel {
+          p {
+            font-size: 17px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .Card2 {
+      width: 100%;
+    }
+    .AddMember {
+      position: relative;
+      background-color: var(--bgWhite);
+      box-shadow: var(--boxShadow);
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--textDark);
+      font-size: 15px;
+      .AddOptions {
+        display: flex;
+        gap: 12px;
+        button {
+          border: none;
+          background: none;
+          font-family: var(--Font);
+          color: var(--goldDark);
+          font-size: 13px;
+          gap: 10px;
+          align-items: center;
+          cursor: pointer;
+        }
+        i {
+          height: fit-content;
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .Right2 {
+    display: grid;
+    width: calc(100%-35%);
+  }
+  .left,
+  .left2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .hotelCard {
+      position: relative;
+      &.open {
+        .bottom {
+          max-height: 500px;
+          display: grid;
+          gap: 40px;
+          .In {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            i {
+              font-size: 10px;
+              color: var(--textGray);
+              z-index: 2;
+            }
+            p {
+              font-size: 14px;
+            }
+            &::before {
+              content: "";
+              position: absolute;
+              left: 75%;
+              top: 50%;
+              height: 40%;
+              border-left: 1px solid var(--textGray);
+              z-index: 1;
+            }
+          }
+        }
+
+        .fa-angle-down {
+          transform: rotate(180deg);
+        }
+      }
+
+      .bottom {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+      }
+
+      .fa-angle-down {
+        transition: transform 0.3s ease;
+      }
+      .ChoosedHotel {
+        display: flex;
+        gap: 8px;
+        position: relative;
+        align-items: center;
+        background-color: var(--white);
+        z-index: 12;
+
+        img {
+          width: 60px;
+          height: 60px;
+          border-radius: 8px;
+        }
+        i {
+          margin-right: 69px;
+        }
+      }
+    }
+    .card1 {
+      width: 100%;
+      position: relative;
+      background-color: var(--bgWhite);
+      box-shadow: var(--boxShadow);
+      padding: 10px;
+      border-radius: 12px;
+      display: grid;
+      gap: 10px;
+      .Time {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        width: 300px;
+        .Form {
+          display: grid;
+          justify-content: start;
+          span {
+            font-size: 24px;
+          }
+          p {
+            font-size: var(--fontSize);
+            color: var(--textGray);
+            text-align: center;
+          }
+        }
+        .i {
+          align-items: center;
+          display: flex;
+          margin: 8px;
+          color: var(--textGray);
+          opacity: 0.7;
+          i {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        p {
+          font-size: 14px;
+          color: var(--textDark);
+        }
+        .Avablity {
+          display: flex;
+          width: auto;
+          span {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            height: 28px;
+            padding: 2px 8px;
+            background-color: #ffcb1151;
+            border-radius: 8px;
+          }
+        }
+      }
+    }
+    .card2 {
+      width: 100%;
+      position: relative;
+      background-color: var(--bgWhite);
+      box-shadow: var(--boxShadow);
+      padding: 10px;
+      border-radius: 12px;
+      display: grid;
+      gap: 12px;
+      .T {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: default;
+      }
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: var(--gold);
+      border-radius: 8px;
+      box-shadow: var(--boxShadow);
+      font-family: var(--Font);
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        background-color: var(--goldDark);
+      }
+    }
+  }
+  .left2 {
+    width: 35%;
+  }
+}
+
+.table {
+  table {
+    width: 100%;
+    gap: 0;
+    tr {
+      &:first-of-type {
+        background-color: var(--grayBg);
+        border-radius: 12px;
+      }
+      th {
+        color: var(--goldText);
+        padding: 5px 0;
+
+        &:first-child {
+          border-radius: 0 12px 12px 0;
+        }
+        &:last-of-type {
+          border-radius: 12px 0 0 12px;
+        }
+      }
+      td {
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        button {
+          border: 1px solid gold;
+          border-radius: 8px;
+          background: none;
+          font-family: var(--Font);
+          padding: 5px 16px;
+          transition: 0.3s;
+          cursor: pointer;
+          &:hover {
+            background: var(--gold);
+            border: 1px solid var(--goldDark);
+          }
+        }
+      }
+    }
+  }
+}
+.Card {
+  position: relative;
+  background-color: var(--bgWhite);
+  box-shadow: var(--boxShadow);
+  padding: 20px;
+  border-radius: 12px;
+  .Titel {
+    h3 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 14px;
+      font-weight: normal;
+      color: var(--textGray);
+    }
+  }
+  .TopCard {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: var(--borderLight);
+    p {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--textDark);
+    }
+    .Clock {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      p {
+        font-size: 17px;
+        font-weight: 500;
+      }
+      i {
+        opacity: 1;
+      }
+    }
+  }
+  .bottomCard {
+    padding-top: 20px;
+    display: grid;
+    gap: 20px;
+    .gender {
+      display: flex;
+      justify-content: space-between;
+      width: 95%;
+      i {
+        opacity: 1;
+      }
+      .nationality {
+        display: flex;
+        gap: 20px;
+        p {
+          font-size: 15px;
+          font-weight: bold;
+          color: var(--textDark);
+        }
+        label {
+          display: flex;
+          gap: 20px;
+          color: var(--goldDark);
+          label {
+            display: flex;
+            gap: 5px;
+            input[type="radio"] {
+              appearance: none;
+              width: 14px;
+              height: 14px;
+              border: 2px solid var(--goldDark);
+              border-radius: 50%;
+              cursor: pointer;
+              transition: 0.2s;
+              &:hover {
+                background-color: #e6b8005e;
+                transition: 0.5s;
+              }
+              &:checked {
+                background-color: var(--gold);
+                border: 2px solid var(--goldDark);
+                transition: 0.8s;
+              }
+            }
+          }
+        }
+        select {
+          border: none;
+          font-weight: bold;
+          color: var(--goldDark);
+          font-size: 14px;
+          font-family: var(--Font);
+          cursor: pointer;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: left 10px center;
+          background-size: 15px;
+          padding-left: 30px;
+          padding-right: 10px;
+          option {
+            width: 190px;
+            border: none;
+          }
+          &:focus {
+            outline: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+          }
+          &:focus-visible {
+            outline: none;
+          }
+        }
+      }
+      .addNew {
+        display: flex;
+        gap: 5px;
+        P {
+          font-size: 14px;
+          color: var(--goldDark);
+          font-weight: bold;
+        }
+        i {
+          color: var(--goldDark);
+          opacity: 1;
+        }
+      }
+    }
+    .Span {
+      display: grid;
+      gap: 5px;
+      span {
+        font-size: 12px;
+        color: var(--textGray);
+        &:last-of-type {
+          padding: 5px;
+          width: fit-content;
+          border-radius: 8px;
+          background-color: var(--grayBgHover);
+        }
+      }
+    }
+    .OtherInoformation {
+      width: 100%;
+      display: grid;
+      gap: 25px;
+      .top {
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+        label {
+          display: grid;
+          justify-content: start;
+          gap: 5px;
+          margin-right: 15px;
+          font-size: 14px;
+          input[type="text"] {
+            border: none;
+            height: 50px;
+            width: 400px;
+            background-color: var(--bgLight);
+            font-family: var(--Font);
+            color: var(--textDark);
+            border-radius: 8px;
+            padding: 0 10px;
+          }
+        }
+      }
+      .bottom {
+        display: flex;
+        justify-content: space-between;
+        label {
+          display: grid;
+          justify-content: start;
+          gap: 5px;
+          margin-right: 15px;
+          font-size: 14px;
+          input[type="text"] {
+            border: none;
+            height: 50px;
+            width: 400px;
+            background-color: var(--bgLight);
+            font-family: var(--Font);
+            color: var(--textDark);
+            border-radius: 8px;
+            padding: 0 10px;
+          }
+          .dateSelectors {
+            display: flex;
+            justify-content: start;
+            gap: 5px;
+
+            font-size: 14px;
+            input {
+              border: none;
+              height: 50px;
+              width: 130px;
+              background-color: var(--bgLight);
+              font-family: var(--Font);
+              color: var(--textDark);
+              border-radius: 8px;
+              padding: 0 10px;
+            }
+            select {
+              border: none;
+              width: 130px;
+              color: var(--textDark);
+              background-color: var(--bgLight);
+              border-radius: 8px;
+              padding: 0 10px;
+              cursor: pointer;
+              appearance: none;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+              background-repeat: no-repeat;
+              background-position: left 10px center;
+              background-size: 15px;
+              &:focus {
+                border: none;
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+              }
+              &:focus-visible {
+                outline: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .BottomCard {
+    padding: 12px 0 0 0;
+
+    .Titel {
+      display: flex;
+      justify-content: space-between;
+      p {
+        font-size: 14px;
+        &:last-of-type {
+          font-weight: bold;
+        }
+      }
+      .R {
+        display: flex;
+        gap: 10px;
+      }
+    }
+    .AvableFlights {
+      border: var(--borderLight);
+      border-radius: 12px;
+      display: grid;
+      gap: 12px;
+      padding: 12px 16px;
+      .Option {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        font-weight: bold;
+        border-bottom: var(--borderLight);
+        padding-bottom: 8px;
+        align-items: center;
+        &:last-child {
+          border: none;
+        }
+        .R {
+          display: flex;
+          gap: 10px;
+          width: 80%;
+          height: 40px;
+          padding: 2px;
+          p {
+            margin: auto 0;
+          }
+          img {
+            width: auto;
+          }
+        }
+      }
+    }
+    .TextTi {
+      display: flex;
+      justify-content: space-between;
+      p {
+        font-size: 12px;
+        &:last-of-type {
+          font-size: 17px;
+          font-weight: bold;
+          color: var(--goldText);
+          span {
+            font-size: 14px;
+            font-weight: normal;
+          }
+        }
+      }
+    }
+    .Enable {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: var(--borderLight);
+      padding: 12px;
+      border-radius: 12px;
+      .R {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        .Content {
+          display: grid;
+          gap: 3px;
+          p {
+            font-size: 12px;
+            font-weight: bold;
+            &:last-of-type {
+              font-size: 14px;
+              font-weight: normal;
+            }
+          }
+        }
+      }
+      .L {
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 44px;
+          height: 24px;
+          input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+          .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+            &::before {
+              position: absolute;
+              content: "";
+              height: 20px;
+              width: 20px;
+              left: 2px;
+              bottom: 2px;
+              background-color: white;
+              transition: 0.4s;
+              border-radius: 50%;
+            }
+          }
+          input:checked + .slider {
+            background-color: var(--gold);
+          }
+          input:checked + .slider:before {
+            transform: translateX(20px);
+          }
+        }
+      }
+    }
+    .Rules {
+      display: grid;
+      gap: 8px;
+      p {
+        font-size: 17px;
+        font-weight: bold;
+      }
+      ul {
+        padding: 0 20px 0 0;
+        display: grid;
+        gap: 3px;
+        li {
+          font-size: 12px;
+          font-weight: bold;
+          color: var(--textGray);
+        }
+      }
+    }
+  }
+  .Sec {
+    display: grid;
+    gap: 24px;
+    .Titel {
+      p {
+        font-size: 17px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+.CountrySelectors {
+  width: 100%;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: start;
+  gap: 5px;
+  margin-right: 0px;
+  font-size: 14px;
+  box-sizing: border-box;
+
+  select {
+    border: none;
+    width: 100% !important; 
+    min-width: 100%;
+    height: 100%;
+    color: var(--textDark);
+    background-color: var(--bgLight);
+    border-radius: 8px;
+    padding: 18px 10px; 
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 10px center;
+    background-size: 15px;
+    box-sizing: border-box; 
+
+    &:focus {
+      outline: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+    }
+  }
+}

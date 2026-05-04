@@ -1,0 +1,221 @@
+.MainContent {
+  padding: 20px 0 0;
+  width: 1200px;
+  justify-self: center;
+  display: grid;
+  font-family: var(--Font);
+  gap: 40px;
+  .CoopHero {
+    padding: 20px 0;
+    text-align: center;
+    background: var(--bgWhite);
+    border-radius: 12px;
+    cursor: default;
+    h1 {
+      color: var(--textDark);
+      margin-bottom: 10px;
+      font-size: 28px;
+      font-family: var(--Font);
+    }
+
+    p {
+      color: var(--textGray);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.8;
+      font-family: var(--Font);
+    }
+  }
+
+  /* Benefits */
+  .BenefitsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    .BenefitCard {
+      background: var(--bgWhite);
+      padding: 30px 20px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: var(--boxShadow);
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+      border: 1px solid transparent;
+
+      &:hover {
+        transform: translateY(-5px);
+        border-color: var(--gold);
+      }
+
+      .BenefitIcon {
+        font-size: 32px;
+        margin-bottom: 15px;
+        display: block;
+      }
+
+      .BenefitTitle {
+        font-weight: bold;
+        color: var(--textDark);
+        display: block;
+        margin-bottom: 8px;
+        font-size: 15px;
+      }
+
+      .BenefitDesc {
+        font-size: 13px;
+        color: var(--textGray);
+        line-height: 1.6;
+      }
+    }
+  }
+
+  /* Jobs */
+  .SectionTitle {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--textDark);
+    border-right: 4px solid var(--gold);
+    padding-right: 15px;
+  }
+
+  .JobsList {
+    display: grid;
+    gap: 15px;
+
+    .JobItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 20px 25px;
+      border-radius: 12px;
+      border: 1px solid #eee;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: var(--gold);
+        box-shadow: var(--boxShadow);
+        background-color: var(--grayBgHover);
+      }
+
+      .JobInfo {
+        h3 {
+          margin: 0 0 5px;
+          font-size: 16px;
+          color: var(--textDark);
+        }
+
+        .JobMeta {
+          font-size: 13px;
+          color: var(--textGray);
+        }
+      }
+
+      .ApplyLink {
+        text-decoration: none;
+        color: var(--goldDark);
+        font-weight: bold;
+        font-size: 14px;
+        transition: padding-right 0.2s;
+
+        &:hover {
+          padding-right: 5px;
+        }
+      }
+    }
+  }
+
+  /* Form */
+  .FormCard {
+    background: var(--bgWhite);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: var(--boxShadow);
+    border: 1px solid var(--borderLight);
+
+    form {
+      .Grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .Field {
+        margin-bottom: 15px;
+
+        label {
+          display: block;
+          margin-bottom: 8px;
+          color: var(--textDark);
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        input,
+        select,
+        textarea {
+          width: 100%;
+          padding: 12px;
+          border: 1px solid var(--borderLight);
+          border-radius: 8px;
+          background: var(--grayBg);
+          font-family: var(--Font);
+          box-sizing: border-box;
+          transition: border 0.3s;
+
+          &:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: var(--grayBgHover);
+          }
+        }
+
+        .FileUpload {
+          display: block;
+          border: 2px dashed #ddd;
+          padding: 30px;
+          text-align: center;
+          border-radius: 12px;
+          cursor: pointer;
+          background: var(--bgLight);
+          color: var(--textGray);
+          transition: 0.3s;
+          font-size: 14px;
+
+          &:hover {
+            border-color: var(--gold);
+            color: var(--goldDark);
+            background-color: #fff;
+          }
+        }
+      }
+
+      .SubmitArea {
+        text-align: left;
+        margin-top: 30px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+
+        .SubmitBtn {
+          background-color: var(--gold);
+          color: #fff;
+          border: none;
+          padding: 12px 40px;
+          border-radius: 8px;
+          font-size: 16px;
+          cursor: pointer;
+          font-weight: bold;
+          font-family: var(--Font);
+          transition: background 0.3s;
+
+          &:hover {
+            background-color: var(--goldDark);
+          }
+        }
+      }
+    }
+  }
+}

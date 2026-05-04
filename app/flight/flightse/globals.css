@@ -1,0 +1,1144 @@
+.Countainer {
+  width: 1200px;
+  justify-self: center;
+  margin-top: 10px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  gap: 20px;
+  .Left {
+    width: 888px;
+    display: grid;
+    gap: 10px;
+    height: 100%;
+    .Top {
+      background-color: var(--bgWhite);
+      width: 100%;
+      display: grid;
+      box-shadow: var(--boxShadow);
+      padding: 8px 8px 0;
+
+      height: 100px;
+      border-radius: 12px;
+      justify-content: space-between;
+      .Title {
+        font-size: 14px;
+        color: var(--textDark);
+      }
+      .Price {
+        display: flex;
+        gap: 20px;
+        scroll-behavior: smooth;
+        position: relative;
+        anchor-name: --Price;
+        scroll-snap-type: x mandatory;
+        margin: 0 45px;
+        overflow-x: auto;
+        .Cards {
+          display: grid;
+          justify-content: space-between;
+          scroll-snap-align: start;
+          flex: 0 0 88px;
+          text-align: Right;
+          span {
+            font-size: 12px;
+            color: var(--textGray);
+          }
+          p {
+            font-size: 14.5px;
+            font-weight: bold;
+            color: var(--textDark);
+          }
+        }
+      }
+    }
+    .Bottom {
+      display: grid;
+      margin-top: 20px;
+      gap: 10px;
+      .Cards,
+      .CardsOfline {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: var(--bgWhite);
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: var(--boxShadow);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        direction: rtl;
+
+        &.CardsOfline {
+          opacity: 0.7;
+          filter: grayscale(0.5);
+        }
+
+        .RightCard {
+          width: 70%;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+
+          .About {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            .Icon {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              width: 96px;
+
+              img {
+                width: 45px;
+                height: auto;
+              }
+              span {
+                font-size: 13px;
+                color: var(--textGray);
+              }
+            }
+
+            .Time {
+              display: flex;
+              align-items: center;
+              gap: 15px;
+
+              .Form {
+                text-align: center;
+                span {
+                  font-size: 24px;
+                  font-weight: bold;
+                }
+                p {
+                  font-size: 14px;
+                  color: var(--textGray);
+                  margin: 0;
+                }
+              }
+
+              .i {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                opacity: 0.5;
+                hr {
+                  width: 40px;
+                  border: 0.5px solid var(--textGray);
+                }
+              }
+            }
+          }
+
+          .discriptions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+
+            .More {
+              cursor: pointer;
+              color: var(--goldDark);
+              font-size: 14px;
+
+              span {
+                display: flex;
+                width: max-content;
+                align-items: center;
+                gap: 5px;
+              }
+              i {
+                transition: transform 0.3s ease;
+              }
+              &.active i {
+                transform: rotate(180deg);
+              }
+            }
+
+            .Avablity {
+              display: flex;
+              gap: 15px;
+              width: 100%;
+              justify-content: space-between;
+              padding-left: 5px;
+              span {
+                background: #f5f5f5;
+                padding: 2px 8px;
+                border-radius: 5px;
+                font-size: 12px;
+              }
+              p {
+                color: tomato;
+                font-size: 13px;
+                margin: 0;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+
+        .LeftCard {
+          width: 30%;
+          border-right: var(--borderLight);
+          padding-right: 15px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .Top {
+            justify-content: end;
+            box-shadow: none;
+            height: 100%;
+            i {
+              color: var(--gold);
+              font-size: 21px;
+              cursor: pointer;
+
+              &:hover {
+                color: var(--goldDark);
+              }
+            }
+          }
+
+          .Bottom {
+            text-align: center;
+            p {
+              font-size: 18px;
+              span {
+                color: var(--goldDark);
+                font-weight: bold;
+              }
+            }
+            button {
+              background: var(--gold);
+              border: none;
+              padding: 12px;
+              border-radius: 8px;
+              width: 100%;
+              font-weight: bold;
+              font-family: var(--Font);
+              cursor: pointer;
+              &:hover {
+                background: var(--goldDark);
+              }
+            }
+          }
+        }
+
+        .FlightDetails {
+          flex-basis: 100%;
+          max-height: 0;
+          opacity: 0;
+          overflow: hidden;
+          transition: all 0.4s ease;
+
+          &.active {
+            max-height: max-content;
+            opacity: 1;
+          }
+
+          .DetailsContent {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #fcfcfc;
+            border-radius: 8px;
+            .row {
+              background: var(--bgLight);
+              padding: px;
+              display: flex;
+              flex-direction: column;
+              border-radius: 9px;
+              font-size: 13px;
+              width: calc(100% - 30%);
+              .title {
+                background: var(--grayBgHover);
+                padding: 8px 12px;
+                border-radius: 8px;
+                p {
+                  font-size: 14px;
+                }
+                span {
+                  border-right: var(--borderLight);
+                  margin: 0 8px;
+                }
+              }
+              .contet {
+                padding: 20px 0;
+                display: flex;
+                gap: 40px;
+                .right {
+                  p {
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: var(--textDark);
+                  }
+                  span {
+                    font-size: 14px;
+                    font-weight: 100;
+                    color: var(--textGray);
+                  }
+                }
+                .left {
+                  p {
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: var(--textDark);
+                  }
+                  span {
+                    font-size: 14px;
+                    font-weight: 100;
+                    color: var(--textGray);
+                  }
+                }
+              }
+            }
+            .orw {
+              border-right: var(--borderLight);
+              padding: 15px;
+              display: flex;
+              flex-direction: column;
+              width: 30%;
+              justify-content: space-between;
+              .top {
+                display: grid;
+                gap: 5px;
+                p {
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 14px;
+                  font-weight: 100;
+                  color: var(--textGray);
+                  span {
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: var(--goldText);
+                  }
+                }
+              }
+              .bottom {
+                display: grid;
+                gap: 5px;
+
+                button {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  background: none;
+                  border: none;
+                  font-family: var(--Font);
+                  font-size: 12px;
+                  color: var(--goldText);
+                  width: 100%;
+                  height: 30px;
+                  transition: 0.3s;
+                  cursor: pointer;
+                  &:hover {
+                    background-color: var(--grayBgHover);
+                    border-radius: 8px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .CardsOfline {
+        background-color: #e0e7ed;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 12px;
+        border-radius: 12px;
+        box-shadow: var(--boxShadow);
+      }
+    }
+
+    .MediaElementHotel {
+      display: flex;
+      gap: 15px;
+      background: var(--bgWhite);
+      border-radius: 12px;
+      text-align: right;
+      cursor: pointer;
+      p {
+        font-weight: bold;
+        color: var(--textDark);
+      }
+      img {
+        width: 240px;
+        height: 100%;
+        object-fit: cover;
+        background: var(--gold);
+        border-radius: 0 12px 12px 0;
+      }
+      .Down {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: calc(75% - 25%);
+        padding: 10px;
+
+        .rating {
+          display: grid;
+          gap: 10px;
+          padding-right: 10px;
+          padding-bottom: 15px;
+          .Stars {
+            display: flex;
+
+            i {
+              padding: 0 3px;
+              display: flex;
+              width: auto;
+              font-size: 14px;
+              color: var(--gold);
+            }
+            span {
+              font-size: 14px;
+              font-weight: bold;
+              margin-left: 15px;
+              color: var(--textDark);
+            }
+            p {
+              font-size: 12px;
+              font-weight: bold;
+              margin-left: 5px;
+              color: var(--textGray);
+              display: flex;
+              i {
+                padding: 0;
+              }
+            }
+          }
+          .AdditionalOptions {
+            display: flex;
+            gap: 5px;
+            span {
+              font-size: 12px;
+              padding: 2px 5px;
+              background-color: var(--grayBgHover);
+              border-radius: 8px;
+            }
+          }
+          .SmilyFace {
+            display: flex;
+            p {
+              font-size: 12px;
+              color: var(--textGray);
+              i {
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      }
+      .price {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+        align-items: center;
+        width: 25%;
+        cursor: default;
+        border-right: var(--borderLight);
+
+        .titel {
+          p {
+            font-size: 12px;
+            color: var(--textGray);
+          }
+        }
+        .Choose {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          p {
+            display: flex;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--textGray);
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            span {
+              color: var(--goldText);
+              font-size: 20px;
+            }
+          }
+          button {
+            background: var(--gold);
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            font-weight: bold;
+            font-family: var(--Font);
+            cursor: pointer;
+            transition: 0.3s;
+            &:hover {
+              background: var(--goldDark);
+            }
+          }
+        }
+      }
+    }
+      .SortBar {
+    background: var(--bgWhite);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+
+    .SortLabel {
+      font-size: 14px;
+      color: var(--textGray);
+    }
+  }
+
+  .TourCard {
+    background: var(--bgWhite);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    position: relative;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    .TourImage {
+      width: 320px;
+      min-height: 220px;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .Badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: var(--red);
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+        &.Special {
+          background: var(--gold);
+        }
+      }
+    }
+
+    .TourContent {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .TourHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+
+        .TourTitle {
+          font-size: 20px;
+          font-weight: bold;
+          color: var(--textDark);
+          margin: 0 0 5px 0;
+        }
+
+        .TourAgency {
+          font-size: 13px;
+          color: var(--textGray);
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+      }
+
+      .TourMeta {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        padding: 15px 0;
+        border-top: 1px solid var(--borderLight);
+        border-bottom: 1px solid var(--borderLight);
+
+        .MetaItem {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 13px;
+          color: var(--textDark);
+
+          i {
+            color: var(--gold);
+            width: 20px;
+            text-align: center;
+          }
+        }
+      }
+
+      .TourFooter {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: 15px;
+
+        .Capacity {
+          font-size: 13px;
+          color: var(--textGray);
+          background: var(--grayBg);
+          padding: 5px 10px;
+          border-radius: 6px;
+
+          span {
+            color: var(--red);
+            font-weight: bold;
+          }
+        }
+
+        .PriceBox {
+          text-align: left;
+
+          .PriceLabel {
+            font-size: 12px;
+            color: var(--textGray);
+            text-decoration: line-through;
+          }
+
+          .PriceValue {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--goldDark);
+            display: block;
+
+            .Currency {
+              font-size: 14px;
+            }
+          }
+        }
+
+        .BtnBook {
+          background: var(--gold);
+          color: var(--textDark);
+          border: none;
+          padding: 10px 25px;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: bold;
+          cursor: pointer;
+          margin-right: 15px;
+          font-family: inherit;
+          transition: background 0.3s;
+
+          &:hover {
+            background: var(--goldDark);
+          }
+        }
+      }
+    }
+  }
+}
+  }
+  .Right {
+    position: -webkit-sticky;
+    align-self: flex-start;
+    position: sticky;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .Title {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background: var(--bgWhite);
+      height: max-content;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: var(--boxShadow);
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        max-height: 80px;
+      }
+      .cover {
+        object-fit: cover;
+      }
+      span {
+        color: var(--goldText);
+        font-size: var(--fontSize);
+        font-weight: bold;
+        cursor: pointer;
+        padding: 10px;
+      }
+      a {
+        text-decoration: none;
+        padding: 10px;
+
+        span {
+          color: var(--goldText);
+          font-size: var(--fontSize);
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+
+      &:first-child {
+        padding: 16px;
+        background-color: var(--bgWhite);
+        border-radius: 12px;
+        box-shadow: var(--boxShadow);
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+      }
+      .ExperienceTrigger {
+        padding: 8px 14px;
+        border-radius: 12px;
+        text-decoration: none !important;
+        display: block;
+        z-index: 10;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        .ContentWrapper {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          &:hover {
+            .IconBadge {
+              animation: pulse 1.5s infinite;
+            }
+          }
+
+          .IconBadge {
+            i {
+              color: var(--textDark);
+              opacity: 1;
+            }
+          }
+
+          .TextBlock {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+            .TitleText {
+              font-size: 12px;
+              font-weight: 800;
+              color: #333;
+              line-height: 1.2;
+              padding: 0;
+            }
+
+            .DescText {
+              font-size: 10px;
+              color: #888;
+              padding: 0;
+            }
+          }
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7);
+        }
+        70% {
+          transform: scale(1.1);
+          box-shadow: 0 0 0 6px rgba(197, 160, 89, 0);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
+        }
+      }
+    }
+    .NotifMe {
+      display: flex;
+      width: 100%;
+      background-color: var(--bgWhite);
+      height: max-content;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: var(--boxShadow);
+      align-items: center;
+      justify-content: space-between;
+      .Bell {
+        display: flex;
+        gap: 5px;
+        span {
+          font-size: 14px;
+          font-weight: bold;
+          color: var(--goldDark);
+        }
+        i {
+          color: var(--goldDark);
+        }
+      }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+        input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          transition: 0.4s;
+          border-radius: 34px;
+          &::before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+          }
+        }
+        input:checked + .slider {
+          background-color: var(--gold);
+        }
+        input:checked + .slider:before {
+          transform: translateX(20px);
+        }
+      }
+    }
+    .Avable {
+      display: flex;
+      width: 100%;
+      background-color: var(--bgWhite);
+      height: max-content;
+      padding: 12px 16px;
+      border-radius: 12px;
+      box-shadow: var(--boxShadow);
+      align-items: center;
+      gap: 10px;
+      span {
+        color: var(--goldDark);
+        font-size: 14px;
+        font-weight: bold;
+        width: 100%;
+      }
+      form {
+        position: relative;
+        width: 65px;
+        height: 25px;
+
+        input[type="checkbox"] {
+          position: absolute;
+          width: 45px;
+          height: 25px;
+          opacity: 0;
+          z-index: 2;
+          cursor: pointer;
+
+          &:checked + label {
+            background-color: var(--gold);
+          }
+          &:hover + label {
+            background-color: var(--gold);
+          }
+
+          &:checked + label::after {
+            transform: translateX(22px);
+          }
+        }
+
+        label {
+          position: absolute;
+          inset: 0;
+          border-radius: 12px;
+          background: #ffcb1154;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+          }
+        }
+      }
+    }
+    .Sort {
+      display: grid;
+      width: 100%;
+      background-color: var(--bgWhite);
+      height: max-content;
+      padding: 12px 16px;
+      border-radius: 12px;
+      box-shadow: var(--boxShadow);
+      gap: 10px;
+      .Choosen {
+        display: grid;
+        gap: 2px;
+        label {
+          text-align: center;
+          display: flex;
+          align-items: center;
+          color: var(--goldDark);
+          gap: 5px;
+          font-size: 14px;
+          input[type="radio"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #555;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 15px;
+            &:hover {
+              border-color: #000;
+              background-color: #e6b8005e;
+              transition: 0.5s;
+            }
+            &:checked {
+              background-color: var(--gold);
+              border: 2px solid #555;
+              transition: 0.8s;
+            }
+          }
+        }
+      }
+    }
+    .sidebarFilters {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      direction: rtl;
+      height: max-content;
+      .filterHeader {
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+
+      .filterContentArea {
+        .resultsCount {
+          display: block;
+          font-size: 12px;
+          color: #757575;
+          margin-bottom: 15px;
+        }
+
+        .filterDropdown {
+          padding: 0;
+          .dropdownTrigger {
+            display: flex;
+            height: fit-content;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 0 20px 0;
+            font-size: 14px;
+            font-weight: bold;
+            border-bottom: var(--borderLight);
+            i {
+              transition: 0.3s;
+            }
+
+            &.active {
+              i {
+                transform: rotate(180deg);
+              }
+            }
+          }
+          .dropdownPanel {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.3s ease-in-out;
+
+            &.open {
+              max-height: 1000px;
+              padding: 10px 0;
+            }
+
+            .priceSliderBox {
+              padding-top: 10px;
+              .priceLabels {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 12px;
+                margin-bottom: 25px;
+
+                .labelGroup {
+                  display: flex;
+                  align-items: center;
+                  gap: 4px;
+                }
+
+                .labelSeparator {
+                  color: #ddd;
+                }
+              }
+
+              .rangeSliderContainer {
+                position: relative;
+                width: 100%;
+                height: 5px;
+
+                .sliderTrack {
+                  position: absolute;
+                  width: 100%;
+                  height: 5px;
+                  background: #ddd;
+                  border-radius: 5px;
+                }
+
+                .sliderProgress {
+                  position: absolute;
+                  height: 5px;
+                  background: #ffcb11;
+                  border-radius: 5px;
+                }
+
+                .rangeInputs {
+                  position: relative;
+
+                  input {
+                    position: absolute;
+                    width: 100%;
+                    height: 5px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: none;
+                    pointer-events: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+
+                    &[type="range"] {
+                      &::-webkit-slider-thumb {
+                        height: 18px;
+                        width: 18px;
+                        border-radius: 50%;
+                        background: #fff;
+                        border: 2px solid #ffcb11;
+                        pointer-events: auto;
+                        -webkit-appearance: none;
+                        cursor: pointer;
+                        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+                        margin-top: 0;
+                        position: relative;
+                        z-index: 2;
+                      }
+
+                      &::-moz-range-thumb {
+                        height: 16px;
+                        width: 16px;
+                        border-radius: 50%;
+                        background: #fff;
+                        border: 2px solid #ffcb11;
+                        pointer-events: auto;
+                        cursor: pointer;
+                        border: 2px solid #ffcb11;
+                        box-sizing: border-box;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .sidebarFilters
+    .filterContentArea
+    .filterDropdown
+    .dropdownPanel
+    .checkboxGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px 5px;
+  }
+
+  .sidebarFilters
+    .filterContentArea
+    .filterDropdown
+    .dropdownPanel
+    .checkboxGroup
+    .checkboxItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #333;
+  }
+
+  .sidebarFilters
+    .filterContentArea
+    .filterDropdown
+    .dropdownPanel
+    .checkboxGroup
+    .checkboxItem
+    input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    accent-color: var(--gold);
+  }
+
+  .sidebarFilters .filterContentArea .filterDropdown {
+    border-bottom: 1px solid #f9f9f9;
+  }
+
+  .sidebarFilters .filterContentArea .filterDropdown:last-child {
+    border-bottom: none;
+  }
+
+  .sidebarFilters
+    .filterContentArea
+    .filterDropdown
+    .dropdownPanel#airlineContent.open {
+    max-height: 500px;
+    overflow-y: auto;
+  }

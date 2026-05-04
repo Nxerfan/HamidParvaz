@@ -1,0 +1,827 @@
+.container26 {
+  padding: 40px 0 0 0;
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+
+  p {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--goldDark);
+    padding: 0 0 30px 0;
+  }
+
+  .right {
+    width: calc(100% - 350px);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    h4 {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--goldDark);
+    }
+
+    .Card {
+      background-color: var(--bgWhite);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: var(--boxShadow);
+      width: 100%;
+      height: max-content;
+      display: grid;
+      gap: 20px;
+      .MainImg {
+        width: 100%;
+        max-height: 430px;
+        position: relative;
+        border-radius: 8px;
+        display: grid;
+        justify-content: center;
+        Image {
+          object-fit: cover;
+          height: 100%;
+          width: 100%;
+          border-radius: 4px;
+        }
+        .nav {
+          position: absolute;
+          top: 50%;
+          width: fit-content;
+          height: fit-content;
+          font-size: 124px;
+          background: none;
+          color: var(--gold);
+          border: none;
+          cursor: pointer;
+          z-index: 10;
+          transform: translateY(-50%);
+        }
+        .prev {
+          left: 10px;
+        }
+        .next {
+          right: 10px;
+        }
+      }
+      .MoreImg {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: repeat(auto-fill, minmax(129px, 1fr));
+        gap: 8px;
+        padding: 0 20px;
+        img {
+          width: 100%;
+          object-fit: cover;
+          border-radius: 4px;
+        }
+      }
+    }
+    .Options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      cursor: default;
+      .Card {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+
+        p {
+          font-size: 17px;
+          font-weight: bold;
+          color: var(--textDark);
+        }
+
+        .Option {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px;
+          border: 1px solid #eee;
+          border-radius: 8px;
+          transition: 0.3s;
+
+          &:hover {
+            border-color: var(--gold);
+          }
+
+          i {
+            color: var(--gold);
+            opacity: 1;
+            height: fit-content;
+            font-size: 16px;
+          }
+
+          p {
+            font-size: 14px;
+            font-weight: normal;
+            padding: 0;
+          }
+        }
+      }
+
+      &.Mini {
+        display: -webkit-box;
+        gap: 15px;
+        margin-bottom: 10px;
+        .Option {
+          border: none;
+          background: var(--grayBg);
+          padding: 5px;
+          border-radius: 8px;
+          font-size: 12px;
+        }
+      }
+    }
+    .Rooms {
+      display: flex;
+      flex-direction: column;
+      p {
+        padding: 0;
+      }
+      .Card {
+        .Top {
+          display: grid;
+          gap: 20px;
+
+          .Title {
+            display: flex;
+            justify-content: space-between;
+            height: fit-content;
+            i {
+              color: var(--gold);
+              font-size: 18px;
+            }
+
+            p {
+              font-size: 17px;
+            }
+
+            span {
+              color: var(--textGray);
+              font-size: 14px;
+            }
+          }
+
+          .AboutRoom {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            p {
+              display: flex;
+              justify-content: start;
+              width: calc(100% - 230px);
+              align-items: center;
+              font-size: 15px;
+              color: var(--textGray);
+              &:last-of-type {
+                justify-content: end;
+                gap: 5px;
+              }
+              span {
+                font-size: 20px;
+                color: var(--goldDark);
+              }
+            }
+
+            button {
+              width: 220px;
+              height: fit-content;
+              border: none;
+              padding: 14px 8px;
+              background: var(--gold);
+              border-radius: 8px;
+              cursor: pointer;
+              font-family: var(--Font);
+              transition: 0.3s;
+              &:hover {
+                background: var(--goldDark);
+              }
+            }
+          }
+        }
+      }
+
+      .RoomOption {
+        display: flex;
+        align-items: flex-start;
+        overflow: hidden;
+        justify-content: space-between;
+        .content {
+          display: flex;
+          flex-wrap: wrap;
+          max-height: 20px;
+          transition: max-height 0.3s ease;
+
+          &.expanded {
+            max-height: 500px;
+          }
+
+          p {
+            font-size: 12px;
+            color: var(--textGray);
+            padding: 0 10px;
+            border-left: var(--borderLight);
+          }
+        }
+
+        .toggle-btn {
+          background: none;
+          border: none;
+          color: var(--goldText);
+          cursor: pointer;
+          font-size: 12px;
+          width: fit-content;
+        }
+      }
+      .RoomOption {
+        display: flex;
+        align-items: flex-start;
+        overflow: hidden;
+
+        .content {
+          display: flex;
+          flex-wrap: wrap;
+          max-height: 20px;
+          transition: max-height 0.3s ease;
+
+          p {
+            font-size: 12px;
+            color: var(--textGray);
+            padding: 0 10px;
+            border-left: var(--borderLight);
+          }
+
+          &.expanded {
+            max-height: 500px;
+          }
+        }
+
+        .toggle-btn {
+          background: none;
+          border: none;
+          color: var(--goldText);
+          cursor: pointer;
+          font-size: 12px;
+          font-family: var(--Font);
+          align-self: flex-start;
+          width: 30%;
+        }
+      }
+
+      .HotelListItem {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .Top {
+          .Title p {
+            font-size: 17px;
+            font-weight: bold;
+            color: var(--textDark);
+          }
+
+          .Title i {
+            color: var(--gold);
+          }
+        }
+
+        .HotelDetails {
+          .Desc {
+            font-size: 14px;
+            color: var(--textGray);
+          }
+        }
+      }
+    }
+    .Distance {
+      display: flex;
+      flex-direction: column;
+      .Card {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        .Option {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          justify-content: space-between;
+
+          i {
+            color: var(--textDark);
+            opacity: 1;
+            height: fit-content;
+            font-size: 16px;
+          }
+
+          p {
+            font-size: 14px;
+            font-weight: normal;
+            color: var(--textDark);
+            padding: 0;
+
+            &:last-of-type {
+              color: var(--goldDark);
+            }
+          }
+        }
+      }
+    }
+    .Rules {
+      display: flex;
+      flex-direction: column;
+      .Card {
+        display: block;
+
+        .Time {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 15px;
+
+          .Value {
+            display: grid;
+            height: fit-content;
+            gap: 10px;
+            background: var(--grayBg);
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            p {
+              padding: 0;
+              font-size: 14px;
+              color: var(--textGray);
+              height: fit-content;
+            }
+
+            span {
+              font-size: 14px;
+              font-weight: bold;
+              color: var(--textDark);
+
+              i {
+                opacity: 1;
+                color: var(--textDark);
+              }
+            }
+          }
+        }
+
+        .rule {
+          p {
+            font-size: 14px;
+            color: var(--textDark);
+            padding: 0;
+            font-weight: normal;
+          }
+        }
+      }
+    }
+    .FAQSection {
+      display: grid;
+      gap: 20px;
+      width: 100%;
+      justify-self: center;
+      padding: 10px;
+      margin-bottom: 80px;
+      .top {
+        span {
+          font-size: 24px;
+          font-weight: bold;
+          color: var(--textDark);
+        }
+      }
+
+      .bottom {
+        box-shadow: var(--boxShadow);
+        border-radius: 12px;
+        background-color: var(--bgWhite);
+      }
+
+      .question {
+        .Button {
+          width: 100%;
+          padding: 10px;
+          background: none;
+          border: none;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+          text-align: right;
+          font-size: 16px;
+          color: var(--textDark);
+          font-family: inherit;
+          transition: background 0.3s;
+
+          &:hover {
+            background: var(--grayBgHover);
+          }
+
+          .Icon {
+            font-size: 22px;
+            color: var(--goldDark);
+            transition: transform 0.3s;
+          }
+        }
+      }
+
+      .ansure {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        background: var(--bgWhite);
+
+        p {
+          padding: 0 20px 20px;
+          color: var(--textGray);
+          line-height: 1.8;
+          font-size: 14px;
+        }
+        &.open {
+          max-height: 500px;
+          opacity: 1;
+        }
+      }
+    }
+    .ItinerarySection {
+      .ItineraryCard {
+        position: relative;
+        padding-right: 20px;
+
+        &::before {
+          content: "";
+          position: absolute;
+          right: 56px;
+          top: 30px;
+          bottom: 30px;
+          width: 2px;
+          background: #eee;
+        }
+      }
+
+      .DayItem {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        position: relative;
+
+        .DayMarker {
+          background: var(--gold);
+          color: white;
+          padding: 5px 15px;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: bold;
+          height: fit-content;
+          z-index: 1;
+          position: relative;
+          width: 75px;
+          text-align: center;
+          &::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            left: 0;
+            margin: auto;
+            bottom: -8px;
+            width: 10px;
+            height: 10px;
+            background: var(--goldDark);
+            border-radius: 50%;
+            border: 2px solid white;
+          }
+        }
+
+        .DayContent {
+          h5 {
+            color: var(--textDark);
+            margin-bottom: 5px;
+          }
+
+          p {
+            font-size: 14px;
+            color: var(--textGray);
+            padding: 0;
+            font-weight: normal;
+            line-height: 1.6;
+          }
+        }
+      }
+    }
+  }
+  .left {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: relative;
+    .LeftFilterCard {
+      position: sticky;
+      top: 20px;
+      z-index: 10;
+      margin-bottom: 80px;
+    }
+
+    .Card {
+      background-color: var(--bgWhite);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: var(--boxShadow);
+      width: 100%;
+      max-width: 350px;
+      display: grid;
+      gap: 20px;
+
+      .rating {
+        width: 100%;
+        height: max-content;
+        display: grid;
+        gap: 10px;
+
+        p {
+          padding: 0;
+        }
+
+        .Stars {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .Wth {
+            display: flex;
+            height: fit-content;
+            gap: 2px;
+            font-size: 14px;
+            color: var(--textDark);
+
+            .Badge {
+              font-size: 10px;
+              padding: 4px 8px;
+              border-radius: 4px;
+              color: white;
+              margin-left: 5px;
+            }
+
+            .TourBadge {
+              background: #ff4757;
+            }
+            .CharterBadge {
+              background: #2ed573;
+            }
+
+            i {
+              display: flex;
+              align-items: center;
+              color: var(--gold);
+              opacity: 1;
+              font-size: 18px;
+            }
+          }
+
+          .Rate {
+            p {
+              display: flex;
+              height: fit-content;
+              gap: 5px;
+              align-items: center;
+              font-size: 12px;
+              color: green;
+
+              i {
+                display: flex;
+                align-items: center;
+                color: var(--gold);
+                opacity: 1;
+                height: fit-content;
+              }
+            }
+          }
+        }
+
+        p {
+          font-size: 17px;
+          color: var(--textDark);
+          font-weight: bold;
+        }
+
+        .titel {
+          display: inline-flex;
+          width: 100%;
+          justify-content: start;
+          align-items: center;
+
+          p {
+            font-size: 15px;
+            font-weight: 100;
+            color: var(--textGray);
+            text-align: center;
+
+            span {
+              color: var(--goldText);
+              font-size: 20px;
+              padding: 0 8.5px;
+            }
+
+            &:last-of-type {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+
+      .price {
+        display: grid;
+        padding-top: 20px;
+        border-top: var(--borderLight);
+        gap: 15px;
+
+        .text {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          i {
+            font-size: 20px;
+            color: var(--textGray);
+            opacity: 1;
+          }
+
+          p {
+            font-size: 15px;
+            color: var(--textGray);
+            padding: 0;
+          }
+        }
+
+        button {
+          background: none;
+          font-family: var(--Font);
+          font-size: 15px;
+          font-weight: bold;
+          padding: 10px 0;
+          border-radius: 8px;
+          border: 2px solid var(--gold);
+          color: var(--goldDark);
+          cursor: pointer;
+
+          &:hover {
+            background: var(--grayBgHover);
+          }
+        }
+      }
+
+      .filters {
+        display: grid;
+        width: 100%;
+        p {
+          padding: 0;
+        }
+
+        input {
+          background-color: var(--grayBg);
+          height: 48px;
+          width: 100%;
+          border: none;
+          border-radius: 8px;
+          font-size: var(--fontSize);
+          font-family: var(--Font);
+          padding: 0 10px;
+          color: var(--textGray);
+          cursor: pointer;
+          transition: var(--transition);
+          box-sizing: border-box;
+          text-align: right;
+          direction: rtl;
+          &:hover {
+            outline: none;
+            background-color: var(--grayBgHover);
+            box-shadow: 0 0 0 2px var(--gold);
+          }
+          &:focus {
+            outline: none;
+            background-color: var(--grayBgHover);
+            box-shadow: 0 0 0 2px var(--gold);
+          }
+        }
+      }
+      .Btn1 {
+        background-color: var(--gold);
+        font-family: var(--Font);
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        &:hover {
+          background: var(--goldDark);
+        }
+      }
+      .PassengerFilter {
+        margin-top: 15px;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+
+        p {
+          margin-bottom: 10px;
+        }
+
+        .PassengerControl {
+          display: grid;
+          gap: 15px;
+
+          .ControlGroup {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            label {
+              font-size: 14px;
+              color: var(--textDark);
+            }
+
+            .Counter {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+
+              button {
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                border: 1px solid var(--gold);
+                background: transparent;
+                color: var(--gold);
+                cursor: pointer;
+                font-size: 14px;
+                padding: 0;
+              }
+
+              span {
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+
+      button {
+        font-family: var(--Font);
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+          background: var(--grayBgHover);
+        }
+      }
+    }
+  }
+  .HotelInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .content {
+      overflow: hidden;
+      max-height: 125px;
+      transition: max-height 0.3s ease;
+
+      p {
+        font-size: 14px;
+        font-weight: normal;
+        color: var(--textDark);
+        padding: 0;
+      }
+
+      h4 {
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--goldDark);
+      }
+
+      &.expanded {
+        max-height: 500px;
+      }
+    }
+
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: var(--goldDark);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: var(--Font);
+      margin-top: 6px;
+      align-self: flex-start;
+      width: max-content;
+    }
+  }
+}
