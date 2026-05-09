@@ -22,7 +22,7 @@ const PAGE_DATA = {
       {
         id: 1,
         image:
-          "https://images.unsplash.com/photo-1542060748-10c28b62716f?w=800",
+          "https://www.aysham.com/1035680961931001B",
         alt: "تور استانبول",
         title: "تور استانبول",
         location: "از تهران به استانبول",
@@ -37,7 +37,7 @@ const PAGE_DATA = {
       {
         id: 2,
         image:
-          "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=800",
+          "https://cdn.tabnak.ir/files/fa/news/1404/12/6/2244665_751.jpg",
         alt: "تور کیش",
         title: "تور کیش",
         location: "از شیراز به کیش",
@@ -52,7 +52,7 @@ const PAGE_DATA = {
       {
         id: 3,
         image:
-          "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
+          "https://farjamparvaz.net/wp-content/uploads/2025/10/13.jpg",
         alt: "تور تایلند",
         title: "تور تایلند (بانکوک + پوکت)",
         location: "از تهران",
@@ -77,12 +77,12 @@ const PAGE_DATA = {
   agencies: {
     title: "تور های معتبر ایران",
     list: Array(9).fill({
-      src: "Media/cc-2-1024x576.jpg",
+      src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
       alt: "گروه هتل‌های اسپیناس",
       caption: "شرکت گردشگری رها سیر پارس",
       internalLink: "#",
       internalText: "دیدن پرواز های این شرکت",
-      externalLink: "https://www.rahaseir.com/cgi-sys/suspendedpage.cgi",
+      externalLink: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
       externalText: "درباره ی این شرکت",
     }),
   },
@@ -164,7 +164,7 @@ export default function Offers() {
                     <div className="tourPrice">
                       <span>{tour.price}</span> تومان
                     </div>
-                    <Link href={tour.link}>
+                    <Link href="/tour/tourch">
                       <button className="btnPrimary">مشاهده جزئیات</button>
                     </Link>
                   </footer>

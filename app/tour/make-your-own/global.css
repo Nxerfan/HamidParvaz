@@ -2042,13 +2042,13 @@
 
   select {
     border: none;
-    width: 100% !important; 
+    width: 100% !important;
     min-width: 100%;
     height: 100%;
     color: var(--textDark);
     background-color: var(--bgLight);
     border-radius: 8px;
-    padding: 18px 10px; 
+    padding: 18px 10px;
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
@@ -2057,11 +2057,132 @@
     background-repeat: no-repeat;
     background-position: left 10px center;
     background-size: 15px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 
     &:focus {
       outline: none;
       background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+    }
+  }
+}
+.paymentOptions {
+  display: grid;
+  gap: 14px;
+
+  .paymentOption {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+
+    &.active {
+      color: #caa23f;
+    }
+
+    .paymentRadio {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+
+      &.checked {
+        background: #caa23f;
+        border-color: #caa23f;
+      }
+    }
+
+    .optionHint {
+      font-size: 13px;
+      opacity: 0.7;
+    }
+  }
+
+  .bankListWrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.45s ease,
+      opacity 0.3s ease;
+    opacity: 0;
+
+    &.open {
+      max-height: 150px;
+      opacity: 1;
+    }
+
+    .bankList {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+
+      .bankItem {
+        padding: 6px 10px;
+        border: 1px solid var(--bgLight);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+        &:hover {
+          background-color: var(--grayBgHover);
+        }
+      }
+    }
+  }
+}
+
+.accordion {
+  margin-top: 16px;
+
+  .accordionItem {
+    margin-bottom: 12px;
+
+    .accordionHeader {
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+
+      .plusIcon {
+        width: 22px;
+        height: 22px;
+        border: 1px dashed #ccc;
+        transition: 0.3s;
+
+        &.open {
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    .accordionBody {
+      display: flex;
+      max-height: 0;
+      overflow: hidden;
+      gap: 4px;
+      transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease;
+      opacity: 0;
+
+      input {
+        padding: 5px 5px;
+        font-family: var(--Font);
+        border: var(--borderLight);
+        border-radius: 8px;
+      }
+      .primaryButton {
+        padding: 5px 8px;
+        background-color: var(--bgLight);
+        border: var(--borderLight);
+        border-radius: 8px;
+        font-family: var(--Font);
+        transition: 0.3s;
+        &:hover {
+          background-color: var(--grayBgHover);
+        }
+      }
+      &.open {
+        max-height: 120px;
+        opacity: 1;
+        margin-top: 8px;
+      }
     }
   }
 }

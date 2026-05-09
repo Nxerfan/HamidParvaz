@@ -665,9 +665,14 @@
 
       .bankItem {
         padding: 6px 10px;
-        border: 1px solid #e5e5e5;
+        border: 1px solid var(--bgLight);
         border-radius: 6px;
         cursor: pointer;
+        transition: 0.3s;
+
+        &:hover {
+          background-color: var(--grayBgHover);
+        }
       }
     }
   }
@@ -703,7 +708,23 @@
         max-height 0.4s ease,
         opacity 0.3s ease;
       opacity: 0;
-
+      input {
+        padding: 5px 5px;
+        font-family: var(--Font);
+        border: var(--borderLight);
+        border-radius: 8px;
+      }
+      .primaryButton {
+        padding: 5px 8px;
+        background-color: var(--bgLight);
+        border: var(--borderLight);
+        border-radius: 8px;
+        font-family: var(--Font);
+        transition: 0.3s;
+        &:hover {
+          background-color: var(--grayBgHover);
+        }
+      }
       &.open {
         max-height: 120px;
         opacity: 1;

@@ -135,11 +135,11 @@ const jalaali = {
 
 const PAGE_DATA = {
   images: [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQunVlc9ieX4cjRVdAd2AW2yAd1gSG6adWo0A&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz-bHNVkcCprEaQ8sKfwxZPJHS7Oy6CezLBQ&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRxc_D5csIwymKTDICH_70vOzD4Ows6NZrlQ&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYiKgqkPk0lTYyhZOVTUK2UfSyWCtt6LJCZw&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg8x4t2DYETsryzuRXFPobrHDVURrQAO95Mg&s",
+    "https://img2.taw-bio.ir/2026/498727/1lhvp9pu.jpeg",
+    "https://img2.taw-bio.ir/2026/590491/1lmpae32.jpeg",
+    "https://img2.taw-bio.ir/2026/384071/1lmoq4r2.jpeg",
+    "https://img2.taw-bio.ir/2026/902637/1lmpar8p.jpeg",
+    "https://img2.taw-bio.ir/2026/902637/1lmpar8p.jpeg",
   ],
   options: [
     { icon: "FaCar", label: "بلیط هواپیما" },

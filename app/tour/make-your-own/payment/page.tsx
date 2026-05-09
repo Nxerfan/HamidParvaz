@@ -8,6 +8,7 @@ import {
   faHotel,
   faStar,
   faLocationDot,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faFaceSmile } from "@fortawesome/free-solid-svg-icons";
 
@@ -106,47 +107,42 @@ const PAGE_DATA = {
     contactHeaders: ["شماره تماس"],
     contactNumber: "9981826109",
   },
-  paymentSection: {
-    title: "لطفا روش پرداخت را انتخاب کنید",
-    methods: [
-      { id: "gateway", title: "درگاه بانکی", hint: "پرداخت امن آنلاین" },
-      {
-        id: "credit",
-        title: "استفاده از اعتبار (۰ تومان)",
-        hint: "کیف پول داخلی",
-      },
-    ],
-    banks: ["ملی", "سامان", "سینا"],
-    accordions: [
-      {
-        id: "discount",
-        title: "کد تخفیف",
-        type: "input",
-        placeholder: "کد تخفیف را وارد کنید",
-        btnText: "بررسی",
-      },
-      {
-        id: "points",
-        title: "امتیاز کاربری",
-        type: "text",
-        content: "شما 1200 امتیاز دارید (۲۰٪ تخفیف معادل ۲۰۰,۰۰۰ تومان)",
-      },
-      {
-        id: "travelCard",
-        title: "سفر کارت",
-        type: "input",
-        placeholder: "کد سفر کارت",
-        btnText: "بررسی",
-      },
-    ],
-    payBtnText: "برداخت",
-  },
+  paymentOptions: [
+    { method: "gateway", title: "درگاه بانکی", hint: "پرداخت امن آنلاین" },
+    {
+      method: "credit",
+      title: "استفاده از اعتبار (۰ تومان)",
+      hint: "کیف پول داخلی",
+    },
+  ],
+  banks: ["ملی", "سامان", "سینا"],
+  accordionItems: [
+    {
+      title: "کد تخفیف",
+      type: "discount",
+      placeholder: "کد تخفیف را وارد کنید",
+      buttonText: "بررسی",
+    },
+    {
+      title: "امتیاز کاربری",
+      type: "points",
+      points: 1200,
+      discountPercent: "۲۰٪",
+      discountAmount: "۲۰۰,۰۰۰ تومان",
+    },
+    {
+      title: "سفر کارت",
+      type: "travelCard",
+      placeholder: "کد سفر کارت",
+      buttonText: "بررسی",
+    },
+  ],
 };
 
 export default function CheckoutPage() {
   const [activePayment, setActivePayment] = useState("gateway");
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("gateway");
   const [openAccordions, setOpenAccordions] = useState({});
-
   const toggleAccordion = (id) => {
     setOpenAccordions((prev) => ({
       ...prev,
@@ -301,76 +297,75 @@ export default function CheckoutPage() {
               </div>
             </div>
           </div>
-
           <div className="Card">
-            <div className="Titel">
-              <p>{PAGE_DATA.paymentSection.title}</p>
-            </div>
-
             <div className="paymentOptions">
-              {PAGE_DATA.paymentSection.methods.map((method) => (
-                <label
-                  key={method.id}
-                  className={`paymentOption ${activePayment === method.id ? "active" : ""}`}
-                  onClick={() => setActivePayment(method.id)}
-                >
-                  <span
-                    className={`paymentRadio ${activePayment === method.id ? "checked" : ""}`}
-                  ></span>
-                  <div>
-                    <div className="optionTitle">{method.title}</div>
-                    <div className="optionHint">{method.hint}</div>
-                  </div>
-                </label>
-              ))}
-
-              {activePayment === "gateway" && (
-                <div className="bankListWrapper open">
-                  <div className="bankList">
-                    {PAGE_DATA.paymentSection.banks.map((bank, i) => (
-                      <div key={i} className="bankItem">
-                        {bank}
-                      </div>
-                    ))}
-                  </div>
+              {PAGE_DATA.paymentOptions.map((option) => {
+                const isActive = selectedPaymentMethod === option.method;
+                return (
+                  <label
+                    key={option.method}
+                    className={`paymentOption ${isActive ? "active" : ""}`}
+                    onClick={() => setSelectedPaymentMethod(option.method)}
+                  >
+                    <span
+                      className={`paymentRadio ${isActive ? "checked" : ""}`}
+                    ></span>
+                    <div>
+                      <div className="optionTitle">{option.title}</div>
+                      <div className="optionHint">{option.hint}</div>
+                    </div>
+                  </label>
+                );
+              })}
+              <div
+                className={`bankListWrapper ${selectedPaymentMethod === "gateway" ? "open" : ""}`}
+              >
+                <div className="bankList">
+                  {PAGE_DATA.banks.map((bank, index) => (
+                    <div key={index} className="bankItem">
+                      {bank}
+                    </div>
+                  ))}
                 </div>
-              )}
+              </div>
             </div>
-
             <div className="accordion">
-              {PAGE_DATA.paymentSection.accordions.map((item) => (
-                <div key={item.id} className="accordionItem">
-                  <div
-                    className="accordionHeader"
-                    onClick={() => toggleAccordion(item.id)}
-                  >
-                    <span>{item.title}</span>
+              {PAGE_DATA.accordionItems.map((item) => {
+                const isOpen = openAccordions[item.title] || false;
+                return (
+                  <div key={item.title} className="accordionItem">
                     <div
-                      className={`plusIcon ${openAccordions[item.id] ? "open" : ""}`}
-                    ></div>
+                      className="accordionHeader"
+                      onClick={() => toggleAccordion(item.title)}
+                    >
+                      <span>{item.title}</span>
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        className={isOpen ? "open" : ""}
+                      />
+                    </div>
+                    <div className={`accordionBody ${isOpen ? "open" : ""}`}>
+                      {item.type === "discount" ||
+                      item.type === "travelCard" ? (
+                        <>
+                          <input type="text" placeholder={item.placeholder} />
+                          <button className="primaryButton">
+                            {item.buttonText}
+                          </button>
+                        </>
+                      ) : (
+                        <p>
+                          شما <strong>{item.points}</strong> امتیاز دارید (
+                          {item.discountPercent} تخفیف معادل{" "}
+                          {item.discountAmount})
+                        </p>
+                      )}
+                    </div>
                   </div>
-                  <div
-                    className={`accordionBody ${openAccordions[item.id] ? "open" : ""}`}
-                  >
-                    {item.type === "input" ? (
-                      <>
-                        <input type="text" placeholder={item.placeholder} />
-                        <button className="primaryButton">
-                          {item.btnText}
-                        </button>
-                      </>
-                    ) : (
-                      <div dangerouslySetInnerHTML={{ __html: item.content }} />
-                    )}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
-
-          <button className="BtnPrimary">
-            {PAGE_DATA.paymentSection.payBtnText}
-          </button>
         </div>
       </div>
     </>

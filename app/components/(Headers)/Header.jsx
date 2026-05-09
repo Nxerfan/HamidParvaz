@@ -39,7 +39,7 @@ export default function Header() {
               </div>
             </div>
 
-            <Link href="#" className="NavItem">بلاگ</Link>
+            <Link href="/blog" className="NavItem">بلاگ</Link>
             <Link href="/about-us" className="NavItem">تماس با ما</Link>
           </nav>
 

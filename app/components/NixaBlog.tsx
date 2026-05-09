@@ -16,7 +16,8 @@ import "../blog/global.css";
 
 const PAGE_DATA = {
   hero: {
-    image: "https://picsum.photos/seed/travelhero/1200/600",
+    image:
+      "https://shut.ir/storage/image/2023/7/7/%D8%A8%DA%A9-%DA%AF%D8%B1%D8%A7%D9%86%D8%AF-%D8%B4%D9%87%D8%B1.webp",
     tag: "پیشنهاد ویژه",
     title: "راهنمای کامل سفر به استانبول؛ شهری که در دو قاره زندگی می‌کند",
     date: "۲۵ آبان ۱۴۰۲",
@@ -35,7 +36,8 @@ const PAGE_DATA = {
     {
       id: 1,
       category: "tour",
-      image: "https://picsum.photos/seed/kish/400/300",
+      image:
+        "https://shut.ir/storage/image/2023/7/7/%D8%A8%DA%A9-%DA%AF%D8%B1%D8%A7%D9%86%D8%AF-%D8%B4%D9%87%D8%B1.webp",
       categoryLabel: "تور",
       title: "چرا تور کیش بهترین گزینه برای تعطیلات آخر هفته است؟",
       excerpt:
@@ -46,7 +48,7 @@ const PAGE_DATA = {
     {
       id: 2,
       category: "hotel",
-      image: "https://picsum.photos/seed/dubaihotel/400/300",
+      image: "https://img2.taw-bio.ir/2026/456164/1lmpb4k1.jpeg",
       categoryLabel: "هتل",
       title: "معرفی ۵ هتل ۷ ستاره مجلل در دبی",
       excerpt:
@@ -57,7 +59,7 @@ const PAGE_DATA = {
     {
       id: 3,
       category: "flight",
-      image: "https://picsum.photos/seed/flighttips/400/300",
+      image: "https://img2.taw-bio.ir/2026/456164/1lmpb4k1.jpeg",
       categoryLabel: "پرواز",
       title: "تکنیک‌های بستن چمدان جهت جلوگیری از اضافه بار",
       excerpt:
@@ -68,7 +70,8 @@ const PAGE_DATA = {
     {
       id: 4,
       category: "tour",
-      image: "https://picsum.photos/seed/isfahan/400/300",
+      image:
+        "https://img2.taw-bio.ir/2026/897706/1lmostri.jpeg",
       categoryLabel: "تور",
       title: "اصفهان، نصف جهان؛ معرفی جاذبه‌های پنهان این شهر تاریخی",
       excerpt:
@@ -79,7 +82,7 @@ const PAGE_DATA = {
     {
       id: 5,
       category: "hotel",
-      image: "https://picsum.photos/seed/yazdhotel/400/300",
+      image: "https://img2.taw-bio.ir/2026/764362/1lmd13k8.jpeg",
       categoryLabel: "هتل",
       title: "تجربه اقامت در بوم‌گردی‌های یزد؛ کویر و تاریخ",
       excerpt:
@@ -90,7 +93,7 @@ const PAGE_DATA = {
     {
       id: 6,
       category: "flight",
-      image: "https://picsum.photos/seed/charter/400/300",
+      image: "https://img2.taw-bio.ir/2026/764362/1lmd13k8.jpeg",
       categoryLabel: "پرواز",
       title: "تفاوت بلیط سیستمی و چارتر چیست؟ کدام ارزان‌تر است؟",
       excerpt:
@@ -103,7 +106,7 @@ const PAGE_DATA = {
       slug: "maafiat-maliati-foroughgahi",
       category: "flight",
       categoryLabel: "آموزش مسافرتی",
-      image: "https://picsum.photos/seed/airport/400/300",
+      image: "https://img2.taw-bio.ir/2026/764362/1lmd13k8.jpeg",
       title: "معافیت مالیاتی فرودگاهی چیست و چگونه باید آن را بازپس بگیریم؟",
       excerpt: "چگونه عوارض خروج از کشور را پس بگیریم؟ تمام مراحل + افراد معاف",
       readTime: "۱۲ دقیقه",
@@ -125,17 +128,17 @@ const PAGE_DATA = {
     popularTitle: "محبوب‌ترین مطالب",
     popularPosts: [
       {
-        image: "https://picsum.photos/seed/popular1/100/100",
+        image: "https://img2.taw-bio.ir/2026/393365/1llq5n7s.jpeg",
         title: "بهترین زمان سفر به شیراز چه فصلی است؟",
         views: "۲,۵۰۰ بازدید",
       },
       {
-        image: "https://picsum.photos/seed/popular2/100/100",
+        image: "https://img2.taw-bio.ir/2026/393365/1llq5n7s.jpeg",
         title: "راهنمای دریافت ویزای شینگن",
         views: "۱,۸۰۰ بازدید",
       },
       {
-        image: "https://picsum.photos/seed/popular3/100/100",
+        image: "https://img2.taw-bio.ir/2026/393365/1llq5n7s.jpeg",
         title: "۱۰ سوغاتی خاص از ترکیه",
         views: "۱,۴۰۰ بازدید",
       },
@@ -181,13 +184,11 @@ const NiksaBlog = () => {
   const addArticle = () => {
     if (!newTitle.trim()) return;
 
-    // ساخت اسلاگ: تبدیل فاصله به خط تیره و حذف کاراکترهای اضافه
     let slug = newTitle
       .toLowerCase()
       .replace(/ /g, "-")
       .replace(/[^a-z0-9-]/g, "");
 
-    // اگر عنوان فارسی باشد، اسلاگ خالی می‌شود، پس یک آیدی عددی جایگزین می‌کنیم
     if (!slug) {
       slug = "post-" + Date.now();
     }
@@ -200,7 +201,7 @@ const NiksaBlog = () => {
       title: newTitle,
       excerpt: newExcerpt || "خلاصه مقاله جدید توسط شما...",
       readTime: "۵ دقیقه",
-      author: "کاربر مهمان", 
+      author: "کاربر مهمان",
       slug,
     };
 
@@ -210,7 +211,6 @@ const NiksaBlog = () => {
     setNewExcerpt("");
   };
 
-  // Inline Styles for Popup and Button
   const addButtonStyle: React.CSSProperties = {
     backgroundColor: "#10b981",
     color: "white",
@@ -271,7 +271,6 @@ const NiksaBlog = () => {
   return (
     <>
       <main className="blog-container">
-        {/* بخش هیرو */}
         <section className="blog-hero">
           <img src={PAGE_DATA.hero.image} alt="سفر به ترکیه" />
           <div className="hero-overlay"></div>
@@ -292,7 +291,6 @@ const NiksaBlog = () => {
           </div>
         </section>
 
-        {/* نوار ابزار */}
         <section className="blog-toolbar">
           <h2 className="toolbar-title">{PAGE_DATA.toolbarTitle}</h2>
           <div className="filter-buttons">
@@ -305,7 +303,7 @@ const NiksaBlog = () => {
                 {btn.label}
               </button>
             ))}
-            {/* دکمه مقاله جدید با Inline Style */}
+
             <button
               style={addButtonStyle}
               onClick={() => setShowAddForm(true)}
@@ -321,7 +319,6 @@ const NiksaBlog = () => {
           </div>
         </section>
 
-        {/* شبکه مقالات */}
         <section className="articles-grid" id="articlesGrid">
           {filteredArticles.map((article) => (
             <article
@@ -349,7 +346,6 @@ const NiksaBlog = () => {
           ))}
         </section>
 
-        {/* دکمه لود بیشتر */}
         <div className="load-more-container">
           <button
             className="btn-load-more"
@@ -367,7 +363,6 @@ const NiksaBlog = () => {
           </button>
         </div>
 
-        {/* سایدبار */}
         <aside className="sidebar">
           <div className="sidebar-widget">
             <h3 className="widget-title">جستجو در بلاگ</h3>
@@ -448,7 +443,6 @@ const NiksaBlog = () => {
           </div>
         </aside>
 
-        {/* پاپ‌آپ مقاله جدید با Inline Style */}
         {showAddForm && (
           <div style={popupOverlayStyle} onClick={() => setShowAddForm(false)}>
             <div style={popupContentStyle} onClick={(e) => e.stopPropagation()}>

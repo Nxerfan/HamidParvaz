@@ -9,7 +9,6 @@ import {
   faFaceSmile,
   faClock,
   faLocationDot,
-  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FaCar, FaSwimmingPool, FaSink } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
@@ -129,11 +128,11 @@ const jalaali = {
 
 const PAGE_DATA = {
   images: [
-    "https://img.mstatic.ir/ZAPV_BviraPri7BLnBEnGpOnl4fU_OrEnWrApELUovE/gravity:nowe:1:20/crop:1279:715/resize:fill/width:790/height:443/gravity:nowe/enlarge:0/czM6Ly9tcmhvdGVsL0ZENUIwNTMzRTQzQTYzMUE3RDcxNjcyMDA4NERBRDg0LmpwZWc.jpg",
-    "https://img.mstatic.ir/ZAPV_BviraPri7BLnBEnGpOnl4fU_OrEnWrApELUovE/gravity:nowe:1:20/crop:1279:715/resize:fill/width:790/height:443/gravity:nowe/enlarge:0/czM6Ly9tcmhvdGVsL0ZENUIwNTMzRTQzQTYzMUE3RDcxNjcyMDA4NERBRDg0LmpwZWc.jpg",
-    "https://img.mstatic.ir/ZAPV_BviraPri7BLnBEnGpOnl4fU_OrEnWrApELUovE/gravity:nowe:1:20/crop:1279:715/resize:fill/width:790/height:443/gravity:nowe/enlarge:0/czM6Ly9tcmhvdGVsL0ZENUIwNTMzRTQzQTYzMUE3RDcxNjcyMDA4NERBRDg0LmpwZWc.jpg",
-    "https://img.mstatic.ir/DYt-dVhuTWFcCpiSzXIwqzdaBbypoRhKS0GLdRZ9VzM/gravity:nowe:0:0/crop:714:400/resize:fill/width:129/height:73/gravity:nowe/enlarge:0/czM6Ly9tcmhvdGVsLzk0MUU1NTk5MkJGMzAxQUM2QjNDRjZFOUZGRDVBRDZGLndlYnA.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjoyNXbjU3W83XkMyvbVTsH8Y2kFI1MpcDQA&s",
+    "https://img2.taw-bio.ir/2026/145183/1lm77qud.jpeg",
+    "https://img2.taw-bio.ir/2026/145183/1lm77qud.jpeg",
+    "https://img2.taw-bio.ir/2026/145183/1lm77qud.jpeg",
+    "https://img2.taw-bio.ir/2026/459135/1lkqmdb4.jpeg",
+    "https://img2.taw-bio.ir/2026/504334/1li006n0.jpeg",
   ],
   options: [
     { label: "پارکینگ", icon: "FaCar" },

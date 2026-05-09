@@ -227,9 +227,12 @@ function AuthContent() {
             </div>
           );
         })}
-        <button type="submit" className="auth-submit">
-          {form.submitText}
-        </button>
+        <Link href="/userpanel">
+          <button type="submit" className="auth-submit">
+            {form.submitText}
+          </button>
+        </Link>
+
         {tab === "login" && (
           <div className="auth-links">
             <button

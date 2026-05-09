@@ -42,7 +42,7 @@ const PAGE_DATA = {
           rate: "6.8/10",
           location: "تهران",
           image:
-            "https://img.mstatic.ir/KxN0ytL9WwJPugzyoXEDDpysgZVOuu1lfo_DNH95seY/gravity:nowe:177:70/crop:1650:923/resize:fill/width:790/height:443/gravity:nowe/enlarge:0/czM6Ly9tcmhvdGVsLzFjYjg4NWJiYTFmMjRlNzFiM2Q4YTliYmE5YmY0Mzhl.jpg",
+            "https://shut.ir/storage/image/2023/7/7/%D8%A8%DA%A9-%DA%AF%D8%B1%D8%A7%D9%86%D8%AF-%D8%B4%D9%87%D8%B1.webp",
         },
         {
           id: 2,
@@ -51,7 +51,7 @@ const PAGE_DATA = {
           rate: "8.2/10",
           location: "تهران",
           image:
-            "https://img.mstatic.ir/KxN0ytL9WwJPugzyoXEDDpysgZVOuu1lfo_DNH95seY/gravity:nowe:177:70/crop:1650:923/resize:fill/width:790/height:443/gravity:nowe/enlarge:0/czM6Ly9tcmhvdGVsLzFjYjg4NWJiYTFmMjRlNzFiM2Q4YTliYmE5YmY0Mzhl.jpg",
+            "https://shut.ir/storage/image/2023/7/7/%D8%A8%DA%A9-%DA%AF%D8%B1%D8%A7%D9%86%D8%AF-%D8%B4%D9%87%D8%B1.webp",
         },
         ...Array.from({ length: 8 }, (_, i) => ({
           id: i + 3,
@@ -60,7 +60,7 @@ const PAGE_DATA = {
           rate: "7.5/10",
           location: "ایران",
           image:
-            "https://img.mstatic.ir/KxN0ytL9WwJPugzyoXEDDpysgZVOuu1lfo_DNH95seY/gravity:nowe:177:70/crop:1650:923/resize:fill/width:790/height:443/gravity:nowe/enlarge:0/czM6Ly9tcmhvdGVsLzFjYjg4NWJiYTFmMjRlNzFiM2Q4YTliYmE5YmY0Mzhl.jpg",
+            "https://shut.ir/storage/image/2023/7/7/%D8%A8%DA%A9-%DA%AF%D8%B1%D8%A7%D9%86%D8%AF-%D8%B4%D9%87%D8%B1.webp",
         })),
       ],
     },
@@ -94,7 +94,7 @@ const PAGE_DATA = {
   destinations: {
     header: "رزرو آنلاین هتل در تمام شهرها",
     list: Array(8).fill({
-      src: "https://img.mstatic.ir/KxN0ytL9WwJPugzyoXEDDpysgZVOuu1lfo_DNH95seY/gravity:nowe:177:70/crop:1650:923/resize:fill/width:790/height:443/gravity:nowe/enlarge:0/czM6Ly9tcmhvdGVsLzFjYjg4NWJiYTFmMjRlNzFiM2Q4YTliYmE5YmY0Mzhl.jpg",
+      src: "https://seamoon.tours/uploads/31f29a2b6f3649e4ae3cc400b6d990f5.jpg.webp",
       alt: "استانبول",
       title: "رزرو هتل تهران",
     }),
@@ -144,7 +144,7 @@ const PAGE_DATA = {
 
 function HotelCard({ id, title, price, rate, image, location }: HotelCardType) {
   return (
-    <Link href={`/hotels/${id}`} className="MediaElementHotel">
+    <Link href={`/hotel/hotelch`} className="MediaElementHotel">
       <img src={image} alt={title} />
       <p>{title}</p>
       <div className="rating">
