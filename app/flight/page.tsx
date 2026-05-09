@@ -16,8 +16,8 @@ const PAGE_DATA = {
   offerSection: {
     title: "بلیط هواپیما",
     links: [
-      { id: 1, href: "/company", src: "sazmani.png", alt: "سازمانی" },
-      { id: 2, href: "/hotel", src: "hotel.png", alt: "هتل" },
+      { id: 1, href: "/company", src: "https://shut.ir/storage/image/2023/3/21/%D8%B9%DA%A9%D8%B3-%D9%87%D9%88%D8%A7%D9%BE%DB%8C%D9%85%D8%A7-%D9%85%D8%B3%D8%A7%D9%81%D8%B1%D8%A8%D8%B1%DB%8C-%D8%AF%D8%B1-%D8%A2%D8%B3%D9%85%D8%A7%D9%86.webp", alt: "سازمانی" },
+      { id: 2, href: "/hotel", src: "https://shut.ir/storage/image/2026/2/25/%D8%B9%DA%A9%D8%B3-%D8%AA%D8%B5%D9%88%DB%8C%D8%B1-%D8%B2%D9%85%DB%8C%D9%86%D9%87-%D8%A8%D8%B1%DA%AF-%D8%A2%D8%A8%DB%8C.webp", alt: "هتل" },
     ],
   },
   destinationsSection: {

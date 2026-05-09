@@ -12,50 +12,50 @@ export default function UsefulWays() {
         <div className="content">
           <div className="items">
             <p>شرکت گردشگری حمید پرواز</p>
-            <Link href="/Flight.html">خرید بلیط هواپیما</Link>
-            <Link href="/Hotel.html">رزرو کردن هتل</Link>
-            <Link href="/Tour.html">ثبت نام تور ها</Link>
-            <Link href="/rules.html">شرایط و مقررات</Link>
-            <Link href="/Blog.html">وبلاگ نیکسا</Link>
+            <Link href="/flight">خرید بلیط هواپیما</Link>
+            <Link href="/hotel">رزرو کردن هتل</Link>
+            <Link href="/tour">ثبت نام تور ها</Link>
+            <Link href="/rules">شرایط و مقررات</Link>
+            <Link href="/blog">وبلاگ </Link>
           </div>
 
           <div className="items">
             <p>هواپیما داخلی</p>
-            <Link href="/Flight.html?from=Tehran&to=Mashhad">بلیط هواپیما تهران مشهد</Link>
-            <Link href="/Flight.html?from=Tehran&to=Kish">بلیط هواپیما تهران کیش</Link>
-            <Link href="/Flight.html?from=Tehran&to=Isfahan">بلیط هواپیما تهران اصفهان</Link>
-            <Link href="/Flight.html?from=Tehran&to=Shiraz">بلیط هواپیما تهران شیراز</Link>
-            <Link href="/Flight.html?from=Tehran&to=Ahvaz">بلیط هواپیما تهران اهواز</Link>
+            <Link href="/flight?from=Tehran&to=Mashhad">بلیط هواپیما تهران مشهد</Link>
+            <Link href="/flight?from=Tehran&to=Kish">بلیط هواپیما تهران کیش</Link>
+            <Link href="/flight?from=Tehran&to=Isfahan">بلیط هواپیما تهران اصفهان</Link>
+            <Link href="/flight?from=Tehran&to=Shiraz">بلیط هواپیما تهران شیراز</Link>
+            <Link href="/flight?from=Tehran&to=Ahvaz">بلیط هواپیما تهران اهواز</Link>
           </div>
 
           <div className="items">
             <p>هتل</p>
-            <Link href="/Hotel.html?type=domestic">رزور هتل داخلی</Link>
-            <Link href="/Hotel.html?type=international">رزور هتل خارجی</Link>
+            <Link href="/hotel?type=domestic">رزور هتل داخلی</Link>
+            <Link href="/hotel?type=international">رزور هتل خارجی</Link>
           </div>
 
           <div className="items">
             <p>تور</p>
-            <Link href="/Tour.html?to=Istanbul">تور استانبول</Link>
-            <Link href="/Tour.html?to=Kish">تور کیش</Link>
-            <Link href="/Tour.html?to=Malaysia">تور مالزی</Link>
-            <Link href="/Tour.html?to=World">تور دوردنیا</Link>
-            <Link href="/Tour.html?to=Dubai">تور امارات</Link>
+            <Link href="/tour?to=Istanbul">تور استانبول</Link>
+            <Link href="/tour?to=Kish">تور کیش</Link>
+            <Link href="/tour?to=Malaysia">تور مالزی</Link>
+            <Link href="/tour?to=World">تور دوردنیا</Link>
+            <Link href="/tour?to=Dubai">تور امارات</Link>
           </div>
 
           <div className="items">
             <p>هواپیما خارجی</p>
-            <Link href="/Flight.html?type=international">بلیط هواپیما خارجی</Link>
-            <Link href="/Flight.html?to=Dubai">بلیط هواپیما دبی</Link>
-            <Link href="/Flight.html?to=Istanbul">بلیط هواپیما استانبول</Link>
-            <Link href="/Flight.html?to=Antalya">بلیط هواپیما آنتالیا</Link>
-            <Link href="/Flight.html?to=Baghdad">بلیط هواپیما بغداد</Link>
+            <Link href="/flight?type=international">بلیط هواپیما خارجی</Link>
+            <Link href="/flight?to=Dubai">بلیط هواپیما دبی</Link>
+            <Link href="/flight?to=Istanbul">بلیط هواپیما استانبول</Link>
+            <Link href="/flight?to=Antalya">بلیط هواپیما آنتالیا</Link>
+            <Link href="/flight?to=Baghdad">بلیط هواپیما بغداد</Link>
           </div>
 
           <div className="items">
             <p>سایر خدمات</p>
-            <Link href="/Contact.html">تماس با ما</Link>
-            <Link href="/Blog.html">وبلاگ</Link>
+            <Link href="/contact-us">تماس با ما</Link>
+            <Link href="/blog">وبلاگ</Link>
           </div>
         </div>
       </div>
