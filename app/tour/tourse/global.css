@@ -1,0 +1,579 @@
+.tour-results-page {
+  .Countainer {
+    width: 1200px;
+    justify-self: center;
+    margin-top: 10px;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    gap: 20px;
+    direction: rtl;
+  }
+
+  .Right {
+    position: sticky;
+    align-self: flex-start;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .Title {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background: var(--bgWhite);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: var(--boxShadow);
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        max-height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .ExperienceTrigger {
+        margin-top: 12px;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+      }
+
+      .ContentWrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #f9f9f9;
+        padding: 8px 12px;
+        border-radius: 12px;
+        transition: 0.3s;
+
+        &:hover {
+          background: #f0f0f0;
+        }
+      }
+
+      .IconBadge {
+        i,
+        svg {
+          font-size: 28px;
+          color: var(--goldDark);
+        }
+      }
+
+      .TextBlock {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .TitleText {
+        font-size: 14px;
+        font-weight: bold;
+        color: var(--textDark);
+      }
+
+      .DescText {
+        font-size: 11px;
+        color: var(--textGray);
+      }
+    }
+
+    .NotifMe {
+      display: flex;
+      width: 100%;
+      background-color: var(--bgWhite);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: var(--boxShadow);
+      align-items: center;
+      justify-content: space-between;
+
+      .Bell {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        span {
+          font-size: 14px;
+          font-weight: bold;
+          color: var(--goldDark);
+        }
+
+        i,
+        svg {
+          color: var(--goldDark);
+          font-size: 18px;
+        }
+      }
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+
+        input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          transition: 0.4s;
+          border-radius: 34px;
+
+          &::before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+          }
+        }
+
+        input:checked + .slider {
+          background-color: var(--gold);
+        }
+
+        input:checked + .slider::before {
+          transform: translateX(20px);
+        }
+      }
+    }
+
+    .Sort {
+      display: grid;
+      width: 100%;
+      background-color: var(--bgWhite);
+      padding: 12px 16px;
+      border-radius: 12px;
+      box-shadow: var(--boxShadow);
+      gap: 10px;
+
+      .Choosen {
+        display: flex;
+        gap: 20px;
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        color: var(--goldDark);
+      }
+
+      input[type="radio"] {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #555;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:checked {
+          background-color: var(--gold);
+          border-color: #555;
+        }
+      }
+    }
+
+    .sidebarFilters {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      direction: rtl;
+
+      .filterHeader {
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .filterContentArea {
+        .resultsCount {
+          display: block;
+          font-size: 12px;
+          color: #757575;
+          margin-bottom: 15px;
+        }
+
+        .filterDropdown {
+          border-bottom: 1px solid #f9f9f9;
+
+          .dropdownTrigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 0 20px 0;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.2s;
+
+            i,
+            svg {
+              transition: transform 0.3s;
+            }
+          }
+
+          .dropdownPanel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+
+            &.open {
+              max-height: 500px;
+              padding: 10px 0;
+              overflow-y: auto;
+            }
+          }
+        }
+
+        .checkboxGroup {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          padding: 5px 0;
+        }
+
+        .checkboxItem {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          font-size: 13px;
+          color: #333;
+
+          input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+            accent-color: var(--gold);
+          }
+        }
+
+        .priceSliderBox {
+          padding-top: 5px;
+
+          .priceLabels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            font-size: 12px;
+          }
+        }
+
+        .rangeSliderContainer {
+          position: relative;
+          width: 100%;
+          height: 5px;
+          margin-bottom: 20px;
+        }
+
+        .sliderTrack {
+          position: absolute;
+          width: 100%;
+          height: 5px;
+          background: #ddd;
+          border-radius: 5px;
+        }
+
+        .sliderProgress {
+          position: absolute;
+          height: 5px;
+          background: #ffcb11;
+          border-radius: 5px;
+        }
+
+        .rangeInputs {
+          position: relative;
+
+          input {
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            pointer-events: none;
+            -webkit-appearance: none;
+
+            &::-webkit-slider-thumb {
+              pointer-events: auto;
+              width: 16px;
+              height: 16px;
+              border-radius: 50%;
+              background: var(--goldDark);
+              cursor: pointer;
+              border: none;
+            }
+
+            &::-moz-range-thumb {
+              pointer-events: auto;
+              width: 16px;
+              height: 16px;
+              border-radius: 50%;
+              background: var(--goldDark);
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .Left {
+    width: 888px;
+    display: grid;
+    gap: 20px;
+
+    .SortBar {
+      background: var(--bgWhite);
+      padding: 15px 20px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--boxShadow);
+
+      span {
+        font-size: 14px;
+        color: var(--textDark);
+      }
+
+      select {
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        background: white;
+        font-family: inherit;
+      }
+    }
+
+    .TourCard {
+      background: var(--bgWhite);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--boxShadow);
+      display: flex;
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .TourImage {
+        width: 320px;
+        min-height: 220px;
+        position: relative;
+        flex-shrink: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .Badge {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          background: #dc3545;
+          color: white;
+          padding: 4px 10px;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: bold;
+          z-index: 2;
+
+          &.Special {
+            background: var(--gold);
+            color: #333;
+          }
+        }
+      }
+
+      .TourContent {
+        flex: 1;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .TourHeader {
+          margin-bottom: 15px;
+        }
+
+        .TourTitle {
+          font-size: 20px;
+          font-weight: bold;
+          margin: 0 0 6px 0;
+          color: var(--textDark);
+        }
+
+        .TourAgency {
+          font-size: 13px;
+          color: var(--textGray);
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          i,
+          svg {
+            color: var(--goldDark);
+          }
+        }
+
+        .TourMeta {
+          display: flex;
+          gap: 20px;
+          flex-wrap: wrap;
+          padding: 15px 0;
+          border-top: 1px solid #eee;
+          border-bottom: 1px solid #eee;
+          margin-bottom: 15px;
+        }
+
+        .MetaItem {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 13px;
+          color: #555;
+
+          i,
+          svg {
+            color: var(--gold);
+            width: 18px;
+            text-align: center;
+          }
+        }
+
+        .TourFooter {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+
+          .Capacity {
+            font-size: 13px;
+            background: #f5f5f5;
+            padding: 5px 12px;
+            border-radius: 20px;
+            color: #666;
+
+            span {
+              color: #e74c3c;
+              font-weight: bold;
+            }
+          }
+
+          .PriceBox {
+            text-align: left;
+
+            .PriceLabel {
+              font-size: 12px;
+              color: #aaa;
+              text-decoration: line-through;
+              display: block;
+            }
+
+            .PriceValue {
+              font-size: 22px;
+              font-weight: bold;
+              color: var(--goldDark);
+            }
+
+            .Currency {
+              font-size: 14px;
+            }
+          }
+
+          .BtnBook {
+            background: var(--gold);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-right: 15px;
+
+            &:hover {
+              background: var(--goldDark);
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .Countainer {
+      width: 100%;
+      padding: 0 20px;
+    }
+    .Left {
+      width: calc(100% - 320px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .Countainer {
+      flex-direction: column;
+    }
+    .Right {
+      width: 100%;
+      position: static;
+    }
+    .Left {
+      width: 100%;
+    }
+    .TourCard {
+      flex-direction: column;
+    }
+    .TourImage {
+      width: 100%;
+      height: 200px;
+    }
+    .TourMeta {
+      gap: 12px;
+    }
+    .TourFooter {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    .BtnBook {
+      margin-right: 0;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

@@ -36,6 +36,6 @@
     "dist/types/**/*.ts",
     "dist/dev/types/**/*.ts",
     "app/cooperation/page.jsx"
-  ],
+, "app/flight/flightse/page.tsx", "app/tour/page.tsx"  ],
   "exclude": ["node_modules"]
 }

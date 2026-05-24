@@ -13,7 +13,7 @@ import UsefulWays from "../components/UsefullWays";
 import Header from "../components/(Headers)/Header";
 import TravelCards from "../components/TravelCards";
 import Form5 from "../components/(Forms)/FormType5";
-import FAQSection from "../components/FAQSection"; 
+import FAQSection from "../components/FAQSection";
 
 const PAGE_DATA = {
   offersSection: {
@@ -68,23 +68,159 @@ const PAGE_DATA = {
   },
   destinations: {
     header: "بهترین مقاصد تور",
-    list: Array(8).fill({
-      src: "hagia_sophia_istanbul_70699c6526.jpg",
-      alt: "استانبول",
-      title: "استانبول",
-    }),
+    list: [
+      {
+        id: 1,
+        src: "https://umagcdn.utravs.com/JournalsImages/570/860x550/%D8%AC%D8%A7%D8%B0%D8%A8%D9%87%20%D9%87%D8%A7%DB%8C%20%D8%AF%DB%8C%D8%AF%D9%86%DB%8C%20%D8%A8%D8%A7%DA%A9%D9%88.jpg",
+        alt: "استانبول",
+        title: "استانبول",
+        link: "/tours/istanbul",
+      },
+      {
+        id: 2,
+        src: "https://umagcdn.utravs.com/JournalsImages/570/860x550/%D8%AC%D8%A7%D8%B0%D8%A8%D9%87%20%D9%87%D8%A7%DB%8C%20%D8%AF%DB%8C%D8%AF%D9%86%DB%8C%20%D8%A8%D8%A7%DA%A9%D9%88.jpg",
+        alt: "کیش",
+        title: "کیش",
+        link: "/tours/kish",
+      },
+      {
+        id: 3,
+        src: "https://umagcdn.utravs.com/JournalsImages/570/860x550/%D8%AC%D8%A7%D8%B0%D8%A8%D9%87%20%D9%87%D8%A7%DB%8C%20%D8%AF%DB%8C%D8%AF%D9%86%DB%8C%20%D8%A8%D8%A7%DA%A9%D9%88.jpg",
+        alt: "دبی",
+        title: "دبی",
+        link: "/tours/dubai",
+      },
+      {
+        id: 4,
+        src: "https://umagcdn.utravs.com/JournalsImages/570/860x550/%D8%AC%D8%A7%D8%B0%D8%A8%D9%87%20%D9%87%D8%A7%DB%8C%20%D8%AF%DB%8C%D8%AF%D9%86%DB%8C%20%D8%A8%D8%A7%DA%A9%D9%88.jpg",
+        alt: "آنتالیا",
+        title: "آنتالیا",
+        link: "/tours/antalya",
+      },
+      {
+        id: 5,
+        src: "https://umagcdn.utravs.com/JournalsImages/570/860x550/%D8%AC%D8%A7%D8%B0%D8%A8%D9%87%20%D9%87%D8%A7%DB%8C%20%D8%AF%DB%8C%D8%AF%D9%86%DB%8C%20%D8%A8%D8%A7%DA%A9%D9%88.jpg",
+        alt: "تفلیس",
+        title: "تفلیس",
+        link: "/tours/tbilisi",
+      },
+      {
+        id: 6,
+        src: "https://umagcdn.utravs.com/JournalsImages/570/860x550/%D8%AC%D8%A7%D8%B0%D8%A8%D9%87%20%D9%87%D8%A7%DB%8C%20%D8%AF%DB%8C%D8%AF%D9%86%DB%8C%20%D8%A8%D8%A7%DA%A9%D9%88.jpg",
+        alt: "ایروان",
+        title: "ایروان",
+        link: "/tours/yerevan",
+      },
+      {
+        id: 7,
+        src: "https://umagcdn.utravs.com/JournalsImages/570/860x550/%D8%AC%D8%A7%D8%B0%D8%A8%D9%87%20%D9%87%D8%A7%DB%8C%20%D8%AF%DB%8C%D8%AF%D9%86%DB%8C%20%D8%A8%D8%A7%DA%A9%D9%88.jpg",
+        alt: "باکو",
+        title: "باکو",
+        link: "/tours/baku",
+      },
+      {
+        id: 8,
+        src: "https://umagcdn.utravs.com/JournalsImages/570/860x550/%D8%AC%D8%A7%D8%B0%D8%A8%D9%87%20%D9%87%D8%A7%DB%8C%20%D8%AF%DB%8C%D8%AF%D9%86%DB%8C%20%D8%A8%D8%A7%DA%A9%D9%88.jpg",
+        alt: "مشهد",
+        title: "مشهد",
+        link: "/tours/mashhad",
+      },
+    ],
   },
   agencies: {
     title: "تور های معتبر ایران",
-    list: Array(9).fill({
-      src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
-      alt: "گروه هتل‌های اسپیناس",
-      caption: "شرکت گردشگری رها سیر پارس",
-      internalLink: "#",
-      internalText: "دیدن پرواز های این شرکت",
-      externalLink: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
-      externalText: "درباره ی این شرکت",
-    }),
+    list: [
+      {
+        id: 1,
+        src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
+        alt: "آژانس رها سیر پارس",
+        caption: "شرکت گردشگری رها سیر پارس",
+        internalLink: "#",
+        internalText: "دیدن تورهای این شرکت",
+        externalLink: "https://rahasirpars.com/",
+        externalText: "درباره‌ی این شرکت",
+      },
+      {
+        id: 2,
+        src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
+        alt: "آژانس آسمان آبی",
+        caption: "آژانس مسافرتی آسمان آبی",
+        internalLink: "#",
+        internalText: "دیدن تورهای این شرکت",
+        externalLink: "https://asemanabi.com/",
+        externalText: "درباره‌ی این شرکت",
+      },
+      {
+        id: 3,
+        src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
+        alt: "آژانس گلستان گشت",
+        caption: "گلستان گشت ایرانیان",
+        internalLink: "#",
+        internalText: "دیدن تورهای این شرکت",
+        externalLink: "https://golestangasht.com/",
+        externalText: "درباره‌ی این شرکت",
+      },
+      {
+        id: 4,
+        src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
+        alt: "آژانس پارس پرواز",
+        caption: "پارس پرواز آریا",
+        internalLink: "#",
+        internalText: "دیدن تورهای این شرکت",
+        externalLink: "https://parsparvaz.com/",
+        externalText: "درباره‌ی این شرکت",
+      },
+      {
+        id: 5,
+        src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
+        alt: "آژانس سیر و سفر",
+        caption: "شرکت سیر و سفر البرز",
+        internalLink: "#",
+        internalText: "دیدن تورهای این شرکت",
+        externalLink: "https://seirosafar.com/",
+        externalText: "درباره‌ی این شرکت",
+      },
+      {
+        id: 6,
+        src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
+        alt: "آژانس نگین گشت",
+        caption: "نگین گشت پارسیان",
+        internalLink: "#",
+        internalText: "دیدن تورهای این شرکت",
+        externalLink: "https://negingasht.com/",
+        externalText: "درباره‌ی این شرکت",
+      },
+      {
+        id: 7,
+        src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
+        alt: "آژانس ستاره کویر",
+        caption: "ستاره کویر یزد گشت",
+        internalLink: "#",
+        internalText: "دیدن تورهای این شرکت",
+        externalLink: "https://setarehkevir.com/",
+        externalText: "درباره‌ی این شرکت",
+      },
+      {
+        id: 8,
+        src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
+        alt: "آژانس ایران تراول",
+        caption: "ایران تراول مارکت",
+        internalLink: "#",
+        internalText: "دیدن تورهای این شرکت",
+        externalLink: "https://irantravel.com/",
+        externalText: "درباره‌ی این شرکت",
+      },
+      {
+        id: 9,
+        src: "https://dl.namayeshgahha.ir/uploads/2024/02/photo_2024-02-28_18-58-12.jpg",
+        alt: "آژانس نقش جهان",
+        caption: "آژانس نقش جهان اصفهان",
+        internalLink: "#",
+        internalText: "دیدن تورهای این شرکت",
+        externalLink: "https://naghshejahan.com/",
+        externalText: "درباره‌ی این شرکت",
+      },
+    ],
   },
 
   faq: {
@@ -119,7 +255,78 @@ const PAGE_DATA = {
 };
 
 export default function Offers() {
+  const toursJSX: JSX.Element[] = [];
+  for (const tour of PAGE_DATA.offersSection.tours) {
+    toursJSX.push(
+      <article key={tour.id} className="tourCard">
+        <figure className="tourImageWrapper">
+          <img
+            src={tour.image}
+            alt={tour.alt}
+            width={800}
+            height={500}
+          />
+        </figure>
+        <div className="tourInfo">
+          <h3>{tour.title}</h3>
+          <p>
+            <FontAwesomeIcon icon={faLocationDot} /> {tour.location}
+          </p>
+          <div className="tourDetails">
+            <span>
+              <FontAwesomeIcon icon={faCalendarDays} /> {tour.date}
+            </span>
+            <span>
+              <FontAwesomeIcon icon={faClock} /> {tour.duration}
+            </span>
+            <span>
+              <FontAwesomeIcon icon={faPlane} /> {tour.airline}
+            </span>
+          </div>
+          <p className="tourDesc">{tour.description}</p>
+          <footer className="tourFooter">
+            <div className="tourPrice">
+              <span>{tour.price}</span> تومان
+            </div>
+            <Link href="/tour/tourch">
+              <button className="btnPrimary">مشاهده جزئیات</button>
+            </Link>
+          </footer>
+        </div>
+        <span className={`badge ${tour.badge.className}`}>
+          {tour.badge.text}
+        </span>
+      </article>
+    );
+  }
 
+
+  const destinationsJSX: JSX.Element[] = [];
+  for (const item of PAGE_DATA.destinations.list) {
+    destinationsJSX.push(
+      <div key={item.id} className="destinationItem">
+        <img src={item.src} alt={item.alt} width={140} height={140} />
+        <span>{item.title}</span>
+      </div>
+    );
+  }
+  const agenciesJSX: JSX.Element[] = [];
+  for (const item of PAGE_DATA.agencies.list) {
+    agenciesJSX.push(
+      <div key={item.id} className="MediaElement">
+        <img src={item.src} alt={item.alt} />
+        <p>{item.caption}</p>
+        <div className="Options2">
+          <Link href={item.internalLink}>
+            <p>{item.internalText}</p>
+          </Link>
+          <Link href={item.externalLink}>
+            <p>{item.externalText}</p>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -132,49 +339,7 @@ export default function Offers() {
             <h4>{PAGE_DATA.offersSection.header}</h4>
           </header>
 
-          <section className="tourList">
-            {PAGE_DATA.offersSection.tours.map((tour) => (
-              <article key={tour.id} className="tourCard">
-                <figure className="tourImageWrapper">
-                  <img
-                    src={tour.image}
-                    alt={tour.alt}
-                    width={800}
-                    height={500}
-                  />
-                </figure>
-                <div className="tourInfo">
-                  <h3>{tour.title}</h3>
-                  <p>
-                    <FontAwesomeIcon icon={faLocationDot} /> {tour.location}
-                  </p>
-                  <div className="tourDetails">
-                    <span>
-                      <FontAwesomeIcon icon={faCalendarDays} /> {tour.date}
-                    </span>
-                    <span>
-                      <FontAwesomeIcon icon={faClock} /> {tour.duration}
-                    </span>
-                    <span>
-                      <FontAwesomeIcon icon={faPlane} /> {tour.airline}
-                    </span>
-                  </div>
-                  <p className="tourDesc">{tour.description}</p>
-                  <footer className="tourFooter">
-                    <div className="tourPrice">
-                      <span>{tour.price}</span> تومان
-                    </div>
-                    <Link href="/tour/tourch">
-                      <button className="btnPrimary">مشاهده جزئیات</button>
-                    </Link>
-                  </footer>
-                </div>
-                <span className={`badge ${tour.badge.className}`}>
-                  {tour.badge.text}
-                </span>
-              </article>
-            ))}
-          </section>
+          <section className="tourList">{toursJSX}</section>
         </section>
 
         <div className="destinationsContainer">
@@ -182,38 +347,15 @@ export default function Offers() {
             <header className="destinationsHeader">
               <h5>{PAGE_DATA.destinations.header}</h5>
             </header>
-            <div className="destinationsList">
-              {PAGE_DATA.destinations.list.map((item, i) => (
-                <div key={i} className="destinationItem">
-                  <img src={item.src} alt={item.alt} width={140} height={140} />
-                  <span>{item.title}</span>
-                </div>
-              ))}
-            </div>
+            <div className="destinationsList">{destinationsJSX}</div>
           </section>
 
           <Description />
 
           <section className="ScrollCards">
             <h2 className="SectionTitle">{PAGE_DATA.agencies.title}</h2>
-            <div className="MediaScroller">
-              {PAGE_DATA.agencies.list.map((item, i) => (
-                <div key={i} className="MediaElement">
-                  <img src={item.src} alt={item.alt} />
-                  <p>{item.caption}</p>
-                  <div className="Options2">
-                    <Link href={item.internalLink}>
-                      <p>{item.internalText}</p>
-                    </Link>
-                    <Link href={item.externalLink}>
-                      <p>{item.externalText}</p>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <div className="MediaScroller">{agenciesJSX}</div>
           </section>
-
 
           <FAQSection
             faqData={PAGE_DATA.faq.list}

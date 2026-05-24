@@ -1,16 +1,12 @@
 "use client";
 import "./globals.css";
 import Link from "next/link";
-import { useState } from "react";
-// دیگر نیازی به FontAwesome برای بخش FAQ نیست چون داخل کامپوننت مدیریت می‌شود
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import Description from "../components/Description";
 import UsefulWays from "../components/UsefullWays";
 import Header from "../components/(Headers)/Header";
 import TravelCards from "../components/TravelCards";
 import Form2 from "../components/(Forms)/FormType2";
-import FAQSection from "../components/FAQSection"; // <-- اضافه کردن کامپوننت
+import FAQSection from "../components/FAQSection";
 
 const PAGE_DATA = {
   offerSection: {
@@ -22,27 +18,133 @@ const PAGE_DATA = {
   },
   destinationsSection: {
     header: "رزرو بلیط هواپیما داخلی و خارجی",
-    list: Array(8).fill({
-      id: 1,
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRhUzmDUifMVFfRLXXvOc-StXlMyz9cPstUQ&s",
-      alt: "کیش",
-      title: "بلیط هواپیما کیش",
-    }),
+    // list مستقیماً زیر destinationsSection قرار دارد (لایه اضافی حذف شد)
+    list: [
+      {
+        id: 1,
+        src: "https://www.eligasht.com/Blog/wp-content/uploads/2025/01/%D8%B3%D8%A7%D8%AD%D9%84-%D8%AF%D8%B1%D8%AE%D8%AA%D8%A7%D9%86-%D9%86%D8%A7%D8%B1%DA%AF%DB%8C%D9%84-%DA%A9%DB%8C%D8%B4.webp",
+        alt: "کیش",
+        title: "بلیط هواپیما کیش",
+      },
+      {
+        id: 2,
+        src: "https://www.eligasht.com/Blog/wp-content/uploads/2025/01/%D8%B3%D8%A7%D8%AD%D9%84-%D8%AF%D8%B1%D8%AE%D8%AA%D8%A7%D9%86-%D9%86%D8%A7%D8%B1%DA%AF%DB%8C%D9%84-%DA%A9%DB%8C%D8%B4.webp",
+        alt: "تهران",
+        title: "بلیط هواپیما تهران",
+      },
+      {
+        id: 3,
+        src: "https://www.eligasht.com/Blog/wp-content/uploads/2025/01/%D8%B3%D8%A7%D8%AD%D9%84-%D8%AF%D8%B1%D8%AE%D8%AA%D8%A7%D9%86-%D9%86%D8%A7%D8%B1%DA%AF%DB%8C%D9%84-%DA%A9%DB%8C%D8%B4.webp",
+        alt: "مشهد",
+        title: "بلیط هواپیما مشهد",
+      },
+      {
+        id: 4,
+        src: "https://www.eligasht.com/Blog/wp-content/uploads/2025/01/%D8%B3%D8%A7%D8%AD%D9%84-%D8%AF%D8%B1%D8%AE%D8%AA%D8%A7%D9%86-%D9%86%D8%A7%D8%B1%DA%AF%DB%8C%D9%84-%DA%A9%DB%8C%D8%B4.webp",
+        alt: "قشم",
+        title: "بلیط هواپیما قشم",
+      },
+      {
+        id: 5,
+        src: "https://www.eligasht.com/Blog/wp-content/uploads/2025/01/%D8%B3%D8%A7%D8%AD%D9%84-%D8%AF%D8%B1%D8%AE%D8%AA%D8%A7%D9%86-%D9%86%D8%A7%D8%B1%DA%AF%DB%8C%D9%84-%DA%A9%DB%8C%D8%B4.webp",
+        alt: "شیراز",
+        title: "بلیط هواپیما شیراز",
+      },
+      {
+        id: 6,
+        src: "https://www.eligasht.com/Blog/wp-content/uploads/2025/01/%D8%B3%D8%A7%D8%AD%D9%84-%D8%AF%D8%B1%D8%AE%D8%AA%D8%A7%D9%86-%D9%86%D8%A7%D8%B1%DA%AF%DB%8C%D9%84-%DA%A9%DB%8C%D8%B4.webp",
+        alt: "هنگام",
+        title: "بلیط هواپیما هنگام",
+      },
+      {
+        id: 7,
+        src: "https://www.eligasht.com/Blog/wp-content/uploads/2025/01/%D8%B3%D8%A7%D8%AD%D9%84-%D8%AF%D8%B1%D8%AE%D8%AA%D8%A7%D9%86-%D9%86%D8%A7%D8%B1%DA%AF%DB%8C%D9%84-%DA%A9%DB%8C%D8%B4.webp",
+        alt: "استانبول",
+        title: "بلیط هواپیما استانبول",
+      },
+      {
+        id: 8,
+        src: "https://www.eligasht.com/Blog/wp-content/uploads/2025/01/%D8%B3%D8%A7%D8%AD%D9%84-%D8%AF%D8%B1%D8%AE%D8%AA%D8%A7%D9%86-%D9%86%D8%A7%D8%B1%DA%AF%DB%8C%D9%84-%DA%A9%DB%8C%D8%B4.webp",
+        alt: "دبی",
+        title: "بلیط هواپیما دبی",
+      }
+    ]
   },
   airlinesSection: {
     title: "شرکت های هواپیمایی",
-    list: Array(7).fill({
-      id: 1,
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1A_ob-vY6riwaEzwfGcCSBh-CwiDYqE95uQ&s",
-      alt: "شرکت هواپیمائی ایران ایر",
-      name: "شرکت هواپیمائی ایران ایر",
-      internalLink: "#",
-      externalLink: "https://www.iranair.com/",
-      internalText: "دیدن پرواز های این شرکت",
-      externalText: "درباره ی این شرکت",
-    }),
+    list: [
+      {
+        id: 1,
+        src: "https://armcade.com/view/articleid/blogimage/portalid/0/w/900/h/901/url/articleimages/iranairlogo-0.jpg",
+        alt: "ایران ایر",
+        name: "ایران ایر (هما)",
+        internalLink: "#",
+        externalLink: "https://www.iranair.com/",
+        internalText: "دیدن پرواز های این شرکت",
+        externalText: "درباره ی این شرکت",
+      },
+      {
+        id: 2,
+        src: "https://armcade.com/view/articleid/blogimage/portalid/0/w/900/h/901/url/articleimages/iranairlogo-0.jpg",
+        alt: "ماهان",
+        name: "ماهان ایر",
+        internalLink: "#",
+        externalLink: "https://www.mahan.aero/",
+        internalText: "دیدن پرواز های این شرکت",
+        externalText: "درباره ی این شرکت",
+      },
+      {
+        id: 3,
+        src: "https://armcade.com/view/articleid/blogimage/portalid/0/w/900/h/901/url/articleimages/iranairlogo-0.jpg",
+        alt: "آسمان",
+        name: "آسمان ایر",
+        internalLink: "#",
+        externalLink: "https://www.iaa.ir/",
+        internalText: "دیدن پرواز های این شرکت",
+        externalText: "درباره ی این شرکت",
+      },
+      {
+        id: 4,
+        src: "https://armcade.com/view/articleid/blogimage/portalid/0/w/900/h/901/url/articleimages/iranairlogo-0.jpg",
+        alt: "کیش ایر",
+        name: "کیش ایر",
+        internalLink: "#",
+        externalLink: "https://www.kishairlines.com/",
+        internalText: "دیدن پرواز های این شرکت",
+        externalText: "درباره ی این شرکت",
+      },
+      {
+        id: 5,
+        src: "https://armcade.com/view/articleid/blogimage/portalid/0/w/900/h/901/url/articleimages/iranairlogo-0.jpg",
+        alt: "قشم ایر",
+        name: "قشم ایر",
+        internalLink: "#",
+        externalLink: "https://www.qeshm-air.ir/",
+        internalText: "دیدن پرواز های این شرکت",
+        externalText: "درباره ی این شرکت",
+      },
+      {
+        id: 6,
+        src: "https://armcade.com/view/articleid/blogimage/portalid/0/w/900/h/901/url/articleimages/iranairlogo-0.jpg",
+        alt: "زاگرس",
+        name: "زاگرس ایر",
+        internalLink: "#",
+        externalLink: "https://www.zagrosairlines.com/",
+        internalText: "دیدن پرواز های این شرکت",
+        externalText: "درباره ی این شرکت",
+      },
+      {
+        id: 7,
+        src: "https://armcade.com/view/articleid/blogimage/portalid/0/w/900/h/901/url/articleimages/iranairlogo-0.jpg",
+        alt: "آتا",
+        name: "آتا ایر",
+        internalLink: "#",
+        externalLink: "https://www.ataair.ir/",
+        internalText: "دیدن پرواز های این شرکت",
+        externalText: "درباره ی این شرکت",
+      },
+    ],
   },
-  // ✅ بخش FAQ اصلاح شد
   faqSection: {
     title: "سوالات متداول",
     list: [
@@ -106,17 +208,16 @@ const Page = () => {
                 <h5>{PAGE_DATA.destinationsSection.header}</h5>
               </header>
               <div className="destinationsList">
-                {PAGE_DATA.destinationsSection.list.map((item, i) => (
-                  <div key={i} className="destinationItem">
-                    <img
-                      src={item.src}
-                      alt={item.alt}
-                      width={140}
-                      height={140}
-                    />
-                    <span>{item.title}</span>
-                  </div>
-                ))}
+                {PAGE_DATA.destinationsSection.list && PAGE_DATA.destinationsSection.list.length > 0 ? (
+                  PAGE_DATA.destinationsSection.list.map((item, i) => (
+                    <div key={item.id || i} className="destinationItem">
+                      <img src={item.src} alt={item.alt} width={140} height={140} />
+                      <span>{item.title}</span>
+                    </div>
+                  ))
+                ) : (
+                  <p>هیچ مقصدی یافت نشد</p>
+                )}
               </div>
             </section>
           </div>

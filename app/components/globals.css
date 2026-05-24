@@ -570,8 +570,11 @@ footer {
 }
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Forms !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* ========== استایل پایه و مشترک برای فرم‌های جستجو ========== */
+.List,
 .List2,
-.List3 {
+.List3,
+.List4 {
   background-color: var(--bgWhite);
   border-radius: 12px;
   box-shadow: var(--boxShadow);
@@ -580,6 +583,7 @@ footer {
   height: auto;
   position: relative;
   margin-bottom: 30px;
+
   .Form {
     display: grid;
     padding: 24px;
@@ -590,6 +594,7 @@ footer {
       font-size: var(--fontSize);
       color: var(--goldText);
       gap: 16px;
+
       input[type="radio"] {
         appearance: none;
         width: 16px;
@@ -600,167 +605,52 @@ footer {
         transition: 0.2s;
         width: 15px;
         margin: 5px 0 0 -10px;
+
         &:hover {
           border-color: #000;
           background-color: #e6b8005e;
           transition: 0.5s;
         }
+
         &:checked {
           background-color: var(--gold);
           border: 2px solid #555;
           transition: 0.8s;
         }
       }
-      #tripTypeWrapper {
-        opacity: 0;
-        max-height: 0;
-        overflow: hidden;
-        display: none;
-        transition: all 0.5s ease;
-        display: flex;
-        font-size: var(--fontSize);
-        color: var(--goldText);
-        gap: 16px;
-      }
 
-      #tripTypeWrapper.show {
-        display: flex;
-        opacity: 1;
-        max-height: 50px;
+      .directionContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        align-items: center;
+        animation: fadeInSlideUp 0.4s ease-out;
+
       }
     }
-    .Bottom {
-      display: flex;
-      font-size: var(--fontSize);
-      justify-content: space-between;
-      .LocationPicker {
-        max-width: 375px;
-        align-items: center;
-        height: 50px;
-        display: flex;
-        select {
-          background-color: var(--grayBg);
-          height: 100%;
-          width: 180px;
-          border: none;
-          border-radius: 8px;
-          font-size: 15px;
-          font-weight: bold;
-          padding: 0 10px;
-          color: var(--textGray);
-          font-family: var(--Font);
-          cursor: pointer;
-          &:focus {
-            outline: none;
-            background-color: var(--grayBgHover);
-            box-shadow: 0 0 10px var(--grayBgHover);
-            color: var(--textDark);
-            cursor: pointer;
-          }
-          &:hover {
-            background-color: var(--grayBgHover);
-            box-shadow: 0 0 10px var(--grayBgHover);
-          }
-        }
-      }
-      .DatePicker {
-        width: 376px;
-        align-items: center;
-        height: 50px;
-        display: flex;
-        select {
-          background-color: var(--grayBg);
-          height: 100%;
-          width: 188px;
-          border: none;
-          border-radius: 8px 0 0 8px;
-          font-size: 15px;
-          padding: 0 10px;
-          color: var(--textGray);
-          font-weight: bold;
-          font-family: var(--Font);
-          cursor: pointer;
-          &:focus {
-            outline: none;
-            background-color: var(--grayBgHover);
-            box-shadow: 0 0 10px var(--grayBgHover);
-            color: var(--textDark);
-            cursor: pointer;
-          }
-          &:hover {
-            background-color: var(--grayBgHover);
-            box-shadow: 0 0 10px var(--grayBgHover);
-          }
-          &:first-child {
-            border-radius: 0 8px 8px 0;
-          }
-        }
-      }
-      .PaxPicker {
-        width: 188px;
-        align-items: center;
-        height: 50px;
-        display: flex;
-        select {
-          background-color: var(--grayBg);
-          height: 100%;
-          width: 180px;
-          border: none;
-          border-radius: 8px;
-          font-size: 15px;
-          padding: 0 10px;
-          color: var(--textGray);
-          cursor: pointer;
-          font-weight: bold;
-          font-family: var(--Font);
-          &:focus {
-            outline: none;
-            background-color: var(--grayBgHover);
-            box-shadow: 0 0 10px var(--grayBgHover);
-            color: var(--textDark);
-            cursor: pointer;
-          }
-          &:hover {
-            background-color: var(--grayBgHover);
-            box-shadow: 0 0 10px var(--grayBgHover);
-          }
-        }
-      }
-      .Submit {
-        width: auto;
-        align-items: center;
-        height: auto;
-        display: flex;
-        button {
-          width: 188px;
-          height: 50px;
-          border: none;
-          background-color: var(--gold);
-          border-radius: 8px;
-          font-size: 18px;
-          font-family: var(--Font);
-          &:hover {
-            background-color: var(--goldDark);
-            box-shadow: 0 0 10px var(--gold);
-          }
-        }
-      }
-    }
+
     .BottomHotel {
       display: flex;
       font-size: var(--fontSize);
       justify-content: space-between;
       width: 100%;
       gap: 15px;
-      .LocationPicker {
-        width: 100%;
-        align-items: center;
-        height: 100%;
-        display: flex;
+      flex-wrap: wrap;
+
+      .LocationPicker,
+      .DatePicker,
+      .PaxPicker,
+      .Guests,
+      .Submit {
+        flex: 1;
+        min-width: 180px;
         position: relative;
-        input[type="Text"] {
+      }
+
+      .LocationPicker {
+        input[type="text"] {
           background-color: var(--grayBg);
-          height: 100%;
+          height: 50px;
           width: 100%;
           border: none;
           border-radius: 8px;
@@ -769,6 +659,7 @@ footer {
           color: var(--textGray);
           font-family: var(--Font);
           cursor: pointer;
+
           &:focus {
             outline: none;
             background-color: var(--grayBgHover);
@@ -776,23 +667,23 @@ footer {
             color: var(--textDark);
             cursor: text;
           }
+
           &:hover {
             background-color: var(--grayBgHover);
             box-shadow: 0 0 10px var(--grayBgHover);
           }
         }
       }
+
       .DatePicker {
-        align-items: center;
-        height: 50px;
         display: flex;
         gap: 5px;
-        width: 100%;
-        position: relative;
-        input[type="Text"] {
+        align-items: center;
+
+        input[type="text"] {
           background-color: var(--grayBg);
-          height: 100%;
-          width: 70%;
+          height: 50px;
+          width: 100%;
           border: none;
           border-radius: 8px;
           font-size: 18px;
@@ -800,6 +691,7 @@ footer {
           color: var(--textGray);
           font-family: var(--Font);
           cursor: pointer;
+
           &:focus {
             outline: none;
             background-color: var(--grayBgHover);
@@ -807,6 +699,7 @@ footer {
             color: var(--textDark);
             cursor: text;
           }
+
           &:hover {
             background-color: var(--grayBgHover);
             box-shadow: 0 0 10px var(--grayBgHover);
@@ -815,12 +708,8 @@ footer {
       }
 
       .Submit {
-        width: auto;
-        align-items: center;
-        height: auto;
-        display: flex;
         button {
-          width: 188px;
+          width: 100%;
           height: 50px;
           border: none;
           background-color: var(--gold);
@@ -828,22 +717,20 @@ footer {
           cursor: pointer;
           font-size: 18px;
           font-family: var(--Font);
+
           &:hover {
             background-color: var(--goldDark);
             box-shadow: 0 0 10px var(--gold);
           }
         }
       }
-      .Guests {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        display: flex;
-        align-items: center;
 
-        button {
+      .Guests {
+        position: relative;
+
+        > button {
           background-color: var(--grayBg);
-          height: 100%;
+          height: 50px;
           width: 100%;
           border: none;
           border-radius: 8px;
@@ -852,6 +739,10 @@ footer {
           color: var(--textDark);
           font-family: var(--Font);
           cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          justify-content: center;
 
           &:hover {
             background-color: var(--grayBgHover);
@@ -859,6 +750,7 @@ footer {
           }
         }
 
+        /* دراپ‌داون انتخاب مسافران و اتاق */
         .GuestDropdown {
           position: absolute;
           top: 60px;
@@ -870,14 +762,20 @@ footer {
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
           z-index: 10;
           transition: 0.3s;
+
           .row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
+
             .Namee {
               width: 70%;
+              display: flex;
+              align-items: center;
+              gap: 8px;
             }
+
             span {
               font-size: 16px;
             }
@@ -896,96 +794,537 @@ footer {
               }
             }
           }
+
           .AdultAndChildCount {
             width: 50%;
             display: flex;
             justify-content: space-between;
             align-items: center;
           }
-          .GuestError {
-            color: red;
-            font-size: 13px;
-            margin-top: 5px;
-            display: none;
+
+          /* بخش اتاق و تخت (ویژه هتل) */
+          .RoomSelector {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid #ddd;
+
+            .roomHeader {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 10px;
+              font-size: 14px;
+              font-weight: bold;
+              color: var(--textDark);
+            }
+
+            .roomCounter {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+
+              button {
+                width: 28px;
+                height: 28px;
+                background-color: var(--gold);
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
+                &:disabled {
+                  opacity: 0.5;
+                  cursor: not-allowed;
+                }
+              }
+            }
+
+            .bedSummary {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              background-color: var(--grayBg);
+              padding: 8px 12px;
+              border-radius: 30px;
+              font-size: 13px;
+              color: var(--textDark);
+
+              span {
+                flex: 1;
+              }
+
+              .editBtn {
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: var(--gold);
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                  background-color: var(--grayBgHover);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      /* برای فرم تور، دکمه مدت اقامت داخل PaxPicker */
+      .PaxPicker {
+        > div {
+          background-color: var(--grayBg);
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 15px;
+          border-radius: 8px;
+          font-size: 18px;
+
+          button {
+            background: var(--gold);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            &:hover {
+              background: var(--goldDark);
+            }
+            &:disabled {
+              opacity: 0.5;
+              cursor: not-allowed;
+            }
+          }
+        }
+
+        > button {
+          background-color: var(--grayBg);
+          height: 50px;
+          width: 100%;
+          border: none;
+          border-radius: 8px;
+          font-size: 18px;
+          padding: 0 10px;
+          color: var(--textDark);
+          font-family: var(--Font);
+          cursor: pointer;
+          &:hover {
+            background-color: var(--grayBgHover);
+            box-shadow: 0 0 10px var(--grayBgHover);
           }
         }
       }
     }
   }
 }
-.List2 {
-  background-color: var(--bgWhite);
-  border-radius: 0;
-  box-shadow: var(--boxShadow);
-  width: 100%;
-  height: auto;
+
+/* ========== استایل‌های سراسری برای دراپ‌داون مقصد، تقویم، مودال و خطاها ========== */
+.inputWithIcon {
   position: relative;
-  margin-top: 0;
-  box-shadow: none;
-  font-family: var(--Font);
-  .Form {
-    width: 1200px;
-    justify-self: center;
-    gap: 5px;
-    padding: 10px 24px;
+  width: 100%;
+
+  .inputIcon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--textGray);
+    pointer-events: none;
+  }
+
+  .clearIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--textGray);
+
+    &:hover {
+      color: #e53935;
+    }
   }
 }
-.List3 {
+
+.destinationDropdown {
+  position: absolute;
+  top: 55px;
+  right: 0;
   width: 100%;
-  padding: 0 345px;
-  .AirportChooser {
+  background: var(--bgWhite);
+  border-radius: 12px;
+  box-shadow: var(--boxShadow);
+  z-index: 20;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 8px 0;
+
+  .dropdownSection {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+
+    .sectionTitle {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--gold);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        padding: 8px 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: var(--textDark);
+        transition: 0.2s;
+
+        &:hover {
+          background-color: var(--grayBgHover);
+          border-radius: 8px;
+        }
+      }
+
+      .noResult {
+        color: var(--textGray);
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.calendarPopup {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background: var(--bgWhite);
+  border-radius: 16px;
+  box-shadow: var(--boxShadow);
+  z-index: 30;
+  width: 280px;
+  padding: 12px;
+  direction: rtl;
+
+  .calendarHeader {
     display: flex;
-    gap: 20px;
-    width: 100%;
-    margin-left: 20px;
-  }
-  select {
-    background-color: var(--grayBg);
-    height: 100%;
-    width: 100%;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 10px;
-    color: var(--textGray);
-    font-family: var(--Font);
-    cursor: pointer;
-    &:focus {
-      outline: none;
-      background-color: var(--grayBgHover);
-      box-shadow: 0 0 10px var(--grayBgHover);
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .calendarTitle {
+      font-weight: bold;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 20px;
+      transition: 0.2s;
       color: var(--textDark);
-      cursor: text;
+
+      &:hover {
+        background-color: var(--grayBgHover);
+      }
     }
-    &:hover {
-      background-color: var(--grayBgHover);
-      box-shadow: 0 0 10px var(--grayBgHover);
+
+    .calendarNavBtn {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+
+      &:hover {
+        background-color: var(--grayBgHover);
+      }
     }
   }
-  input[type="Search"] {
-    background-color: var(--grayBg);
-    height: 100%;
-    width: 100%;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
+
+  .calendarWeekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 12px;
     font-weight: bold;
-    padding: 0 10px;
-    color: var(--textGray);
-    font-family: var(--Font);
-    cursor: pointer;
-    &:focus {
-      outline: none;
-      background-color: var(--grayBgHover);
-      box-shadow: 0 0 10px var(--grayBgHover);
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .calendarDays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+
+    .calendarDay {
+      text-align: center;
+      padding: 8px 0;
+      cursor: pointer;
+      border-radius: 30px;
+      font-size: 13px;
+      transition: 0.2s;
+
+      &:hover:not(.empty) {
+        background-color: var(--grayBgHover);
+      }
+
+      &.today {
+        background-color: var(--gold);
+        color: white;
+      }
+
+      &.selected {
+        background-color: var(--goldDark);
+        color: white;
+      }
+
+      &.in-range,
+      &.hover-range {
+        background-color: rgba(230, 184, 0, 0.2);
+        border-radius: 0;
+      }
+
+      &.empty {
+        cursor: default;
+        background: transparent;
+      }
+    }
+  }
+
+  .monthsGrid,
+  .yearsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 8px;
+
+    .monthItem,
+    .yearItem {
+      text-align: center;
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 30px;
+      transition: 0.2s;
+      font-size: 14px;
+
+      &:hover {
+        background-color: var(--grayBgHover);
+      }
+
+      &.selected {
+        background-color: var(--gold);
+        color: white;
+      }
+    }
+  }
+
+  .calendarFooter {
+    text-align: center;
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+
+    .btnClose {
+      background: none;
+      border: none;
+      color: var(--gold);
+      cursor: pointer;
+      font-size: 13px;
+    }
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  .modalContent {
+    background: var(--bgWhite);
+    border-radius: 20px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--boxShadow);
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
       color: var(--textDark);
-      cursor: text;
     }
-    &:hover {
-      background-color: var(--grayBgHover);
-      box-shadow: 0 0 10px var(--grayBgHover);
+
+    p {
+      color: var(--textGray);
+      margin-bottom: 20px;
+      font-size: 14px;
     }
+
+    .roomEditorRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+
+      .bedCounter {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        button {
+          width: 30px;
+          height: 30px;
+          background-color: var(--gold);
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+
+          &:disabled {
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+
+    .modalActions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+
+      .saveBtn {
+        background-color: var(--gold);
+        border: none;
+        padding: 8px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .cancelBtn {
+        background-color: var(--grayBg);
+        border: none;
+        padding: 8px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+/* استایل خطاها و انیمیشن */
+.error {
+  border: 1px solid #e53935 !important;
+  background-color: #fff5f5 !important;
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.errorMsg {
+  font-size: 11px;
+  color: #e53935;
+  margin-top: 4px;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+  .List2,
+  .List3,
+  .List4 {
+    width: 100%;
+    margin: 0 10px 20px 10px;
+  }
+  .Form .BottomHotel {
+    flex-direction: column;
+  }
+  .calendarPopup {
+    position: fixed;
+    top: auto;
+    left: 5%;
+    right: 5%;
+    width: 90%;
+  }
+  .destinationDropdown {
+    max-height: 250px;
+  }
+  .modalContent {
+    width: 95%;
+    padding: 16px;
+  }
+}
+
+/* تنظیمات اضافی برای فرم پرواز (اگر از کلاس Bottom قدیمی استفاده شد) */
+.Bottom {
+  display: flex;
+  font-size: var(--fontSize);
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+
+  .LocationPicker,
+  .DatePicker,
+  .PaxPicker,
+  .Submit {
+    flex: 1;
   }
 }
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Description !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -1459,7 +1798,7 @@ footer {
 .radioLabel {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   font-size: var(--fontSize);
   color: var(--textDark);
   cursor: pointer;
@@ -1616,6 +1955,7 @@ footer {
 .dateInputWrapper {
   display: flex;
   padding: 0 0px;
+  gap: 5px;
   input {
     background-color: var(--grayBg);
     height: 48px;

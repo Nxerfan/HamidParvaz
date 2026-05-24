@@ -17,29 +17,34 @@
       display: grid;
       box-shadow: var(--boxShadow);
       padding: 8px 8px 0;
-
-      height: 100px;
+      height: 120px;
       border-radius: 12px;
-      justify-content: space-between;
+      gap: 0;
       .Title {
         font-size: 14px;
         color: var(--textDark);
       }
       .Price {
         display: flex;
-        gap: 20px;
         scroll-behavior: smooth;
         position: relative;
-        anchor-name: --Price;
+        gap: 10px;
         scroll-snap-type: x mandatory;
         margin: 0 45px;
         overflow-x: auto;
+        overflow-y: hidden;
+        height: fit-content;
+        padding-bottom: 12px;
         .Cards {
           display: grid;
-          justify-content: space-between;
-          scroll-snap-align: start;
-          flex: 0 0 88px;
-          text-align: Right;
+          grid-template-columns: 1fr;
+          flex: 0 0 120px;
+          text-align: center;
+          transition: 0.3s;
+          border-radius: 12px;
+          padding: 0 8px;
+          background: var(--bgLight);
+          cursor: pointer;
           span {
             font-size: 12px;
             color: var(--textGray);
@@ -48,6 +53,9 @@
             font-size: 14.5px;
             font-weight: bold;
             color: var(--textDark);
+          }
+          &:hover {
+            background-color: var(--grayBgHover);
           }
         }
       }
@@ -80,13 +88,11 @@
           width: 70%;
           display: flex;
           flex-direction: column;
-          gap: 15px;
-
+          justify-content: space-between;
           .About {
             display: flex;
             align-items: center;
-            gap: 30px;
-
+            justify-content: space-around;
             .Icon {
               display: flex;
               flex-direction: column;
@@ -110,6 +116,8 @@
 
               .Form {
                 text-align: center;
+                padding: 0;
+                gap: 0;
                 span {
                   font-size: 24px;
                   font-weight: bold;
@@ -187,11 +195,12 @@
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          height: fit-content;
 
           .Top {
             justify-content: end;
             box-shadow: none;
-            height: 100%;
+            height: fit-content;
             i {
               color: var(--gold);
               font-size: 21px;
@@ -271,6 +280,9 @@
                 display: flex;
                 gap: 40px;
                 .right {
+                  background: none;
+                  box-shadow: none;
+                  width: fit-content;
                   p {
                     font-size: 14px;
                     font-weight: bold;
@@ -346,316 +358,7 @@
           }
         }
       }
-
-      .CardsOfline {
-        background-color: #e0e7ed;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        padding: 12px;
-        border-radius: 12px;
-        box-shadow: var(--boxShadow);
-      }
     }
-
-    .MediaElementHotel {
-      display: flex;
-      gap: 15px;
-      background: var(--bgWhite);
-      border-radius: 12px;
-      text-align: right;
-      cursor: pointer;
-      p {
-        font-weight: bold;
-        color: var(--textDark);
-      }
-      img {
-        width: 240px;
-        height: 100%;
-        object-fit: cover;
-        background: var(--gold);
-        border-radius: 0 12px 12px 0;
-      }
-      .Down {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: calc(75% - 25%);
-        padding: 10px;
-
-        .rating {
-          display: grid;
-          gap: 10px;
-          padding-right: 10px;
-          padding-bottom: 15px;
-          .Stars {
-            display: flex;
-
-            i {
-              padding: 0 3px;
-              display: flex;
-              width: auto;
-              font-size: 14px;
-              color: var(--gold);
-            }
-            span {
-              font-size: 14px;
-              font-weight: bold;
-              margin-left: 15px;
-              color: var(--textDark);
-            }
-            p {
-              font-size: 12px;
-              font-weight: bold;
-              margin-left: 5px;
-              color: var(--textGray);
-              display: flex;
-              i {
-                padding: 0;
-              }
-            }
-          }
-          .AdditionalOptions {
-            display: flex;
-            gap: 5px;
-            span {
-              font-size: 12px;
-              padding: 2px 5px;
-              background-color: var(--grayBgHover);
-              border-radius: 8px;
-            }
-          }
-          .SmilyFace {
-            display: flex;
-            p {
-              font-size: 12px;
-              color: var(--textGray);
-              i {
-                font-size: 16px;
-              }
-            }
-          }
-        }
-      }
-      .price {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 10px;
-        align-items: center;
-        width: 25%;
-        cursor: default;
-        border-right: var(--borderLight);
-
-        .titel {
-          p {
-            font-size: 12px;
-            color: var(--textGray);
-          }
-        }
-        .Choose {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          p {
-            display: flex;
-            gap: 5px;
-            font-size: 12px;
-            color: var(--textGray);
-            text-align: center;
-            align-items: center;
-            justify-content: center;
-            span {
-              color: var(--goldText);
-              font-size: 20px;
-            }
-          }
-          button {
-            background: var(--gold);
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            width: 100%;
-            font-weight: bold;
-            font-family: var(--Font);
-            cursor: pointer;
-            transition: 0.3s;
-            &:hover {
-              background: var(--goldDark);
-            }
-          }
-        }
-      }
-    }
-      .SortBar {
-    background: var(--bgWhite);
-    padding: 15px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
-
-    .SortLabel {
-      font-size: 14px;
-      color: var(--textGray);
-    }
-  }
-
-  .TourCard {
-    background: var(--bgWhite);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    display: flex;
-    position: relative;
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: translateY(-3px);
-    }
-
-    .TourImage {
-      width: 320px;
-      min-height: 220px;
-      position: relative;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .Badge {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: var(--red);
-        color: #fff;
-        padding: 4px 10px;
-        border-radius: 4px;
-        font-size: 12px;
-        font-weight: bold;
-        &.Special {
-          background: var(--gold);
-        }
-      }
-    }
-
-    .TourContent {
-      padding: 20px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      .TourHeader {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 15px;
-
-        .TourTitle {
-          font-size: 20px;
-          font-weight: bold;
-          color: var(--textDark);
-          margin: 0 0 5px 0;
-        }
-
-        .TourAgency {
-          font-size: 13px;
-          color: var(--textGray);
-          display: flex;
-          align-items: center;
-          gap: 5px;
-        }
-      }
-
-      .TourMeta {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
-        padding: 15px 0;
-        border-top: 1px solid var(--borderLight);
-        border-bottom: 1px solid var(--borderLight);
-
-        .MetaItem {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 13px;
-          color: var(--textDark);
-
-          i {
-            color: var(--gold);
-            width: 20px;
-            text-align: center;
-          }
-        }
-      }
-
-      .TourFooter {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        margin-top: 15px;
-
-        .Capacity {
-          font-size: 13px;
-          color: var(--textGray);
-          background: var(--grayBg);
-          padding: 5px 10px;
-          border-radius: 6px;
-
-          span {
-            color: var(--red);
-            font-weight: bold;
-          }
-        }
-
-        .PriceBox {
-          text-align: left;
-
-          .PriceLabel {
-            font-size: 12px;
-            color: var(--textGray);
-            text-decoration: line-through;
-          }
-
-          .PriceValue {
-            font-size: 22px;
-            font-weight: bold;
-            color: var(--goldDark);
-            display: block;
-
-            .Currency {
-              font-size: 14px;
-            }
-          }
-        }
-
-        .BtnBook {
-          background: var(--gold);
-          color: var(--textDark);
-          border: none;
-          padding: 10px 25px;
-          border-radius: 8px;
-          font-size: 14px;
-          font-weight: bold;
-          cursor: pointer;
-          margin-right: 15px;
-          font-family: inherit;
-          transition: background 0.3s;
-
-          &:hover {
-            background: var(--goldDark);
-          }
-        }
-      }
-    }
-  }
-}
   }
   .Right {
     position: -webkit-sticky;
@@ -665,6 +368,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    /* ... other nested rules ... */
     .Title {
       display: flex;
       flex-direction: column;
@@ -678,102 +382,12 @@
       overflow: hidden;
       position: relative;
       justify-content: center;
-
-      img {
-        width: 100%;
-        max-height: 80px;
-      }
-      .cover {
-        object-fit: cover;
-      }
       span {
         color: var(--goldText);
         font-size: var(--fontSize);
         font-weight: bold;
         cursor: pointer;
         padding: 10px;
-      }
-      a {
-        text-decoration: none;
-        padding: 10px;
-
-        span {
-          color: var(--goldText);
-          font-size: var(--fontSize);
-          font-weight: bold;
-          cursor: pointer;
-        }
-      }
-
-      &:first-child {
-        padding: 16px;
-        background-color: var(--bgWhite);
-        border-radius: 12px;
-        box-shadow: var(--boxShadow);
-        align-items: center;
-        overflow: hidden;
-        position: relative;
-      }
-      .ExperienceTrigger {
-        padding: 8px 14px;
-        border-radius: 12px;
-        text-decoration: none !important;
-        display: block;
-        z-index: 10;
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-        .ContentWrapper {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          &:hover {
-            .IconBadge {
-              animation: pulse 1.5s infinite;
-            }
-          }
-
-          .IconBadge {
-            i {
-              color: var(--textDark);
-              opacity: 1;
-            }
-          }
-
-          .TextBlock {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 5px;
-            .TitleText {
-              font-size: 12px;
-              font-weight: 800;
-              color: #333;
-              line-height: 1.2;
-              padding: 0;
-            }
-
-            .DescText {
-              font-size: 10px;
-              color: #888;
-              padding: 0;
-            }
-          }
-        }
-      }
-
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7);
-        }
-        70% {
-          transform: scale(1.1);
-          box-shadow: 0 0 0 6px rgba(197, 160, 89, 0);
-        }
-        100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
-        }
       }
     }
     .NotifMe {
@@ -838,70 +452,6 @@
         }
       }
     }
-    .Avable {
-      display: flex;
-      width: 100%;
-      background-color: var(--bgWhite);
-      height: max-content;
-      padding: 12px 16px;
-      border-radius: 12px;
-      box-shadow: var(--boxShadow);
-      align-items: center;
-      gap: 10px;
-      span {
-        color: var(--goldDark);
-        font-size: 14px;
-        font-weight: bold;
-        width: 100%;
-      }
-      form {
-        position: relative;
-        width: 65px;
-        height: 25px;
-
-        input[type="checkbox"] {
-          position: absolute;
-          width: 45px;
-          height: 25px;
-          opacity: 0;
-          z-index: 2;
-          cursor: pointer;
-
-          &:checked + label {
-            background-color: var(--gold);
-          }
-          &:hover + label {
-            background-color: var(--gold);
-          }
-
-          &:checked + label::after {
-            transform: translateX(22px);
-          }
-        }
-
-        label {
-          position: absolute;
-          inset: 0;
-          border-radius: 12px;
-          background: #ffcb1154;
-          cursor: pointer;
-          transition: all 0.3s ease;
-
-          &::after {
-            content: "";
-            position: absolute;
-            top: 2px;
-            left: 3px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #fff;
-            transition: all 0.3s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-          }
-        }
-      }
-    }
     .Sort {
       display: grid;
       width: 100%;
@@ -957,7 +507,6 @@
         margin-bottom: 15px;
         font-weight: bold;
       }
-
       .filterContentArea {
         .resultsCount {
           display: block;
@@ -965,7 +514,6 @@
           color: #757575;
           margin-bottom: 15px;
         }
-
         .filterDropdown {
           padding: 0;
           .dropdownTrigger {
@@ -981,23 +529,18 @@
             i {
               transition: 0.3s;
             }
-
-            &.active {
-              i {
-                transform: rotate(180deg);
-              }
+            &.active i {
+              transform: rotate(180deg);
             }
           }
           .dropdownPanel {
             max-height: 0;
             overflow: hidden;
             transition: 0.3s ease-in-out;
-
             &.open {
               max-height: 1000px;
               padding: 10px 0;
             }
-
             .priceSliderBox {
               padding-top: 10px;
               .priceLabels {
@@ -1006,23 +549,19 @@
                 align-items: center;
                 font-size: 12px;
                 margin-bottom: 25px;
-
                 .labelGroup {
                   display: flex;
                   align-items: center;
                   gap: 4px;
                 }
-
                 .labelSeparator {
                   color: #ddd;
                 }
               }
-
               .rangeSliderContainer {
                 position: relative;
                 width: 100%;
                 height: 5px;
-
                 .sliderTrack {
                   position: absolute;
                   width: 100%;
@@ -1030,16 +569,15 @@
                   background: #ddd;
                   border-radius: 5px;
                 }
-
                 .sliderProgress {
                   position: absolute;
                   height: 5px;
                   background: #ffcb11;
                   border-radius: 5px;
                 }
-
                 .rangeInputs {
                   position: relative;
+                  direction: ltr;
 
                   input {
                     position: absolute;
@@ -1051,7 +589,6 @@
                     pointer-events: none;
                     -webkit-appearance: none;
                     -moz-appearance: none;
-
                     &[type="range"] {
                       &::-webkit-slider-thumb {
                         height: 18px;
@@ -1067,7 +604,6 @@
                         position: relative;
                         z-index: 2;
                       }
-
                       &::-moz-range-thumb {
                         height: 16px;
                         width: 16px;
@@ -1089,56 +625,317 @@
       }
     }
   }
-  .sidebarFilters
-    .filterContentArea
-    .filterDropdown
-    .dropdownPanel
-    .checkboxGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 10px 5px;
+}
+.sidebarFilters
+  .filterContentArea
+  .filterDropdown
+  .dropdownPanel
+  .checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 5px;
+}
+.sidebarFilters
+  .filterContentArea
+  .filterDropdown
+  .dropdownPanel
+  .checkboxGroup
+  .checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #333;
+}
+.sidebarFilters
+  .filterContentArea
+  .filterDropdown
+  .dropdownPanel
+  .checkboxGroup
+  .checkboxItem
+  input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+  accent-color: var(--gold);
+}
+.sidebarFilters .filterContentArea .filterDropdown {
+  border-bottom: 1px solid #f9f9f9;
+}
+.sidebarFilters .filterContentArea .filterDropdown:last-child {
+  border-bottom: none;
+}
+.sidebarFilters
+  .filterContentArea
+  .filterDropdown
+  .dropdownPanel#airlineContent.open {
+  max-height: 500px;
+  overflow-y: auto;
+}
+.GetLater {
+  width: 100%;
+  height: fit-content;
+  background-color: var(--goldDark);
+  padding: 15px 25px;
+  border-radius: 12px;
+  box-shadow: var(--boxShadow);
+  i {
+    opacity: 1;
   }
-
-  .sidebarFilters
-    .filterContentArea
-    .filterDropdown
-    .dropdownPanel
-    .checkboxGroup
-    .checkboxItem {
+  .Titel {
+    width: 100%;
+    height: fit-content;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    font-size: 13px;
-    color: #333;
+    .About {
+      width: fit-content;
+      height: 100%;
+      display: flex;
+      gap: 12px;
+      p {
+        font-size: 17px;
+        font-weight: bold;
+        span {
+          font-size: 12px;
+          font-weight: normal;
+        }
+        &:last-of-type {
+          font-size: 15px;
+          font-weight: normal;
+        }
+      }
+    }
+    .Button {
+      Button {
+        width: 200px;
+        text-align: center;
+        padding: 15px;
+        background: var(--gold);
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        color: var(--textDark);
+        font-family: var(--Font);
+        transition: 0.3s;
+        &:hover {
+          background: var(--grayBgHover);
+        }
+      }
+    }
   }
-
-  .sidebarFilters
-    .filterContentArea
-    .filterDropdown
-    .dropdownPanel
-    .checkboxGroup
-    .checkboxItem
-    input[type="checkbox"] {
-    width: 17px;
-    height: 17px;
-    cursor: pointer;
-    accent-color: var(--gold);
+}
+.popup {
+  .popupContent {
+    display: grid;
+    gap: 12px;
+    background-color: var(--bgLight);
+    padding: 62px 15px 98px;
+    width: 500px;
+    border-radius: 8px;
+    position: relative;
+    .Titel {
+      background-color: var(--bgWhite);
+      position: absolute;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-radius: 12px 12px 0 0;
+      .Empty {
+        width: 13px;
+      }
+      .Content {
+        p {
+          margin: 5px 0;
+        }
+        text-align: center;
+        align-items: center;
+      }
+      .Close {
+        width: 13px;
+      }
+      p {
+        font-size: 14px;
+        font-weight: bold;
+      }
+      span {
+        height: 0px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+    .Flight {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      background-color: var(--bgWhite);
+      padding: 12px;
+      border-radius: 12px;
+      p {
+        font-size: 14px;
+        font-weight: 100;
+        &:last-of-type {
+          font-weight: 600;
+        }
+      }
+    }
+    .AboutIt {
+      display: grid;
+      width: 100%;
+      gap: 12px;
+      background-color: var(--bgWhite);
+      padding: 12px;
+      border-radius: 12px;
+      p {
+        justify-self: center;
+        font-size: 14px;
+        font-weight: bold;
+        &:last-of-type {
+          font-size: 12px;
+          font-weight: 100;
+        }
+      }
+      i {
+        opacity: 1;
+      }
+      .SeeMore {
+        width: 100%;
+        position: relative;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        align-content: center;
+        .ContentIn {
+          width: 425px;
+          display: flex;
+          justify-content: space-between;
+          justify-self: start;
+          .R {
+            display: flex;
+            gap: 12px;
+            height: 100%;
+            p {
+              font-size: 12px;
+            }
+            svg {
+              height: 100%;
+            }
+          }
+        }
+        .MoreDetails {
+          display: none;
+        }
+        &.active {
+          .MoreDetails {
+            font-size: 12px;
+            display: grid;
+            padding: 0 20px 0 0;
+            display: block;
+          }
+        }
+      }
+    }
   }
-
-  .sidebarFilters .filterContentArea .filterDropdown {
-    border-bottom: 1px solid #f9f9f9;
+  .Chance {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: var(--bgWhite);
+    padding: 12px;
+    border-radius: 12px;
+    .smartIndicator {
+      width: 100%;
+      direction: ltr;
+      .bar {
+        position: relative;
+        height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(to right, #c62828, #fbc02d, #2e7d32);
+        overflow: hidden;
+      }
+      .pointer {
+        position: absolute;
+        top: -10px;
+        width: 4px;
+        height: 60px;
+        background: #000;
+        left: 0%;
+        transition: left 0.4s ease;
+      }
+      .labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        margin-top: 6px;
+        color: #555;
+      }
+      .idea {
+        margin-top: 14px;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: 0.3s;
+        text-align: center;
+        &.low {
+          background: #ffebee;
+          color: #b71c1c;
+        }
+        &.mid {
+          background: #fffde7;
+          color: #f57f17;
+        }
+        &.high {
+          background: #e8f5e9;
+          color: #1b5e20;
+        }
+      }
+    }
   }
-
-  .sidebarFilters .filterContentArea .filterDropdown:last-child {
-    border-bottom: none;
+  .Footeer {
+    background-color: var(--bgWhite);
+    position: absolute;
+    width: 100%;
+    display: grid;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 0 0 12px 12px;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    p {
+      font-size: 0.7rem;
+      width: 100%;
+      a {
+        text-decoration: none;
+        color: var(--goldDark);
+      }
+    }
+    button {
+      width: 100%;
+      padding: 8px 12px;
+      background-color: var(--gold);
+      color: var(--textDark);
+      font-family: var(--Font);
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      &:hover {
+        background-color: var(--goldDark);
+      }
+    }
   }
-
-  .sidebarFilters
-    .filterContentArea
-    .filterDropdown
-    .dropdownPanel#airlineContent.open {
-    max-height: 500px;
-    overflow-y: auto;
-  }
+}
+.popup.show {
+  visibility: visible;
+}

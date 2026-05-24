@@ -1,6 +1,6 @@
+// TravelSearch.js
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-import "../globals.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
@@ -12,8 +12,13 @@ import {
   faBaby,
   faPlus,
   faMinus,
+  faPen,
+  faBed,
+  faDoorOpen,
+  faSave,
 } from "@fortawesome/free-solid-svg-icons";
 
+// ========== توابع تبدیل تاریخ جلالی ==========
 const jalaali = {
   toJalaali: function (gy, gm, gd) {
     var g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
@@ -75,150 +80,532 @@ const jalaali = {
     }
     return { gy: gy, gm: i, gd: gd };
   },
-  isValidJalaaliDate: function (jy, jm, jd) {
-    return (
-      jy >= -61 &&
-      jy <= 3177 &&
-      jm >= 1 &&
-      jm <= 12 &&
-      jd >= 1 &&
-      jd <=
-        (jm <= 6 ? 31 : jm <= 11 ? 30 : jalaali.isLeapJalaaliYear(jy) ? 30 : 29)
-    );
-  },
-  isLeapJalaaliYear: function (jy) {
-    return jalaali.jalCal(jy).leap === 0;
-  },
-  jalCal: function (jy) {
-    var breaks = [
-      -61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097,
-      2192, 2262, 2324, 2394, 2456, 3178,
-    ];
-    var bl = breaks.length;
-    var gy = jy + 621;
-    var leapJ = -14;
-    var jp = breaks[0];
-    var jump;
-    if (jy < jp || jy >= breaks[bl - 1])
-      throw new Error("Invalid Jalaali year " + jy);
-    for (var i = 1; i < bl; i += 1) {
-      var jm = breaks[i];
-      jump = jm - jp;
-      if (jy < jm) break;
-      leapJ = leapJ + Math.floor(jump / 33) * 8 + Math.floor((jump % 33) / 4);
-      jp = jm;
-    }
-    var n = jy - jp;
-    leapJ = leapJ + Math.floor(n / 33) * 8 + Math.floor(((n % 33) + 3) / 4);
-    if (jump % 33 === 4 && jump - n === 4) leapJ += 1;
-    var leapG =
-      Math.floor(gy / 4) - Math.floor(gy / 100 + 1) + Math.floor(gy / 400);
-    var march = 20 + (leapJ - leapG);
-    if (jump - n < 6) n = n - jump + Math.floor((jump + 4) / 33) * 33;
-    var leap = (((n + 1) % 33) - 1) % 4;
-    if (leap === -1) leap = 4;
-    return { leap: leap, gy: gy, march: march };
-  },
   jMonthLength: function (jy, jm) {
     if (jm <= 6) return 31;
     if (jm <= 11) return 30;
-    if (jalaali.isLeapJalaaliYear(jy)) return 30;
-    return 29;
+    const isLeap =
+      jy % 33 === 1 ||
+      jy % 33 === 5 ||
+      jy % 33 === 9 ||
+      jy % 33 === 13 ||
+      jy % 33 === 17 ||
+      jy % 33 === 22 ||
+      jy % 33 === 26 ||
+      jy % 33 === 30;
+    return isLeap ? 30 : 29;
   },
 };
 
-const PAGE_DATA = {
-  radioOptions: [
-    { id: "domestic", label: "داخلی", value: "domestic" },
-    { id: "foreign", label: "خارجی", value: "foreign" },
+// ========== دیتای استاتیک مقاصد ==========
+const DESTINATIONS = {
+  domestic: [
+    { id: 1, name: "تهران", type: "domestic" },
+    { id: 2, name: "مشهد", type: "domestic" },
+    { id: 3, name: "اصفهان", type: "domestic" },
+    { id: 4, name: "شیراز", type: "domestic" },
+    { id: 5, name: "تبریز", type: "domestic" },
+    { id: 6, name: "کیش", type: "domestic" },
+    { id: 7, name: "قم", type: "domestic" },
+    { id: 8, name: "اهواز", type: "domestic" },
   ],
-  tripDirectionOptions: [
-    { id: "oneWay", label: "رفت", value: "oneWay" },
-    { id: "roundTrip", label: "رفت و برگشت", value: "roundTrip" },
+  foreign: [
+    { id: 9, name: "استانبول", type: "foreign" },
+    { id: 10, name: "دبی", type: "foreign" },
+    { id: 11, name: "پاریس", type: "foreign" },
+    { id: 12, name: "لندن", type: "foreign" },
+    { id: 13, name: "رم", type: "foreign" },
+    { id: 14, name: "بارسلونا", type: "foreign" },
   ],
-  destinationPlaceholder: "هتل یا شهر مقصد",
-  adultLabel: "بزرگسال",
-  childLabel: "کودک",
-  infantLabel: "نوزاد",
-  searchButtonText: "جستجو",
-  calendarCloseText: "بستن",
-  weekDays: ["ش", "ی", "د", "س", "چ", "پ", "ج"],
-  monthNames: [
-    "فروردین",
-    "اردیبهشت",
-    "خرداد",
-    "تیر",
-    "مرداد",
-    "شهریور",
-    "مهر",
-    "آبان",
-    "آذر",
-    "دی",
-    "بهمن",
-    "اسفند",
-  ],
-  noResultText: "نتیجه‌ای یافت نشد",
-  recentSearchesTitle: "جستجوهای اخیر",
-  popularDestinationsTitle: "شهرهای پرسفر",
-  searchIcon: faSearch,
-  locationIcon: faLocationDot,
-  historyIcon: faClockRotateLeft,
-  closeIcon: faXmark,
-  adultIcon: faUser,
-  childIcon: faChild,
-  infantIcon: faBaby,
-  plusIcon: faPlus,
-  minusIcon: faMinus,
-  destinations: {
-    domestic: [
-      { id: 1, name: "تهران", type: "domestic" },
-      { id: 2, name: "مشهد", type: "domestic" },
-      { id: 3, name: "اصفهان", type: "domestic" },
-      { id: 4, name: "شیراز", type: "domestic" },
-      { id: 5, name: "تبریز", type: "domestic" },
-      { id: 6, name: "کیش", type: "domestic" },
-      { id: 7, name: "قم", type: "domestic" },
-      { id: 8, name: "اهواز", type: "domestic" },
-    ],
-    foreign: [
-      { id: 9, name: "استانبول", type: "foreign" },
-      { id: 10, name: "دبی", type: "foreign" },
-      { id: 11, name: "پاریس", type: "foreign" },
-      { id: 12, name: "لندن", type: "foreign" },
-      { id: 13, name: "رم", type: "foreign" },
-      { id: 14, name: "بارسلونا", type: "foreign" },
-    ],
-  },
-  onSearch: null,
 };
 
-export default function Form1() {
-  const [tripType, setTripType] = useState(null);
-  const [destinationInput, setDestinationInput] = useState("");
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [recentSearches, setRecentSearches] = useState([]);
-  const dropdownRef = useRef(null);
-  const destinationInputRef = useRef(null);
+// ========== کامپوننت اصلی ==========
+export default function TravelSearch() {
+  const [travelType, setTravelType] = useState("flight"); // "flight", "hotel", "tour"
 
-  const [currentJy, setCurrentJy] = useState(1403);
-  const [currentJm, setCurrentJm] = useState(1);
-  const [currentView, setCurrentView] = useState("days");
-  const [selectedStartDate, setSelectedStartDate] = useState(null);
-  const [selectedEndDate, setSelectedEndDate] = useState(null);
-  const [hoverDate, setHoverDate] = useState(null);
-  const [activeInput, setActiveInput] = useState(null);
-  const [showCalendar, setShowCalendar] = useState(false);
-  const calendarRef = useRef(null);
+  return (
+    <div className="List2">
+      <div className="Form">
+        <div className="Top">
+          <label className="radioLabel">
+            <input
+              type="radio"
+              name="travelType"
+              value="flight"
+              checked={travelType === "flight"}
+              onChange={() => setTravelType("flight")}
+            />
+            پرواز
+          </label>
+          <label className="radioLabel">
+            <input
+              type="radio"
+              name="travelType"
+              value="hotel"
+              checked={travelType === "hotel"}
+              onChange={() => setTravelType("hotel")}
+            />
+            هتل
+          </label>
+          <label className="radioLabel">
+            <input
+              type="radio"
+              name="travelType"
+              value="tour"
+              checked={travelType === "tour"}
+              onChange={() => setTravelType("tour")}
+            />
+            تور
+          </label>
+        </div>
 
+        {travelType === "flight" && <FlightForm />}
+        {travelType === "hotel" && <HotelForm />}
+        {travelType === "tour" && <TourForm />}
+      </div>
+    </div>
+  );
+}
+
+// ========== فرم پرواز (برگرفته از FormType3) ==========
+function FlightForm() {
+  const [tripType, setTripType] = useState(null); // domestic/foreign
+  const [tripDirection, setTripDirection] = useState("roundTrip");
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [adultCount, setAdultCount] = useState(1);
   const [childCount, setChildCount] = useState(0);
   const [infantCount, setInfantCount] = useState(0);
-  const [showGuests, setShowGuests] = useState(false);
-
-  const [tripDirection, setTripDirection] = useState("roundTrip");
-
   const [errors, setErrors] = useState({});
   const [shakeFields, setShakeFields] = useState({});
+
+  // توابع ساده (برای خلاصه کردن، از منطق کامل پرواز استفاده می‌کنیم اما فقط نمایشی)
+  const handleSearch = () => {
+    const newErrors = {};
+    if (!tripType) newErrors.tripType = true;
+    if (!origin) newErrors.origin = true;
+    if (!destination) newErrors.destination = true;
+    if (!startDate) newErrors.startDate = true;
+    if (tripDirection === "roundTrip" && !endDate) newErrors.endDate = true;
+    if (Object.keys(newErrors).length) {
+      setErrors(newErrors);
+      return;
+    }
+    console.log("Flight Search:", {
+      tripType,
+      tripDirection,
+      origin,
+      destination,
+      startDate,
+      endDate,
+      adultCount,
+      childCount,
+      infantCount,
+    });
+  };
+
+  return (
+    <div
+      className="BottomHotel"
+      style={{ flexDirection: "column", gap: "15px" }}
+    >
+      <div className="Top" style={{ borderBottom: "none", paddingBottom: 0 }}>
+        {["domestic", "foreign"].map((type) => (
+          <label key={type} className="radioLabel">
+            <input
+              type="radio"
+              name="flightType"
+              value={type}
+              checked={tripType === type}
+              onChange={() => setTripType(type)}
+            />
+            {type === "domestic" ? "داخلی" : "خارجی"}
+          </label>
+        ))}
+        {tripType && (
+          <div className="directionContainer">
+            {["oneWay", "roundTrip"].map((dir) => (
+              <label key={dir} className="radioLabel">
+                <input
+                  type="radio"
+                  name="direction"
+                  value={dir}
+                  checked={tripDirection === dir}
+                  onChange={() => setTripDirection(dir)}
+                />
+                {dir === "oneWay" ? "رفت" : "رفت و برگشت"}
+              </label>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
+        <div className="LocationPicker">
+          <input
+            type="text"
+            placeholder="مبدأ"
+            value={origin}
+            onChange={(e) => setOrigin(e.target.value)}
+            className={errors.origin ? "error" : ""}
+          />
+        </div>
+        <div className="LocationPicker">
+          <input
+            type="text"
+            placeholder="مقصد"
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+            className={errors.destination ? "error" : ""}
+          />
+        </div>
+        <div className="DatePicker">
+          <input
+            type="text"
+            placeholder="تاریخ رفت"
+            value={startDate || ""}
+            readOnly
+            className={errors.startDate ? "error" : ""}
+          />
+          {tripDirection === "roundTrip" && (
+            <input
+              type="text"
+              placeholder="تاریخ برگشت"
+              value={endDate || ""}
+              readOnly
+              className={errors.endDate ? "error" : ""}
+            />
+          )}
+        </div>
+        <div className="PaxPicker">
+          <button type="button" onClick={() => {}}>
+            <FontAwesomeIcon icon={faUser} /> {adultCount} بزرگسال ،{" "}
+            <FontAwesomeIcon icon={faChild} /> {childCount} کودک ،{" "}
+            <FontAwesomeIcon icon={faBaby} /> {infantCount} نوزاد
+          </button>
+        </div>
+        <div className="Submit">
+          <button onClick={handleSearch}>جستجو</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ========== فرم هتل (نسخه کامل با بخش اتاق و تخت) ==========
+function HotelForm() {
+  // Stateهای هتل (کد کامل از HotelSearchForm قبلی)
+  const [destination, setDestination] = useState("");
+  const [checkIn, setCheckIn] = useState(null);
+  const [checkOut, setCheckOut] = useState(null);
+  const [adultCount, setAdultCount] = useState(1);
+  const [childCount, setChildCount] = useState(0);
+  const [infantCount, setInfantCount] = useState(0);
+  const [numRooms, setNumRooms] = useState(1);
+  const [bedDistribution, setBedDistribution] = useState([1]);
+  const [isManualDistribution, setIsManualDistribution] = useState(false);
+  const [showRoomEditor, setShowRoomEditor] = useState(false);
+  const [tempDistribution, setTempDistribution] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [shakeFields, setShakeFields] = useState({});
+  const [showGuests, setShowGuests] = useState(false);
+
+  const totalBedsNeeded = adultCount + childCount;
+
+  useEffect(() => {
+    if (!isManualDistribution) {
+      const base = Math.floor(totalBedsNeeded / numRooms);
+      const rem = totalBedsNeeded % numRooms;
+      const newDist = new Array(numRooms).fill(base);
+      for (let i = 0; i < rem; i++) newDist[i]++;
+      setBedDistribution(newDist);
+    } else {
+      const currentTotal = bedDistribution.reduce((a, b) => a + b, 0);
+      if (
+        currentTotal !== totalBedsNeeded ||
+        bedDistribution.length !== numRooms
+      ) {
+        setIsManualDistribution(false);
+      }
+    }
+  }, [totalBedsNeeded, numRooms, isManualDistribution]);
+
+  const changeAdult = (delta) => {
+    setAdultCount((prev) => Math.max(1, prev + delta));
+    setIsManualDistribution(false);
+  };
+  const changeChild = (delta) => {
+    setChildCount((prev) => Math.max(0, prev + delta));
+    setIsManualDistribution(false);
+  };
+  const changeInfant = (delta) => {
+    setInfantCount((prev) => Math.max(0, prev + delta));
+  };
+  const changeRooms = (delta) => {
+    const newRooms = Math.max(1, numRooms + delta);
+    if (newRooms > totalBedsNeeded) {
+      triggerErrorShake("rooms");
+      return;
+    }
+    setNumRooms(newRooms);
+    setIsManualDistribution(false);
+  };
+  const triggerErrorShake = (field) => {
+    setShakeFields((prev) => ({ ...prev, [field]: true }));
+    setTimeout(
+      () =>
+        setShakeFields((prev) => {
+          const newShake = { ...prev };
+          delete newShake[field];
+          return newShake;
+        }),
+      500,
+    );
+  };
+  const openRoomEditor = () => {
+    setTempDistribution([...bedDistribution]);
+    setShowRoomEditor(true);
+  };
+  const updateTempBed = (idx, delta) => {
+    const newDist = [...tempDistribution];
+    const newVal = newDist[idx] + delta;
+    if (newVal < 1) return;
+    const totalOther = newDist.reduce((a, b, i) => a + (i === idx ? 0 : b), 0);
+    if (totalOther + newVal > totalBedsNeeded) return;
+    newDist[idx] = newVal;
+    setTempDistribution(newDist);
+  };
+  const saveRoomDistribution = () => {
+    if (tempDistribution.reduce((a, b) => a + b, 0) !== totalBedsNeeded) {
+      triggerErrorShake("roomDistribution");
+      return;
+    }
+    setBedDistribution(tempDistribution);
+    setIsManualDistribution(true);
+    setShowRoomEditor(false);
+  };
+  const handleSearch = () => {
+    const newErrors = {};
+    if (!destination) newErrors.destination = true;
+    if (!checkIn) newErrors.checkIn = true;
+    if (!checkOut) newErrors.checkOut = true;
+    if (numRooms > totalBedsNeeded) newErrors.rooms = true;
+    if (Object.keys(newErrors).length) {
+      setErrors(newErrors);
+      return;
+    }
+    console.log("Hotel Search:", {
+      destination,
+      checkIn,
+      checkOut,
+      adultCount,
+      childCount,
+      infantCount,
+      numRooms,
+      bedDistribution,
+    });
+  };
+
+  return (
+    <div className="BottomHotel">
+      <div className="LocationPicker">
+        <input
+          type="text"
+          placeholder="نام هتل یا شهر"
+          value={destination}
+          onChange={(e) => setDestination(e.target.value)}
+          className={errors.destination ? "error" : ""}
+        />
+      </div>
+      <div className="DatePicker">
+        <input
+          type="text"
+          placeholder="تاریخ ورود"
+          value={checkIn || ""}
+          readOnly
+          className={errors.checkIn ? "error" : ""}
+        />
+        <input
+          type="text"
+          placeholder="تاریخ خروج"
+          value={checkOut || ""}
+          readOnly
+          className={errors.checkOut ? "error" : ""}
+        />
+      </div>
+      <div className="Guests">
+        <button type="button" onClick={() => setShowGuests(!showGuests)}>
+          <FontAwesomeIcon icon={faUser} /> {adultCount} بزرگسال ،{" "}
+          <FontAwesomeIcon icon={faChild} /> {childCount} کودک ،{" "}
+          <FontAwesomeIcon icon={faBaby} /> {infantCount} نوزاد
+        </button>
+        {showGuests && (
+          <div className="GuestDropdown">
+            <div className="row">
+              <div className="Namee">
+                <FontAwesomeIcon icon={faUser} />
+                <span>بزرگسال</span>
+              </div>
+              <div className="AdultAndChildCount">
+                <button
+                  onClick={() => changeAdult(-1)}
+                  disabled={adultCount <= 1}
+                >
+                  <FontAwesomeIcon icon={faMinus} />
+                </button>
+                <span>{adultCount}</span>
+                <button onClick={() => changeAdult(1)}>
+                  <FontAwesomeIcon icon={faPlus} />
+                </button>
+              </div>
+            </div>
+            <div className="row">
+              <div className="Namee">
+                <FontAwesomeIcon icon={faChild} />
+                <span>کودک</span>
+              </div>
+              <div className="AdultAndChildCount">
+                <button
+                  onClick={() => changeChild(-1)}
+                  disabled={childCount <= 0}
+                >
+                  <FontAwesomeIcon icon={faMinus} />
+                </button>
+                <span>{childCount}</span>
+                <button onClick={() => changeChild(1)}>
+                  <FontAwesomeIcon icon={faPlus} />
+                </button>
+              </div>
+            </div>
+            <div className="row">
+              <div className="Namee">
+                <FontAwesomeIcon icon={faBaby} />
+                <span>نوزاد</span>
+              </div>
+              <div className="AdultAndChildCount">
+                <button
+                  onClick={() => changeInfant(-1)}
+                  disabled={infantCount <= 0}
+                >
+                  <FontAwesomeIcon icon={faMinus} />
+                </button>
+                <span>{infantCount}</span>
+                <button onClick={() => changeInfant(1)}>
+                  <FontAwesomeIcon icon={faPlus} />
+                </button>
+              </div>
+            </div>
+            <div className="RoomSelector">
+              <div className="roomHeader">
+                <span>
+                  <FontAwesomeIcon icon={faDoorOpen} /> تعداد اتاق‌ها
+                </span>
+                <div className="roomCounter">
+                  <button
+                    onClick={() => changeRooms(-1)}
+                    disabled={numRooms <= 1}
+                  >
+                    <FontAwesomeIcon icon={faMinus} />
+                  </button>
+                  <span>{numRooms}</span>
+                  <button
+                    onClick={() => changeRooms(1)}
+                    disabled={numRooms >= totalBedsNeeded}
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                  </button>
+                </div>
+              </div>
+              {errors.rooms && (
+                <div className="errorMsg">
+                  تعداد اتاق نمی‌تواند از کل تخت‌ها بیشتر باشد
+                </div>
+              )}
+              <div className="bedSummary">
+                <FontAwesomeIcon icon={faBed} />
+                <span>
+                  {bedDistribution.map((b, idx) => `${b} تخته`).join(" و ")} (
+                  {bedDistribution.length} اتاق)
+                </span>
+                <button className="editBtn" onClick={openRoomEditor}>
+                  <FontAwesomeIcon icon={faPen} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="Submit">
+        <button onClick={handleSearch}>جستجوی هتل</button>
+      </div>
+
+      {showRoomEditor && (
+        <div className="modalOverlay" onClick={() => setShowRoomEditor(false)}>
+          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+            <h3>توزیع تخت در اتاق‌ها</h3>
+            <p>کل تخت‌های مورد نیاز: {totalBedsNeeded} تخت</p>
+            {tempDistribution.map((beds, idx) => (
+              <div key={idx} className="roomEditorRow">
+                <span>اتاق {idx + 1}</span>
+                <div className="bedCounter">
+                  <button
+                    onClick={() => updateTempBed(idx, -1)}
+                    disabled={beds <= 1}
+                  >
+                    <FontAwesomeIcon icon={faMinus} />
+                  </button>
+                  <span>{beds} تخت</span>
+                  <button
+                    onClick={() => updateTempBed(idx, 1)}
+                    disabled={
+                      tempDistribution.reduce((a, b) => a + b, 0) + 1 >
+                      totalBedsNeeded
+                    }
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                  </button>
+                </div>
+              </div>
+            ))}
+            <div className="modalActions">
+              <button className="saveBtn" onClick={saveRoomDistribution}>
+                <FontAwesomeIcon icon={faSave} /> ذخیره
+              </button>
+              <button
+                className="cancelBtn"
+                onClick={() => setShowRoomEditor(false)}
+              >
+                انصراف
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ========== فرم تور ==========
+function TourForm() {
+  const [tourType, setTourType] = useState(null); // domestic/foreign
+  const [destination, setDestination] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [durationNights, setDurationNights] = useState(1); // تعداد شب
+  const [adultCount, setAdultCount] = useState(1);
+  const [childCount, setChildCount] = useState(0);
+  const [infantCount, setInfantCount] = useState(0);
+  const [errors, setErrors] = useState({});
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [recentSearches, setRecentSearches] = useState([]);
+  const dropdownRef = useRef(null);
+  const inputRef = useRef(null);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const calendarRef = useRef(null);
+  const [currentJy, setCurrentJy] = useState(1403);
+  const [currentJm, setCurrentJm] = useState(1);
+  const [currentView, setCurrentView] = useState("days");
+  const [hoverDate, setHoverDate] = useState(null);
 
   const today = new Date();
   const jToday = jalaali.toJalaali(
@@ -227,397 +614,113 @@ export default function Form1() {
     today.getDate(),
   );
 
-  const maxChildrenInfants = 3 * adultCount;
-  const totalChildrenInfants = childCount + infantCount;
-
-  const changeAdult = (delta) => {
-    setAdultCount((prev) => {
-      const newAdult = Math.max(1, prev + delta);
-      if (newAdult < prev) {
-        const newMax = 3 * newAdult;
-        if (totalChildrenInfants > newMax) {
-          let newInfant = infantCount;
-          let newChild = childCount;
-          const excess = totalChildrenInfants - newMax;
-          if (newInfant > 0) {
-            const reduceInfant = Math.min(newInfant, excess);
-            newInfant -= reduceInfant;
-            const remainingExcess = excess - reduceInfant;
-            if (remainingExcess > 0) newChild -= remainingExcess;
-          } else {
-            newChild -= excess;
-          }
-          setInfantCount(newInfant);
-          setChildCount(newChild);
-        }
-      }
-      return newAdult;
-    });
-  };
-
-  const incrementChild = () => {
-    if (totalChildrenInfants < maxChildrenInfants) {
-      setChildCount((prev) => prev + 1);
-    }
-  };
-  const decrementChild = () => {
-    setChildCount((prev) => Math.max(0, prev - 1));
-  };
-  const incrementInfant = () => {
-    if (totalChildrenInfants < maxChildrenInfants) {
-      setInfantCount((prev) => prev + 1);
-    }
-  };
-  const decrementInfant = () => {
-    setInfantCount((prev) => Math.max(0, prev - 1));
-  };
-
-  const handleTripTypeChange = (value) => {
-    setTripType(value);
-    setDestinationInput("");
-    setTripDirection("roundTrip");
-    setErrors({});
-    setShakeFields({});
-  };
-
-  const handleDirectionChange = (value) => {
-    setTripDirection(value);
-    if (value === "oneWay") {
-      setSelectedEndDate(null);
-    }
-    setErrors((prev) => {
-      const newErrors = { ...prev };
-      delete newErrors.tripDirection;
-      if (value === "oneWay") {
-        delete newErrors.endDate;
-      }
-      return newErrors;
-    });
-    setShakeFields((prev) => {
-      const newShake = { ...prev };
-      delete newShake.tripDirection;
-      return newShake;
-    });
-  };
-
-  const filteredDestinations = () => {
-    const list = tripType ? PAGE_DATA.destinations[tripType] : [];
-    if (!destinationInput.trim()) return list;
-    return list.filter((item) => item.name.includes(destinationInput.trim()));
-  };
-
-  const filteredRecent = () => {
-    if (!destinationInput.trim()) return recentSearches;
-    return recentSearches.filter((item) =>
-      item.name.includes(destinationInput.trim()),
-    );
-  };
-
-  const handleSelectDestination = (dest) => {
-    setDestinationInput(dest.name);
-    setRecentSearches((prev) => {
-      const exists = prev.find((item) => item.id === dest.id);
-      if (exists) {
-        return [exists, ...prev.filter((item) => item.id !== dest.id)].slice(
-          0,
-          5,
-        );
-      } else {
-        return [dest, ...prev].slice(0, 5);
-      }
-    });
-    setShowDropdown(false);
-    setErrors((prev) => {
-      const newErrors = { ...prev };
-      delete newErrors.destination;
-      return newErrors;
-    });
-    setShakeFields((prev) => {
-      const newShake = { ...prev };
-      delete newShake.destination;
-      return newShake;
-    });
-  };
-
-  const handleInputFocus = () => {
-    setShowDropdown(true);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target) &&
-        event.target !== destinationInputRef.current
-      ) {
-        setShowDropdown(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const jDateToString = useCallback((jy, jm, jd) => {
-    return `${jy}/${String(jm).padStart(2, "0")}/${String(jd).padStart(2, "0")}`;
-  }, []);
-
-  const stringToJDate = useCallback((str) => {
+  const jDateToString = (jy, jm, jd) =>
+    `${jy}/${String(jm).padStart(2, "0")}/${String(jd).padStart(2, "0")}`;
+  const stringToJDate = (str) => {
     if (!str) return null;
     const parts = str.split("/");
-    if (parts.length !== 3) return null;
     return {
       jy: parseInt(parts[0]),
       jm: parseInt(parts[1]),
       jd: parseInt(parts[2]),
     };
-  }, []);
+  };
+  const getDateValue = (jy, jm, jd) => jy * 10000 + jm * 100 + jd;
 
-  const getDateValue = useCallback((jy, jm, jd) => {
-    return jy * 10000 + jm * 100 + jd;
-  }, []);
-
-  const isDateInRange = useCallback(
-    (jy, jm, jd) => {
-      if (!selectedStartDate || !selectedEndDate) return false;
-      const start = stringToJDate(selectedStartDate);
-      const end = stringToJDate(selectedEndDate);
-      const val = getDateValue(jy, jm, jd);
-      const startVal = getDateValue(start.jy, start.jm, start.jd);
-      const endVal = getDateValue(end.jy, end.jm, end.jd);
-      return val > startVal && val < endVal;
-    },
-    [selectedStartDate, selectedEndDate, stringToJDate, getDateValue],
-  );
-
-  const isDateInHoverRange = useCallback(
-    (jy, jm, jd) => {
-      if (!selectedStartDate || selectedEndDate || !hoverDate) return false;
-      const start = stringToJDate(selectedStartDate);
-      const end = hoverDate;
-      const val = getDateValue(jy, jm, jd);
-      const startVal = getDateValue(start.jy, start.jm, start.jd);
-      const endVal = getDateValue(end.jy, end.jm, end.jd);
-      return val > startVal && val < endVal;
-    },
-    [
-      selectedStartDate,
-      selectedEndDate,
-      hoverDate,
-      stringToJDate,
-      getDateValue,
-    ],
-  );
-
-  const selectDate = useCallback(
-    (jy, jm, jd) => {
-      const dateStr = jDateToString(jy, jm, jd);
-      if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
-        setSelectedStartDate(dateStr);
-        setSelectedEndDate(null);
-        setActiveInput("end");
-        setHoverDate(null);
-        setShowCalendar(true);
-        setCurrentJy(jy);
-        setCurrentJm(jm);
-        setCurrentView("days");
-        setErrors((prev) => {
-          const newErrors = { ...prev };
-          delete newErrors.startDate;
-          return newErrors;
-        });
-        setShakeFields((prev) => {
-          const newShake = { ...prev };
-          delete newShake.startDate;
-          return newShake;
-        });
-      } else {
-        const start = stringToJDate(selectedStartDate);
-        const currentVal = getDateValue(jy, jm, jd);
-        const startVal = getDateValue(start.jy, start.jm, start.jd);
-        if (currentVal < startVal) {
-          setSelectedEndDate(selectedStartDate);
-          setSelectedStartDate(dateStr);
-        } else {
-          setSelectedEndDate(dateStr);
-        }
-        setShowCalendar(false);
-        setActiveInput(null);
-        setHoverDate(null);
-        setErrors((prev) => {
-          const newErrors = { ...prev };
-          delete newErrors.endDate;
-          return newErrors;
-        });
-        setShakeFields((prev) => {
-          const newShake = { ...prev };
-          delete newShake.endDate;
-          return newShake;
-        });
-      }
-    },
-    [
-      selectedStartDate,
-      selectedEndDate,
-      jDateToString,
-      stringToJDate,
-      getDateValue,
-    ],
-  );
-
-  const openCalendar = useCallback(
-    (inputType) => {
-      let targetDate;
-      if (inputType === "start") {
-        targetDate = selectedStartDate
-          ? stringToJDate(selectedStartDate)
-          : null;
-      } else {
-        targetDate = selectedEndDate
-          ? stringToJDate(selectedEndDate)
-          : selectedStartDate
-            ? stringToJDate(selectedStartDate)
-            : null;
-      }
-      if (!targetDate) targetDate = jToday;
-      setActiveInput(inputType);
-      setCurrentJy(targetDate.jy);
-      setCurrentJm(targetDate.jm);
-      setCurrentView("days");
-      setShowCalendar(true);
-      setHoverDate(null);
-    },
-    [selectedStartDate, selectedEndDate, jToday, stringToJDate],
-  );
-
-  const closeCalendar = useCallback(() => {
+  const selectDate = (jy, jm, jd) => {
+    const dateStr = jDateToString(jy, jm, jd);
+    setStartDate(dateStr);
     setShowCalendar(false);
-    setActiveInput(null);
+    setErrors((prev) => ({ ...prev, startDate: false }));
+  };
+  const openCalendar = () => {
+    setCurrentJy(jToday.jy);
+    setCurrentJm(jToday.jm);
+    setCurrentView("days");
+    setShowCalendar(true);
+  };
+  const closeCalendar = () => {
+    setShowCalendar(false);
     setHoverDate(null);
-  }, []);
+  };
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        calendarRef.current &&
-        !calendarRef.current.contains(e.target) &&
-        e.target.id !== "startDateInput" &&
-        e.target.id !== "endDateInput"
-      ) {
-        closeCalendar();
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [closeCalendar]);
-
-  const renderCalendar = useCallback(() => {
+  const renderCalendar = () => {
     const daysInMonth = jalaali.jMonthLength(currentJy, currentJm);
     const gDate = jalaali.toGregorian(currentJy, currentJm, 1);
-    const dateObj = new Date(gDate.gy, gDate.gm - 1, gDate.gd);
-    let startDayOfWeek = (dateObj.getDay() + 1) % 7;
-
-    const cells = [];
-    for (let i = 0; i < startDayOfWeek; i++) {
-      cells.push(<div key={`empty-${i}`} className="calendarDay empty"></div>);
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateStr = jDateToString(currentJy, currentJm, day);
+    const startDayOfWeek =
+      (new Date(gDate.gy, gDate.gm - 1, gDate.gd).getDay() + 1) % 7;
+    let cells = [];
+    for (let i = 0; i < startDayOfWeek; i++)
+      cells.push(<div key={`e-${i}`} className="calendarDay empty"></div>);
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateStr = jDateToString(currentJy, currentJm, d);
       const isToday =
-        currentJy === jToday.jy && currentJm === jToday.jm && day === jToday.jd;
-      const isSelected =
-        dateStr === selectedStartDate || dateStr === selectedEndDate;
-      const inRange = isDateInRange(currentJy, currentJm, day);
-      const inHoverRange = isDateInHoverRange(currentJy, currentJm, day);
-
-      const dayClass = `calendarDay${isToday ? " today" : ""}${
-        isSelected ? " selected" : ""
-      }${inRange ? " in-range" : ""}${inHoverRange ? " hover-range" : ""}`;
-
+        currentJy === jToday.jy && currentJm === jToday.jm && d === jToday.jd;
+      const isSelected = dateStr === startDate;
       cells.push(
         <div
-          key={day}
-          className={dayClass}
-          data-date={`${currentJy}-${currentJm}-${day}`}
-          onClick={() => selectDate(currentJy, currentJm, day)}
-          onMouseEnter={() => {
-            if (selectedStartDate && !selectedEndDate) {
-              setHoverDate({ jy: currentJy, jm: currentJm, jd: day });
-            }
-          }}
+          key={d}
+          className={`calendarDay${isToday ? " today" : ""}${isSelected ? " selected" : ""}`}
+          onClick={() => selectDate(currentJy, currentJm, d)}
         >
-          {day}
+          {d}
         </div>,
       );
     }
     return cells;
-  }, [
-    currentJy,
-    currentJm,
-    selectedStartDate,
-    selectedEndDate,
-    hoverDate,
-    jToday,
-    jDateToString,
-    isDateInRange,
-    isDateInHoverRange,
-    selectDate,
-  ]);
-
+  };
+  const handlePrevMonth = () => {
+    if (currentJm === 1) {
+      setCurrentJy((y) => y - 1);
+      setCurrentJm(12);
+    } else setCurrentJm((m) => m - 1);
+  };
+  const handleNextMonth = () => {
+    if (currentJm === 12) {
+      setCurrentJy((y) => y + 1);
+      setCurrentJm(1);
+    } else setCurrentJm((m) => m + 1);
+  };
   const handleCalendarTitleClick = () => {
     if (currentView === "days") setCurrentView("years");
     else if (currentView === "years") setCurrentView("months");
     else setCurrentView("days");
   };
-
-  const handlePrevMonth = () => {
-    setCurrentJm((prev) => {
-      if (prev === 1) {
-        setCurrentJy((y) => y - 1);
-        return 12;
-      }
-      return prev - 1;
-    });
-  };
-
-  const handleNextMonth = () => {
-    setCurrentJm((prev) => {
-      if (prev === 12) {
-        setCurrentJy((y) => y + 1);
-        return 1;
-      }
-      return prev + 1;
-    });
-  };
-
   const renderMonthsGrid = () => {
-    return PAGE_DATA.monthNames.map((name, index) => {
-      const month = index + 1;
-      const isSelected = month === currentJm;
-      return (
-        <div
-          key={month}
-          className={`monthItem${isSelected ? " selected" : ""}`}
-          onClick={() => {
-            setCurrentJm(month);
-            setCurrentView("days");
-          }}
-        >
-          {name}
-        </div>
-      );
-    });
+    const monthNames = [
+      "فروردین",
+      "اردیبهشت",
+      "خرداد",
+      "تیر",
+      "مرداد",
+      "شهریور",
+      "مهر",
+      "آبان",
+      "آذر",
+      "دی",
+      "بهمن",
+      "اسفند",
+    ];
+    return monthNames.map((name, idx) => (
+      <div
+        key={idx + 1}
+        className={`monthItem${currentJm === idx + 1 ? " selected" : ""}`}
+        onClick={() => {
+          setCurrentJm(idx + 1);
+          setCurrentView("days");
+        }}
+      >
+        {name}
+      </div>
+    ));
   };
-
   const renderYearsGrid = () => {
-    const startYear = 1300;
-    const endYear = jToday.jy;
-    const years = [];
-    for (let y = endYear; y >= startYear; y--) {
+    let years = [];
+    for (let y = jToday.jy; y >= 1300; y--)
       years.push(
         <div
           key={y}
-          className={`yearItem${y === currentJy ? " selected" : ""}`}
+          className={`yearItem${currentJy === y ? " selected" : ""}`}
           onClick={() => {
             setCurrentJy(y);
             setCurrentView("months");
@@ -626,409 +729,268 @@ export default function Form1() {
           {y}
         </div>,
       );
-    }
     return years;
   };
 
-  const startDateInputValue = selectedStartDate || "";
-  const endDateInputValue = selectedEndDate || "";
-
-  const isFormValid = () => {
-    const required =
-      !!tripType &&
-      !!tripDirection &&
-      destinationInput.trim() !== "" &&
-      !!selectedStartDate;
-    if (tripDirection === "roundTrip") {
-      return required && !!selectedEndDate;
-    }
-    return required;
+  // دراپ‌داون مقصد
+  const filteredDestinations = () => {
+    const all = [...DESTINATIONS.domestic, ...DESTINATIONS.foreign];
+    if (!destination.trim()) return all;
+    return all.filter((item) => item.name.includes(destination.trim()));
   };
+  const handleSelectDestination = (dest) => {
+    setDestination(dest.name);
+    setRecentSearches((prev) => {
+      const exists = prev.find((i) => i.id === dest.id);
+      if (exists)
+        return [exists, ...prev.filter((i) => i.id !== dest.id)].slice(0, 5);
+      return [dest, ...prev].slice(0, 5);
+    });
+    setShowDropdown(false);
+    setErrors((prev) => ({ ...prev, destination: false }));
+  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        event.target !== inputRef.current
+      )
+        setShowDropdown(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  const triggerErrorShake = (field) => {
-    setShakeFields((prev) => ({ ...prev, [field]: true }));
-    setTimeout(() => {
-      setShakeFields((prev) => {
-        const newShake = { ...prev };
-        delete newShake[field];
-        return newShake;
-      });
-    }, 500);
+  const changeDuration = (delta) => {
+    setDurationNights((prev) => Math.max(1, prev + delta));
+  };
+  const changeAdult = (delta) => {
+    setAdultCount((prev) => Math.max(1, prev + delta));
+  };
+  const changeChild = (delta) => {
+    setChildCount((prev) => Math.max(0, prev + delta));
+  };
+  const changeInfant = (delta) => {
+    setInfantCount((prev) => Math.max(0, prev + delta));
   };
 
   const handleSearch = () => {
     const newErrors = {};
-    if (!tripType) newErrors.tripType = true;
-    if (!tripDirection) newErrors.tripDirection = true;
-    if (!destinationInput.trim()) newErrors.destination = true;
-    if (!selectedStartDate) newErrors.startDate = true;
-    if (tripDirection === "roundTrip" && !selectedEndDate)
-      newErrors.endDate = true;
-
-    if (Object.keys(newErrors).length > 0) {
+    if (!tourType) newErrors.tourType = true;
+    if (!destination) newErrors.destination = true;
+    if (!startDate) newErrors.startDate = true;
+    if (Object.keys(newErrors).length) {
       setErrors(newErrors);
-      Object.keys(newErrors).forEach((field) => triggerErrorShake(field));
       return;
     }
-
-    setErrors({});
-    const params = {
-      tripType,
-      tripDirection,
-      destination: destinationInput,
-      startDate: selectedStartDate,
-      endDate: selectedEndDate,
+    console.log("Tour Search:", {
+      tourType,
+      destination,
+      startDate,
+      durationNights,
       adultCount,
       childCount,
       infantCount,
-    };
-    console.log("Search params:", params);
-    if (PAGE_DATA.onSearch) PAGE_DATA.onSearch(params);
-  };
-
-  const getDatePlaceholder = (type) => {
-    if (!tripDirection) return type === "start" ? "تاریخ رفت" : "تاریخ برگشت";
-    if (tripDirection === "oneWay") return "تاریخ رفت";
-    return type === "start" ? "تاریخ رفت" : "تاریخ برگشت";
+    });
   };
 
   return (
-    <>
-      <section>
-        <div className="List">
-          <div className="Form">
-            <div className="Top">
-              {PAGE_DATA.radioOptions.map((opt) => (
-                <label key={opt.id} className="radioLabel">
-                  <input
-                    type="radio"
-                    name="tripType"
-                    value={opt.value}
-                    checked={tripType === opt.value}
-                    onChange={() => handleTripTypeChange(opt.value)}
-                  />
-                  {opt.label}
-                </label>
-              ))}
-              {tripType && (
-                <div className="directionContainer">
-                  {PAGE_DATA.tripDirectionOptions.map((opt) => (
-                    <label
-                      key={opt.id}
-                      className={`radioLabel ${errors.tripDirection ? "error" : ""} ${shakeFields.tripDirection ? "shake" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="tripDirection"
-                        value={opt.value}
-                        checked={tripDirection === opt.value}
-                        onChange={() => handleDirectionChange(opt.value)}
-                      />
-                      {opt.label}
-                    </label>
-                  ))}
+    <div
+      className="BottomHotel"
+      style={{ flexDirection: "column", gap: "15px" }}
+    >
+      <div className="Top" style={{ borderBottom: "none", paddingBottom: 0 }}>
+        {["domestic", "foreign"].map((type) => (
+          <label key={type} className="radioLabel">
+            <input
+              type="radio"
+              name="tourType"
+              value={type}
+              checked={tourType === type}
+              onChange={() => setTourType(type)}
+            />
+            {type === "domestic" ? "تور داخلی" : "تور خارجی"}
+          </label>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
+        <div className="LocationPicker" style={{ flex: 2 }} ref={dropdownRef}>
+          <div className="inputWithIcon">
+            <FontAwesomeIcon icon={faSearch} className="inputIcon" />
+            <input
+              type="text"
+              placeholder="مقصد (شهر یا هتل)"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              onFocus={() => setShowDropdown(true)}
+              ref={inputRef}
+              className={errors.destination ? "error" : ""}
+            />
+            {destination && (
+              <FontAwesomeIcon
+                icon={faXmark}
+                className="clearIcon"
+                onClick={() => setDestination("")}
+              />
+            )}
+          </div>
+          {showDropdown && (
+            <div className="destinationDropdown">
+              {recentSearches.length > 0 && (
+                <div className="dropdownSection">
+                  <div className="sectionTitle">
+                    <FontAwesomeIcon icon={faClockRotateLeft} />
+                    <span>جستجوهای اخیر</span>
+                  </div>
+                  <ul>
+                    {recentSearches.map((item) => (
+                      <li
+                        key={item.id}
+                        onClick={() => handleSelectDestination(item)}
+                      >
+                        <FontAwesomeIcon icon={faLocationDot} />
+                        <span>{item.name}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
-            </div>
-
-            <div className="BottomHotel">
-              <div className="LocationPicker" ref={dropdownRef}>
-                <div className="inputWithIcon">
-                  <FontAwesomeIcon
-                    icon={PAGE_DATA.searchIcon}
-                    className="inputIcon"
-                  />
-                  <input
-                    type="text"
-                    placeholder={PAGE_DATA.destinationPlaceholder}
-                    value={destinationInput}
-                    onChange={(e) => setDestinationInput(e.target.value)}
-                    onFocus={handleInputFocus}
-                    ref={destinationInputRef}
-                    className={errors.destination ? "error" : ""}
-                  />
-                  {destinationInput && (
-                    <FontAwesomeIcon
-                      icon={PAGE_DATA.closeIcon}
-                      className="clearIcon"
-                      onClick={() => setDestinationInput("")}
-                    />
-                  )}
+              <div className="dropdownSection">
+                <div className="sectionTitle">
+                  <FontAwesomeIcon icon={faLocationDot} />
+                  <span>شهرهای پرسفر</span>
                 </div>
-                {showDropdown && (
-                  <div className="destinationDropdown">
-                    {filteredRecent().length > 0 && (
-                      <div className="dropdownSection">
-                        <div className="sectionTitle">
-                          <FontAwesomeIcon icon={PAGE_DATA.historyIcon} />
-                          <span>{PAGE_DATA.recentSearchesTitle}</span>
-                        </div>
-                        <ul>
-                          {filteredRecent().map((item) => (
-                            <li
-                              key={item.id}
-                              onClick={() => handleSelectDestination(item)}
-                            >
-                              <FontAwesomeIcon icon={PAGE_DATA.locationIcon} />
-                              <span>{item.name}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    <div className="dropdownSection">
-                      <div className="sectionTitle">
-                        <FontAwesomeIcon icon={PAGE_DATA.locationIcon} />
-                        <span>{PAGE_DATA.popularDestinationsTitle}</span>
-                      </div>
-                      <ul>
-                        {filteredDestinations().map((item) => (
-                          <li
-                            key={item.id}
-                            onClick={() => handleSelectDestination(item)}
-                          >
-                            <FontAwesomeIcon icon={PAGE_DATA.locationIcon} />
-                            <span>{item.name}</span>
-                          </li>
-                        ))}
-                        {filteredDestinations().length === 0 && (
-                          <li className="noResult">{PAGE_DATA.noResultText}</li>
-                        )}
-                      </ul>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="DatePicker">
-                <div className="dateInputWrapper" ref={calendarRef}>
-                  <input
-                    type="text"
-                    id="startDateInput"
-                    placeholder={getDatePlaceholder("start")}
-                    value={startDateInputValue}
-                    readOnly
-                    onClick={() => openCalendar("start")}
-                    className={`${activeInput === "start" ? "active" : ""} ${errors.startDate ? "error" : ""} ${shakeFields.startDate ? "shake" : ""}`}
-                  />
-                  {tripDirection === "roundTrip" && (
-                    <input
-                      type="text"
-                      id="endDateInput"
-                      placeholder={getDatePlaceholder("end")}
-                      value={endDateInputValue}
-                      readOnly
-                      onClick={() => openCalendar("end")}
-                      className={`${activeInput === "end" ? "active" : ""} ${errors.endDate ? "error" : ""} ${shakeFields.endDate ? "shake" : ""}`}
-                    />
-                  )}
-                  {showCalendar && (
-                    <div
-                      className="calendarPopup show"
-                      onMouseLeave={() => setHoverDate(null)}
+                <ul>
+                  {filteredDestinations().map((item) => (
+                    <li
+                      key={item.id}
+                      onClick={() => handleSelectDestination(item)}
                     >
-                      <div
-                        className="calendarHeader"
-                        style={{
-                          visibility:
-                            currentView === "days" ? "visible" : "hidden",
-                        }}
-                      >
-                        <button
-                          className="calendarNavBtn"
-                          onClick={handleNextMonth}
-                        >
-                          &gt;
-                        </button>
-                        <span
-                          className="calendarTitle"
-                          onClick={handleCalendarTitleClick}
-                        >
-                          {currentView === "days"
-                            ? `${currentJy} ${PAGE_DATA.monthNames[currentJm - 1]}`
-                            : currentView === "months"
-                              ? `${currentJy} - انتخاب ماه`
-                              : "انتخاب سال"}
-                        </span>
-                        <button
-                          className="calendarNavBtn"
-                          onClick={handlePrevMonth}
-                        >
-                          &lt;
-                        </button>
-                      </div>
-
-                      {currentView === "days" && (
-                        <div className="calendarView active">
-                          <div className="calendarWeekdays">
-                            {PAGE_DATA.weekDays.map((d, i) => (
-                              <div key={i}>{d}</div>
-                            ))}
-                          </div>
-                          <div className="calendarDays">{renderCalendar()}</div>
-                        </div>
-                      )}
-
-                      {currentView === "months" && (
-                        <div className="calendarView active">
-                          <div className="monthsGrid">{renderMonthsGrid()}</div>
-                        </div>
-                      )}
-
-                      {currentView === "years" && (
-                        <div className="calendarView active">
-                          <div className="yearsWrapper">
-                            <div className="yearsGrid">{renderYearsGrid()}</div>
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="calendarFooter">
-                        <button className="btnClose" onClick={closeCalendar}>
-                          {PAGE_DATA.calendarCloseText}
-                        </button>
-                      </div>
-                    </div>
+                      <FontAwesomeIcon icon={faLocationDot} />
+                      <span>{item.name}</span>
+                    </li>
+                  ))}
+                  {filteredDestinations().length === 0 && (
+                    <li className="noResult">نتیجه‌ای یافت نشد</li>
                   )}
-                </div>
+                </ul>
               </div>
+            </div>
+          )}
+        </div>
 
-              <div className="Guests">
-                <button
-                  type="button"
-                  onClick={() => setShowGuests(!showGuests)}
-                >
-                  <FontAwesomeIcon icon={PAGE_DATA.adultIcon} /> {adultCount}{" "}
-                  بزرگسال ، <FontAwesomeIcon icon={PAGE_DATA.childIcon} />{" "}
-                  {totalChildrenInfants} خردسال
+        <div
+          className="DatePicker"
+          style={{ flex: 1, position: "relative" }}
+          ref={calendarRef}
+        >
+          <input
+            type="text"
+            placeholder="تاریخ حرکت"
+            value={startDate || ""}
+            readOnly
+            onClick={openCalendar}
+            className={errors.startDate ? "error" : ""}
+          />
+          {showCalendar && (
+            <div
+              className="calendarPopup show"
+              onMouseLeave={() => setHoverDate(null)}
+            >
+              <div
+                className="calendarHeader"
+                style={{
+                  visibility: currentView === "days" ? "visible" : "hidden",
+                }}
+              >
+                <button className="calendarNavBtn" onClick={handleNextMonth}>
+                  &gt;
                 </button>
-                {showGuests && (
-                  <div className="GuestDropdown">
-                    <div className="row">
-                      <div className="Namee">
-                        <FontAwesomeIcon icon={PAGE_DATA.adultIcon} />
-                        <span>{PAGE_DATA.adultLabel}</span>
-                      </div>
-                      <div className="AdultAndChildCount">
-                        <button
-                          onClick={() => changeAdult(-1)}
-                          disabled={adultCount <= 1}
-                        >
-                          <FontAwesomeIcon icon={PAGE_DATA.minusIcon} />
-                        </button>
-                        <span>{adultCount}</span>
-                        <button onClick={() => changeAdult(1)}>
-                          <FontAwesomeIcon icon={PAGE_DATA.plusIcon} />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="Namee">
-                        <FontAwesomeIcon icon={PAGE_DATA.childIcon} />
-                        <span>{PAGE_DATA.childLabel}</span>
-                      </div>
-                      <div className="AdultAndChildCount">
-                        <button
-                          onClick={decrementChild}
-                          disabled={childCount <= 0}
-                        >
-                          <FontAwesomeIcon icon={PAGE_DATA.minusIcon} />
-                        </button>
-                        <span>{childCount}</span>
-                        <button
-                          onClick={incrementChild}
-                          disabled={totalChildrenInfants >= maxChildrenInfants}
-                        >
-                          <FontAwesomeIcon icon={PAGE_DATA.plusIcon} />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="Namee">
-                        <FontAwesomeIcon icon={PAGE_DATA.infantIcon} />
-                        <span>{PAGE_DATA.infantLabel}</span>
-                      </div>
-                      <div className="AdultAndChildCount">
-                        <button
-                          onClick={decrementInfant}
-                          disabled={infantCount <= 0}
-                        >
-                          <FontAwesomeIcon icon={PAGE_DATA.minusIcon} />
-                        </button>
-                        <span>{infantCount}</span>
-                        <button
-                          onClick={incrementInfant}
-                          disabled={totalChildrenInfants >= maxChildrenInfants}
-                        >
-                          <FontAwesomeIcon icon={PAGE_DATA.plusIcon} />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <span
+                  className="calendarTitle"
+                  onClick={handleCalendarTitleClick}
+                >
+                  {currentView === "days"
+                    ? `${currentJy} ${["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"][currentJm - 1]}`
+                    : currentView === "months"
+                      ? `${currentJy} - انتخاب ماه`
+                      : "انتخاب سال"}
+                </span>
+                <button className="calendarNavBtn" onClick={handlePrevMonth}>
+                  &lt;
+                </button>
               </div>
-
-              <div className="Submit">
-                <button type="button" onClick={handleSearch}>
-                  {PAGE_DATA.searchButtonText}
+              {currentView === "days" && (
+                <div className="calendarView active">
+                  <div className="calendarWeekdays">
+                    {"ش ی د س چ پ ج".split(" ").map((d, i) => (
+                      <div key={i}>{d}</div>
+                    ))}
+                  </div>
+                  <div className="calendarDays">{renderCalendar()}</div>
+                </div>
+              )}
+              {currentView === "months" && (
+                <div className="calendarView active">
+                  <div className="monthsGrid">{renderMonthsGrid()}</div>
+                </div>
+              )}
+              {currentView === "years" && (
+                <div className="calendarView active">
+                  <div className="yearsWrapper">
+                    <div className="yearsGrid">{renderYearsGrid()}</div>
+                  </div>
+                </div>
+              )}
+              <div className="calendarFooter">
+                <button className="btnClose" onClick={closeCalendar}>
+                  بستن
                 </button>
               </div>
             </div>
+          )}
+        </div>
+
+        <div className="PaxPicker" style={{ flex: 1 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              background: "var(--grayBg)",
+              borderRadius: "8px",
+              padding: "0 10px",
+              height: "50px",
+            }}
+          >
+            <span>مدت تور:</span>
+            <button
+              onClick={() => changeDuration(-1)}
+              disabled={durationNights <= 1}
+            >
+              <FontAwesomeIcon icon={faMinus} />
+            </button>
+            <span>{durationNights} شب</span>
+            <button onClick={() => changeDuration(1)}>
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
           </div>
         </div>
-      </section>
-      <style jsx>{`
-        .directionContainer {
-          display: flex;
-          gap: 25px;
-          align-items: center;
-          animation: fadeInSlideUp 0.4s ease-out;
-        }
-        @keyframes fadeInSlideUp {
-          from {
-            opacity: 0;
-            transform: translateY(15px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .radioLabel.error {
-          border-color: #e53935 !important;
-          box-shadow: 0 0 0 2px #e53935 !important;
-        }
-        .error {
-          border: 1px solid #e53935 !important;
-          box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2) !important;
-          background-color: #fff5f5 !important;
-        }
-        input.error {
-          background-color: #fff5f5 !important;
-          border-color: #e53935 !important;
-        }
-        .shake {
-          animation: shake 0.4s ease-in-out;
-        }
-        @keyframes shake {
-          0%,
-          100% {
-            transform: translateX(0);
-          }
-          20% {
-            transform: translateX(-6px);
-          }
-          40% {
-            transform: translateX(6px);
-          }
-          60% {
-            transform: translateX(-4px);
-          }
-          80% {
-            transform: translateX(4px);
-          }
-        }
-      `}</style>
-    </>
+
+        <div className="PaxPicker" style={{ flex: 2 }}>
+          <button type="button" onClick={() => {}}>
+            <FontAwesomeIcon icon={faUser} /> {adultCount} بزرگسال ،{" "}
+            <FontAwesomeIcon icon={faChild} /> {childCount} کودک ،{" "}
+            <FontAwesomeIcon icon={faBaby} /> {infantCount} نوزاد
+          </button>
+        </div>
+
+        <div className="Submit">
+          <button onClick={handleSearch}>جستجوی تور</button>
+        </div>
+      </div>
+    </div>
   );
 }
