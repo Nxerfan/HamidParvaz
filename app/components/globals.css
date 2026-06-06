@@ -113,6 +113,7 @@ header {
     .Items {
       width: 1200px;
       justify-self: center;
+      margin: 0 auto;
       display: flex;
       padding: 8px;
       justify-content: start;
@@ -274,6 +275,7 @@ footer {
     display: grid;
     max-width: 1200px;
     justify-self: center;
+    margin: 0 auto;
     .TopRow {
       display: flex;
       justify-content: space-between;
@@ -501,6 +503,7 @@ footer {
     display: flex;
     gap: 20px;
     justify-content: start;
+    margin-left: 120px;
     margin-bottom: 16px;
     a {
       text-decoration: none;
@@ -579,6 +582,7 @@ footer {
   border-radius: 12px;
   box-shadow: var(--boxShadow);
   justify-self: center;
+  margin: 0 auto;
   width: 1200px;
   height: auto;
   position: relative;
@@ -625,7 +629,6 @@ footer {
         gap: 25px;
         align-items: center;
         animation: fadeInSlideUp 0.4s ease-out;
-
       }
     }
 
@@ -634,18 +637,8 @@ footer {
       font-size: var(--fontSize);
       justify-content: space-between;
       width: 100%;
-      gap: 15px;
-      flex-wrap: wrap;
-
-      .LocationPicker,
-      .DatePicker,
-      .PaxPicker,
-      .Guests,
-      .Submit {
-        flex: 1;
-        min-width: 180px;
-        position: relative;
-      }
+      gap: 5px;
+      flex-wrap: nowrap;
 
       .LocationPicker {
         input[type="text"] {
@@ -655,7 +648,7 @@ footer {
           border: none;
           border-radius: 8px;
           font-size: 18px;
-          padding: 0 10px;
+          padding: 0 35px 0 0;
           color: var(--textGray);
           font-family: var(--Font);
           cursor: pointer;
@@ -674,7 +667,92 @@ footer {
           }
         }
       }
+      .DurationPicker {
+        position: relative;
+        display: flex;
+        align-items: center;
+        button {
+          background-color: var(--grayBg);
+          height: 50px;
+          width: 100%;
+          border: none;
+          border-radius: 8px;
+          font-size: 18px;
+          padding: 0 10px;
+          color: var(--textDark);
+          font-family: var(--Font);
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 8px;
 
+          &:hover {
+            background-color: var(--grayBgHover);
+            box-shadow: 0 0 10px var(--grayBgHover);
+          }
+        }
+
+        .DurationDropdown {
+          position: absolute;
+          top: 60px;
+          right: 0;
+          width: 100%;
+          background: var(--bgWhite);
+          border-radius: 10px;
+          padding: 15px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+          z-index: 10;
+
+          .durationRow {
+            display:  grid;
+            justify-content: space-between;
+            align-items: center;
+
+            span {
+              font-size: 16px;
+              font-weight: bold;
+            }
+
+            .durationControls {
+              display: flex;
+              align-items: center;
+              gap: 5px;
+
+              button {
+                width: 35px;
+                height: 35px;
+                border-radius: 6px;
+                background: var(--gold);
+                border: none;
+                font-size: 18px;
+                cursor: pointer;
+
+                &:hover {
+                  background: var(--goldDark);
+                }
+
+                &:disabled {
+                  opacity: 0.5;
+                  cursor: not-allowed;
+                }
+              }
+
+              span {
+                min-width: 40px;
+                text-align: center;
+              }
+            }
+          }
+
+          .durationText {
+            font-size: 13px;
+            color: var(--textGray);
+            margin-top: 8px;
+            text-align: center;
+          }
+        }
+      }
       .DatePicker {
         display: flex;
         gap: 5px;
@@ -750,7 +828,6 @@ footer {
           }
         }
 
-        /* دراپ‌داون انتخاب مسافران و اتاق */
         .GuestDropdown {
           position: absolute;
           top: 60px;
@@ -802,12 +879,11 @@ footer {
             align-items: center;
           }
 
-          /* بخش اتاق و تخت (ویژه هتل) */
           .RoomSelector {
             margin-top: 16px;
             padding-top: 12px;
             border-top: 1px solid #ddd;
-
+            width: 100%;
             .roomHeader {
               display: flex;
               justify-content: space-between;
@@ -816,6 +892,7 @@ footer {
               font-size: 14px;
               font-weight: bold;
               color: var(--textDark);
+              width: 100%;
             }
 
             .roomCounter {
@@ -879,15 +956,85 @@ footer {
       /* برای فرم تور، دکمه مدت اقامت داخل PaxPicker */
       .PaxPicker {
         > div {
-          background-color: var(--grayBg);
-          height: 50px;
+          background-color: var(--bgWhite);
+          width: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 15px;
           border-radius: 8px;
           font-size: 18px;
+          .RoomSelector {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid #ddd;
+            width: 100%;
+            .roomHeader {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 10px;
+              font-size: 14px;
+              font-weight: bold;
+              color: var(--textDark);
+              width: 100%;
+            }
 
+            .roomCounter {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+
+              button {
+                width: 28px;
+                height: 28px;
+                background-color: var(--gold);
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
+                &:disabled {
+                  opacity: 0.5;
+                  cursor: not-allowed;
+                }
+              }
+            }
+
+            .bedSummary {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              background-color: var(--grayBg);
+              padding: 8px 12px;
+              border-radius: 30px;
+              font-size: 13px;
+              color: var(--textDark);
+
+              span {
+                flex: 1;
+              }
+
+              .editBtn {
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: var(--gold);
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                  background-color: var(--grayBgHover);
+                }
+              }
+            }
+          }
           button {
             background: var(--gold);
             border: none;
@@ -1166,6 +1313,7 @@ footer {
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  z-index: 100000000000000;
 
   .modalContent {
     background: var(--bgWhite);
@@ -1174,7 +1322,6 @@ footer {
     width: 90%;
     max-width: 400px;
     box-shadow: var(--boxShadow);
-
     h3 {
       margin-top: 0;
       margin-bottom: 8px;
@@ -1816,7 +1963,6 @@ footer {
   margin: 0;
 }
 
-/* ======================== بخش جستجوی اصلی ======================== */
 .BottomHotel {
   display: flex;
   align-items: center;
@@ -1825,11 +1971,10 @@ footer {
   width: 100%;
 }
 
-/* ---------- انتخاب مقصد ---------- */
 .LocationPicker {
   position: relative;
   flex: 2;
-  min-width: 220px;
+  min-width: 160px;
 }
 
 .inputWithIcon {
@@ -2258,7 +2403,7 @@ footer {
   position: absolute;
   top: 110%;
   left: 0;
-  width: 100%;
+  width: fit-content;
   background: var(--bgWhite);
   border: var(--borderLight);
   border-radius: 12px;
@@ -2275,6 +2420,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 
 .Namee {

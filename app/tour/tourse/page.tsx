@@ -51,7 +51,7 @@ const toursData: Tour[] = [
     destination: "کیش",
     agency: "آژانس آسمان آبی",
     image:
-      "https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "https://dalahoo.com/mi_ax/original/1400/08/23798.webp",
     durationNights: 3,
     durationDays: 4,
     mealPlan: "صبحانه",
@@ -72,7 +72,7 @@ const toursData: Tour[] = [
     destination: "استانبول",
     agency: "آژانس پرواز الکترا",
     image:
-      "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "https://dalahoo.com/mi_ax/original/1397/01/17559.webp",
     durationNights: 5,
     durationDays: 6,
     mealPlan: "صبحانه و ناهار",
@@ -92,7 +92,7 @@ const toursData: Tour[] = [
     destination: "دبی",
     agency: "آژانس سفرهای ناب",
     image:
-      "https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "https://dalahoo.com/mi_ax/original/1404/01/30456.webp",
     durationNights: 4,
     durationDays: 5,
     mealPlan: "بدون صبحانه",
@@ -111,7 +111,7 @@ const toursData: Tour[] = [
     destination: "مشهد",
     agency: "آژانس زیارت",
     image:
-      "https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "https://dalahoo.com/mi_ax/original/1404/02/30686.webp",
     durationNights: 2,
     durationDays: 3,
     mealPlan: "یک وعده",

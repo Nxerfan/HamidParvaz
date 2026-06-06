@@ -11,7 +11,7 @@ import Description from "../components/Description";
 import UsefulWays from "../components/UsefullWays";
 import Header from "../components/(Headers)/Header";
 import TravelCards from "../components/TravelCards";
-import Form1 from "../components/(Forms)/FormType1";
+import Form from "../components/(Forms)/FormType1";
 import FAQSection from "../components/FAQSection";
 
 type HotelCardType = {
@@ -291,42 +291,42 @@ const PAGE_DATA = {
       {
         id: 1,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg"
-,        alt: "تهران",
+        , alt: "تهران",
         title: "رزرو هتل تهران",
         link: "/hotels/tehran",
       },
       {
         id: 2,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg"
-,        alt: "مشهد",
+        , alt: "مشهد",
         title: "رزرو هتل مشهد",
         link: "/hotels/mashhad",
       },
       {
         id: 3,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg"
-,        alt: "اصفهان",
+        , alt: "اصفهان",
         title: "رزرو هتل اصفهان",
         link: "/hotels/isfahan",
       },
       {
         id: 4,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg"
-,        alt: "شیراز",
+        , alt: "شیراز",
         title: "رزرو هتل شیراز",
         link: "/hotels/shiraz",
       },
       {
         id: 5,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg"
-,        alt: "تبریز",
+        , alt: "تبریز",
         title: "رزرو هتل تبریز",
         link: "/hotels/tabriz",
       },
       {
         id: 6,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg"
-,        alt: "کیش",
+        , alt: "کیش",
         title: "رزرو هتل کیش",
         link: "/hotels/kish",
       },
@@ -468,7 +468,6 @@ function HotelCard({ id, title, price, rate, image, location }: HotelCardType) {
 }
 
 export default function HotelsPage() {
-  //
   const hotelSectionsJSX: JSX.Element[] = [];
   for (const section of PAGE_DATA.hotelSections) {
 
@@ -519,7 +518,7 @@ export default function HotelsPage() {
     <>
       <Header />
       <TravelCards />
-      <Form1 />
+      <Form />
       <main>
         <section className="hotelOffersContainer">
           <div className="offers">{hotelSectionsJSX}</div>

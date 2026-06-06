@@ -12,7 +12,7 @@ import {
   faBolt,
 } from "@fortawesome/free-solid-svg-icons";
 import Header from "../../components/(Headers)/SecondHeader";
-import Form from "../../components/(Forms)/FormType3";
+import Form from "../../components/(Forms)/FormType2";
 import "./globals.css";
 
 interface Flight {
@@ -350,7 +350,7 @@ export default function FlightResultsPage() {
     <>
       <Header />
       <main className="flight-results-page">
-        <Form initialMode="flight" />
+        <Form />
 
         <section>
           <div className="Countainer">

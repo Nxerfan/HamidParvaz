@@ -214,8 +214,11 @@
 
           .Bottom {
             text-align: center;
+            width: 100%;
+            justify-content: center;
             p {
               font-size: 18px;
+              width: 100%;
               span {
                 color: var(--goldDark);
                 font-weight: bold;

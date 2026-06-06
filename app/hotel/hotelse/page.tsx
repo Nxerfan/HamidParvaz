@@ -13,7 +13,7 @@ import {
   faMap,
 } from "@fortawesome/free-solid-svg-icons";
 import Header from "../../components/(Headers)/SecondHeader";
-import Form from "../../components/(Forms)/FormType3";
+import Form from "../../components/(Forms)/FormType1";
 import "../globals.css";
 
 

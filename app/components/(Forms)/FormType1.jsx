@@ -12,6 +12,10 @@ import {
   faBaby,
   faPlus,
   faMinus,
+  faPen,
+  faBed,
+  faDoorOpen,
+  faSave,
 } from "@fortawesome/free-solid-svg-icons";
 
 const jalaali = {
@@ -169,6 +173,10 @@ const PAGE_DATA = {
   infantIcon: faBaby,
   plusIcon: faPlus,
   minusIcon: faMinus,
+  editIcon: faPen,
+  bedIcon: faBed,
+  roomIcon: faDoorOpen,
+  saveIcon: faSave,
   destinations: {
     domestic: [
       { id: 1, name: "تهران", type: "domestic" },
@@ -191,6 +199,17 @@ const PAGE_DATA = {
   },
   onSearch: null,
 };
+
+// تابع کمکی توزیع خودکار تخت
+function autoDistributeBeds(totalBeds, numRooms) {
+  if (numRooms <= 0) return [];
+  if (totalBeds < numRooms) return new Array(numRooms).fill(1);
+  const base = Math.floor(totalBeds / numRooms);
+  const remainder = totalBeds % numRooms;
+  const distribution = new Array(numRooms).fill(base);
+  for (let i = 0; i < remainder; i++) distribution[i]++;
+  return distribution;
+}
 
 export default function Form1() {
   const [tripType, setTripType] = useState("domestic");
@@ -215,6 +234,17 @@ export default function Form1() {
   const [infantCount, setInfantCount] = useState(0);
   const [showGuests, setShowGuests] = useState(false);
 
+  // State های اتاق و تخت
+  const [numRooms, setNumRooms] = useState(1);
+  const [bedDistribution, setBedDistribution] = useState([1]);
+  const [isManualDistribution, setIsManualDistribution] = useState(false);
+  const [showRoomEditor, setShowRoomEditor] = useState(false);
+  const [tempDistribution, setTempDistribution] = useState([]);
+
+  // خطاها و شیک
+  const [errors, setErrors] = useState({});
+  const [shakeFields, setShakeFields] = useState({});
+
   const today = new Date();
   const jToday = jalaali.toJalaali(
     today.getFullYear(),
@@ -224,6 +254,23 @@ export default function Form1() {
 
   const maxChildrenInfants = 3 * adultCount;
   const totalChildrenInfants = childCount + infantCount;
+  const totalBedsNeeded = adultCount + childCount; // نوزاد تخت نمی‌خواهد
+
+  // بروزرسانی خودکار توزیع تخت
+  useEffect(() => {
+    if (!isManualDistribution) {
+      setBedDistribution(autoDistributeBeds(totalBedsNeeded, numRooms));
+    } else {
+      const currentTotal = bedDistribution.reduce((a, b) => a + b, 0);
+      if (
+        currentTotal !== totalBedsNeeded ||
+        bedDistribution.length !== numRooms
+      ) {
+        setIsManualDistribution(false);
+        setBedDistribution(autoDistributeBeds(totalBedsNeeded, numRooms));
+      }
+    }
+  }, [totalBedsNeeded, numRooms, isManualDistribution]);
 
   const changeAdult = (delta) => {
     setAdultCount((prev) => {
@@ -248,28 +295,45 @@ export default function Form1() {
       }
       return newAdult;
     });
+    setIsManualDistribution(false);
   };
 
   const incrementChild = () => {
     if (totalChildrenInfants < maxChildrenInfants) {
       setChildCount((prev) => prev + 1);
+      setIsManualDistribution(false);
     }
   };
   const decrementChild = () => {
     setChildCount((prev) => Math.max(0, prev - 1));
+    setIsManualDistribution(false);
   };
   const incrementInfant = () => {
     if (totalChildrenInfants < maxChildrenInfants) {
       setInfantCount((prev) => prev + 1);
+      setIsManualDistribution(false);
     }
   };
   const decrementInfant = () => {
     setInfantCount((prev) => Math.max(0, prev - 1));
+    setIsManualDistribution(false);
+  };
+
+  const changeRooms = (delta) => {
+    const newRooms = Math.max(1, numRooms + delta);
+    if (newRooms > totalBedsNeeded) {
+      triggerErrorShake("rooms");
+      return;
+    }
+    setNumRooms(newRooms);
+    setIsManualDistribution(false);
   };
 
   const handleTripTypeChange = (value) => {
     setTripType(value);
     setDestinationInput("");
+    setErrors({});
+    setShakeFields({});
   };
 
   const filteredDestinations = () => {
@@ -299,6 +363,7 @@ export default function Form1() {
       }
     });
     setShowDropdown(false);
+    setErrors((prev) => ({ ...prev, destination: false }));
   };
 
   const handleInputFocus = () => {
@@ -382,6 +447,7 @@ export default function Form1() {
         setCurrentJy(jy);
         setCurrentJm(jm);
         setCurrentView("days");
+        setErrors((prev) => ({ ...prev, startDate: false, endDate: false }));
       } else {
         const start = stringToJDate(selectedStartDate);
         const currentVal = getDateValue(jy, jm, jd);
@@ -395,6 +461,7 @@ export default function Form1() {
         setShowCalendar(false);
         setActiveInput(null);
         setHoverDate(null);
+        setErrors((prev) => ({ ...prev, endDate: false }));
       }
     },
     [
@@ -575,7 +642,60 @@ export default function Form1() {
   const startDateInputValue = selectedStartDate || "";
   const endDateInputValue = selectedEndDate || "";
 
+  // توابع اعتبارسنجی و شیک
+  const triggerErrorShake = (field) => {
+    setShakeFields((prev) => ({ ...prev, [field]: true }));
+    setTimeout(() => {
+      setShakeFields((prev) => {
+        const newShake = { ...prev };
+        delete newShake[field];
+        return newShake;
+      });
+    }, 500);
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!destinationInput.trim()) newErrors.destination = true;
+    if (!selectedStartDate) newErrors.startDate = true;
+    if (!selectedEndDate) newErrors.endDate = true;
+    if (numRooms > totalBedsNeeded) newErrors.rooms = true;
+    if (Object.keys(newErrors).length) {
+      setErrors(newErrors);
+      Object.keys(newErrors).forEach((f) => triggerErrorShake(f));
+      return false;
+    }
+    return true;
+  };
+
+  const openRoomEditor = () => {
+    setTempDistribution([...bedDistribution]);
+    setShowRoomEditor(true);
+  };
+
+  const updateTempBed = (idx, delta) => {
+    const newDist = [...tempDistribution];
+    const newVal = newDist[idx] + delta;
+    if (newVal < 1) return;
+    const totalOther = newDist.reduce((a, b, i) => a + (i === idx ? 0 : b), 0);
+    if (totalOther + newVal > totalBedsNeeded) return;
+    newDist[idx] = newVal;
+    setTempDistribution(newDist);
+  };
+
+  const saveRoomDistribution = () => {
+    const total = tempDistribution.reduce((a, b) => a + b, 0);
+    if (total !== totalBedsNeeded) {
+      triggerErrorShake("roomDistribution");
+      return;
+    }
+    setBedDistribution(tempDistribution);
+    setIsManualDistribution(true);
+    setShowRoomEditor(false);
+  };
+
   const handleSearch = () => {
+    if (!validateForm()) return;
     const params = {
       tripType,
       destination: destinationInput,
@@ -584,6 +704,8 @@ export default function Form1() {
       adultCount,
       childCount,
       infantCount,
+      rooms: numRooms,
+      bedDistribution,
     };
     console.log("Search params:", params);
     if (PAGE_DATA.onSearch) PAGE_DATA.onSearch(params);
@@ -623,6 +745,7 @@ export default function Form1() {
                     onChange={(e) => setDestinationInput(e.target.value)}
                     onFocus={handleInputFocus}
                     ref={destinationInputRef}
+                    className={errors.destination ? "error" : ""}
                   />
                   {destinationInput && (
                     <FontAwesomeIcon
@@ -686,7 +809,9 @@ export default function Form1() {
                     value={startDateInputValue}
                     readOnly
                     onClick={() => openCalendar("start")}
-                    className={activeInput === "start" ? "active" : ""}
+                    className={`${activeInput === "start" ? "active" : ""} ${
+                      errors.startDate ? "error" : ""
+                    } ${shakeFields.startDate ? "shake" : ""}`}
                   />
                   <input
                     type="text"
@@ -695,7 +820,9 @@ export default function Form1() {
                     value={endDateInputValue}
                     readOnly
                     onClick={() => openCalendar("end")}
-                    className={activeInput === "end" ? "active" : ""}
+                    className={`${activeInput === "end" ? "active" : ""} ${
+                      errors.endDate ? "error" : ""
+                    } ${shakeFields.endDate ? "shake" : ""}`}
                   />
                   {showCalendar && (
                     <div
@@ -839,6 +966,48 @@ export default function Form1() {
                         </button>
                       </div>
                     </div>
+
+                    {/* بخش اتاق و تخت */}
+                    <div className="RoomSelector">
+                      <div className="roomHeader">
+                        <span>
+                          <FontAwesomeIcon icon={PAGE_DATA.roomIcon} /> تعداد
+                          اتاق‌ها
+                        </span>
+                        <div className="roomCounter">
+                          <button
+                            onClick={() => changeRooms(-1)}
+                            disabled={numRooms <= 1}
+                          >
+                            <FontAwesomeIcon icon={PAGE_DATA.minusIcon} />
+                          </button>
+                          <span>{numRooms}</span>
+                          <button
+                            onClick={() => changeRooms(1)}
+                            disabled={numRooms >= totalBedsNeeded}
+                          >
+                            <FontAwesomeIcon icon={PAGE_DATA.plusIcon} />
+                          </button>
+                        </div>
+                      </div>
+                      {errors.rooms && (
+                        <div className="errorMsg">
+                          تعداد اتاق نمی‌تواند از کل تخت‌ها بیشتر باشد
+                        </div>
+                      )}
+                      <div className="bedSummary">
+                        <FontAwesomeIcon icon={PAGE_DATA.bedIcon} />
+                        <span>
+                          {bedDistribution
+                            .map((b, idx) => `${b} تخته`)
+                            .join(" و ")}{" "}
+                          ({bedDistribution.length} اتاق)
+                        </span>
+                        <button className="editBtn" onClick={openRoomEditor}>
+                          <FontAwesomeIcon icon={PAGE_DATA.editIcon} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
@@ -852,6 +1021,50 @@ export default function Form1() {
           </div>
         </div>
       </section>
+
+      {/* مودال ویرایش توزیع تخت */}
+      {showRoomEditor && (
+        <div className="modalOverlay" onClick={() => setShowRoomEditor(false)}>
+          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+            <h3>توزیع تخت در اتاق‌ها</h3>
+            <p>کل تخت‌های مورد نیاز: {totalBedsNeeded} تخت</p>
+            {tempDistribution.map((beds, idx) => (
+              <div key={idx} className="roomEditorRow">
+                <span>اتاق {idx + 1}</span>
+                <div className="bedCounter">
+                  <button
+                    onClick={() => updateTempBed(idx, -1)}
+                    disabled={beds <= 1}
+                  >
+                    <FontAwesomeIcon icon={PAGE_DATA.minusIcon} />
+                  </button>
+                  <span>{beds} تخت</span>
+                  <button
+                    onClick={() => updateTempBed(idx, 1)}
+                    disabled={
+                      tempDistribution.reduce((a, b) => a + b, 0) + 1 >
+                      totalBedsNeeded
+                    }
+                  >
+                    <FontAwesomeIcon icon={PAGE_DATA.plusIcon} />
+                  </button>
+                </div>
+              </div>
+            ))}
+            <div className="modalActions">
+              <button className="saveBtn" onClick={saveRoomDistribution}>
+                <FontAwesomeIcon icon={PAGE_DATA.saveIcon} /> ذخیره
+              </button>
+              <button
+                className="cancelBtn"
+                onClick={() => setShowRoomEditor(false)}
+              >
+                انصراف
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
