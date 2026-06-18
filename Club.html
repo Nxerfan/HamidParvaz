@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="HeaderTop">
+        <div class="Container">
+          <a href="/index.html" class="Logo">
+            <img src="Media/لوگو حمید پرواز (2).png" alt="Niksa Logo" />
+          </a>
+
+          <nav>
+            <div class="NavItem">
+              خدمات مسافرتی <span class="Arrow">▾</span>
+              <div class="Dropdown">
+                <a class="DropdownItem" href="/Hotel.Html">رزرو هتل</a>
+                <a class="DropdownItem" href="/Flight.html">رزرو پرواز</a>
+                <a class="DropdownItem" href="/Tour.html">تور مسافرتی</a>
+              </div>
+            </div>
+
+            <div class="NavItem">
+              درباره ما <span class="Arrow">▾</span>
+              <div class="Dropdown">
+                <a class="DropdownItem" href="AboutUs.html">تماس با ما</a>
+                <a class="DropdownItem" href="/cooperation.html"
+                  >همکاری با ما</a
+                >
+              </div>
+            </div>
+
+            <div class="NavItem">
+              پشتیبانی <span class="Arrow">▾</span>
+              <div class="Dropdown">
+                <a class="DropdownItem" href="/FAQ.html">سوالات متداول</a>
+                <a class="DropdownItem" href="/HowToBuyTicket.html"
+                  >راهنمای رزرو</a
+                >
+                <a class="DropdownItem" href="./rules.html">قوانین و مقررات</a>
+                <a class="DropdownItem" href="/cancellation.html">
+                  پیگیری خرید و کنسلی</a
+                >
+              </div>
+            </div>
+
+            <a href="/BLog.html" class="NavItem">بلاگ</a>
+            <a href="/AboutUs.html" class="NavItem">تماس با ما</a>
+          </nav>
+
+          <div class="AuthButtons">
+            <a href="/singIn.html">
+              <button class="Btn BtnOutline">ورود</button>
+            </a>
+            <a href="/SingUp.html">
+              <button class="Btn BtnPrimary">ثبت نام</button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="Hero2"></div>
+    </header>
+
+    <div class="containerr">
+      <div class="right">
+        <div class="MenuHeader">
+          <button class="EditBtn" aria-label="Edit profile">✎</button>
+          <span class="Username">عرفان صادقی</span>
+        </div>
+
+        <div class="MenuBody">
+          <nav class="Nav">
+            <a href="/cancellation.html" class="Item">
+              <i class="Icon">🎫</i>
+              پیگیری خرید و کنسلی
+            </a>
+
+            <details class="Dropdown">
+              <summary class="Item">
+                <i class="Icon">📞</i>
+                پشتیبانی ۲۴/۷
+              </summary>
+
+              <div class="Content">
+                <a href="/AboutUs.html">تماس با ما</a>
+                <a href="/FAQ.html">سوالات متداول</a>
+              </div>
+            </details>
+
+            <details class="Dropdown">
+              <summary class="Item">
+                <i class="Icon">🧳</i>
+                خدمات سفر
+              </summary>
+
+              <div class="Content">
+                <a href="/Flight.html">بلیط هواپیما</a>
+                <a href="/Hotel.Html">رزرو هتل</a>
+                <a href="/Tour.html">رزرو تور</a>
+              </div>
+            </details>
+
+            <a href="/AboutUs.html" class="Item">
+              <i class="Icon">ⓘ</i>
+              درباره ما
+            </a>
+          </nav>
+        </div>
+      </div>
+      <div class="left">
+        <div class="Card">
+          <div class="UserPanelParts">
+            <div class="TopCard">
+              <p>جوایز کلاب حمید پرواز</p>
+            </div>
+            <div class="Scores">
+              <div
+                class="Score"
+                onclick="location.href = 'ClubLevel.html'"
+              >
+                <p><span>0</span> امتیاز کاربری شما</p>
+                <div class="Coins">
+                  <i class="fas fa-coins"></i>
+                  <i class="fa fa-angle-left"></i>
+                </div>
+              </div>
+              <div class="Histoty">
+                <a href="/ClubHistory.html">
+                  <p>تاریخچه‌ی امتیازات</p>
+                  <i class="fa fa-angle-left"></i>
+                </a>
+                <a href="/ClubLevel.html">
+                  <p>کدهای تخفیف دریافت شده</p>
+                  <i class="fa fa-angle-left"></i>
+                </a>
+              </div>
+            </div>
+            <div class="sliderContainer">
+              <button class="sliderBtn next" id="btn-next">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+
+              <div class="Options" id="options-track">
+                <div class="option active" onclick="selectOption(this)">
+                  <i class="fas fa-layer-group"></i>
+                  <p>همه</p>
+                </div>
+
+                <div class="option" onclick="selectOption(this)">
+                  <i class="fas fa-plane-departure"></i>
+                  <p>سفر</p>
+                </div>
+
+                <div class="option" onclick="selectOption(this)">
+                  <i class="fas fa-ticket-alt"></i>
+                  <p>قرعه‌کشی</p>
+                </div>
+
+                <div class="option" onclick="selectOption(this)">
+                  <i class="fas fa-graduation-cap"></i>
+                  <p>آموزشی</p>
+                </div>
+
+                <div class="option" onclick="selectOption(this)">
+                  <i class="fas fa-book-open"></i>
+                  <p>دوره‌ها</p>
+                </div>
+
+                <div class="option" onclick="selectOption(this)">
+                  <i class="fas fa-concierge-bell"></i>
+                  <p>خدمات</p>
+                </div>
+
+                <div class="option" onclick="selectOption(this)">
+                  <i class="fas fa-gamepad"></i>
+                  <p>تفریح</p>
+                </div>
+
+                <div class="option" onclick="selectOption(this)">
+                  <i class="fas fa-ellipsis-h"></i>
+                  <p>سایر</p>
+                </div>
+
+                <div class="option" onclick="selectOption(this)">
+                  <i class="fas fa-utensils"></i>
+                  <p>رستوران</p>
+                </div>
+              </div>
+
+              <button class="sliderBtn prev" id="btn-prev">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+            </div>
+            <div class="Options">
+              <div class="Option">
+                <div class="R">
+                  <img
+                    src="http://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg"
+                    alt="image"
+                  />
+                  <p>۲۰ هزار تومان تخفیف | سفر با اتوبوس</p>
+                  <span>29 / اسفند / 1404</span>
+                </div>
+                <div class="L">
+                  <i class="fas fa-coins"></i>
+                  <p>امتیاز مورد نیاز</p>
+                  <span>3500</span>
+                  <button>
+                    <p>جزئیات بیشتر</p>
+                    <i class="fa fa-angle-left"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="Option">
+                <div class="R">
+                  <img
+                    src="http://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg"
+                    alt=""
+                  />
+                  <p>۲۰ هزار تومان تخفیف | سفر با اتوبوس</p>
+                  <span>29 / اسفند / 1404</span>
+                </div>
+                <div class="L">
+                  <i class="fas fa-coins"></i>
+                  <p>امتیاز مورد نیاز</p>
+                  <span>3500</span>
+                  <button>
+                    <p>جزئیات بیشتر</p>
+                    <i class="fa fa-angle-left"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="Option">
+                <div class="R">
+                  <img
+                    src="http://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg"
+                    alt=""
+                  />
+                  <p>۲۰ هزار تومان تخفیف | سفر با اتوبوس</p>
+                  <span>29 / اسفند / 1404</span>
+                </div>
+                <div class="L">
+                  <i class="fas fa-coins"></i>
+                  <p>امتیاز مورد نیاز</p>
+                  <span>3500</span>
+                  <button>
+                    <p>جزئیات بیشتر</p>
+                    <i class="fa fa-angle-left"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const track = document.getElementById("options-track");
+      const btnPrev = document.getElementById("btn-prev");
+      const btnNext = document.getElementById("btn-next");
+      const options = document.querySelectorAll(".option");
+
+      const scrollAmount = 200;
+
+      btnNext.addEventListener("click", () => {
+        track.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      });
+
+      btnPrev.addEventListener("click", () => {
+        track.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      });
+
+      options.forEach((option) => {
+        option.addEventListener("click", () => {
+          options.forEach((opt) => opt.classList.remove("active"));
+
+          option.classList.add("active");
+        });
+      });
+    </script>
+  </body>
+</html>
