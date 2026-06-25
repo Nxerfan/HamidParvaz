@@ -1,0 +1,739 @@
+.tour-results-page {
+  .Container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    gap: 24px;
+    direction: rtl;
+    padding: 0 16px;
+  }
+
+  .Right {
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .Title {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background: var(--bgWhite, #fff);
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      justify-content: center;
+
+      img.cover {
+        width: 100%;
+        max-height: 100px;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+
+      .ExperienceTrigger {
+        margin-top: 16px;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+      }
+
+      .ContentWrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #f8f9fa;
+        padding: 12px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+
+        &:hover {
+          background: #fff;
+          border-color: var(--gold, #ffcb11);
+          box-shadow: 0 4px 10px rgba(255, 203, 17, 0.15);
+        }
+      }
+
+      .IconBadge {
+        background: rgba(255, 203, 17, 0.1);
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i,
+        svg {
+          font-size: 20px;
+          color: var(--goldDark, #d4af37);
+        }
+      }
+
+      .TextBlock {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .TitleText {
+        font-size: 14px;
+        font-weight: bold;
+        color: var(--textDark, #333);
+      }
+
+      .DescText {
+        font-size: 11px;
+        color: var(--textGray, #777);
+      }
+    }
+
+    .NotifMe {
+      display: flex;
+      width: 100%;
+      background-color: var(--bgWhite, #fff);
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      align-items: center;
+      justify-content: space-between;
+
+      .Bell {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        span {
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--textDark, #333);
+        }
+
+        i,
+        svg {
+          color: var(--goldDark, #d4af37);
+          font-size: 18px;
+        }
+      }
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+
+        input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #e0e0e0;
+          transition: 0.4s;
+          border-radius: 34px;
+
+          &::before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          }
+        }
+
+        input:checked + .slider {
+          background-color: var(--gold, #ffcb11);
+        }
+
+        input:checked + .slider::before {
+          transform: translateX(20px);
+        }
+      }
+    }
+
+    .Sort {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background-color: var(--bgWhite, #fff);
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      gap: 12px;
+
+      > span {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--textDark, #333);
+      }
+
+      .Choosen {
+        display: flex;
+        gap: 16px;
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--textGray, #555);
+        cursor: pointer;
+      }
+
+      input[type="radio"] {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+
+        &:checked {
+          border-color: var(--goldDark, #d4af37);
+          background-color: white;
+          box-shadow: inset 0 0 0 4px var(--gold, #ffcb11);
+        }
+      }
+    }
+
+    .sidebarFilters {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      direction: rtl;
+
+      .filterHeader {
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 16px;
+        color: var(--textDark, #333);
+      }
+
+      .filterContentArea {
+        .resultsCount {
+          display: block;
+          font-size: 12px;
+          color: #757575;
+          margin-bottom: 20px;
+          background: #f8f9fa;
+          padding: 8px 12px;
+          border-radius: 8px;
+          text-align: center;
+        }
+
+        .filterDropdown {
+          border-bottom: 1px solid #f0f0f0;
+          margin-bottom: 8px;
+
+          .dropdownTrigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--textDark, #333);
+            transition: 0.2s;
+
+            &:hover {
+              color: var(--goldDark, #d4af37);
+            }
+
+            i,
+            svg {
+              transition: transform 0.3s;
+              color: #999;
+            }
+          }
+
+          .dropdownPanel {
+            max-height: 0;
+            overflow: hidden;
+            transition:
+              max-height 0.4s ease-out,
+              padding 0.3s ease;
+
+            &.open {
+              max-height: 500px;
+              padding: 16px 0;
+              overflow-y: auto;
+            }
+          }
+        }
+
+        .checkboxGroup {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          padding: 4px 0;
+        }
+
+        .checkboxItem {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          font-size: 13px;
+          color: #444;
+
+          input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--goldDark, #d4af37);
+            border-radius: 4px;
+          }
+        }
+
+        /* --- Enhanced Price Slider Box (RTL Optimized) --- */
+        .priceSliderBox {
+          padding: 10px 0 20px;
+
+          .priceLabels {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+
+            .labelGroup {
+              background: #f8f9fa;
+              padding: 8px 14px;
+              border-radius: 10px;
+              border: 1px solid #eee;
+              font-size: 13px;
+              color: #555;
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              font-weight: 500;
+
+              .displayMin,
+              .displayMax {
+                font-weight: bold;
+                color: var(--goldDark, #d4af37);
+                font-size: 14px;
+              }
+            }
+          }
+        }
+
+        .rangeSliderContainer {
+          position: relative;
+          width: 100%;
+          height: 8px;
+          margin: 10px 0 40px;
+          border-radius: 4px;
+        }
+
+        .sliderTrack {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: #e9ecef;
+          border-radius: 4px;
+        }
+
+        .sliderProgress {
+          position: absolute;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            var(--gold, #ffcb11),
+            var(--goldDark, #d4af37)
+          );
+          border-radius: 4px;
+          box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+          transition:
+            width 0.1s ease,
+            inset-inline-start 0.1s ease;
+        }
+
+        .rangeInputs {
+          position: relative;
+          width: 100%;
+          height: 20px;
+          margin-top: -14px;
+
+          input[type="range"] {
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            pointer-events: none;
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
+            padding: 0;
+            outline: none;
+          }
+
+          input[type="range"]::-webkit-slider-thumb {
+            pointer-events: auto;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--goldDark, #d4af37);
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            margin-top: -7px; /* Centers the 22px thumb on the 8px track */
+            transition:
+              transform 0.2s,
+              box-shadow 0.2s;
+          }
+
+          input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+          }
+
+          input[type="range"]::-moz-range-thumb {
+            pointer-events: auto;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--goldDark, #d4af37);
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+          }
+        }
+      }
+    }
+  }
+
+  .Left {
+    flex: 1;
+    display: grid;
+    gap: 24px;
+    min-width: 0; /* Prevents grid blowout on small screens */
+    height: fit-content;
+    .SortBar {
+      background: var(--bgWhite, #fff);
+      padding: 16px 24px;
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+      span {
+        font-size: 14px;
+        color: var(--textDark, #333);
+        font-weight: 500;
+      }
+
+      select {
+        padding: 8px 16px;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+        background: white;
+        font-family: inherit;
+        font-size: 13px;
+        color: #555;
+        outline: none;
+        cursor: pointer;
+        transition: border-color 0.2s;
+
+        &:focus {
+          border-color: var(--goldDark, #d4af37);
+        }
+      }
+    }
+
+    .TourCard {
+      background: var(--bgWhite, #fff);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      display: flex;
+      transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+      border: 1px solid #f0f0f0;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+        border-color: var(--gold, #ffcb11);
+      }
+
+      .TourImage {
+        width: 320px;
+        min-height: 240px;
+        position: relative;
+        flex-shrink: 0;
+        background: #f5f5f5;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s;
+        }
+
+        &:hover img {
+          transform: scale(1.05);
+        }
+
+        .Badge {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          background: #dc3545;
+          color: white;
+          padding: 6px 14px;
+          border-radius: 24px;
+          font-size: 12px;
+          font-weight: bold;
+          z-index: 2;
+          box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+
+          &.Special {
+            background: linear-gradient(
+              135deg,
+              var(--gold, #ffcb11),
+              var(--goldDark, #d4af37)
+            );
+            color: #333;
+            box-shadow: 0 4px 10px rgba(255, 203, 17, 0.4);
+          }
+        }
+      }
+
+      .TourContent {
+        flex: 1;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .TourHeader {
+          margin-bottom: 16px;
+        }
+
+        .TourTitle {
+          font-size: 20px;
+          font-weight: bold;
+          margin: 0 0 8px 0;
+          color: var(--textDark, #222);
+          line-height: 1.4;
+        }
+
+        .TourAgency {
+          font-size: 13px;
+          color: var(--textGray, #666);
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          i,
+          svg {
+            color: var(--goldDark, #d4af37);
+          }
+        }
+
+        .TourMeta {
+          display: flex;
+          gap: 20px;
+          flex-wrap: wrap;
+          padding: 16px 0;
+          border-top: 1px dashed #eee;
+          border-bottom: 1px dashed #eee;
+          margin-bottom: 20px;
+        }
+
+        .MetaItem {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 13px;
+          color: #555;
+          background: #f8f9fa;
+          padding: 6px 12px;
+          border-radius: 8px;
+
+          i,
+          svg {
+            color: var(--goldDark, #d4af37);
+            width: 16px;
+            text-align: center;
+          }
+        }
+
+        .TourFooter {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 16px;
+
+          .Capacity {
+            font-size: 13px;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 6px 14px;
+            border-radius: 24px;
+            color: #856404;
+
+            span {
+              color: #d9534f;
+              font-weight: bold;
+              margin-left: 4px;
+            }
+          }
+
+          .PriceBox {
+            text-align: left;
+
+            .PriceLabel {
+              font-size: 12px;
+              color: #aaa;
+              text-decoration: line-through;
+              display: block;
+              margin-bottom: 2px;
+            }
+
+            .PriceValue {
+              font-size: 24px;
+              font-weight: 800;
+              color: var(--goldDark, #d4af37);
+            }
+
+            .Currency {
+              font-size: 14px;
+              font-weight: 500;
+              color: #777;
+            }
+          }
+
+          .BtnBook {
+            background: linear-gradient(
+              135deg,
+              var(--gold, #ffcb11),
+              var(--goldDark, #d4af37)
+            );
+            border: none;
+            padding: 12px 32px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-family: inherit;
+            font-size: 15px;
+            color: #333;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(255, 203, 17, 0.3);
+
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 6px 16px rgba(212, 175, 55, 0.5);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .tour-results-page .Container {
+    padding: 0 20px;
+  }
+  .tour-results-page .Right {
+    width: 280px;
+  }
+}
+
+@media (max-width: 992px) {
+  .tour-results-page .Container {
+    flex-direction: column;
+  }
+  .tour-results-page .Right {
+    width: 100%;
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .tour-results-page .Right > * {
+    flex: 1;
+    min-width: 280px;
+  }
+  .tour-results-page .Right .sidebarFilters {
+    min-width: 100%;
+  }
+  .tour-results-page .Left {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .tour-results-page .Right {
+    flex-direction: column;
+  }
+  .tour-results-page .Right > * {
+    width: 100%;
+  }
+  .tour-results-page .TourCard {
+    flex-direction: column;
+  }
+  .tour-results-page .TourImage {
+    width: 100%;
+    height: 220px;
+    min-height: unset;
+  }
+  .tour-results-page .TourMeta {
+    gap: 10px;
+  }
+  .tour-results-page .TourFooter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .tour-results-page .BtnBook {
+    margin-right: 0;
+    width: 100%;
+    text-align: center;
+  }
+  .tour-results-page .PriceBox {
+    text-align: center;
+  }
+  .tour-results-page .SortBar {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}

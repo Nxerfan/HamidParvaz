@@ -1,0 +1,5694 @@
+.Countainer {
+    width: 1200px;
+    justify-self: center;
+    margin-top: 10px;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    gap: 20px;
+    .Left {
+        width: 100%;
+        display: grid;
+        gap: 10px;
+        height: 100%;
+
+        .Top {
+            background-color: var(--bgWhite);
+            width: 100%;
+            display: grid;
+            box-shadow: var(--boxShadow);
+            padding: 8px 8px 0;
+            height: 100px;
+            border-radius: 12px;
+            justify-content: space-between;
+            .Title {
+                font-size: 14px;
+                color: var(--textDark);
+            }
+            .Price {
+                display: flex;
+                gap: 20px;
+                scroll-behavior: smooth;
+                position: relative;
+                anchor-name: --Price;
+                scroll-snap-type: x mandatory;
+                margin: 0 45px;
+                overflow-x: auto;
+                .Cards {
+                    display: grid;
+                    justify-content: space-between;
+                    scroll-snap-align: start;
+                    flex: 0 0 88px;
+                    text-align: Right;
+                    span {
+                        font-size: 12px;
+                        color: var(--textGray);
+                    }
+                    p {
+                        font-size: 14.5px;
+                        font-weight: bold;
+                        color: var(--textDark);
+                    }
+                }
+            }
+        }
+        .Bottom {
+            display: grid;
+            margin-top: 20px;
+            gap: 10px;
+            .Cards,
+            .CardsOfline {
+                display: flex;
+                flex-wrap: wrap;
+                background-color: var(--bgWhite);
+                padding: 15px;
+                border-radius: 12px;
+                box-shadow: var(--boxShadow);
+                overflow: hidden;
+                transition: all 0.3s ease;
+                width: 100%;
+                box-sizing: border-box;
+                margin-bottom: 20px;
+                direction: rtl;
+
+                &.CardsOfline {
+                    opacity: 0.7;
+                    filter: grayscale(0.5);
+                }
+
+                .RightCard {
+                    width: 70%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+
+                    .About {
+                        display: flex;
+                        align-items: center;
+                        gap: 30px;
+
+                        .Icon {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            width: 96px;
+
+                            img {
+                                width: 45px;
+                                height: auto;
+                            }
+                            span {
+                                font-size: 13px;
+                                color: var(--textGray);
+                            }
+                        }
+
+                        .Time {
+                            display: flex;
+                            align-items: center;
+                            gap: 15px;
+
+                            .Form {
+                                text-align: center;
+                                span {
+                                    font-size: 24px;
+                                    font-weight: bold;
+                                }
+                                p {
+                                    font-size: 14px;
+                                    color: var(--textGray);
+                                    margin: 0;
+                                }
+                            }
+
+                            .i {
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+                                opacity: 0.5;
+                                hr {
+                                    width: 40px;
+                                    border: 0.5px solid var(--textGray);
+                                }
+                            }
+                        }
+                    }
+
+                    .discriptions {
+                        display: flex;
+                        gap: 20px;
+                        align-items: center;
+
+                        .More {
+                            cursor: pointer;
+                            color: var(--goldDark);
+                            font-size: 14px;
+
+                            span {
+                                display: flex;
+                                width: max-content;
+                                align-items: center;
+                                gap: 5px;
+                            }
+                            i {
+                                transition: transform 0.3s ease;
+                            }
+                            &.active i {
+                                transform: rotate(180deg);
+                            }
+                        }
+
+                        .Avablity {
+                            display: flex;
+                            gap: 15px;
+                            width: 100%;
+                            justify-content: space-between;
+                            padding-left: 5px;
+                            span {
+                                background: #f5f5f5;
+                                padding: 2px 8px;
+                                border-radius: 5px;
+                                font-size: 12px;
+                            }
+                            p {
+                                color: tomato;
+                                font-size: 13px;
+                                margin: 0;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+
+                .LeftCard {
+                    width: 30%;
+                    border-right: var(--borderLight);
+                    padding-right: 15px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .Top {
+                        justify-content: end;
+                        box-shadow: none;
+                        height: 100%;
+                        i {
+                            color: var(--gold);
+                            font-size: 21px;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: var(--goldDark);
+                            }
+                        }
+                    }
+
+                    .Bottom {
+                        text-align: center;
+                        p {
+                            font-size: 18px;
+                            span {
+                                color: var(--goldDark);
+                                font-weight: bold;
+                            }
+                        }
+                        button {
+                            background: var(--gold);
+                            border: none;
+                            padding: 12px;
+                            border-radius: 8px;
+                            width: 100%;
+                            font-weight: bold;
+                            font-family: var(--Font);
+                            cursor: pointer;
+                            &:hover {
+                                background: var(--goldDark);
+                            }
+                        }
+                    }
+                }
+
+                .FlightDetails {
+                    flex-basis: 100%;
+                    max-height: 0;
+                    opacity: 0;
+                    overflow: hidden;
+                    transition: all 0.4s ease;
+
+                    &.active {
+                        max-height: max-content;
+                        opacity: 1;
+                    }
+
+                    .DetailsContent {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 10px;
+                        background: #fcfcfc;
+                        border-radius: 8px;
+                        .row {
+                            background: var(--bgLight);
+                            padding: px;
+                            display: flex;
+                            flex-direction: column;
+                            border-radius: 9px;
+                            font-size: 13px;
+                            width: calc(100% - 30%);
+                            .title {
+                                background: var(--grayBgHover);
+                                padding: 8px 12px;
+                                border-radius: 8px;
+                                p {
+                                    font-size: 14px;
+                                }
+                                span {
+                                    border-right: var(--borderLight);
+                                    margin: 0 8px;
+                                }
+                            }
+                            .contet {
+                                padding: 20px 0;
+                                display: flex;
+                                gap: 40px;
+                                .right {
+                                    p {
+                                        font-size: 14px;
+                                        font-weight: bold;
+                                        color: var(--textDark);
+                                    }
+                                    span {
+                                        font-size: 14px;
+                                        font-weight: 100;
+                                        color: var(--textGray);
+                                    }
+                                }
+                                .left {
+                                    p {
+                                        font-size: 14px;
+                                        font-weight: bold;
+                                        color: var(--textDark);
+                                    }
+                                    span {
+                                        font-size: 14px;
+                                        font-weight: 100;
+                                        color: var(--textGray);
+                                    }
+                                }
+                            }
+                        }
+                        .orw {
+                            border-right: var(--borderLight);
+                            padding: 15px;
+                            display: flex;
+                            flex-direction: column;
+                            width: 30%;
+                            justify-content: space-between;
+                            .top {
+                                display: grid;
+                                gap: 5px;
+                                p {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    font-size: 14px;
+                                    font-weight: 100;
+                                    color: var(--textGray);
+                                    span {
+                                        font-size: 14px;
+                                        font-weight: bold;
+                                        color: var(--goldText);
+                                    }
+                                }
+                            }
+                            .bottom {
+                                display: grid;
+                                gap: 5px;
+
+                                button {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    background: none;
+                                    border: none;
+                                    font-family: var(--Font);
+                                    font-size: 12px;
+                                    color: var(--goldText);
+                                    width: 100%;
+                                    height: 30px;
+                                    transition: 0.3s;
+                                    cursor: pointer;
+                                    &:hover {
+                                        background-color: var(--grayBgHover);
+                                        border-radius: 8px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .CardsOfline {
+                background-color: #e0e7ed;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding: 12px;
+                border-radius: 12px;
+                box-shadow: var(--boxShadow);
+            }
+        }
+
+        .MediaElementHotel {
+            display: flex;
+            gap: 15px;
+            background: var(--bgWhite);
+            border-radius: 12px;
+            text-align: right;
+            cursor: pointer;
+            p {
+                font-weight: bold;
+                color: var(--textDark);
+            }
+            img {
+                width: 240px;
+                height: 100%;
+                object-fit: cover;
+                background: var(--gold);
+                border-radius: 0 12px 12px 0;
+            }
+            .Down {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: calc(75% - 25%);
+                padding: 10px;
+
+                .rating {
+                    display: grid;
+                    gap: 10px;
+                    padding-right: 10px;
+                    padding-bottom: 15px;
+                    .Stars {
+                        display: flex;
+
+                        i {
+                            padding: 0 3px;
+                            display: flex;
+                            width: auto;
+                            font-size: 14px;
+                            color: var(--gold);
+                        }
+                        span {
+                            font-size: 14px;
+                            font-weight: bold;
+                            margin-left: 15px;
+                            color: var(--textDark);
+                        }
+                        p {
+                            font-size: 12px;
+                            font-weight: bold;
+                            margin-left: 5px;
+                            color: var(--textGray);
+                            display: flex;
+                            i {
+                                padding: 0;
+                            }
+                        }
+                    }
+                    .AdditionalOptions {
+                        span {
+                            font-size: 12px;
+                            padding: 2px 5px;
+                            background-color: var(--grayBgHover);
+                            border-radius: 8px;
+                        }
+                    }
+                    .SmilyFace {
+                        display: flex;
+                        p {
+                            font-size: 12px;
+                            color: var(--textGray);
+                            i {
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+            }
+            .price {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 10px;
+                align-items: center;
+                width: 25%;
+                cursor: default;
+                border-right: var(--borderLight);
+
+                .titel {
+                    p {
+                        font-size: 12px;
+                        color: var(--textGray);
+                    }
+                }
+                .Choose {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    p {
+                        display: flex;
+                        gap: 5px;
+                        font-size: 12px;
+                        color: var(--textGray);
+                        text-align: center;
+                        align-items: center;
+                        justify-content: center;
+                        span {
+                            color: var(--goldText);
+                            font-size: 20px;
+                        }
+                    }
+                    button {
+                        background: var(--gold);
+                        border: none;
+                        padding: 12px;
+                        border-radius: 8px;
+                        width: 100%;
+                        font-weight: bold;
+                        font-family: var(--Font);
+                        cursor: pointer;
+                        &:hover {
+                            background: var(--goldDark);
+                        }
+                    }
+                }
+                p {
+                    font-size: 12px;
+                    font-weight: bold;
+                    display: grid;
+                    span {
+                        font-weight: normal;
+                    }
+                }
+            }
+        }
+        .Titel {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            p {
+                font-size: 18px;
+                font-weight: bold;
+            }
+            i {
+                font-size: 18px;
+            }
+        }
+        .Sorting {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+            p {
+                font-size: 15px;
+                font-weight: bold;
+            }
+            .Card {
+                display: flex;
+                width: fit-content;
+                justify-content: space-between;
+                p {
+                    font-weight: normal;
+                    font-size: 16px;
+                    padding: 10px;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    &:hover {
+                        font-weight: bold;
+                        color: tomato;
+                    }
+                    &.active {
+                        color: var(--textDark);
+                        font-weight: bold;
+                        border-bottom: 4px solid tomato;
+                    }
+                }
+            }
+        }
+
+        .Choose {
+            display: grid;
+            gap: 20px;
+            align-items: center;
+            label {
+                display: flex;
+                gap: 5px;
+                align-items: center;
+            }
+            span {
+                font-size: 13px;
+            }
+            input[type="radio"] {
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                border: var(--borderLight);
+                border-radius: 50%;
+                cursor: pointer;
+                position: relative;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    border-color: var(--textDark);
+                }
+
+                &:checked {
+                    border-color: var(--goldDark);
+                    background-color: var(--gold);
+                    transform: scale(1.2);
+                    box-shadow: 0 0 10px var(--goldText);
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        transform: translate(-50%, -50%) scale(0);
+                        animation: pop 0.3s forwards;
+                    }
+                }
+            }
+
+            @keyframes pop {
+                0% {
+                    transform: translate(-50%, -50%) scale(0);
+                }
+                50% {
+                    transform: translate(-50%, -50%) scale(1.3);
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(1);
+                }
+            }
+        }
+    }
+    .Right {
+        .Titel {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            p {
+                font-size: 18px;
+                font-weight: bold;
+            }
+            i {
+                font-size: 18px;
+            }
+        }
+        .sidebarFilters {
+            width: 240px;
+            min-width: 240px;
+            max-width: 240px;
+            flex: 0 0 240px;
+            flex-shrink: 0;
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--boxShadow);
+            direction: rtl;
+            position: sticky;
+            top: 10px;
+            align-self: start;
+            display: grid;
+            gap: 14px;
+
+             .filterHeader {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: bold;
+                padding-bottom: 10px;
+                border-bottom: var(--borderLight);
+                margin-bottom: 15px;
+            }
+
+            .filterContentArea {
+                .resultsCount {
+                    display: block;
+                    font-size: 12px;
+                    color: var(--textGray);
+                    margin-bottom: 15px;
+                }
+
+                .filterDropdown {
+                    border-bottom: var(--borderLight);
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    .dropdownTrigger {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        cursor: pointer;
+                        padding: 12px 0;
+                        font-size: 14px;
+                        font-weight: bold;
+
+                        svg {
+                            transition: 0.3s;
+                        }
+
+                        &.open svg {
+                            transform: rotate(180deg);
+                        }
+                    }
+
+                    .dropdownPanel {
+                        animation: fadeDown 0.25s ease;
+
+                        @keyframes fadeDown {
+                            from {
+                                opacity: 0;
+                                transform: translateY(-5px);
+                            }
+                            to {
+                                opacity: 1;
+                                transform: translateY(0);
+                            }
+                        }
+
+                        /* ================= PRICE SLIDER ================= */
+
+                        .priceSliderBox {
+                            padding: 15px 0;
+
+                            .priceLabels {
+                                display: flex;
+                                justify-content: space-between;
+                                font-size: 12px;
+                                margin-bottom: 25px;
+
+                                .labelGroup {
+                                    display: flex;
+                                    gap: 4px;
+                                    align-items: center;
+                                }
+                            }
+
+                            .rangeSliderContainer {
+                                position: relative;
+                                width: 100%;
+                                height: 30px;
+                                direction: ltr;
+                                .sliderTrack {
+                                    position: absolute;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    width: 100%;
+                                    height: 6px;
+                                    background: #e5e5e5;
+                                    border-radius: 10px;
+                                }
+
+                                .sliderProgress {
+                                    position: absolute;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    height: 6px;
+                                    background: var(--gold);
+                                    border-radius: 10px;
+                                }
+
+                                .rangeInputs {
+                                    position: relative;
+                                    height: 100%;
+
+                                    input[type="range"] {
+                                        position: absolute;
+                                        width: 100%;
+                                        height: 100%;
+                                        background: none;
+                                        pointer-events: none;
+                                        -webkit-appearance: none;
+                                        z-index: 2;
+
+                                        &::-webkit-slider-thumb {
+                                            -webkit-appearance: none;
+                                            pointer-events: auto;
+                                            height: 18px;
+                                            width: 18px;
+                                            border-radius: 50%;
+                                            background: #fff;
+                                            border: 3px solid var(--gold);
+                                            cursor: pointer;
+                                            box-shadow: 0 2px 8px
+                                                rgba(0, 0, 0, 0.15);
+                                            position: relative;
+                                            z-index: 3;
+                                        }
+
+                                        &::-moz-range-track {
+                                            background: transparent;
+                                        }
+
+                                        &::-moz-range-thumb {
+                                            pointer-events: auto;
+                                            height: 18px;
+                                            width: 18px;
+                                            border-radius: 50%;
+                                            background: #fff;
+                                            border: 3px solid var(--gold);
+                                            cursor: pointer;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        /* ================= CHECKBOX ================= */
+
+                        .checkboxGroup {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            padding: 10px 0;
+
+                            .checkboxItem {
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                font-size: 13px;
+                                cursor: pointer;
+
+                                input[type="checkbox"] {
+                                    width: 16px;
+                                    height: 16px;
+                                    accent-color: var(--gold);
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+/* ===== خلاصه سفارش Premium Styles ===== */
+.Right .sidebarFilters {
+  background: linear-gradient(180deg, #fefcf7 0%, #fff 100%);
+  border: 1px solid rgba(202, 162, 63, 0.12);
+}
+
+.Right .sidebarFilters .sidebarHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--gold);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--goldDark);
+  letter-spacing: 0.3px;
+}
+
+.Right .sidebarFilters .sidebarHeader .sidebarHeaderIcon {
+  color: var(--gold);
+}
+
+.Right .sidebarFilters .hotelMiniCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  animation: fadeSlideUp 0.4s ease forwards;
+}
+
+.Right .sidebarFilters .hotelMiniCard:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.Right .sidebarFilters .hotelMiniTop {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.Right .sidebarFilters .hotelMiniImgWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.Right .sidebarFilters .hotelMiniImgWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Right .sidebarFilters .hotelMiniMeta {
+  flex: 1;
+  min-width: 0;
+}
+
+.Right .sidebarFilters .hotelMiniName {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--textDark);
+  line-height: 1.3;
+  margin-bottom: 1px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.Right .sidebarFilters .hotelMiniStars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.Right .sidebarFilters .hotelMiniStarsText {
+  font-size: 10px;
+  color: var(--textGray);
+  margin-right: 2px;
+}
+
+.Right .sidebarFilters .editBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  background: var(--grayBgHover);
+  color: var(--goldDark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  opacity: 0.5;
+}
+
+.Right .sidebarFilters .editBtn:hover {
+  opacity: 1;
+  background: var(--gold);
+  color: #fff;
+}
+
+.Right .sidebarFilters .editBtn.sm {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+}
+
+.Right .sidebarFilters .hotelMiniDetails {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: center;
+}
+
+.Right .sidebarFilters .hotelMiniDetail {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--textGray);
+}
+
+.Right .sidebarFilters .hotelMiniDetail svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.Right .sidebarFilters .hotelMiniOptions {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.Right .sidebarFilters .hotelMiniBadge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(202, 162, 63, 0.1);
+  color: var(--goldDark);
+  font-weight: 600;
+}
+
+.Right .sidebarFilters .hotelMiniDates {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  background: #f8f6f1;
+  border-radius: 8px;
+}
+
+.Right .sidebarFilters .hotelMiniDate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.Right .sidebarFilters .hotelMiniDateLabel {
+  font-size: 9px;
+  color: var(--textGray);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.Right .sidebarFilters .hotelMiniDateValue {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--textDark);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.Right .sidebarFilters .hotelMiniDateValue.highlight {
+  color: var(--goldDark);
+}
+
+.Right .sidebarFilters .hotelMiniDateSep {
+  width: 1px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+}
+
+.Right .sidebarFilters .hotelMiniRoom {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--textDark);
+  font-weight: 600;
+  padding: 5px 8px;
+  background: rgba(202, 162, 63, 0.06);
+  border-radius: 8px;
+}
+
+.Right .sidebarFilters .hotelMiniRoom svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.Right .sidebarFilters .hotelMiniRoomDivider {
+  color: var(--textGray);
+  opacity: 0.4;
+}
+
+.Right .sidebarFilters .flightCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  animation: fadeSlideUp 0.4s ease forwards;
+  animation-delay: 0.1s;
+}
+
+.Right .sidebarFilters .flightCard:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.Right .sidebarFilters .flightCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.Right .sidebarFilters .flightCardTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--textDark);
+}
+
+.Right .sidebarFilters .flightIconWrap {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.Right .sidebarFilters .flightIconWrap.outbound {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.Right .sidebarFilters .flightIconWrap.return {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.Right .sidebarFilters .timeline {
+  position: relative;
+  padding-right: 2px;
+}
+
+.Right .sidebarFilters .timelineItem {
+  display: flex;
+  gap: 10px;
+  position: relative;
+}
+
+.Right .sidebarFilters .timelineItem:not(:last-child) {
+  padding-bottom: 16px;
+}
+
+.Right .sidebarFilters .timelineDotCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+  width: 16px;
+}
+
+.Right .sidebarFilters .timelineDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.Right .sidebarFilters .timelineDot.origin {
+  background: rgba(59, 130, 246, 0.12);
+  border: 2px solid #3b82f6;
+}
+
+.Right .sidebarFilters .timelineDot.dest {
+  background: rgba(34, 197, 94, 0.12);
+  border: 2px solid #22c55e;
+}
+
+.Right .sidebarFilters .timelineDotInner {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.Right .sidebarFilters .timelineDot.origin .timelineDotInner {
+  background: #3b82f6;
+}
+
+.Right .sidebarFilters .timelineDot.dest .timelineDotInner {
+  background: #22c55e;
+}
+
+.Right .sidebarFilters .flightCard:hover .timelineDot {
+  transform: scale(1.1);
+}
+
+.Right .sidebarFilters .timelineConnector {
+  position: absolute;
+  top: 18px;
+  width: 2px;
+  height: calc(100% + 2px);
+  background: linear-gradient(to bottom, #cbd5e1, #94a3b8);
+  border-radius: 2px;
+}
+
+.Right .sidebarFilters .timelineItem.last .timelineConnector {
+  display: none;
+}
+
+.Right .sidebarFilters .timelineInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.Right .sidebarFilters .timelineAirport {
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--textDark);
+  line-height: 1.3;
+}
+
+.Right .sidebarFilters .timelineTime {
+  font-size: 10px;
+  color: var(--textGray);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.Right .sidebarFilters .timelineTime .timeIcon {
+  color: var(--gold);
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.Right .sidebarFilters .payCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid var(--gold);
+  background: linear-gradient(135deg, #fff 0%, #fffcf0 100%);
+  animation: fadeSlideUp 0.4s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.Right .sidebarFilters .payCardRows {
+  display: grid;
+  gap: 6px;
+}
+
+.Right .sidebarFilters .payRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.Right .sidebarFilters .payRowLabel {
+  color: var(--textGray);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.Right .sidebarFilters .payRowLabel svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.Right .sidebarFilters .payRowValue {
+  font-weight: 600;
+  color: var(--textDark);
+  font-size: 12px;
+}
+
+.Right .sidebarFilters .payRow.discount .payRowValue {
+  color: #22c55e;
+  font-size: 12px;
+}
+
+.Right .sidebarFilters .payRow.gift .payRowValue {
+  color: var(--textGray);
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.Right .sidebarFilters .payDivider {
+  height: 1.5px;
+  background: linear-gradient(to left, var(--gold), var(--goldDark), transparent);
+  margin: 8px 0;
+  border-radius: 2px;
+}
+
+.Right .sidebarFilters .payTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.Right .sidebarFilters .payTotalLabel {
+  font-weight: 700;
+  color: var(--textDark);
+  font-size: 13px;
+}
+
+.Right .sidebarFilters .payTotalValueWrap {
+  position: relative;
+}
+
+.Right .sidebarFilters .payTotalValue {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--goldDark);
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, var(--goldDark), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.Right .sidebarFilters .payButton {
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--gold), var(--goldDark));
+  color: #fff;
+  font-family: var(--Font);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.Right .sidebarFilters .payButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.Right .sidebarFilters .payButton:hover::before {
+  transform: translateX(100%);
+}
+
+.Right .sidebarFilters .payButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(197, 160, 89, 0.45);
+}
+
+.Right .sidebarFilters .payButton:active {
+  transform: translateY(0);
+}
+
+.Right .sidebarFilters .payButton svg {
+  flex-shrink: 0;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.GridD {
+    display: grid;
+    gap: 24px;
+}
+.Card {
+    .Titel {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .Mohtava {
+            display: grid;
+            gap: 5px;
+            h3 {
+                font-size: 24px;
+            }
+            p {
+                font-size: 12px;
+                color: var(--textGray);
+            }
+            h4 {
+                font-size: 18px;
+            }
+        }
+        .Footer2 {
+            h3 {
+                font-size: 18px;
+                a {
+                    text-decoration: none;
+                    color: var(--goldText);
+                    transition: 0.3s;
+                    &:hover {
+                        color: var(--goldDark);
+                    }
+                }
+            }
+        }
+        button {
+            background: var(--gold);
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-family: var(--Font);
+            cursor: pointer;
+            &:hover {
+                background: var(--goldDark);
+            }
+        }
+    }
+    .ImageCountainer {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+        align-items: stretch;
+
+        .MainImg {
+            flex: 0 0 65%;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 400px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.6s ease;
+            }
+
+            &:hover img {
+                transform: scale(1.04);
+            }
+        }
+
+        .mainImgBadge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .MoreImg {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            direction: rtl;
+        }
+
+        .galleryThumb {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2.5px solid transparent;
+            transition: all 0.3s ease;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.4s ease;
+            }
+
+            &:hover img {
+                transform: scale(1.1);
+            }
+
+            &.active {
+                border-color: var(--gold);
+                box-shadow:
+                    0 0 0 3px rgba(255, 200, 0, 0.25),
+                    0 4px 12px rgba(255, 200, 0, 0.15);
+            }
+
+            &:first-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+        .galleryOverlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .galleryThumb:hover .galleryOverlay {
+            opacity: 1;
+        }
+    }
+    .Disc {
+        padding: 0 24px;
+        font-size: 15px;
+        p {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            transition: all 0.3s ease;
+            &.open {
+                -webkit-line-clamp: unset;
+            }
+        }
+        #toggleBtn {
+            color: var(--goldText);
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 8px;
+        }
+    }
+
+    .RoomSelect {
+        direction: rtl;
+        font-family: inherit;
+        border: var(--borderLight);
+        border-radius: 12px;
+        padding: 16px;
+
+        .RoomSelectRow {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .RoomSelectType {
+            flex: 3;
+
+            .RoomSelectTitle {
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--textDark);
+            }
+
+            .RoomSelectSubtitle {
+                font-size: 13px;
+                color: var(--textGray);
+                margin-top: 4px;
+            }
+        }
+
+        .RoomSelectCounter {
+            flex: 1;
+            text-align: center;
+
+            .RoomSelectCounterLabel {
+                font-size: 12px;
+                color: var(--textGray);
+                margin-bottom: 6px;
+            }
+
+            .RoomSelectCounterBox {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+            }
+        }
+
+        .RoomSelectBtn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: var(--borderLight);
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+            user-select: none;
+
+            &:hover {
+                background: var(--grayBgHover);
+            }
+
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+
+        .RoomSelectValue {
+            min-width: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .RoomSelectFooter {
+            margin-top: 16px;
+        }
+    }
+    .RoomSelectSelectBtn {
+        display: flex;
+        margin-top: 10px;
+        justify-content: center;
+        font-size: 18px;
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        background-color: var(--gold);
+        color: var(--textDark);
+        font-family: var(--Font);
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+        &:hover {
+            background-color: var(--goldDark);
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
+    }
+}
+.container {
+    width: 1200px;
+    position: relative;
+    justify-self: center;
+    background: none;
+    display: flex;
+    gap: 20px;
+    .Right,
+    .Right2 {
+        display: grid;
+        gap: 10px;
+        .Card {
+            position: relative;
+            background-color: var(--bgWhite);
+            box-shadow: var(--boxShadow);
+            padding: 20px;
+            border-radius: 12px;
+            .Titel {
+                h3 {
+                    font-size: 20px;
+                }
+                p {
+                    font-size: 14px;
+                    font-weight: normal;
+                    color: var(--textGray);
+                }
+            }
+            .TopCard {
+                display: flex;
+                justify-content: space-between;
+                padding-bottom: 20px;
+                border-bottom: var(--borderLight);
+
+                p {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: var(--textDark);
+                }
+                .Clock {
+                    display: flex;
+                    gap: 5px;
+                    align-items: center;
+                    p {
+                        font-size: 17px;
+                        font-weight: 500;
+                    }
+                    i {
+                        opacity: 1;
+                    }
+                }
+            }
+            .bottomCard {
+                padding-top: 20px;
+                display: grid;
+                gap: 20px;
+                .gender {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 95%;
+                    i {
+                        opacity: 1;
+                    }
+                    .nationality {
+                        display: flex;
+                        gap: 20px;
+                        .gender-radios {
+                            display: flex;
+                            gap: 12px;
+                            label {
+                                gap: 4px;
+                            }
+                        }
+                        p {
+                            font-size: 15px;
+                            font-weight: bold;
+                            color: var(--textDark);
+                        }
+                        label {
+                            display: flex;
+                            gap: 20px;
+                            color: var(--goldDark);
+                            label {
+                                display: flex;
+                                gap: 5px;
+                                input[type="radio"] {
+                                    appearance: none;
+                                    width: 14px;
+                                    height: 14px;
+                                    border: 2px solid var(--goldDark);
+                                    border-radius: 50%;
+                                    cursor: pointer;
+                                    transition: 0.2s;
+                                    &:hover {
+                                        background-color: #e6b8005e;
+                                        transition: 0.5s;
+                                    }
+                                    &:checked {
+                                        background-color: var(--gold);
+                                        border: 2px solid var(--goldDark);
+                                        transition: 0.8s;
+                                    }
+                                }
+                            }
+                        }
+                        select {
+                            border: none;
+                            font-weight: bold;
+                            color: var(--goldDark);
+                            font-size: 14px;
+                            font-family: var(--Font);
+                            cursor: pointer;
+                            appearance: none;
+                            -webkit-appearance: none;
+                            -moz-appearance: none;
+                            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+                            background-repeat: no-repeat;
+                            background-position: left 10px center;
+                            background-size: 15px;
+                            padding-left: 30px;
+                            padding-right: 10px;
+                            option {
+                                width: 190px;
+                                border: none;
+                            }
+                            &:focus {
+                                outline: none;
+                                background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+                            }
+                            &:focus-visible {
+                                outline: none;
+                            }
+                        }
+                    }
+                    .addNew {
+                        display: flex;
+                        gap: 5px;
+                        P {
+                            font-size: 14px;
+                            color: var(--goldDark);
+                            font-weight: bold;
+                        }
+                        i {
+                            color: var(--goldDark);
+                            opacity: 1;
+                        }
+                    }
+                }
+                .Span {
+                    display: grid;
+                    gap: 5px;
+                    span {
+                        font-size: 12px;
+                        color: var(--textGray);
+                        &:last-of-type {
+                            padding: 5px;
+                            width: fit-content;
+                            border-radius: 8px;
+                            background-color: var(--grayBgHover);
+                        }
+                    }
+                }
+                .OtherInoformation {
+                    width: 100%;
+                    display: grid;
+                    gap: 25px;
+                    .top {
+                        display: flex;
+                        justify-content: space-between;
+                        width: 90%;
+                        label {
+                            display: grid;
+                            justify-content: start;
+                            gap: 5px;
+                            margin-right: 15px;
+                            font-size: 14px;
+                            input[type="text"] {
+                                border: none;
+                                height: 50px;
+                                width: 400px;
+                                background-color: var(--bgLight);
+                                font-family: var(--Font);
+                                color: var(--textDark);
+                                border-radius: 8px;
+                                padding: 0 10px;
+                            }
+                        }
+                    }
+                    .bottom {
+                        display: flex;
+                        justify-content: space-between;
+                        label {
+                            display: grid;
+                            justify-content: start;
+                            gap: 5px;
+                            margin-right: 15px;
+                            font-size: 14px;
+                            input[type="text"] {
+                                border: none;
+                                height: 50px;
+                                width: 400px;
+                                background-color: var(--bgLight);
+                                font-family: var(--Font);
+                                color: var(--textDark);
+                                border-radius: 8px;
+                                padding: 0 10px;
+                            }
+                            .dateSelectors {
+                                display: flex;
+                                justify-content: start;
+                                gap: 5px;
+
+                                font-size: 14px;
+                                input {
+                                    border: none;
+                                    height: 50px;
+                                    width: 130px;
+                                    background-color: var(--bgLight);
+                                    font-family: var(--Font);
+                                    color: var(--textDark);
+                                    border-radius: 8px;
+                                    padding: 0 10px;
+                                }
+                                select {
+                                    border: none;
+                                    width: 130px;
+                                    color: var(--textDark);
+                                    background-color: var(--bgLight);
+                                    border-radius: 8px;
+                                    padding: 0 10px;
+                                    cursor: pointer;
+                                    appearance: none;
+                                    -webkit-appearance: none;
+                                    -moz-appearance: none;
+                                    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+                                    background-repeat: no-repeat;
+                                    background-position: left 10px center;
+                                    background-size: 15px;
+                                    &:focus {
+                                        border: none;
+                                        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+                                    }
+                                    &:focus-visible {
+                                        outline: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .BottomCard {
+                padding: 12px 0 0 0;
+
+                .Titel {
+                    display: flex;
+                    justify-content: space-between;
+                    p {
+                        font-size: 14px;
+                        &:last-of-type {
+                            font-weight: bold;
+                        }
+                    }
+                    .R {
+                        display: flex;
+                        gap: 10px;
+                    }
+                }
+                .AvableFlights {
+                    border: var(--borderLight);
+                    border-radius: 12px;
+                    display: grid;
+                    gap: 12px;
+                    padding: 12px 16px;
+                    .Option {
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: 14px;
+                        font-weight: bold;
+                        border-bottom: var(--borderLight);
+                        padding-bottom: 8px;
+                        align-items: center;
+                        &:last-child {
+                            border: none;
+                        }
+                        .R {
+                            display: flex;
+                            gap: 10px;
+                            width: 80%;
+                            height: 40px;
+                            padding: 2px;
+                            p {
+                                margin: auto 0;
+                            }
+                            img {
+                                width: auto;
+                            }
+                        }
+                    }
+                }
+                .TextTi {
+                    display: flex;
+                    justify-content: space-between;
+                    p {
+                        font-size: 12px;
+                        &:last-of-type {
+                            font-size: 17px;
+                            font-weight: bold;
+                            color: var(--goldText);
+                            span {
+                                font-size: 14px;
+                                font-weight: normal;
+                            }
+                        }
+                    }
+                }
+                .Enable {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border: var(--borderLight);
+                    padding: 12px;
+                    border-radius: 12px;
+                    .R {
+                        display: flex;
+                        gap: 12px;
+                        align-items: center;
+                        .Content {
+                            display: grid;
+                            gap: 3px;
+                            p {
+                                font-size: 12px;
+                                font-weight: bold;
+                                &:last-of-type {
+                                    font-size: 14px;
+                                    font-weight: normal;
+                                }
+                            }
+                        }
+                    }
+                    .L {
+                        .switch {
+                            position: relative;
+                            display: inline-block;
+                            width: 44px;
+                            height: 24px;
+                            input {
+                                opacity: 0;
+                                width: 0;
+                                height: 0;
+                            }
+                            .slider {
+                                position: absolute;
+                                cursor: pointer;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-color: #ccc;
+                                transition: 0.4s;
+                                border-radius: 34px;
+                                &::before {
+                                    position: absolute;
+                                    content: "";
+                                    height: 20px;
+                                    width: 20px;
+                                    left: 2px;
+                                    bottom: 2px;
+                                    background-color: white;
+                                    transition: 0.4s;
+                                    border-radius: 50%;
+                                }
+                            }
+                            input:checked + .slider {
+                                background-color: var(--gold);
+                            }
+                            input:checked + .slider:before {
+                                transform: translateX(20px);
+                            }
+                        }
+                    }
+                }
+                .Rules {
+                    display: grid;
+                    gap: 8px;
+                    p {
+                        font-size: 17px;
+                        font-weight: bold;
+                    }
+                    ul {
+                        padding: 0 20px 0 0;
+                        display: grid;
+                        gap: 3px;
+                        li {
+                            font-size: 12px;
+                            font-weight: bold;
+                            color: var(--textGray);
+                        }
+                    }
+                }
+            }
+            .Sec {
+                display: grid;
+                gap: 24px;
+                .Titel {
+                    p {
+                        font-size: 17px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .Card2 {
+            width: 100%;
+        }
+        .AddMember {
+            position: relative;
+            background-color: var(--bgWhite);
+            box-shadow: var(--boxShadow);
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--textDark);
+            font-size: 15px;
+            .AddOptions {
+                display: flex;
+                gap: 12px;
+                button {
+                    border: none;
+                    background: none;
+                    font-family: var(--Font);
+                    color: var(--goldDark);
+                    font-size: 13px;
+                    gap: 10px;
+                    align-items: center;
+                    cursor: pointer;
+                }
+                i {
+                    height: fit-content;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    .Right2 {
+        display: grid;
+        width: calc(100%-35%);
+    }
+    .left,
+    .left2 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .hotelCard {
+            position: relative;
+            &.open {
+                .bottom {
+                    max-height: 500px;
+                    display: grid;
+                    gap: 40px;
+                    .In {
+                        display: flex;
+                        gap: 12px;
+                        align-items: center;
+                        i {
+                            font-size: 10px;
+                            color: var(--textGray);
+                            z-index: 2;
+                        }
+                        p {
+                            font-size: 14px;
+                        }
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            left: 75%;
+                            top: 50%;
+                            height: 40%;
+                            border-left: 1px solid var(--textGray);
+                            z-index: 1;
+                        }
+                    }
+                }
+
+                .fa-angle-down {
+                    transform: rotate(180deg);
+                }
+            }
+
+            .bottom {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease;
+            }
+
+            .fa-angle-down {
+                transition: transform 0.3s ease;
+            }
+            .ChoosedHotel {
+                display: flex;
+                gap: 8px;
+                position: relative;
+                align-items: center;
+                background-color: var(--white);
+                z-index: 12;
+
+                img {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 8px;
+                }
+                i {
+                    margin-right: 69px;
+                }
+            }
+        }
+        .card1 {
+            width: 100%;
+            position: relative;
+            background-color: var(--bgWhite);
+            box-shadow: var(--boxShadow);
+            padding: 10px;
+            border-radius: 12px;
+            display: grid;
+            gap: 10px;
+            .Time {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                width: 300px;
+                .Form {
+                    display: grid;
+                    justify-content: start;
+                    span {
+                        font-size: 24px;
+                    }
+                    p {
+                        font-size: var(--fontSize);
+                        color: var(--textGray);
+                        text-align: center;
+                    }
+                }
+                .i {
+                    align-items: center;
+                    display: flex;
+                    margin: 8px;
+                    color: var(--textGray);
+                    opacity: 0.7;
+                    i {
+                        font-size: 12px;
+                    }
+                }
+            }
+
+            .bottom {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                p {
+                    font-size: 14px;
+                    color: var(--textDark);
+                }
+                .Avablity {
+                    display: flex;
+                    width: auto;
+                    span {
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+                        height: 28px;
+                        padding: 2px 8px;
+                        background-color: #ffcb1151;
+                        border-radius: 8px;
+                    }
+                }
+            }
+        }
+        .card2 {
+            width: 100%;
+            position: relative;
+            background-color: var(--bgWhite);
+            box-shadow: var(--boxShadow);
+            padding: 10px;
+            border-radius: 12px;
+            display: grid;
+            gap: 12px;
+            .T {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                cursor: default;
+            }
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: var(--gold);
+            border-radius: 8px;
+            box-shadow: var(--boxShadow);
+            font-family: var(--Font);
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            &:hover {
+                background-color: var(--goldDark);
+            }
+        }
+    }
+    .left2 {
+        width: 35%;
+    }
+}
+
+.table {
+    table {
+        width: 100%;
+        gap: 0;
+        tr {
+            &:first-of-type {
+                background-color: var(--grayBg);
+                border-radius: 12px;
+            }
+            th {
+                color: var(--goldText);
+                padding: 5px 0;
+
+                &:first-child {
+                    border-radius: 0 12px 12px 0;
+                }
+                &:last-of-type {
+                    border-radius: 12px 0 0 12px;
+                }
+            }
+            td {
+                text-align: center;
+                font-size: 14px;
+                font-weight: bold;
+                button {
+                    border: 1px solid gold;
+                    border-radius: 8px;
+                    background: none;
+                    font-family: var(--Font);
+                    padding: 5px 16px;
+                    transition: 0.3s;
+                    cursor: pointer;
+                    &:hover {
+                        background: var(--gold);
+                        border: 1px solid var(--goldDark);
+                    }
+                }
+            }
+        }
+    }
+}
+.Card {
+    position: relative;
+    background-color: var(--bgWhite);
+    box-shadow: var(--boxShadow);
+    padding: 20px;
+    border-radius: 12px;
+    .Titel {
+        h3 {
+            font-size: 20px;
+        }
+        p {
+            font-size: 14px;
+            font-weight: normal;
+            color: var(--textGray);
+        }
+    }
+    .TopCard {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 20px;
+        border-bottom: var(--borderLight);
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--textDark);
+        }
+        .Clock {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            p {
+                font-size: 17px;
+                font-weight: 500;
+            }
+            i {
+                opacity: 1;
+            }
+        }
+    }
+    .bottomCard {
+        padding-top: 20px;
+        display: grid;
+        gap: 20px;
+        .gender {
+            display: flex;
+            justify-content: space-between;
+            width: 95%;
+            i {
+                opacity: 1;
+            }
+            .nationality {
+                display: flex;
+                gap: 20px;
+                p {
+                    font-size: 15px;
+                    font-weight: bold;
+                    color: var(--textDark);
+                }
+                label {
+                    display: flex;
+                    gap: 20px;
+                    color: var(--goldDark);
+                    label {
+                        display: flex;
+                        gap: 5px;
+                        input[type="radio"] {
+                            appearance: none;
+                            width: 14px;
+                            height: 14px;
+                            border: 2px solid var(--goldDark);
+                            border-radius: 50%;
+                            cursor: pointer;
+                            transition: 0.2s;
+                            &:hover {
+                                background-color: #e6b8005e;
+                                transition: 0.5s;
+                            }
+                            &:checked {
+                                background-color: var(--gold);
+                                border: 2px solid var(--goldDark);
+                                transition: 0.8s;
+                            }
+                        }
+                    }
+                }
+                select {
+                    border: none;
+                    font-weight: bold;
+                    color: var(--goldDark);
+                    font-size: 14px;
+                    font-family: var(--Font);
+                    cursor: pointer;
+                    appearance: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: left 10px center;
+                    background-size: 15px;
+                    padding-left: 30px;
+                    padding-right: 10px;
+                    option {
+                        width: 190px;
+                        border: none;
+                    }
+                    &:focus {
+                        outline: none;
+                        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+                    }
+                    &:focus-visible {
+                        outline: none;
+                    }
+                }
+            }
+            .addNew {
+                display: flex;
+                gap: 5px;
+                P {
+                    font-size: 14px;
+                    color: var(--goldDark);
+                    font-weight: bold;
+                }
+                i {
+                    color: var(--goldDark);
+                    opacity: 1;
+                }
+            }
+        }
+        .Span {
+            display: grid;
+            gap: 5px;
+            span {
+                font-size: 12px;
+                color: var(--textGray);
+                &:last-of-type {
+                    padding: 5px;
+                    width: fit-content;
+                    border-radius: 8px;
+                    background-color: var(--grayBgHover);
+                }
+            }
+        }
+        .OtherInoformation {
+            width: 100%;
+            display: grid;
+            gap: 25px;
+            .top {
+                display: flex;
+                justify-content: space-between;
+                width: 90%;
+                label {
+                    display: grid;
+                    justify-content: start;
+                    gap: 5px;
+                    margin-right: 15px;
+                    font-size: 14px;
+                    input[type="text"] {
+                        border: none;
+                        height: 50px;
+                        width: 400px;
+                        background-color: var(--bgLight);
+                        font-family: var(--Font);
+                        color: var(--textDark);
+                        border-radius: 8px;
+                        padding: 0 10px;
+                    }
+                }
+            }
+            .bottom {
+                display: flex;
+                justify-content: space-between;
+                label {
+                    display: grid;
+                    justify-content: start;
+                    gap: 5px;
+                    margin-right: 15px;
+                    font-size: 14px;
+                    input[type="text"] {
+                        border: none;
+                        height: 50px;
+                        width: 400px;
+                        background-color: var(--bgLight);
+                        font-family: var(--Font);
+                        color: var(--textDark);
+                        border-radius: 8px;
+                        padding: 0 10px;
+                    }
+                    .dateSelectors {
+                        display: flex;
+                        justify-content: start;
+                        gap: 5px;
+
+                        font-size: 14px;
+                        input {
+                            border: none;
+                            height: 50px;
+                            width: 130px;
+                            background-color: var(--bgLight);
+                            font-family: var(--Font);
+                            color: var(--textDark);
+                            border-radius: 8px;
+                            padding: 0 10px;
+                        }
+                        select {
+                            border: none;
+                            width: 130px;
+                            color: var(--textDark);
+                            background-color: var(--bgLight);
+                            border-radius: 8px;
+                            padding: 0 10px;
+                            cursor: pointer;
+                            appearance: none;
+                            -webkit-appearance: none;
+                            -moz-appearance: none;
+                            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+                            background-repeat: no-repeat;
+                            background-position: left 10px center;
+                            background-size: 15px;
+                            &:focus {
+                                border: none;
+                                background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+                            }
+                            &:focus-visible {
+                                outline: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .BottomCard {
+        padding: 12px 0 0 0;
+
+        .Titel {
+            display: flex;
+            justify-content: space-between;
+            p {
+                font-size: 14px;
+                &:last-of-type {
+                    font-weight: bold;
+                }
+            }
+            .R {
+                display: flex;
+                gap: 10px;
+            }
+        }
+        .AvableFlights {
+            border: var(--borderLight);
+            border-radius: 12px;
+            display: grid;
+            gap: 12px;
+            padding: 12px 16px;
+            .Option {
+                display: flex;
+                justify-content: space-between;
+                font-size: 14px;
+                font-weight: bold;
+                border-bottom: var(--borderLight);
+                padding-bottom: 8px;
+                align-items: center;
+                &:last-child {
+                    border: none;
+                }
+                .R {
+                    display: flex;
+                    gap: 10px;
+                    width: 80%;
+                    height: 40px;
+                    padding: 2px;
+                    p {
+                        margin: auto 0;
+                    }
+                    img {
+                        width: auto;
+                    }
+                }
+            }
+        }
+        .TextTi {
+            display: flex;
+            justify-content: space-between;
+            p {
+                font-size: 12px;
+                &:last-of-type {
+                    font-size: 17px;
+                    font-weight: bold;
+                    color: var(--goldText);
+                    span {
+                        font-size: 14px;
+                        font-weight: normal;
+                    }
+                }
+            }
+        }
+        .Enable {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: var(--borderLight);
+            padding: 12px;
+            border-radius: 12px;
+            .R {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                .Content {
+                    display: grid;
+                    gap: 3px;
+                    p {
+                        font-size: 12px;
+                        font-weight: bold;
+                        &:last-of-type {
+                            font-size: 14px;
+                            font-weight: normal;
+                        }
+                    }
+                }
+            }
+            .L {
+                .switch {
+                    position: relative;
+                    display: inline-block;
+                    width: 44px;
+                    height: 24px;
+                    input {
+                        opacity: 0;
+                        width: 0;
+                        height: 0;
+                    }
+                    .slider {
+                        position: absolute;
+                        cursor: pointer;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: #ccc;
+                        transition: 0.4s;
+                        border-radius: 34px;
+                        &::before {
+                            position: absolute;
+                            content: "";
+                            height: 20px;
+                            width: 20px;
+                            left: 2px;
+                            bottom: 2px;
+                            background-color: white;
+                            transition: 0.4s;
+                            border-radius: 50%;
+                        }
+                    }
+                    input:checked + .slider {
+                        background-color: var(--gold);
+                    }
+                    input:checked + .slider:before {
+                        transform: translateX(20px);
+                    }
+                }
+            }
+        }
+        .Rules {
+            display: grid;
+            gap: 8px;
+            p {
+                font-size: 17px;
+                font-weight: bold;
+            }
+            ul {
+                padding: 0 20px 0 0;
+                display: grid;
+                gap: 3px;
+                li {
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: var(--textGray);
+                }
+            }
+        }
+    }
+    .Sec {
+        display: grid;
+        gap: 24px;
+        .Titel {
+            p {
+                font-size: 17px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+.CountrySelectors {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: start;
+    gap: 5px;
+    margin-right: 0px;
+    font-size: 14px;
+    box-sizing: border-box;
+
+    select {
+        border: none;
+        width: 100% !important;
+        min-width: 100%;
+        height: 100%;
+        color: var(--textDark);
+        background-color: var(--bgLight);
+        border-radius: 8px;
+        padding: 18px 10px;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: left 10px center;
+        background-size: 15px;
+        box-sizing: border-box;
+
+        &:focus {
+            outline: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+        }
+    }
+}
+.paymentOptions {
+    display: grid;
+    gap: 14px;
+
+    .paymentOption {
+        display: flex;
+        gap: 10px;
+        cursor: pointer;
+
+        &.active {
+            color: #caa23f;
+        }
+
+        .paymentRadio {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+
+            &.checked {
+                background: #caa23f;
+                border-color: #caa23f;
+            }
+        }
+
+        .optionHint {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+    }
+
+    .bankListWrapper {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+            max-height 0.45s ease,
+            opacity 0.3s ease;
+        opacity: 0;
+
+        &.open {
+            max-height: 150px;
+            opacity: 1;
+        }
+
+        .bankList {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+
+            .bankItem {
+                padding: 6px 10px;
+                border: 1px solid var(--bgLight);
+                border-radius: 6px;
+                cursor: pointer;
+                transition: 0.3s;
+                &:hover {
+                    background-color: var(--grayBgHover);
+                }
+            }
+        }
+    }
+}
+
+.accordion {
+    margin-top: 16px;
+
+    .accordionItem {
+        margin-bottom: 12px;
+
+        .accordionHeader {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+
+            .plusIcon {
+                width: 22px;
+                height: 22px;
+                border: 1px dashed #ccc;
+                transition: 0.3s;
+
+                &.open {
+                    transform: rotate(45deg);
+                }
+            }
+        }
+
+        .accordionBody {
+            display: flex;
+            max-height: 0;
+            overflow: hidden;
+            gap: 4px;
+            transition:
+                max-height 0.4s ease,
+                opacity 0.3s ease;
+            opacity: 0;
+
+            input {
+                padding: 5px 5px;
+                font-family: var(--Font);
+                border: var(--borderLight);
+                border-radius: 8px;
+            }
+            .primaryButton {
+                padding: 5px 8px;
+                background-color: var(--bgLight);
+                border: var(--borderLight);
+                border-radius: 8px;
+                font-family: var(--Font);
+                transition: 0.3s;
+                &:hover {
+                    background-color: var(--grayBgHover);
+                }
+            }
+            &.open {
+                max-height: 120px;
+                opacity: 1;
+                margin-top: 8px;
+            }
+        }
+    }
+}
+/* ============ بهبود صفحه لیست هتل‌ها ============ */
+.hotel-list-page .Right .Title {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #1e293b;
+    height: 140px;
+    box-shadow: var(--boxShadow);
+    padding: 0 !important;
+}
+
+.hotel-list-page .Right .Title .cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    transition:
+        transform 0.5s ease,
+        opacity 0.5s ease;
+}
+
+.hotel-list-page .Right .Title:hover .cover {
+    transform: scale(1.05);
+    opacity: 0.75;
+}
+
+.TitleOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0.7) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    z-index: 2;
+}
+
+.TitleInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.TitleInfo svg {
+    color: var(--gold);
+    font-size: 20px;
+}
+
+.MapLinkBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.MapLinkBtn:hover {
+    background: rgba(255, 200, 0, 0.9);
+    color: #0f172a;
+    border-color: var(--gold);
+    transform: translateY(-2px);
+}
+
+/* ============ سایدبار فیلترها ============ */
+.hotel-list-page .sidebarFilters {
+    background: white;
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    margin-top: 12px;
+}
+
+.hotel-list-page .filterHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-bottom: 1px solid rgba(255, 200, 0, 0.2);
+}
+
+.filterHeaderLeft {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    color: #0f172a;
+    font-size: 15px;
+}
+
+.filterHeaderIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ffc800 0%, #f59e0b 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(255, 200, 0, 0.3);
+}
+
+.filterBadge {
+    background: #0f172a;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: badgePop 0.3s ease;
+}
+
+@keyframes badgePop {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.clearFiltersBtn {
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--Font);
+    transition: all 0.3s ease;
+}
+
+.clearFiltersBtn:hover {
+    background: white;
+    transform: translateY(-1px);
+}
+
+.clearFiltersBtn svg {
+    font-size: 11px;
+    transition: transform 0.4s ease;
+}
+
+.clearFiltersBtn:hover svg {
+    transform: rotate(360deg);
+}
+
+/* ============ Flight Pages Filter Styles ============ */
+.flightSelectionPage .sidebarFilters {
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+}
+
+.flightSelectionPage .filterHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-bottom: 1px solid rgba(255, 200, 0, 0.2);
+}
+
+.flightSelectionPage .filterContentArea {
+    padding: 16px 20px;
+}
+
+.flightSelectionPage .resultsCount {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+    margin-bottom: 16px;
+}
+
+.flightSelectionPage .resultsCount svg {
+    color: var(--goldDark);
+    font-size: 13px;
+}
+
+.flightSidebar {
+    position: sticky;
+    top: 10px;
+    align-self: flex-start;
+}
+
+.flightContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.flightList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.filterItem {
+    border-bottom: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+}
+
+.filterItem:last-child {
+    border-bottom: none;
+}
+
+.filterItem .dropdownTrigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 14px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    transition: all 0.2s ease;
+}
+
+.filterItem .dropdownTrigger:hover {
+    color: var(--goldDark);
+}
+
+.filterItem .dropdownTrigger svg {
+    font-size: 12px;
+    color: #64748b;
+    transition: all 0.3s ease;
+}
+
+.filterItem.open .dropdownTrigger svg {
+    color: var(--goldDark);
+}
+
+.triggerLeft {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filterCountBadge {
+    background: var(--gold);
+    color: var(--goldText);
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resetFiltersBtn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 200, 0, 0.3);
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #854d0e;
+    cursor: pointer;
+    font-family: var(--Font);
+    transition: all 0.3s ease;
+}
+
+.resetFiltersBtn:hover {
+    background: white;
+    border-color: var(--gold);
+    transform: translateY(-1px);
+}
+
+.resetFiltersBtn svg {
+    font-size: 10px;
+    transition: transform 0.4s ease;
+}
+
+.resetFiltersBtn:hover svg {
+    transform: rotate(180deg);
+}
+
+.resetFiltersBtn .filterBadge {
+    background: #854d0e;
+    color: white;
+    font-size: 9px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 8px;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #cbd5e1;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.checkboxItem input:checked + .checkmark {
+    background: var(--gold);
+    border-color: var(--goldDark);
+}
+
+.checkboxItem input:checked + .checkmark::after {
+    content: "✓";
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--goldText);
+}
+
+.checkboxItem input {
+    display: none;
+}
+
+.filterItem .dropdownPanel {
+    animation: filterSlide 0.3s ease;
+    padding: 4px 0 16px;
+}
+
+.filterItem .dropdownPanel .checkboxGroup {
+    padding: 4px 0;
+}
+
+.filterItem .dropdownPanel .checkboxItem {
+    padding: 6px 0;
+}
+
+/* ============ No Results (Flight) ============ */
+.noResults {
+    background: white;
+    border-radius: 16px;
+    padding: 60px 20px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    animation: emptyFade 0.4s ease;
+}
+
+.noResultsIcon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #b45309;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px;
+    animation: emptyBounce 2s ease-in-out infinite;
+}
+
+.noResultsTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px;
+}
+
+.noResultsDesc {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 24px;
+}
+
+.noResultsBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #ffc800 0%, #f59e0b 100%);
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    font-family: var(--Font);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 200, 0, 0.3);
+}
+
+.noResultsBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 200, 0, 0.4);
+}
+
+/* ============ فیلتر محتوا ============ */
+.hotel-list-page .filterContentArea {
+    padding: 16px 20px;
+}
+
+.hotel-list-page .resultsCount {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+    margin-bottom: 16px;
+}
+
+.hotel-list-page .resultsCount svg {
+    color: var(--goldDark);
+    font-size: 13px;
+}
+
+/* ============ دراپ‌داون فیلترها ============ */
+.hotel-list-page .filterDropdown {
+    border-bottom: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+}
+
+.hotel-list-page .filterDropdown:last-child {
+    border-bottom: none;
+}
+
+.hotel-list-page .filterDropdown.has-active {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 200, 0, 0.04) 0%,
+        transparent 100%
+    );
+}
+
+.hotel-list-page .dropdownTrigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 14px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    transition: all 0.2s ease;
+}
+
+.hotel-list-page .dropdownTrigger:hover {
+    color: var(--goldDark);
+}
+
+.filterCount {
+    color: var(--goldDark);
+    font-weight: 500;
+    margin-right: 5px;
+    font-size: 13px;
+}
+
+.triggerArrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.triggerArrow.open {
+    background: var(--gold);
+    color: white;
+    transform: rotate(180deg);
+}
+
+.hotel-list-page .dropdownPanel {
+    animation: filterSlide 0.3s ease;
+    padding: 4px 0 16px;
+}
+
+@keyframes filterSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hotel-list-page .filterDescription {
+    padding: 10px 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.hotel-list-page .filterDescription p {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ============ چک‌باکس‌های سفارشی ============ */
+.hotel-list-page .checkboxGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hotel-list-page .checkboxInfo {
+    font-size: 11px;
+    color: #94a3b8;
+    padding: 0 4px 8px;
+    border-bottom: 1px dashed #e2e8f0;
+    margin-bottom: 4px;
+}
+
+.hotel-list-page .checkboxItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+    color: #334155;
+}
+
+.hotel-list-page .checkboxItem:hover {
+    background: #fef3c7;
+    transform: translateX(-2px);
+}
+
+.customCheckbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    color: white;
+    font-size: 11px;
+}
+
+.customCheckbox.checked {
+    background: linear-gradient(135deg, #ffc800 0%, #f59e0b 100%);
+    border-color: #f59e0b;
+    animation: checkBounce 0.3s ease;
+}
+
+@keyframes checkBounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.checkboxIcon {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.checkboxItem:hover .checkboxIcon {
+    background: #fde68a;
+    color: #b45309;
+}
+
+/* ============ سایدبار چپ - هدر و مرتب‌سازی ============ */
+.hotel-list-page .Left .Titel {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.TitelIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ffc800 0%, #f59e0b 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 8px 20px rgba(255, 200, 0, 0.3);
+    flex-shrink: 0;
+}
+
+.TitelContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.TitelMain {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 !important;
+}
+
+.TitelSub {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0 !important;
+}
+
+.hotel-list-page .Sorting {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    padding: 14px 20px;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    margin: 12px 0;
+    flex-wrap: wrap;
+}
+
+.SortingLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    padding-left: 12px;
+    border-left: 2px solid #e2e8f0;
+}
+
+.SortingLabel svg {
+    color: var(--goldDark);
+}
+
+.hotel-list-page .Sorting .Card {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.sortBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #f1f5f9;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: var(--Font);
+}
+
+.sortBtn:hover {
+    background: #fef3c7;
+    color: #b45309;
+    transform: translateY(-1px);
+}
+
+.sortBtn.active {
+    background: linear-gradient(135deg, #ffc800 0%, #f59e0b 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 200, 0, 0.35);
+    border-color: transparent;
+}
+
+.sortBtn.active svg {
+    color: white;
+}
+
+/* ============ Flight Return Sorting Bar ============ */
+.flightTopBar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.topRight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.topRight .headerIcon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffcd11, #e6a800);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(255, 205, 17, 0.3);
+}
+
+.topRight p {
+    font-size: 18px;
+    font-weight: 700;
+    color: #5c4b00;
+    margin: 0;
+}
+
+.sortingBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: var(--boxShadow);
+}
+
+.sortCount {
+    font-size: 15px;
+    font-weight: 700;
+    color: #5c4b00;
+    white-space: nowrap;
+}
+
+.sortOptions {
+    display: flex;
+    gap: 6px;
+}
+
+/* ============ Empty State ============ */
+.EmptyState {
+    background: white;
+    border-radius: 16px;
+    padding: 60px 20px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    animation: emptyFade 0.4s ease;
+}
+
+@keyframes emptyFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.EmptyIcon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #b45309;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px;
+    animation: emptyBounce 2s ease-in-out infinite;
+}
+
+@keyframes emptyBounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.EmptyState h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px;
+}
+
+.EmptyState p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 24px;
+}
+
+.EmptyResetBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #ffc800 0%, #f59e0b 100%);
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    font-family: var(--Font);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 200, 0, 0.3);
+}
+
+.EmptyResetBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 200, 0, 0.45);
+}
+
+.EmptyResetBtn svg {
+    transition: transform 0.5s ease;
+}
+
+.EmptyResetBtn:hover svg {
+    transform: rotate(360deg);
+}
+
+/* ============ ریسپانسیو ============ */
+@media (max-width: 768px) {
+    .hotel-list-page .Sorting {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .SortingLabel {
+        border-left: none;
+        padding-left: 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e2e8f0;
+        width: 100%;
+        justify-content: center;
+    }
+    .hotel-list-page .Sorting .Card {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+    }
+    .sortBtn {
+        white-space: nowrap;
+    }
+}
+/* ============================================= */
+/* ===== صفحه جزئیات هتل - UI مدرن ===== */
+/* ============================================= */
+
+.GridD {
+    display: grid;
+    gap: 20px;
+}
+
+/* ===== کارت اصلی هتل ===== */
+.hotelInfoCard {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 24px;
+    overflow: hidden;
+}
+
+.hotelInfoHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.hotelInfoMain {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.hotelInfoText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hotelNameRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.hotelNameRow h3 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--textDark);
+    margin: 0;
+}
+
+.starsBadge {
+    display: flex;
+    gap: 2px;
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 20px;
+    color: #b45309;
+    font-size: 12px;
+}
+
+.hotelAddress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--textGray);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.hotelAddress svg {
+    color: var(--gold, #ffc800);
+    flex-shrink: 0;
+}
+
+.quickBookBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--gold, #ffc800) 0%, #f59e0b 100%);
+    color: #1e293b;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 200, 0, 0.3);
+    flex-shrink: 0;
+}
+
+.quickBookBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 200, 0, 0.5);
+}
+
+.hotelHighlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.highlightItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 10px;
+    font-size: 13px;
+    color: #334155;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.highlightItem:hover {
+    background: #fffbeb;
+    border-color: #fde68a;
+    transform: translateY(-1px);
+}
+
+.highlightItem svg {
+    color: var(--gold, #ffc800);
+    font-size: 16px;
+}
+
+/* ===== گالری تصاویر ===== */
+.ImageCountainer {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+    height: 420px;
+}
+
+.MainImg {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    height: 100%;
+}
+
+.MainImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.MainImg:hover img {
+    transform: scale(1.03);
+}
+
+.mainImgBadge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.MoreImg {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 12px;
+    height: 100%;
+}
+
+.galleryThumb {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.galleryThumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.galleryThumb:hover img {
+    transform: scale(1.08);
+}
+
+.galleryThumb.active {
+    border-color: var(--gold, #ffc800);
+    box-shadow: 0 0 0 3px rgba(255, 200, 0, 0.2);
+}
+
+.galleryOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.galleryThumb:hover .galleryOverlay {
+    opacity: 1;
+}
+
+/* ===== بخش درباره هتل ===== */
+.aboutSection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.aboutTitle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.titleIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #b45309;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.aboutTitle h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.Disc {
+    padding: 0;
+}
+
+.Disc p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: #475569;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.Disc p.expanded {
+    -webkit-line-clamp: unset;
+    display: block;
+}
+
+.toggleDescBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 8px 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: var(--goldDark, #b45309);
+    font-weight: 600;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggleDescBtn:hover {
+    background: #fffbeb;
+    border-color: #fde68a;
+}
+
+/* ===== کارت اتاق‌ها ===== */
+.roomsCard {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 24px;
+}
+
+.roomsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.roomsHeaderMain h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 6px;
+}
+
+.roomsHeaderMain p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+}
+
+.selectionSummary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.summaryItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.summaryCount {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.summaryLabel {
+    font-size: 11px;
+    color: #78350f;
+    font-weight: 600;
+}
+
+.summaryDivider {
+    width: 1px;
+    height: 30px;
+    background: #d97706;
+    opacity: 0.3;
+}
+
+.roomsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* ===== آیتم اتاق ===== */
+.RoomSelect {
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    border-radius: 14px;
+    padding: 18px;
+    transition: all 0.3s ease;
+}
+
+.RoomSelect:hover {
+    border-color: #fde68a;
+    box-shadow: 0 4px 16px rgba(255, 200, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.RoomSelect.selected {
+    border-color: var(--gold, #ffc800);
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    box-shadow: 0 4px 20px rgba(255, 200, 0, 0.2);
+}
+
+.RoomSelectRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.RoomSelectType {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    min-width: 240px;
+}
+
+.RoomSelectIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fde68a 0%, #fbbf24 100%);
+    color: #78350f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.RoomSelectInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.RoomSelectTitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.RoomSelectSubtitle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mealTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    background: #f0fdf4;
+    color: #166534;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.mealTag svg {
+    font-size: 10px;
+}
+
+.RoomSelectMeta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #94a3b8;
+    flex-wrap: wrap;
+}
+
+.RoomSelectCounters {
+    display: flex;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.RoomSelectCounter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.RoomSelectCounterLabel {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.RoomSelectCounterBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.RoomSelectBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: #fff;
+    color: #475569;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.RoomSelectBtn:hover:not(.disabled) {
+    background: var(--gold, #ffc800);
+    color: #1e293b;
+    transform: scale(1.05);
+}
+
+.RoomSelectBtn.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.RoomSelectValue {
+    min-width: 24px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* ===== دکمه انتخاب اتاق ===== */
+.RoomSelectSelectBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, var(--gold, #ffc800) 0%, #f59e0b 100%);
+    color: #1e293b;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(255, 200, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.RoomSelectSelectBtn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transition: right 0.6s ease;
+}
+
+.RoomSelectSelectBtn:hover::before {
+    right: 100%;
+}
+
+.RoomSelectSelectBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(255, 200, 0, 0.5);
+}
+
+.RoomSelectSelectBtn.disabled {
+    background: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btnText {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.btnCount {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+}
+
+/* ===== کارت فوتر ===== */
+.footerCard {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border: 1px solid #fde68a;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.footerCard .Titel {
+    display: block;
+}
+
+.footerCard .Footer2 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.footerCard .Footer2 svg {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--gold, #ffc800);
+    padding: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(255, 200, 0, 0.2);
+}
+
+.footerCard .Footer2 h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.footerCard .Footer2 a {
+    display: inline-block;
+    color: #b45309;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 2px 8px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.footerCard .Footer2 a:hover {
+    background: #fff;
+    color: #92400e;
+    box-shadow: 0 2px 6px rgba(180, 83, 9, 0.2);
+}
+
+/* ===== ریسپانسیو ===== */
+@media (max-width: 768px) {
+    .hotelInfoCard,
+    .roomsCard {
+        padding: 16px;
+    }
+
+    .hotelInfoMain {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hotelNameRow h3 {
+        font-size: 22px;
+    }
+
+    .ImageCountainer {
+        flex-direction: column;
+    }
+
+    .MainImg {
+        flex: none;
+        height: 280px;
+    }
+
+    .MoreImg {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: unset;
+    }
+
+    .galleryThumb:first-child {
+        grid-column: auto;
+    }
+
+    .roomsHeader {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .RoomSelectRow {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .RoomSelectCounters {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .RoomSelectCounter {
+        flex: 1;
+    }
+
+    .RoomSelectCounterBox {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 480px) {
+    .hotelHighlights {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .highlightItem {
+        font-size: 11px;
+        padding: 10px;
+    }
+
+    .RoomSelectMeta {
+        font-size: 11px;
+    }
+
+    .btnCount {
+        display: none;
+    }
+}
+
+/* ===== Hotel Summary Card on Flight Page ===== */
+.HotelSummaryCard {
+    background: linear-gradient(135deg, #fff 0%, #fffbeb 100%);
+    border: 1px solid #fde68a;
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 4px 20px rgba(255, 200, 0, 0.12);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.HotelSummaryCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #ffc800, #f59e0b);
+    border-radius: 0 4px 4px 0;
+}
+
+.HotelSummaryBadge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #ffc800, #f59e0b);
+    color: #1e293b;
+    padding: 4px 12px 4px 10px;
+    border-radius: 0 20px 20px 0;
+    font-size: 11px;
+    font-weight: 700;
+    position: absolute;
+    top: 12px;
+    right: 0;
+    box-shadow: 0 2px 8px rgba(255, 200, 0, 0.3);
+}
+
+.HotelSummaryBadge svg {
+    font-size: 10px;
+}
+
+.HotelSummaryImage {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.HotelSummaryInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.HotelSummaryNameRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.HotelSummaryName {
+    font-size: 15px;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0;
+}
+
+.HotelSummaryStars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: #ffc800;
+    font-size: 11px;
+}
+
+.HotelSummaryStars span {
+    color: #b45309;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.HotelSummaryLocation {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.HotelSummaryLocation svg {
+    color: #ffc800;
+    font-size: 12px;
+}
+
+.HotelSummaryMeta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.HotelSummaryOption {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    color: #475569;
+}
+
+.HotelSummaryScore {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.HotelSummaryScore svg {
+    color: #ffc800;
+    font-size: 14px;
+}
+
+.HotelSummaryPrice {
+    text-align: left;
+    flex-shrink: 0;
+    padding-right: 16px;
+    border-right: 1px solid #fde68a;
+}
+
+.HotelSummaryPriceLabel {
+    font-size: 11px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.HotelSummaryPriceValue {
+    font-size: 16px;
+    font-weight: 800;
+    color: #b45309;
+    margin: 2px 0 0;
+    white-space: nowrap;
+}
+
+.HotelSummaryPriceUnit {
+    font-size: 11px;
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+.HotelSummaryActions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.HotelSummaryChangeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    font-family: var(--Font);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.HotelSummaryChangeBtn:hover {
+    background: #fef3c7;
+    border-color: #fde68a;
+    color: #b45309;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 200, 0, 0.15);
+}
+
+.HotelSummaryChangeBtn svg {
+    font-size: 11px;
+    transition: transform 0.4s ease;
+}
+
+.HotelSummaryChangeBtn:hover svg {
+    transform: rotate(180deg);
+}
+
+.HotelSummaryViewBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #ffc800, #f59e0b);
+    border: none;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1e293b;
+    cursor: pointer;
+    font-family: var(--Font);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(255, 200, 0, 0.25);
+}
+
+.HotelSummaryViewBtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(255, 200, 0, 0.35);
+}
+
+.HotelSummaryViewBtn svg {
+    font-size: 11px;
+}
+
+/* ===== SelectedFlightCard (Gold Theme) ===== */
+.SelectedFlightCard {
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #fffdf7 0%, #fffbe6 50%, #fffdf7 100%);
+    border: 1.5px solid #fde68a;
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 24px rgba(255, 205, 17, 0.12);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    margin: 0 auto;
+    justify-self: center;
+}
+
+.SelectedFlightCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #ffcd11, #e6a800);
+    border-radius: 0 4px 4px 0;
+}
+
+.SelectedFlightHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.SelectedFlightHeader h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #5c4b00;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.SelectedFlightHeader h3::before {
+    content: "✓";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: #22c55e;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3);
+}
+
+.ChangeSelectionBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: #fff;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #a38c00;
+    cursor: pointer;
+    font-family: var(--Font);
+    transition: all 0.25s ease;
+}
+
+.ChangeSelectionBtn:hover {
+    background: #fef3c7;
+    border-color: #fcd34d;
+    color: #854d0e;
+    box-shadow: 0 2px 8px rgba(255, 205, 17, 0.2);
+}
+
+.ChangeSelectionBtn svg {
+    font-size: 11px;
+    transition: transform 0.4s ease;
+}
+
+.ChangeSelectionBtn:hover svg {
+    transform: rotate(180deg);
+}
+
+.SelectedFlightContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.SelectedFlightInfo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.SelectedFlightMain {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.SelectedFlightMain .FlightIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.SelectedFlightMain .FlightIcon img {
+    width: 36px;
+    height: auto;
+}
+
+.SelectedFlightMain .FlightIcon span {
+    font-size: 11px;
+    color: #78716c;
+    font-weight: 600;
+}
+
+.SelectedFlightMain .FlightTime {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.SelectedFlightMain .FlightTime .Form {
+    text-align: center;
+}
+
+.SelectedFlightMain .FlightTime .Form span {
+    font-size: 20px;
+    font-weight: 800;
+    color: #5c4b00;
+}
+
+.SelectedFlightMain .FlightTime .Form p {
+    font-size: 12px;
+    color: #78716c;
+    margin: 0;
+}
+
+.SelectedFlightMain .FlightTime .i {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #a8a29e;
+    font-size: 10px;
+}
+
+.SelectedFlightMain .FlightTime .i hr {
+    width: 30px;
+    border: 0.5px solid #e7e5e4;
+}
+
+.SelectedFlightInfo .FlightDetails {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.SelectedFlightInfo .FlightDetails .Class {
+    text-align: center;
+}
+
+.SelectedFlightInfo .FlightDetails .Class span {
+    font-size: 12px;
+    padding: 2px 8px;
+    background: #fef3c7;
+    border-radius: 6px;
+    color: #854d0e;
+    font-weight: 600;
+}
+
+.SelectedFlightInfo .FlightDetails .Class p {
+    font-size: 11px;
+    color: #ef4444;
+    margin: 4px 0 0;
+    font-weight: 600;
+}
+
+.SelectedFlightInfo .FlightDetails .Bottom {
+    text-align: center;
+    margin-top: 0;
+}
+
+.SelectedFlightInfo .FlightDetails .Bottom p {
+    font-size: 14px;
+    font-weight: 700;
+    color: #5c4b00;
+    margin: 0;
+}
+
+.SelectedFlightInfo .FlightDetails .Bottom p span {
+    color: #d97706;
+    font-size: 16px;
+}
+
+/* ===== Next Step Button ===== */
+.NextStepBtn {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #ffcd11, #e6a800);
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--Font);
+  color: #5c4b00;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-bottom: 8px;
+}
+.NextStepBtn:hover {
+  background: linear-gradient(135deg, #e6a800, #cc9400);
+  box-shadow: 0 4px 16px rgba(255, 205, 17, 0.35);
+  transform: translateY(-1px);
+}
+.NextStepBtn svg {
+  transition: transform 0.3s ease;
+}
+.NextStepBtn:hover svg {
+  transform: translateX(4px);
+}
+
+/* ===== Auto-Selecting Loading UI ===== */
+
+.AutoSelectingCard {
+    background: linear-gradient(135deg, #fffdf0 0%, #fff8dc 50%, #fffdf0 100%);
+    border: 2px solid #fde68a;
+    border-radius: 20px;
+    padding: 40px 32px;
+    box-shadow: 0 8px 32px rgba(255, 205, 17, 0.15);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 8px;
+    animation: autoSelectPulse 2s ease-in-out infinite;
+}
+
+@keyframes autoSelectPulse {
+    0%,
+    100% {
+        box-shadow: 0 8px 32px rgba(255, 205, 17, 0.15);
+    }
+    50% {
+        box-shadow: 0 8px 48px rgba(255, 205, 17, 0.3);
+    }
+}
+
+.AutoSelectingCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ffcd11, #ff8c00, #ffcd11);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.AutoSelectingPlane {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.PlaneTrack {
+    position: relative;
+    width: 120px;
+    height: 48px;
+    overflow: hidden;
+}
+
+.PlaneIcon {
+    font-size: 32px;
+    color: #ffcd11;
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: planeFly 1.8s ease-in-out infinite;
+    filter: drop-shadow(0 2px 8px rgba(255, 205, 17, 0.4));
+}
+
+@keyframes planeFly {
+    0% {
+        left: -40px;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        left: 140px;
+        opacity: 0;
+    }
+}
+
+.AutoSelectingContent {
+    margin-bottom: 24px;
+}
+
+.AutoSelectingContent h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #5c4b00;
+    margin: 0 0 12px 0;
+    letter-spacing: 0.5px;
+}
+
+.AutoSelectingDots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.AutoSelectingDots .dot {
+    width: 10px;
+    height: 10px;
+    background: #ffcd11;
+    border-radius: 50%;
+    display: inline-block;
+    animation: dotBounce 1.2s ease-in-out infinite;
+}
+
+@keyframes dotBounce {
+    0%,
+    80%,
+    100% {
+        transform: scale(0.6);
+        opacity: 0.4;
+    }
+    40% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+.AutoSelectingProgress {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 20px;
+    height: 6px;
+    background: #fef3c7;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.ProgressBar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ffcd11, #ff8c00);
+    border-radius: 10px;
+    animation: progressFill 2s ease-in-out forwards;
+}
+
+@keyframes progressFill {
+    0% {
+        width: 0%;
+    }
+    30% {
+        width: 35%;
+    }
+    60% {
+        width: 65%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.AutoSelectingHint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #a38c00;
+    opacity: 0;
+    animation: hintFadeIn 1s ease 1s forwards;
+}
+
+.AutoSelectingHint svg {
+    font-size: 14px;
+    color: #ffcd11;
+}
+
+@keyframes hintFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===== SelectedHotelCard (Gold Theme) ===== */
+.SelectedHotelCard {
+    background: linear-gradient(135deg, #fffdf7 0%, #fffbe6 50%, #fffdf7 100%);
+    border: 1.5px solid #fde68a;
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 24px rgba(255, 205, 17, 0.12);
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.SelectedHotelCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #ffcd11, #e6a800);
+    border-radius: 0 4px 4px 0;
+}
+
+.SelectedHotelHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.SelectedHotelHeader h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #5c4b00;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.SelectedHotelHeader h3::before {
+    content: "✓";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: #22c55e;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3);
+}
+
+.SelectedHotelContent {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.SelectedHotelImage {
+    width: 160px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.SelectedHotelInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.SelectedHotelNameStars {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.SelectedHotelNameStars h4 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #5c4b00;
+    margin: 0;
+}
+
+.SelectedHotelStars {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.SelectedHotelStars svg {
+    font-size: 13px;
+    color: #ffcd11;
+}
+
+.SelectedHotelStars span {
+    font-size: 12px;
+    color: #78716c;
+    margin-right: 4px;
+    font-weight: 600;
+}
+
+.SelectedHotelLocation {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #78716c;
+}
+
+.SelectedHotelLocation svg {
+    font-size: 12px;
+    color: #a38c00;
+}
+
+.SelectedHotelOptions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.SelectedHotelOptions span {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: #fef3c7;
+    border-radius: 6px;
+    color: #854d0e;
+    font-weight: 600;
+}
+
+.SelectedHotelRating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #5c4b00;
+}
+
+.SelectedHotelRating svg {
+    font-size: 15px;
+    color: #ffcd11;
+}
+
+.SelectedHotelPrice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    padding-right: 16px;
+    border-right: 1px solid #fde68a;
+    min-width: 130px;
+    gap: 4px;
+}
+
+.SelectedHotelPrice p {
+    font-size: 11px;
+    color: #78716c;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.SelectedHotelPrice > div {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.SelectedHotelPrice > div span {
+    font-size: 18px;
+    font-weight: 800;
+    color: #d97706;
+}
+
+.SelectedHotelPrice > div {
+    font-size: 12px;
+    color: #78716c;
+}
+
+.HotelBounceIcon {
+    font-size: 40px;
+    color: #ffcd11;
+    animation: hotelBounce 1.2s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(255, 205, 17, 0.4));
+}
+
+@keyframes hotelBounce {
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+    25% {
+        transform: translateY(-10px) scale(1.05);
+    }
+    50% {
+        transform: translateY(0) scale(1);
+    }
+    75% {
+        transform: translateY(-5px) scale(1.02);
+    }
+}
+
+/* ===== Flight Card Styles for Selection Pages (away/return) ===== */
+.line-divider {
+    width: 40px;
+    border: 0.5px solid var(--textGray);
+}
+
+.Left.flightContent {
+    width: auto;
+    flex: 1;
+}
+
+.flightList .Cards {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--bgWhite);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: var(--boxShadow);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    direction: rtl;
+}
+
+.flightList .Cards .RightCard {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+
+    .About {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .Icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 96px;
+
+            img {
+                width: 45px;
+                height: auto;
+            }
+            span {
+                font-size: 13px;
+                color: var(--textGray);
+            }
+        }
+
+        .Time {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            .Form {
+                text-align: center;
+                padding: 0;
+                gap: 0;
+                span {
+                    font-size: 24px;
+                    font-weight: bold;
+                }
+                p {
+                    font-size: 14px;
+                    color: var(--textGray);
+                    margin: 0;
+                }
+            }
+
+            .i {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                opacity: 0.5;
+                hr {
+                    width: 40px;
+                    border: 0.5px solid var(--textGray);
+                }
+            }
+        }
+    }
+
+    .discriptions {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+
+        .More {
+            cursor: pointer;
+            color: var(--goldDark);
+            font-size: 14px;
+            span {
+                display: flex;
+                width: max-content;
+                align-items: center;
+                gap: 5px;
+            }
+            i {
+                transition: transform 0.3s ease;
+            }
+            &.active i {
+                transform: rotate(180deg);
+            }
+        }
+
+        .Avablity {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            justify-content: space-between;
+            padding-left: 5px;
+            span {
+                background: #f5f5f5;
+                padding: 2px 8px;
+                border-radius: 5px;
+                font-size: 12px;
+            }
+            p {
+                color: tomato;
+                font-size: 13px;
+                margin: 0;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.flightList .Cards .LeftCard {
+    width: 30%;
+    border-right: var(--borderLight);
+    padding-right: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: fit-content;
+
+    .Top {
+        justify-content: end;
+        box-shadow: none;
+        height: fit-content;
+        i {
+            color: var(--gold);
+            font-size: 21px;
+            cursor: pointer;
+            &:hover {
+                color: var(--goldDark);
+            }
+        }
+    }
+
+    .Bottom {
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+        position: relative;
+        p {
+            font-size: 18px;
+            width: 100%;
+            span {
+                color: var(--goldDark);
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.BtnPrimary {
+    background: var(--gold);
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    font-weight: bold;
+    font-family: var(--Font);
+    cursor: pointer;
+    &:hover {
+        background: var(--goldDark);
+    }
+}
+
+.flightList .Cards .FlightDetails {
+    flex-basis: 100%;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+
+    &.active {
+        max-height: max-content;
+        opacity: 1;
+    }
+
+    .DetailsContent {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        background: #fcfcfc;
+        border-radius: 8px;
+        .row {
+            background: var(--bgLight);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 9px;
+            font-size: 13px;
+            width: calc(100% - 30%);
+            .title {
+                background: var(--grayBgHover);
+                padding: 8px 12px;
+                border-radius: 8px;
+                p {
+                    font-size: 14px;
+                }
+                span {
+                    border-right: var(--borderLight);
+                    margin: 0 8px;
+                }
+            }
+            .contet {
+                padding: 20px 0;
+                display: flex;
+                gap: 40px;
+                .right {
+                    background: none;
+                    box-shadow: none;
+                    width: fit-content;
+                    p {
+                        font-size: 14px;
+                        font-weight: bold;
+                        color: var(--textDark);
+                    }
+                    span {
+                        font-size: 14px;
+                        font-weight: 100;
+                        color: var(--textGray);
+                    }
+                }
+                .left {
+                    p {
+                        font-size: 14px;
+                        font-weight: bold;
+                        color: var(--textDark);
+                    }
+                    span {
+                        font-size: 14px;
+                        font-weight: 100;
+                        color: var(--textGray);
+                    }
+                }
+            }
+        }
+        .orw {
+            border-right: var(--borderLight);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            justify-content: space-between;
+            .top {
+                display: grid;
+                gap: 5px;
+                p {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 14px;
+                    font-weight: 100;
+                    color: var(--textGray);
+                    span {
+                        font-size: 14px;
+                        font-weight: bold;
+                        color: var(--goldText);
+                    }
+                }
+            }
+            .bottom {
+                display: grid;
+                gap: 5px;
+                button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: none;
+                    border: none;
+                    font-family: var(--Font);
+                    font-size: 12px;
+                    color: var(--goldText);
+                    width: 100%;
+                    height: 30px;
+                    transition: 0.3s;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: var(--grayBgHover);
+                        border-radius: 8px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Card Header fix for flight selection pages */
+.flightSelectionPage .flightTopBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .topRight {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        p {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--textDark);
+        }
+    }
+
+    .sortingBar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .sortCount {
+            font-size: 12px;
+            color: var(--textGray);
+        }
+
+        .sortOptions {
+            display: flex;
+            gap: 4px;
+
+            .sortBtn {
+                padding: 6px 14px;
+                border: 1px solid var(--borderLight, #e5e7eb);
+                border-radius: 8px;
+                background: #fff;
+                font-size: 12px;
+                font-family: var(--Font);
+                cursor: pointer;
+                transition: all 0.2s ease;
+                color: var(--textGray);
+
+                &.active {
+                    background: var(--gold);
+                    border-color: var(--gold);
+                    color: var(--textDark);
+                    font-weight: 600;
+                }
+
+                &:hover:not(.active) {
+                    border-color: var(--gold);
+                    color: var(--textDark);
+                }
+            }
+        }
+    }
+}
+
+.flightSelectionPage .noResults {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--bgWhite);
+    border-radius: 12px;
+    box-shadow: var(--boxShadow);
+
+    .noResultsIcon {
+        font-size: 48px;
+        color: var(--textGray);
+        opacity: 0.4;
+        margin-bottom: 16px;
+    }
+
+    .noResultsTitle {
+        font-size: 18px;
+        font-weight: bold;
+        color: var(--textDark);
+        margin: 0 0 8px;
+    }
+
+    .noResultsDesc {
+        font-size: 14px;
+        color: var(--textGray);
+        margin: 0 0 20px;
+    }
+
+    .noResultsBtn {
+        padding: 10px 24px;
+        background: var(--gold);
+        border: none;
+        border-radius: 8px;
+        font-family: var(--Font);
+        font-weight: bold;
+        cursor: pointer;
+        &:hover {
+            background: var(--goldDark);
+        }
+    }
+}

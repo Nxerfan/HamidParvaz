@@ -1,0 +1,619 @@
+.containerr {
+  width: 1200px;
+  height: fit-content;
+  justify-self: center;
+  display: flex;
+  padding: 15px 0;
+  gap: 15px;
+  .left {
+    display: flex;
+    width: calc(100% - 20%);
+    .Card,
+    .Card2 {
+      width: 100%;
+      background: var(--bgWhite);
+      border-radius: 16px;
+      padding: 32px;
+      height: max-content;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      .Title {
+        h1 {
+          font-size: 20px;
+          font-weight: bold;
+          color: var(--textDark);
+        }
+        padding: 0 0 12px;
+        border-bottom: var(--borderLight);
+      }
+      .Body {
+        padding: 10px;
+        display: grid;
+        gap: 14px;
+        h2 {
+          font-size: 20px;
+          font-weight: bold;
+          color: var(--goldDark);
+          padding: 5px 0;
+        }
+        p {
+          font-size: 14px;
+          color: var(--textDark);
+        }
+      }
+      /* Layout */
+      .Grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .Grid3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      /* Profile Header */
+      .ProfileHeader {
+        text-align: center;
+        margin-bottom: 40px;
+
+        .UserId {
+          margin-top: 10px;
+          font-weight: bold;
+          color: var(--goldDark);
+        }
+
+        .BonusText {
+          font-size: 0.85rem;
+          color: var(--textGray);
+        }
+
+        .ProgressWrap {
+          position: relative;
+          width: 100px;
+          height: 100px;
+          margin: auto;
+
+          .ProgressSvg {
+            transform: rotate(-90deg);
+          }
+
+          .ProgressBg {
+            stroke: #e6e6e6;
+            stroke-width: 4;
+            fill: none;
+          }
+
+          .ProgressBar {
+            stroke: var(--gold);
+            stroke-width: 4;
+            fill: none;
+            transition: 0.35s;
+          }
+
+          .Avatar {
+            position: absolute;
+            top: 5px;
+            left: 0;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+          }
+        }
+      }
+
+      /* Sections */
+      .SectionHead {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-bottom: var(--borderLight);
+        padding-bottom: 8px;
+
+        &.Mt30 {
+          margin-top: 30px;
+        }
+
+        .SectionTitle {
+          font-weight: bold;
+          font-family: var(--Font);
+          font-size: 18px;
+        }
+
+        .HeadOptions {
+          display: flex;
+          gap: 10px;
+          font-size: 16px;
+          font-family: var(--Font);
+          input[type="radio"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #555;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 15px;
+            &:hover {
+              border-color: #000;
+              background-color: #e6b8005e;
+              transition: 0.5s;
+            }
+            &:checked {
+              background-color: var(--gold);
+              border: 2px solid #555;
+              transition: 0.8s;
+            }
+          }
+          .Divider {
+            color: var(--bgLight);
+          }
+
+          .Link {
+            color: var(--goldDark);
+            text-decoration: none;
+            font-size: 16px;
+          }
+
+          .MiniSelect {
+            border: none;
+            background: transparent;
+            color: var(--goldDark);
+            font-size: 16px;
+            cursor: pointer;
+            font-family: var(--Font);
+            i {
+              transform: rotate(180deg);
+            }
+            &:focus-visible {
+              outline: none;
+            }
+          }
+        }
+      }
+
+      /* Form */
+      form {
+        .Field {
+          display: grid;
+          gap: 10px;
+          margin-bottom: 15px;
+          label {
+            display: block;
+            font-size: 16px;
+            color: var(--textDark);
+          }
+
+          input,
+          select {
+            font-family: var(--Font);
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #f1f1f1;
+            background: var(--bgLight);
+            &:focus {
+              outline: none;
+              border-color: var(--gold);
+            }
+          }
+        }
+      }
+    }
+    .Card2 {
+      display: grid;
+      gap: 24px;
+    }
+    .submit {
+      display: flex;
+      justify-content: end;
+      gap: 20px;
+      button {
+        width: 130px;
+        font-size: 13px;
+        font-family: var(--Font);
+        padding: 10px 8px;
+        border: var(--borderLight);
+        border-radius: 8px;
+        background: var(--gold);
+        transition: 0.3s;
+        &:first-of-type {
+          background: none;
+          border: var(--borderLight);
+          &:hover {
+            background: var(--grayBgHover);
+          }
+        }
+        &:hover {
+          background: var(--goldDark);
+        }
+      }
+    }
+  }
+}
+.FAQContainer {
+  max-width: 1200px;
+  justify-self: center;
+  font-family: var(--Font);
+  display: grid;
+  gap: 50px;
+  padding: 40px 0;
+
+  .FAQContent {
+    display: flex;
+    gap: 30px;
+
+    .FAQMain {
+      display: grid;
+      gap: 32px;
+
+      .FAQSection {
+        display: grid;
+        gap: 20px;
+
+        .SectionTitle {
+          font-size: 20px;
+          font-weight: bold;
+          color: var(--textDark);
+        }
+
+        .FAQWrapper {
+          background: var(--bgWhite);
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+          .FAQItem {
+            border-bottom: var(--borderLight);
+            border-color: #00000012;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            &.active {
+              .Icon {
+                transform: rotate(45deg);
+              }
+            }
+
+            .FAQButton {
+              width: 100%;
+              padding: 20px 24px;
+              background: none;
+              border: none;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              cursor: pointer;
+              text-align: right;
+              font-size: 16px;
+              color: var(--textDark);
+              font-family: inherit;
+              transition: 0.3s;
+              font-weight: 500;
+
+              &:hover {
+                background: var(--grayBgHover);
+              }
+
+              .Icon {
+                font-size: 22px;
+                color: var(--goldDark);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+              }
+            }
+
+            .FAQAnswer {
+              overflow: hidden;
+              background: var(--bgWhite);
+              transition:
+                max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease,
+                margin-top 0.3s ease;
+
+              > * {
+                overflow: hidden;
+              }
+
+              p {
+                color: var(--textGray);
+                line-height: 1.8;
+                font-size: 14px;
+                margin: 0;
+                padding: 0 20px 20px 20px;
+              }
+            }
+          }
+        }
+      }
+
+      .SupportCard {
+        background: linear-gradient(135deg, var(--goldDark), var(--gold));
+        padding: 40px 30px;
+        border-radius: 16px;
+        text-align: center;
+        color: var(--textDark);
+
+        h3 {
+          margin-bottom: 10px;
+          font-size: 20px;
+        }
+
+        p {
+          color: var(--goldText);
+          font-size: 14px;
+        }
+
+        .SupportButtons {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+          margin-top: 24px;
+
+          button,
+          a {
+            padding: 12px 30px;
+            border-radius: 10px;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            font-size: 14px;
+          }
+
+          .BtnContact {
+            background: var(--bgWhite);
+            color: var(--textDark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            &:hover {
+              background: var(--grayBgHover);
+              box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+              transform: translateY(-2px);
+            }
+          }
+
+          .BtnCall {
+            background: var(--textDark);
+            color: var(--bgWhite);
+            &:hover {
+              background: #555;
+              box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+              transform: translateY(-2px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.UP {
+  display: flex;
+  width: 1600px;
+  justify-self: center;
+  padding-top: 50px;
+  .FAQHeader {
+    text-align: center;
+    width: 1000px;
+    align-self: center;
+    display: grid;
+    gap: 25px;
+    padding: 0 20px 0 0;
+    h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: var(--textDark);
+      font-weight: bold;
+    }
+
+    .SearchBox {
+      display: flex;
+      justify-self: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 700px;
+
+      input {
+        width: 100%;
+        padding: 16px 20px;
+        border: 1px solid #f1f1f1;
+        border-radius: 12px;
+        box-shadow: var(--boxShadow);
+        font-family: var(--Font);
+        font-size: 15px;
+        color: var(--textDark);
+        background: var(--bgWhite);
+        transition: 0.3s;
+        &:focus {
+          outline: none;
+          border-color: var(--gold);
+          box-shadow: 0 0 0 3px rgba(255, 205, 17, 0.15);
+        }
+      }
+
+      button {
+        background: var(--gold);
+        border: none;
+        padding: 0 35px;
+        border-radius: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        font-family: var(--Font);
+        transition: 0.3s;
+        font-size: 15px;
+        color: var(--textDark);
+        &:hover {
+          background: var(--goldDark);
+          color: #fff;
+          box-shadow: 0 4px 15px rgba(206, 165, 0, 0.35);
+        }
+      }
+    }
+  }
+}
+/* ===== Modal Styles ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.ModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.ModalContent {
+  background-color: var(--bgWhite);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  direction: rtl;
+  animation: slideUp 0.3s ease;
+}
+
+.ModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: var(--borderLight);
+}
+
+.ModalHeader h3 {
+  color: var(--textDark);
+  font-size: 18px;
+}
+
+.ModalClose {
+  background: var(--grayBg);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--textGray);
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ModalClose:hover {
+  background: var(--grayBgHover);
+  color: var(--textDark);
+}
+
+.ModalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.FormField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.FormField label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--textDark);
+}
+
+.FormField input,
+.FormField textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #f1f1f1;
+  border-radius: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+  font-family: var(--Font);
+  background: var(--bgLight);
+  color: var(--textDark);
+  transition: 0.3s;
+}
+
+.FormField input:focus,
+.FormField textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255, 205, 17, 0.15);
+  background: var(--bgWhite);
+}
+
+.FormField textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.ModalActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.BtnSubmit, .BtnCancel {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-family: var(--Font);
+  transition: 0.3s;
+}
+
+.BtnSubmit {
+  background: var(--gold);
+  color: var(--textDark);
+}
+
+.BtnSubmit:hover {
+  background: var(--goldDark);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(206, 165, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+.BtnCancel {
+  background: var(--grayBg);
+  color: var(--textDark);
+  border: var(--borderLight);
+}
+
+.BtnCancel:hover {
+  background: var(--grayBgHover);
+  color: var(--textDark);
+}
