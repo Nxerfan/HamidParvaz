@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import "../globals.css";
 
 export default function Header() {
@@ -18,7 +20,7 @@ export default function Header() {
 
           <nav>
             <div className="NavItem">
-              خدمات مسافرتی <span className="Arrow">▾</span>
+              <Image src="/traveler-خدمات مسافرتی.svg" alt="" width={20} height={20} /> خدمات مسافرتی <span className="Arrow">▾</span>
               <div className="Dropdown">
                 <Link href="/hotel" className="DropdownItem">
                   رزرو هتل
@@ -33,7 +35,7 @@ export default function Header() {
             </div>
 
             <div className="NavItem">
-              درباره ما <span className="Arrow">▾</span>
+              <Image src="/user_groups-درباره ما.svg" alt="" width={20} height={20} /> درباره ما <span className="Arrow">▾</span>
               <div className="Dropdown">
                 <Link href="/about-us" className="DropdownItem">
                   تماس با ما
@@ -45,7 +47,7 @@ export default function Header() {
             </div>
 
             <div className="NavItem">
-              پشتیبانی <span className="Arrow">▾</span>
+              <Image src="/hotline-پشتیبانی.svg" alt="" width={20} height={20} /> پشتیبانی <span className="Arrow">▾</span>
               <div className="Dropdown">
                 <Link href="/faq" className="DropdownItem">
                   سوالات متداول
@@ -63,19 +65,16 @@ export default function Header() {
             </div>
 
             <Link href="/blog" className="NavItem">
-              بلاگ
+              <Image src="/blogloving-وبلاگ.svg" alt="" width={20} height={20} /> بلاگ
             </Link>
             <Link href="/about-us" className="NavItem">
-              تماس با ما
+              <FontAwesomeIcon icon={faEnvelope} style={{ width: 18, height: 18 }} /> تماس با ما
             </Link>
           </nav>
 
           <div className="AuthButtons">
             <Link href="/auth">
-              <button className="Btn BtnOutline">ورود</button>
-            </Link>
-            <Link href="/auth?tab=signup">
-              <button className="Btn BtnPrimary">ثبت نام</button>
+              <button className="Btn BtnPrimary"><Image src="/person-ثبت نام.svg" alt="" width={20} height={20} /> ورود</button>
             </Link>
           </div>
         </div>

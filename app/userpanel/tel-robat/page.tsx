@@ -49,7 +49,7 @@ export default function Page() {
   return (
     <>
       <UserPannelHeader />
-      <div className="containerr" st>
+      <div className="containerr">
         <div className="right">
           <FilterUserPannel />
         </div>

@@ -188,7 +188,7 @@ const PAGE_DATA = {
 const Page = () => {
   return (
     <>
-      <Header />
+      <Header banner="/FlightBanner.png" />
       <TravelCards />
       <Form2 />
       <main>

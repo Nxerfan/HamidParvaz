@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,6 +25,7 @@ import Form from "../../components/(Forms)/FormType3";
 
 interface Tour {
   id: number;
+  slug: string;
   title: string;
   destination: string;
   agency: string;
@@ -47,6 +48,7 @@ interface Tour {
 const toursData: Tour[] = [
   {
     id: 1,
+    slug: "kish-tour",
     title: "تور کیش - هتل ترنج درخشان",
     destination: "کیش",
     agency: "آژانس آسمان آبی",
@@ -67,6 +69,7 @@ const toursData: Tour[] = [
   },
   {
     id: 2,
+    slug: "istanbul-tour",
     title: "تور ترکیه استانبول - هتل گرانت هیوت",
     destination: "استانبول",
     agency: "آژانس پرواز الکترا",
@@ -86,6 +89,7 @@ const toursData: Tour[] = [
   },
   {
     id: 3,
+    slug: "dubai-tour",
     title: "تور دبی - هتل ریمز",
     destination: "دبی",
     agency: "آژانس سفرهای ناب",
@@ -104,6 +108,7 @@ const toursData: Tour[] = [
   },
   {
     id: 4,
+    slug: "mashhad-tour",
     title: "تور مشهد - هتل درویشی",
     destination: "مشهد",
     agency: "آژانس زیارت",
@@ -130,7 +135,7 @@ const durationOptions = [
 ];
 const serviceOptions = ["ویزا در تور", "ترانسفر فرودگاهی", "لیدر فارسی زبان"];
 
-export default function TourResultsPage() {
+function TourResultsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const destinationQuery = searchParams.get("destination") || "";
@@ -449,7 +454,7 @@ export default function TourResultsPage() {
                             {tour.price.toLocaleString("fa-IR")} <span className="Currency">تومان</span>
                           </span>
                         </div>
-                        <Link href="/tour/choosed">
+                        <Link href={`/travel/${tour.slug}`}>
                           <button className="BtnBook">رزرو تور</button>
                         </Link>
                       </div>
@@ -462,5 +467,13 @@ export default function TourResultsPage() {
         </section>
       </main>
     </>
+  );
+}
+
+export default function TourResultsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <TourResultsPageContent />
+    </Suspense>
   );
 }

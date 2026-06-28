@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import "./globals.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +22,7 @@ const PAGE_DATA = {
     tours: [
       {
         id: 1,
+        slug: "istanbul-tour",
         image: "https://www.aysham.com/1035680961931001B",
         alt: "تور استانبول",
         title: "تور استانبول",
@@ -35,6 +37,7 @@ const PAGE_DATA = {
       },
       {
         id: 2,
+        slug: "kish-tour",
         image: "https://cdn.tabnak.ir/files/fa/news/1404/12/6/2244665_751.jpg",
         alt: "تور کیش",
         title: "تور کیش",
@@ -49,6 +52,7 @@ const PAGE_DATA = {
       },
       {
         id: 3,
+        slug: "thailand-tour",
         image: "https://farjamparvaz.net/wp-content/uploads/2025/10/13.jpg",
         alt: "تور تایلند",
         title: "تور تایلند (بانکوک + پوکت)",
@@ -157,7 +161,7 @@ const PAGE_DATA = {
 };
 
 export default function Offers() {
-  const toursJSX: JSX.Element[] = [];
+  const toursJSX: React.ReactElement[] = [];
   for (const tour of PAGE_DATA.offersSection.tours) {
     toursJSX.push(
       <article key={tour.id} className="tourCard">
@@ -185,7 +189,7 @@ export default function Offers() {
             <div className="tourPrice">
               <span>{tour.price}</span> تومان
             </div>
-            <Link href="/tour/tourch">
+            <Link href={`/travel/${tour.slug}`}>
               <button className="btnPrimary">مشاهده جزئیات</button>
             </Link>
           </footer>
@@ -197,7 +201,7 @@ export default function Offers() {
     );
   }
 
-  const destinationsJSX: JSX.Element[] = [];
+  const destinationsJSX: React.ReactElement[] = [];
   for (const item of PAGE_DATA.destinations.list) {
     destinationsJSX.push(
       <div key={item.id} className="destinationItem">
@@ -209,7 +213,7 @@ export default function Offers() {
 
   return (
     <>
-      <Header />
+      <Header banner="/TourBanner.png" />
       <TravelCards />
       <Form5 />
       <main className="offersContainer">

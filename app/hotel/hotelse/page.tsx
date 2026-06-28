@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,7 +48,7 @@ const hotelsData: Hotel[] = [
     isCancelable: true,
   },
   {
-    id: 2,
+    id: 7,
     name: "هتل داریوش کیش",
     image:
       "https://cdn01.booking.ir/2026/1/b8936505-5ae5-4172-b0f4-122e729e488a.jpg",
@@ -157,7 +157,7 @@ function calculateNights(checkIn: string, checkOut: string): number {
   return diffDays || 1;
 }
 
-export default function HotelResultsPage() {
+function HotelResultsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -302,15 +302,7 @@ export default function HotelResultsPage() {
   };
 
   const selectRoom = (hotelId: number) => {
-    const query = new URLSearchParams({
-      hotelId: hotelId.toString(),
-      checkIn: checkInDate,
-      checkOut: checkOutDate,
-      rooms: roomCount.toString(),
-      adults: adultCount.toString(),
-      children: childCount.toString(),
-    }).toString();
-    router.push(`/choosedHotel.html?${query}`);
+    router.push(`/hotel/hotelch?id=${hotelId}`);
   };
 
   useEffect(() => {
@@ -550,7 +542,7 @@ export default function HotelResultsPage() {
                 const totalStayPrice = pricePerNightTotal * nights;
 
                 return (
-                  <div className="MediaElementHotel" key={hotel.id}>
+                  <div className="MediaElementHotel" key={hotel.id} onClick={() => router.push(`/hotel/hotelch?id=${hotel.id}`)} style={{ cursor: "pointer" }}>
                     <img src={hotel.image} alt={hotel.name} />
                     <div className="Down">
                       <p>{hotel.name}</p>
@@ -601,14 +593,13 @@ export default function HotelResultsPage() {
                             {totalStayPrice.toLocaleString("fa-IR")} تومان
                           </small>
                         )}
-                        {/* 👇 دکمه جدید دیدن جزئیات */}
                         <button
                           className="viewDetailsBtn"
-                          onClick={() => setSelectedHotel(hotel)}
+                          onClick={(e) => { e.stopPropagation(); setSelectedHotel(hotel); }}
                         >
                           دیدن جزئیات هتل
                         </button>
-                        <button onClick={() => selectRoom(hotel.id)}>
+                        <button onClick={(e) => { e.stopPropagation(); selectRoom(hotel.id); }}>
                           انتخاب اتاق
                         </button>
                       </div>
@@ -629,5 +620,13 @@ export default function HotelResultsPage() {
         }}
       />
     </>
+  );
+}
+
+export default function HotelResultsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HotelResultsPageContent />
+    </Suspense>
   );
 }

@@ -227,7 +227,7 @@ function AuthContent() {
                     required
                     pattern={
                       field.name === "phone"
-                        ? /^09\d{9}$/
+                        ? "^09\\d{9}$"
                         : field.name === "password" ||
                             field.name === "confirmPassword"
                           ? PAGE_DATA.passwordRegex.source

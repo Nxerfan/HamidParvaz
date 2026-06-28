@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./globals.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
@@ -485,17 +486,19 @@ function cardToDetail(card: HotelCardType): HotelDetail {
 }
 
 export default function HotelsPage() {
+  const router = useRouter();
   const [selectedHotel, setSelectedHotel] = useState<HotelDetail | null>(null);
 
-  const hotelSectionsJSX: JSX.Element[] = [];
+  const hotelSectionsJSX: React.ReactElement[] = [];
   for (const section of PAGE_DATA.hotelSections) {
-    const cardsJSX: JSX.Element[] = [];
+    const cardsJSX: React.ReactElement[] = [];
     for (const card of section.cards) {
       cardsJSX.push(
         <HotelCard
           key={card.id}
           {...card}
           onViewDetails={() => setSelectedHotel(cardToDetail(card))}
+          onCardClick={() => router.push(`/hotel/hotelch?id=${card.id}`)}
         />,
       );
     }
@@ -507,7 +510,7 @@ export default function HotelsPage() {
     );
   }
 
-  const destinationsJSX: JSX.Element[] = [];
+  const destinationsJSX: React.ReactElement[] = [];
   for (const item of PAGE_DATA.destinationsData.list) {
     destinationsJSX.push(
       <div key={item.id} className="destinationItem">
@@ -517,7 +520,7 @@ export default function HotelsPage() {
     );
   }
 
-  const groupsJSX: JSX.Element[] = [];
+  const groupsJSX: React.ReactElement[] = [];
   for (const item of PAGE_DATA.hotelGroupsData.list) {
     groupsJSX.push(
       <div key={item.id} className="MediaElement">
@@ -537,7 +540,7 @@ export default function HotelsPage() {
 
   return (
     <>
-      <Header />
+      <Header banner="/HotelBanner.png" />
       <TravelCards />
       <Form />
       <main>
@@ -585,9 +588,10 @@ function HotelCard({
   image,
   location,
   onViewDetails,
-}: HotelCardType & { onViewDetails: () => void }) {
+  onCardClick,
+}: HotelCardType & { onViewDetails: () => void; onCardClick: () => void }) {
   return (
-    <div className="MediaElementHotel">
+    <div className="MediaElementHotel" onClick={onCardClick} style={{ cursor: "pointer" }}>
       <img src={image} alt={title} />
       <p>{title}</p>
       <div className="rating">
@@ -613,7 +617,7 @@ function HotelCard({
           <span>{price}</span> تومان
         </p>
       </div>
-      <button className="viewDetailsBtn" onClick={onViewDetails}>
+      <button className="viewDetailsBtn" onClick={(e) => { e.stopPropagation(); onViewDetails(); }}>
         دیدن جزئیات هتل
       </button>
     </div>

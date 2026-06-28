@@ -243,7 +243,7 @@ export default function Page() {
                   <div
                     style={{
                       width: "100% ",
-                      textAlign: "center ",
+                      textAlign: "center",
                       padding: "40px 0 ",
                       color: "var(--textGray) ",
                     }}
@@ -263,18 +263,18 @@ export default function Page() {
           className="reward-modal-overlay "
           onClick={closeModal}
           style={{
-            position: "fixed ",
+            position: "fixed",
             top: 0,
             left: 0,
             width: "100% ",
             height: "100% ",
             backgroundColor: "rgba(0, 0, 0, 0.6) ",
-            display: "flex ",
-            justifyContent: "center ",
-            alignItems: "center ",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             zIndex: 9999,
             padding: "20px ",
-            direction: "rtl ",
+            direction: "rtl",
           }}
         >
           <div
@@ -286,8 +286,8 @@ export default function Page() {
               maxWidth: "600px ",
               width: "100% ",
               maxHeight: "90vh ",
-              overflowY: "auto ",
-              position: "relative ",
+              overflowY: "auto",
+              position: "relative",
               boxShadow: "0 10px 40px rgba(0, 0, 0, 0.2) ",
               animation: "modalFadeIn 0.3s ease-out ",
             }}
@@ -296,18 +296,18 @@ export default function Page() {
             <button
               onClick={closeModal}
               style={{
-                position: "absolute ",
+                position: "absolute",
                 top: "12px ",
                 left: "12px ",
                 background: "rgba(255, 255, 255, 0.9) ",
-                border: "none ",
+                border: "none",
                 width: "36px ",
                 height: "36px ",
                 borderRadius: "50% ",
-                cursor: "pointer ",
-                display: "flex ",
-                alignItems: "center ",
-                justifyContent: "center ",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 zIndex: 2,
                 boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15) ",
               }}
@@ -320,7 +320,7 @@ export default function Page() {
               style={{
                 width: "100% ",
                 height: "220px ",
-                overflow: "hidden ",
+                overflow: "hidden",
                 borderRadius: "16px 16px 0 0 ",
               }}
             >
@@ -330,7 +330,7 @@ export default function Page() {
                 style={{
                   width: "100% ",
                   height: "100% ",
-                  objectFit: "cover ",
+                  objectFit: "cover",
                 }}
               />
             </div>
@@ -350,8 +350,8 @@ export default function Page() {
 
               <div
                 style={{
-                  display: "flex ",
-                  alignItems: "center ",
+                  display: "flex",
+                  alignItems: "center",
                   gap: "8px ",
                   marginBottom: "16px ",
                   color: "#666 ",
@@ -366,7 +366,7 @@ export default function Page() {
               <div
                 style={{
                   display: "inline-flex ",
-                  alignItems: "center ",
+                  alignItems: "center",
                   gap: "8px ",
                   backgroundColor: "#fff8e1 ",
                   color: "#f59e0b ",
@@ -422,7 +422,7 @@ export default function Page() {
                   </h3>
                   <ul
                     style={{
-                      listStyle: "none ",
+                      listStyle: "none",
                       padding: 0,
                       margin: 0,
                     }}
@@ -434,8 +434,8 @@ export default function Page() {
                           padding: "6px 0 ",
                           color: "#555 ",
                           fontSize: "14px ",
-                          display: "flex ",
-                          alignItems: "center ",
+                          display: "flex",
+                          alignItems: "center",
                           gap: "8px ",
                         }}
                       >
@@ -454,11 +454,11 @@ export default function Page() {
                   padding: "14px ",
                   backgroundColor: "#2563eb ",
                   color: "#fff ",
-                  border: "none ",
+                  border: "none",
                   borderRadius: "12px ",
                   fontSize: "16px ",
                   fontWeight: 600,
-                  cursor: "pointer ",
+                  cursor: "pointer",
                   transition: "background-color 0.2s ",
                 }}
                 onMouseOver={(e) =>

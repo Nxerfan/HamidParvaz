@@ -93,14 +93,7 @@ export default function Header() {
 
             <div className="AuthButtons">
               <Link href={PAGE_DATA.auth.login.href}>
-                <button className="Btn BtnOutline">
-                  {PAGE_DATA.auth.login.label}
-                </button>
-              </Link>
-              <Link href={PAGE_DATA.auth.register.href}>
-                <button className="Btn BtnPrimary">
-                  {PAGE_DATA.auth.register.label}
-                </button>
+                <button className="Btn BtnPrimary"><img src="/person-ثبت نام.svg" alt="" width={20} height={20} /> {PAGE_DATA.auth.login.label}</button>
               </Link>
             </div>
           </div>
