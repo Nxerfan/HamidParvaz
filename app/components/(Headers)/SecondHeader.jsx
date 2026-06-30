@@ -31,6 +31,9 @@ export default function Header() {
                 <Link href="/tour" className="DropdownItem">
                   تور مسافرتی
                 </Link>
+                <Link href="/tour/make-your-own" className="DropdownItem">
+                  تور دلخواه خود را بسازید
+                </Link>
               </div>
             </div>
 

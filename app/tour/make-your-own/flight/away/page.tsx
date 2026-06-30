@@ -1,6 +1,7 @@
 "use client";
 import "../../global.css";
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,20 +24,42 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderMakeYourTour from "../../../../components/(Headers)/HeaderMakeYourTour";
 
+interface FilterItem {
+  id: string;
+  title: string;
+  type: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  options?: { value: string; label: string }[];
+  groups?: { title: string; options: { value: string; label: string }[] }[];
+}
+
 const PAGE_DATA = {
   sidebar: {
     header: "فیلترها",
     filters: [
-      { id: "price", title: "محدوده قیمت (تومان)", type: "range", min: 0, max: 5000000, step: 50000 },
       {
-        id: "class", title: "کلاس پروازی", type: "checkbox",
+        id: "price",
+        title: "محدوده قیمت (تومان)",
+        type: "range",
+        min: 0,
+        max: 5000000,
+        step: 50000,
+      },
+      {
+        id: "class",
+        title: "کلاس پروازی",
+        type: "checkbox",
         options: [
           { value: "economy", label: "اکونومی" },
           { value: "business", label: "بیزنس" },
         ],
       },
       {
-        id: "time", title: "زمان پرواز", type: "grouped",
+        id: "time",
+        title: "زمان پرواز",
+        type: "grouped",
         groups: [
           {
             title: "زمان حرکت از مبدأ",
@@ -57,7 +80,9 @@ const PAGE_DATA = {
         ],
       },
       {
-        id: "airline", title: "شرکت‌های هواپیمایی", type: "checkbox",
+        id: "airline",
+        title: "شرکت‌های هواپیمایی",
+        type: "checkbox",
         options: [
           { value: "چابهار", label: "چابهار" },
           { value: "فلای کیش", label: "فلای کیش" },
@@ -68,14 +93,16 @@ const PAGE_DATA = {
         ],
       },
       {
-        id: "baggage", title: "مقدار بار مجاز", type: "checkbox",
+        id: "baggage",
+        title: "مقدار بار مجاز",
+        type: "checkbox",
         options: [
           { value: "20kg", label: "۲۰ کیلوگرم" },
           { value: "25kg", label: "۲۵ کیلوگرم" },
           { value: "30kg", label: "۳۰ کیلوگرم" },
         ],
       },
-    ],
+    ] as FilterItem[],
   },
   mainContent: {
     header: { icon: faPlane, text: "پرواز رفت خود را انتخاب کنید" },
@@ -86,14 +113,22 @@ const PAGE_DATA = {
     flights: [
       {
         id: 1,
-        airline: { name: "چابهار", logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=IRU" },
+        airline: {
+          name: "چابهار",
+          logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=IRU",
+        },
         departure: { time: "6:00", city: "تهران", hour: 6 },
         arrival: { time: "7:00", city: "مشهد", hour: 7 },
-        classType: "economy", classLabel: "اکونومی",
-        seatsLeft: "6 صندلی", baggage: "20kg",
-        price: 1802400, priceText: "1,802,400", duration: "1:00",
+        classType: "economy",
+        classLabel: "اکونومی",
+        seatsLeft: "6 صندلی",
+        baggage: "20kg",
+        price: 1802400,
+        priceText: "1,802,400",
+        duration: "1:00",
         details: {
-          date: "سه‌شنبه 2 دی ← چهارشنبه 3 دی", classCode: "Y",
+          date: "سه‌شنبه 2 دی ← چهارشنبه 3 دی",
+          classCode: "Y",
           originAirport: "تهران، فرودگاه مهرآباد (THR) - ترمینال 1",
           destinationAirport: "مشهد، فرودگاه شهید هاشمی‌نژاد (MHD)",
           totalPrice: "3,161,600",
@@ -101,14 +136,22 @@ const PAGE_DATA = {
       },
       {
         id: 2,
-        airline: { name: "فلای کیش", logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=IRU" },
+        airline: {
+          name: "فلای کیش",
+          logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=IRU",
+        },
         departure: { time: "10:30", city: "تهران", hour: 10 },
         arrival: { time: "12:00", city: "مشهد", hour: 12 },
-        classType: "business", classLabel: "بیزنس",
-        seatsLeft: "2 صندلی", baggage: "30kg",
-        price: 2500000, priceText: "2,500,000", duration: "1:30",
+        classType: "business",
+        classLabel: "بیزنس",
+        seatsLeft: "2 صندلی",
+        baggage: "30kg",
+        price: 2500000,
+        priceText: "2,500,000",
+        duration: "1:30",
         details: {
-          date: "سه‌شنبه 2 دی ← چهارشنبه 3 دی", classCode: "C",
+          date: "سه‌شنبه 2 دی ← چهارشنبه 3 دی",
+          classCode: "C",
           originAirport: "تهران، فرودگاه مهرآباد (THR) - ترمینال 2",
           destinationAirport: "مشهد، فرودگاه شهید هاشمی‌نژاد (MHD)",
           totalPrice: "5,000,000",
@@ -116,14 +159,22 @@ const PAGE_DATA = {
       },
       {
         id: 3,
-        airline: { name: "آسمان", logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=IRU" },
+        airline: {
+          name: "آسمان",
+          logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=IRU",
+        },
         departure: { time: "14:15", city: "تهران", hour: 14 },
         arrival: { time: "15:45", city: "مشهد", hour: 15 },
-        classType: "economy", classLabel: "اکونومی",
-        seatsLeft: "15 صندلی", baggage: "20kg",
-        price: 1650000, priceText: "1,650,000", duration: "1:30",
+        classType: "economy",
+        classLabel: "اکونومی",
+        seatsLeft: "15 صندلی",
+        baggage: "20kg",
+        price: 1650000,
+        priceText: "1,650,000",
+        duration: "1:30",
         details: {
-          date: "سه‌شنبه 2 دی ← چهارشنبه 3 دی", classCode: "Y",
+          date: "سه‌شنبه 2 دی ← چهارشنبه 3 دی",
+          classCode: "Y",
           originAirport: "تهران، فرودگاه امام خمینی (IKA)",
           destinationAirport: "مشهد، فرودگاه شهید هاشمی‌نژاد (MHD)",
           totalPrice: "3,300,000",
@@ -148,29 +199,40 @@ const SELECTED_HOTEL = {
 };
 
 export default function FlightAwaySelection() {
+  const router = useRouter();
   const [openFilter, setOpenFilter] = useState<string | null>(null);
   const [activeSort, setActiveSort] = useState(0);
   const [expandedFlight, setExpandedFlight] = useState<number | null>(null);
-  const [priceRange, setPriceRange] = useState({
-    min: PAGE_DATA.sidebar.filters[0].min,
-    max: PAGE_DATA.sidebar.filters[0].max,
+  const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
+    min: PAGE_DATA.sidebar.filters[0]!.min ?? 0,
+    max: PAGE_DATA.sidebar.filters[0]!.max ?? 0,
   });
-  const [checkedOptions, setCheckedOptions] = useState<Record<string, string[]>>({});
+  const [checkedOptions, setCheckedOptions] = useState<
+    Record<string, string[]>
+  >({});
   const [showFlightList, setShowFlightList] = useState(false);
   const [selectedFlight, setSelectedFlight] = useState<any>(null);
   const [selectedHotel] = useState<any>(SELECTED_HOTEL);
   const [isAutoSelecting, setIsAutoSelecting] = useState(true);
 
-  const toPersianNumber = (num: number | string) => Number(num).toLocaleString("fa-IR");
+  const toPersianNumber = (num: number | string) =>
+    Number(num).toLocaleString("fa-IR");
 
-  const handleToggleFilter = (id: string) => setOpenFilter(openFilter === id ? null : id);
+  const handleToggleFilter = (id: string) =>
+    setOpenFilter(openFilter === id ? null : id);
 
   const handlePriceChange = (type: "min" | "max", value: string | number) => {
     const val = Number(value);
     if (type === "min") {
-      setPriceRange((prev) => ({ ...prev, min: Math.min(val, prev.max - 50000) }));
+      setPriceRange((prev) => ({
+        ...prev,
+        min: Math.min(val, prev.max - 50000),
+      }));
     } else {
-      setPriceRange((prev) => ({ ...prev, max: Math.max(val, prev.min + 50000) }));
+      setPriceRange((prev) => ({
+        ...prev,
+        max: Math.max(val, prev.min + 50000),
+      }));
     }
   };
 
@@ -184,57 +246,84 @@ export default function FlightAwaySelection() {
   };
 
   const handleResetFilters = () => {
-    setPriceRange({ min: PAGE_DATA.sidebar.filters[0].min, max: PAGE_DATA.sidebar.filters[0].max });
+    setPriceRange({
+      min: PAGE_DATA.sidebar.filters[0]!.min ?? 0,
+      max: PAGE_DATA.sidebar.filters[0]!.max ?? 0,
+    });
     setCheckedOptions({});
     setActiveSort(0);
   };
 
   const activeFilterCount =
     Object.values(checkedOptions).reduce((sum, arr) => sum + arr.length, 0) +
-    (priceRange.min > PAGE_DATA.sidebar.filters[0].min || priceRange.max < PAGE_DATA.sidebar.filters[0].max ? 1 : 0);
+    (priceRange.min > (PAGE_DATA.sidebar.filters[0]!.min ?? 0) ||
+    priceRange.max < (PAGE_DATA.sidebar.filters[0]!.max ?? 0)
+      ? 1
+      : 0);
 
   const filteredFlights = useMemo(() => {
     let result = [...PAGE_DATA.mainContent.flights];
-    result = result.filter((f) => f.price >= priceRange.min && f.price <= priceRange.max);
+    result = result.filter(
+      (f) => f.price >= priceRange.min && f.price <= priceRange.max,
+    );
 
     const selectedClasses = checkedOptions["class"] || [];
-    if (selectedClasses.length > 0) result = result.filter((f) => selectedClasses.includes(f.classType));
+    if (selectedClasses.length > 0)
+      result = result.filter((f) => selectedClasses.includes(f.classType));
 
     const selectedDepTimes = checkedOptions["time"] || [];
     if (selectedDepTimes.length > 0) {
       result = result.filter((f) =>
         selectedDepTimes.some((range) => {
-          if (range === "0-8") return f.departure.hour >= 0 && f.departure.hour < 8;
-          if (range === "8-18") return f.departure.hour >= 8 && f.departure.hour < 18;
-          if (range === "18-24") return f.departure.hour >= 18 && f.departure.hour <= 24;
+          if (range === "0-8")
+            return f.departure.hour >= 0 && f.departure.hour < 8;
+          if (range === "8-18")
+            return f.departure.hour >= 8 && f.departure.hour < 18;
+          if (range === "18-24")
+            return f.departure.hour >= 18 && f.departure.hour <= 24;
           return false;
-        })
+        }),
       );
     }
 
     const selectedAirlines = checkedOptions["airline"] || [];
-    if (selectedAirlines.length > 0) result = result.filter((f) => selectedAirlines.includes(f.airline.name));
+    if (selectedAirlines.length > 0)
+      result = result.filter((f) => selectedAirlines.includes(f.airline.name));
 
     const selectedBaggage = checkedOptions["baggage"] || [];
-    if (selectedBaggage.length > 0) result = result.filter((f) => selectedBaggage.includes(f.baggage));
+    if (selectedBaggage.length > 0)
+      result = result.filter((f) => selectedBaggage.includes(f.baggage));
 
     const sortType = PAGE_DATA.mainContent.sorting.options[activeSort];
     if (sortType === "ارزان‌ترین") result.sort((a, b) => a.price - b.price);
-    else if (sortType === "زودترین پرواز") result.sort((a, b) => a.departure.hour - b.departure.hour);
-    else if (sortType === "کوتاه‌ترین مدت") result.sort((a, b) => (a.arrival.hour - a.departure.hour) - (b.arrival.hour - b.departure.hour));
+    else if (sortType === "زودترین پرواز")
+      result.sort((a, b) => a.departure.hour - b.departure.hour);
+    else if (sortType === "کوتاه‌ترین مدت")
+      result.sort(
+        (a, b) =>
+          a.arrival.hour -
+          a.departure.hour -
+          (b.arrival.hour - b.departure.hour),
+      );
 
     return result;
   }, [priceRange, checkedOptions, activeSort]);
 
-  const priceFilter = PAGE_DATA.sidebar.filters[0];
-  const minPercent = ((priceRange.min - priceFilter.min) / (priceFilter.max - priceFilter.min)) * 100;
-  const maxPercent = ((priceRange.max - priceFilter.min) / (priceFilter.max - priceFilter.min)) * 100;
+  const priceFilter = PAGE_DATA.sidebar.filters[0]!;
+  const pfMin = priceFilter.min ?? 0;
+  const pfMax = priceFilter.max ?? 0;
+  const minPercent = ((priceRange.min - pfMin) / (pfMax - pfMin)) * 100;
+  const maxPercent = ((priceRange.max - pfMin) / (pfMax - pfMin)) * 100;
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
-      const minPriceFlights = PAGE_DATA.mainContent.flights.filter(flight => flight.price >= 1000000);
+      const minPriceFlights = PAGE_DATA.mainContent.flights.filter(
+        (flight) => flight.price >= 1000000,
+      );
       if (minPriceFlights.length > 0) {
-        const cheapestFlight = [...minPriceFlights].sort((a, b) => a.price - b.price)[0];
+        const cheapestFlight = [...minPriceFlights].sort(
+          (a, b) => a.price - b.price,
+        )[0];
         setSelectedFlight(cheapestFlight);
         setShowFlightList(false);
         setIsAutoSelecting(false);
@@ -248,7 +337,11 @@ export default function FlightAwaySelection() {
     <div className="AutoSelectingCard">
       <div className="AutoSelectingPlane">
         <div className="PlaneTrack">
-          <FontAwesomeIcon icon={faPlane} className="PlaneIcon" flip="horizontal" />
+          <FontAwesomeIcon
+            icon={faPlane}
+            className="PlaneIcon"
+            flip="horizontal"
+          />
         </div>
       </div>
       <div className="AutoSelectingContent">
@@ -264,7 +357,10 @@ export default function FlightAwaySelection() {
       </div>
       <div className="AutoSelectingHint">
         <FontAwesomeIcon icon={faStar} />
-        <span>کم‌یاب‌ترین و بهترین پرواز با توجه به قیمت و امکانات برای شما انتخاب می‌شود</span>
+        <span>
+          کم‌یاب‌ترین و بهترین پرواز با توجه به قیمت و امکانات برای شما انتخاب
+          می‌شود
+        </span>
       </div>
     </div>
   );
@@ -296,7 +392,9 @@ export default function FlightAwaySelection() {
         </div>
         <div className="HotelSummaryMeta">
           {selectedHotel.options.map((opt: string, i: number) => (
-            <span key={i} className="HotelSummaryOption">{opt}</span>
+            <span key={i} className="HotelSummaryOption">
+              {opt}
+            </span>
           ))}
           <div className="HotelSummaryScore">
             <FontAwesomeIcon icon={faFaceSmile} />
@@ -314,14 +412,14 @@ export default function FlightAwaySelection() {
       <div className="HotelSummaryActions">
         <button
           className="HotelSummaryViewBtn"
-          onClick={() => window.location.href = "/tour/make-your-own/hotel"}
+          onClick={() => router.push("/tour/make-your-own/hotel")}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
           مشاهده هتل
         </button>
         <button
           className="HotelSummaryChangeBtn"
-          onClick={() => window.location.href = "/tour/make-your-own/hotel"}
+          onClick={() => router.push("/tour/make-your-own/hotel")}
         >
           <FontAwesomeIcon icon={faRotateRight} />
           تغییر هتل
@@ -348,7 +446,10 @@ export default function FlightAwaySelection() {
         <div className="SelectedFlightInfo">
           <div className="SelectedFlightMain">
             <div className="FlightIcon">
-              <img src={selectedFlight.airline.logo} alt={selectedFlight.airline.name} />
+              <img
+                src={selectedFlight.airline.logo}
+                alt={selectedFlight.airline.name}
+              />
               <span>{selectedFlight.airline.name}</span>
             </div>
             <div className="FlightTime">
@@ -359,7 +460,10 @@ export default function FlightAwaySelection() {
               <div className="i">
                 <FontAwesomeIcon icon={faCircleDot} />
                 <hr className="line-divider" />
-                <FontAwesomeIcon icon={faPlane} className="fa-flip-horizontal" />
+                <FontAwesomeIcon
+                  icon={faPlane}
+                  className="fa-flip-horizontal"
+                />
               </div>
               <div className="Form">
                 <span>{selectedFlight.arrival.time}</span>
@@ -383,7 +487,7 @@ export default function FlightAwaySelection() {
     </div>
   );
 
-  const renderFilterContent = (filter: any) => {
+  const renderFilterContent = (filter: FilterItem) => {
     if (filter.type === "range") {
       return (
         <div className="dropdownPanel open">
@@ -391,22 +495,48 @@ export default function FlightAwaySelection() {
             <div className="priceLabels">
               <div className="labelGroup">
                 <span>از</span>
-                <span className="displayMin">{toPersianNumber(priceRange.min)}</span>
+                <span className="displayMin">
+                  {toPersianNumber(priceRange.min)}
+                </span>
                 <span>تومان</span>
               </div>
               <span className="labelSeparator">—</span>
               <div className="labelGroup">
                 <span>تا</span>
-                <span className="displayMax">{toPersianNumber(priceRange.max)}</span>
+                <span className="displayMax">
+                  {toPersianNumber(priceRange.max)}
+                </span>
                 <span>تومان</span>
               </div>
             </div>
             <div className="rangeSliderContainer">
               <div className="sliderTrack" />
-              <div className="sliderProgress" style={{ left: `${minPercent}%`, width: `${maxPercent - minPercent}%` }} />
+              <div
+                className="sliderProgress"
+                style={{
+                  left: `${minPercent}%`,
+                  width: `${maxPercent - minPercent}%`,
+                }}
+              />
               <div className="rangeInputs">
-                <input type="range" className="rangeMin" min={filter.min} max={filter.max} value={priceRange.min} step={filter.step} onChange={(e) => handlePriceChange("min", e.target.value)} />
-                <input type="range" className="rangeMax" min={filter.min} max={filter.max} value={priceRange.max} step={filter.step} onChange={(e) => handlePriceChange("max", e.target.value)} />
+                <input
+                  type="range"
+                  className="rangeMin"
+                  min={filter.min}
+                  max={filter.max}
+                  value={priceRange.min}
+                  step={filter.step}
+                  onChange={(e) => handlePriceChange("min", e.target.value)}
+                />
+                <input
+                  type="range"
+                  className="rangeMax"
+                  min={filter.min}
+                  max={filter.max}
+                  value={priceRange.max}
+                  step={filter.step}
+                  onChange={(e) => handlePriceChange("max", e.target.value)}
+                />
               </div>
             </div>
           </div>
@@ -418,11 +548,13 @@ export default function FlightAwaySelection() {
       return (
         <div className="dropdownPanel open">
           <div className="checkboxGroup">
-            {filter.options.map((opt: any) => (
+            {filter.options!.map((opt: any) => (
               <label key={opt.value} className="checkboxItem">
                 <input
                   type="checkbox"
-                  checked={(checkedOptions[filter.id] || []).includes(opt.value)}
+                  checked={(checkedOptions[filter.id] || []).includes(
+                    opt.value,
+                  )}
                   onChange={() => handleCheckboxChange(filter.id, opt.value)}
                 />
                 <span className="checkmark" />
@@ -437,7 +569,7 @@ export default function FlightAwaySelection() {
     if (filter.type === "grouped") {
       return (
         <div className="dropdownPanel open">
-          {filter.groups.map((group: any, index: number) => (
+          {filter.groups!.map((group: any, index: number) => (
             <div key={index} className="timeSubSection">
               {index > 0 && <hr className="filterDivider" />}
               <span className="subTitle">{group.title}</span>
@@ -446,8 +578,12 @@ export default function FlightAwaySelection() {
                   <label key={opt.value} className="checkboxItem">
                     <input
                       type="checkbox"
-                      checked={(checkedOptions[filter.id] || []).includes(opt.value)}
-                      onChange={() => handleCheckboxChange(filter.id, opt.value)}
+                      checked={(checkedOptions[filter.id] || []).includes(
+                        opt.value,
+                      )}
+                      onChange={() =>
+                        handleCheckboxChange(filter.id, opt.value)
+                      }
                     />
                     <span className="checkmark" />
                     <span>{opt.label}</span>
@@ -474,7 +610,10 @@ export default function FlightAwaySelection() {
                 <span>{PAGE_DATA.sidebar.header}</span>
               </div>
               {activeFilterCount > 0 && (
-                <button className="resetFiltersBtn" onClick={handleResetFilters}>
+                <button
+                  className="resetFiltersBtn"
+                  onClick={handleResetFilters}
+                >
                   <FontAwesomeIcon icon={faRotateRight} />
                   <span>حذف</span>
                   <span className="filterBadge">{activeFilterCount}</span>
@@ -489,15 +628,25 @@ export default function FlightAwaySelection() {
               </span>
 
               {PAGE_DATA.sidebar.filters.map((filter) => (
-                <div key={filter.id} className={`filterItem ${openFilter === filter.id ? "open" : ""}`}>
-                  <div className="dropdownTrigger" onClick={() => handleToggleFilter(filter.id)}>
+                <div
+                  key={filter.id}
+                  className={`filterItem ${openFilter === filter.id ? "open" : ""}`}
+                >
+                  <div
+                    className="dropdownTrigger"
+                    onClick={() => handleToggleFilter(filter.id)}
+                  >
                     <div className="triggerLeft">
                       <span>{filter.title}</span>
                       {checkedOptions[filter.id]?.length > 0 && (
-                        <span className="filterCountBadge">{checkedOptions[filter.id].length}</span>
+                        <span className="filterCountBadge">
+                          {checkedOptions[filter.id].length}
+                        </span>
                       )}
                     </div>
-                    <FontAwesomeIcon icon={openFilter === filter.id ? faAngleUp : faAngleDown} />
+                    <FontAwesomeIcon
+                      icon={openFilter === filter.id ? faAngleUp : faAngleDown}
+                    />
                   </div>
                   {openFilter === filter.id && renderFilterContent(filter)}
                 </div>
@@ -519,7 +668,8 @@ export default function FlightAwaySelection() {
             {!showFlightList && (
               <div className="sortingBar">
                 <span className="sortCount">
-                  {PAGE_DATA.mainContent.sorting.baseText} : ({filteredFlights.length} مورد)
+                  {PAGE_DATA.mainContent.sorting.baseText} : (
+                  {filteredFlights.length} مورد)
                 </span>
                 <div className="sortOptions">
                   {PAGE_DATA.mainContent.sorting.options.map((opt, index) => (
@@ -544,21 +694,41 @@ export default function FlightAwaySelection() {
                 <SelectedFlightCard />
                 <button
                   className="NextStepBtn"
-                  onClick={() => window.location.href = "/tour/make-your-own/flight/return"}
+                  onClick={() =>
+                    router.push("/tour/make-your-own/flight/return")
+                  }
                 >
                   انتخاب پرواز برگشت
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
                 </button>
               </>
             ) : null}
 
-            {showFlightList && (
-              filteredFlights.length === 0 ? (
+            {showFlightList &&
+              (filteredFlights.length === 0 ? (
                 <div className="noResults">
-                  <div className="noResultsIcon"><FontAwesomeIcon icon={faPlane} /></div>
+                  <div className="noResultsIcon">
+                    <FontAwesomeIcon icon={faPlane} />
+                  </div>
                   <p className="noResultsTitle">پروازی یافت نشد!</p>
-                  <p className="noResultsDesc">لطفاً فیلترهای خود را تغییر دهید.</p>
-                  <button className="noResultsBtn" onClick={handleResetFilters}>حذف همه فیلترها</button>
+                  <p className="noResultsDesc">
+                    لطفاً فیلترهای خود را تغییر دهید.
+                  </p>
+                  <button className="noResultsBtn" onClick={handleResetFilters}>
+                    حذف همه فیلترها
+                  </button>
                 </div>
               ) : (
                 filteredFlights.map((flight) => (
@@ -566,7 +736,10 @@ export default function FlightAwaySelection() {
                     <div className="RightCard">
                       <div className="About">
                         <div className="Icon">
-                          <img src={flight.airline.logo} alt={flight.airline.name} />
+                          <img
+                            src={flight.airline.logo}
+                            alt={flight.airline.name}
+                          />
                           <span>{flight.airline.name}</span>
                         </div>
                         <div className="Time">
@@ -578,7 +751,10 @@ export default function FlightAwaySelection() {
                             <FontAwesomeIcon icon={faCircleDot} />
                             <hr className="line-divider" />
                             <hr className="line-divider" />
-                            <FontAwesomeIcon icon={faPlane} className="fa-flip-horizontal" />
+                            <FontAwesomeIcon
+                              icon={faPlane}
+                              className="fa-flip-horizontal"
+                            />
                           </div>
                           <div className="Form">
                             <span>{flight.arrival.time}</span>
@@ -589,7 +765,11 @@ export default function FlightAwaySelection() {
                       <div className="discriptions">
                         <div
                           className={`More ${expandedFlight === flight.id ? "active" : ""}`}
-                          onClick={() => setExpandedFlight(expandedFlight === flight.id ? null : flight.id)}
+                          onClick={() =>
+                            setExpandedFlight(
+                              expandedFlight === flight.id ? null : flight.id,
+                            )
+                          }
                         >
                           <span>
                             جزئیات <FontAwesomeIcon icon={faAngleDown} />
@@ -617,12 +797,15 @@ export default function FlightAwaySelection() {
                         </button>
                       </div>
                     </div>
-                    <div className={`FlightDetails ${expandedFlight === flight.id ? "active" : ""}`}>
+                    <div
+                      className={`FlightDetails ${expandedFlight === flight.id ? "active" : ""}`}
+                    >
                       <div className="DetailsContent">
                         <div className="row">
                           <div className="title">
                             <p>
-                              {flight.details.date} <span></span> کلاس نرخی {flight.details.classCode}
+                              {flight.details.date} <span></span> کلاس نرخی{" "}
+                              {flight.details.classCode}
                             </p>
                           </div>
                           <div className="contet">
@@ -634,19 +817,27 @@ export default function FlightAwaySelection() {
                               <p>ساعت رسیدن به مقصد:</p>
                             </div>
                             <div className="left">
-                              <p>{flight.details.originAirport}</p>
+                              <p>
+                                {flight.departure.time} —{" "}
+                                {flight.details.originAirport}
+                              </p>
                               <span>هواپیمای شما</span>
-                              <p>{flight.details.destinationAirport}</p>
+                              <p>
+                                {flight.arrival.time} —{" "}
+                                {flight.details.destinationAirport}
+                              </p>
                             </div>
                           </div>
                         </div>
                         <div className="orw">
                           <div className="top">
                             <p>
-                              بزرگسال × 1 <span>{flight.details.totalPrice} تومان</span>
+                              بزرگسال × 1{" "}
+                              <span>{flight.details.totalPrice} تومان</span>
                             </p>
                             <p>
-                              مجموع <span>{flight.details.totalPrice} تومان</span>
+                              مجموع{" "}
+                              <span>{flight.details.totalPrice} تومان</span>
                             </p>
                           </div>
                           <div className="bottom">
@@ -662,8 +853,7 @@ export default function FlightAwaySelection() {
                     </div>
                   </div>
                 ))
-              )
-            )}
+              ))}
           </div>
         </div>
       </div>

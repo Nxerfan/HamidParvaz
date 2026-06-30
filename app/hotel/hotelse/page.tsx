@@ -320,6 +320,9 @@ function HotelResultsPageContent() {
     return "قیمت 1 شب اتاق 1 تخته";
   };
 
+  const activeFiltersCount = (minPrice > globalMinPrice || maxPrice < globalMaxPrice ? 1 : 0) + selectedRoomTypes.length + selectedCheckInTimes.length + selectedCheckOutTimes.length + selectedBrands.length + selectedFacilities.length + selectedTags.length;
+  const clearAllFilters = () => { setMinPrice(globalMinPrice); setMaxPrice(globalMaxPrice); setSelectedRoomTypes([]); setSelectedCheckInTimes([]); setSelectedCheckOutTimes([]); setSelectedBrands([]); setSelectedFacilities([]); setSelectedTags([]); };
+
   return (
     <>
       <Header />
@@ -334,7 +337,7 @@ function HotelResultsPageContent() {
                   alt="hotel cover"
                   className="cover"
                 />
-                <Link href="hotelOnMap.html">
+                <Link href="/hotel-on-map">
                   <span>
                     <FontAwesomeIcon icon={faMap} /> مشاهده هتل‌ها روی نقشه
                   </span>
@@ -377,6 +380,8 @@ function HotelResultsPageContent() {
               </div>
 
               <FilterSidebar
+                activeFiltersCount={activeFiltersCount}
+                onClearFilters={clearAllFilters}
                 resultCount={`نمایش ${filteredHotels.length} از ${hotelsData.length} نتیجه`}
               >
                 <FilterAccordion
@@ -494,7 +499,7 @@ function HotelResultsPageContent() {
                   }
                 >
                   <CheckboxFilter
-                    options={allBrands.map((b) => ({ value: b, label: b }))}
+                    options={allBrands.filter((b): b is string => !!b).map((b) => ({ value: b, label: b }))}
                     selectedValues={selectedBrands}
                     onChange={handleBrandChange}
                   />
@@ -554,7 +559,7 @@ function HotelResultsPageContent() {
                               <FontAwesomeIcon
                                 key={i}
                                 icon={faStar}
-                                style={{ color: "#ffcd11" }}
+                                style={{ color: "var(--gold)" }}
                               />
                             ))}
                           <span>{hotel.stars} ستاره</span>

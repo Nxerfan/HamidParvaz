@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -173,6 +173,20 @@ const Blog = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [email, setEmail] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    setIsAdmin(localStorage.getItem("blog_admin") === "true");
+  }, []);
+
+  const handleAdminLogin = () => {
+    const pwd = prompt("رمز ادمین را وارد کنید:");
+    if (pwd === "admin123") {
+      localStorage.setItem("blog_admin", "true");
+      setIsAdmin(true);
+    }
+  };
 
   // فیلدهای فرم مقاله جدید
   const [newTitle, setNewTitle] = useState("");
@@ -183,7 +197,11 @@ const Blog = () => {
   const [newReadTime, setNewReadTime] = useState("");
 
   const filteredArticles = articles.filter(
-    (article) => activeFilter === "all" || article.category === activeFilter,
+    (article) =>
+      (activeFilter === "all" || article.category === activeFilter) &&
+      (!searchQuery.trim() ||
+        article.title.includes(searchQuery.trim()) ||
+        article.excerpt.includes(searchQuery.trim())),
   );
 
   const handleFilter = (key: string) => setActiveFilter(key);
@@ -363,18 +381,36 @@ const Blog = () => {
               </button>
             ))}
 
-            <button
-              style={addButtonStyle}
-              onClick={() => setShowAddForm(true)}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.backgroundColor = "#059669")
-              }
-              onMouseOut={(e) =>
-                (e.currentTarget.style.backgroundColor = "#10b981")
-              }
-            >
-              <FontAwesomeIcon icon={faPlus} /> مقاله جدید
-            </button>
+            {isAdmin ? (
+              <button
+                style={addButtonStyle}
+                onClick={() => setShowAddForm(true)}
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#059669")
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#10b981")
+                }
+              >
+                <FontAwesomeIcon icon={faPlus} /> مقاله جدید
+              </button>
+            ) : (
+              <button
+                onClick={handleAdminLogin}
+                style={{
+                  background: "none",
+                  border: "1px solid #d1d5db",
+                  color: "#6b7280",
+                  cursor: "pointer",
+                  fontSize: "13px",
+                  padding: "6px 12px",
+                  borderRadius: "8px",
+                }}
+                title="ورود ادمین"
+              >
+                ورود ادمین
+              </button>
+            )}
           </div>
         </section>
 
@@ -437,6 +473,8 @@ const Blog = () => {
                 type="text"
                 placeholder={PAGE_DATA.sidebar.searchPlaceholder}
                 className="newsletter-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button className="btn-newsletter">
                 {PAGE_DATA.sidebar.searchButton}

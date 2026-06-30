@@ -1,0 +1,15 @@
+.hotel-on-map-page .hero {
+  background: linear-gradient(135deg, #4e342e, #6d4c41);
+  color: #fff;
+  padding: 80px 20px;
+  text-align: center;
+}
+.hotel-on-map-page .hero h1 { font-size: 2rem; margin-bottom: 16px; }
+.hotel-on-map-page .hero p { font-size: 1.1rem; max-width: 600px; margin: 0 auto; opacity: 0.9; }
+.hotel-on-map-page .map-placeholder { padding: 60px 20px; text-align: center; }
+.placeholder-text { color: #999; font-size: 1.1rem; padding: 40px; }
+.btn-primary {
+  background: #ffa726; color: #1a237e; border: none; padding: 14px 36px;
+  font-size: 1rem; border-radius: 8px; cursor: pointer; font-weight: 600;
+}
+.container { max-width: 1200px; margin: 0 auto; }

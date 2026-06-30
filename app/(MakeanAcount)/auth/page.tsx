@@ -11,8 +11,24 @@ import {
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-const PAGE_DATA = {
+const PAGE_DATA: {
+  forms: Record<string, {
+    title: string;
+    fields: { name: string; type: string; placeholder: string; icon: string; isPassword?: boolean }[];
+    submitText: string;
+    forgotPasswordText?: string;
+    noAccountText?: string;
+    goToSignupText?: string;
+    hasAccountText?: string;
+    goToLoginText?: string;
+    backToLoginText?: string;
+  }>;
+  icons: Record<string, IconDefinition>;
+  passwordRegex: RegExp;
+  passwordError: string;
+} = {
   forms: {
     login: {
       title: "ورود به حساب کاربری",
@@ -99,34 +115,34 @@ const PAGE_DATA = {
 // کامپوننت اصلی که توی Suspense قرار می‌گیره
 function AuthContent() {
   const searchParams = useSearchParams();
-  const tabParam = searchParams.get("tab");
+  const tabParam = searchParams.get("tab") ?? "login";
   const allowedTabs = ["login", "signup", "forgot"];
   const initialTab = allowedTabs.includes(tabParam) ? tabParam : "login";
 
   const [activeTab, setActiveTab] = useState(initialTab);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Record<string, Record<string, string>>>({
     login: { username: "", password: "" },
     signup: { username: "", phone: "", password: "", confirmPassword: "" },
     forgot: { phone: "" },
   });
-  const [passwordVisibility, setPasswordVisibility] = useState({
+  const [passwordVisibility, setPasswordVisibility] = useState<Record<string, Record<string, boolean>>>({
     login: { password: false },
     signup: { password: false, confirmPassword: false },
   });
-  const [fieldErrors, setFieldErrors] = useState({
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({
     phone: "",
     password: "",
     confirmPassword: "",
   });
 
-  const validatePhone = (value) => {
+  const validatePhone = (value: string) => {
     if (!/^09\d{10}$/.test(value)) {
       return "شماره موبایل باید 12 رقم و شروع شود با 09";
     }
     return "";
   };
 
-  const validatePassword = (value) => {
+  const validatePassword = (value: string) => {
     const lengthOk = value.length >= 6 && value.length <= 20;
     const charsOk = /^[a-zA-Z0-9!@#$%^&*()\-_=+\[\]{};:,.\/?<>\\|~]+$/.test(
       value,
@@ -137,7 +153,7 @@ function AuthContent() {
     return "";
   };
 
-  const handleInputChange = (e, tab) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, tab: string) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -161,7 +177,7 @@ function AuthContent() {
     }));
   };
 
-  const togglePasswordVisibility = (tab, fieldName) => {
+  const togglePasswordVisibility = (tab: string, fieldName: string) => {
     setPasswordVisibility((prev) => ({
       ...prev,
       [tab]: {
@@ -171,7 +187,7 @@ function AuthContent() {
     }));
   };
 
-  const handleSubmit = (e, tab) => {
+  const handleSubmit = (e: React.FormEvent, tab: string) => {
     e.preventDefault();
     const data = formData[tab];
 
@@ -195,15 +211,14 @@ function AuthContent() {
       }
     }
 
-    console.log(`Submitting ${tab} form:`, data);
     alert("درخواست شما با موفقیت ثبت شد");
   };
 
-  const renderForm = (tab) => {
+  const renderForm = (tab: string) => {
     const form = PAGE_DATA.forms[tab];
     return (
       <form className="auth-form" onSubmit={(e) => handleSubmit(e, tab)}>
-        {form.fields.map((field) => {
+        {form.fields.map((field: { name: string; type: string; placeholder: string; icon: string; isPassword?: boolean }) => {
           const isPasswordField = field.isPassword;
           const inputType = isPasswordField
             ? passwordVisibility[tab]?.[field.name]

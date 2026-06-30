@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
@@ -92,10 +93,11 @@ const PAGE_DATA = {
 };
 
 export default function BookingReview() {
+  const router = useRouter();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("gateway");
-  const [openAccordions, setOpenAccordions] = useState({});
+  const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
 
-  const toggleAccordion = (title) => {
+  const toggleAccordion = (title: string) => {
     setOpenAccordions((prev) => ({ ...prev, [title]: !prev[title] }));
   };
 
@@ -286,7 +288,7 @@ export default function BookingReview() {
             <div className="card2">
               <span>{PAGE_DATA.invoiceZero}</span>
             </div>
-            <button>
+            <button onClick={() => router.push("/userpanel/tracking")}>
               {PAGE_DATA.confirmButton}{" "}
               <FontAwesomeIcon icon={PAGE_DATA.icons.arrowLeft} />
             </button>

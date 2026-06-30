@@ -3873,8 +3873,8 @@
 
 .MoreImg {
     display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    gap: 12px;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 8px;
     height: 100%;
 }
 
@@ -3885,6 +3885,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    min-height: 0;
 }
 
 .galleryThumb img {

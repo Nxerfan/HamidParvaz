@@ -1,6 +1,7 @@
 "use client";
 import "../../global.css";
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,6 +23,13 @@ import {
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderMakeYourTour from "../../../../components/(Headers)/HeaderMakeYourTour";
+
+interface FilterItem {
+  id: string; title: string; type: string;
+  min?: number; max?: number; step?: number;
+  options?: { value: string; label: string }[];
+  groups?: { title: string; options: { value: string; label: string }[] }[];
+}
 
 const PAGE_DATA = {
   sidebar: {
@@ -90,7 +98,7 @@ const PAGE_DATA = {
           { value: "30kg", label: "۳۰ کیلوگرم" },
         ],
       },
-    ],
+    ] as FilterItem[],
   },
   mainContent: {
     header: { icon: faPlane, text: "پرواز برگشت خود را انتخاب کنید" },
@@ -187,12 +195,13 @@ const SELECTED_HOTEL = {
 };
 
 export default function FlightAwaySelection() {
+  const router = useRouter();
   const [openFilter, setOpenFilter] = useState<string | null>(null);
   const [activeSort, setActiveSort] = useState(0);
   const [expandedFlight, setExpandedFlight] = useState<number | null>(null);
-  const [priceRange, setPriceRange] = useState({
-    min: PAGE_DATA.sidebar.filters[0].min,
-    max: PAGE_DATA.sidebar.filters[0].max,
+  const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
+    min: PAGE_DATA.sidebar.filters[0]!.min ?? 0,
+    max: PAGE_DATA.sidebar.filters[0]!.max ?? 0,
   });
   const [checkedOptions, setCheckedOptions] = useState<
     Record<string, string[]>
@@ -234,8 +243,8 @@ export default function FlightAwaySelection() {
 
   const handleResetFilters = () => {
     setPriceRange({
-      min: PAGE_DATA.sidebar.filters[0].min,
-      max: PAGE_DATA.sidebar.filters[0].max,
+      min: PAGE_DATA.sidebar.filters[0]!.min ?? 0,
+      max: PAGE_DATA.sidebar.filters[0]!.max ?? 0,
     });
     setCheckedOptions({});
     setActiveSort(0);
@@ -243,8 +252,8 @@ export default function FlightAwaySelection() {
 
   const activeFilterCount =
     Object.values(checkedOptions).reduce((sum, arr) => sum + arr.length, 0) +
-    (priceRange.min > PAGE_DATA.sidebar.filters[0].min ||
-    priceRange.max < PAGE_DATA.sidebar.filters[0].max
+    (priceRange.min > (PAGE_DATA.sidebar.filters[0]!.min ?? 0) ||
+    priceRange.max < (PAGE_DATA.sidebar.filters[0]!.max ?? 0)
       ? 1
       : 0);
 
@@ -296,12 +305,14 @@ export default function FlightAwaySelection() {
     return result;
   }, [priceRange, checkedOptions, activeSort]);
 
-  const priceFilter = PAGE_DATA.sidebar.filters[0];
+  const priceFilter = PAGE_DATA.sidebar.filters[0]!;
+  const pfMin = priceFilter.min ?? 0;
+  const pfMax = priceFilter.max ?? 0;
   const minPercent =
-    ((priceRange.min - priceFilter.min) / (priceFilter.max - priceFilter.min)) *
+    ((priceRange.min - pfMin) / (pfMax - pfMin)) *
     100;
   const maxPercent =
-    ((priceRange.max - priceFilter.min) / (priceFilter.max - priceFilter.min)) *
+    ((priceRange.max - pfMin) / (pfMax - pfMin)) *
     100;
 
   React.useEffect(() => {
@@ -476,7 +487,7 @@ export default function FlightAwaySelection() {
     </div>
   );
 
-  const renderFilterContent = (filter: any) => {
+  const renderFilterContent = (filter: FilterItem) => {
     if (filter.type === "range") {
       return (
         <div className="dropdownPanel open">
@@ -537,7 +548,7 @@ export default function FlightAwaySelection() {
       return (
         <div className="dropdownPanel open">
           <div className="checkboxGroup">
-            {filter.options.map((opt: any) => (
+            {filter.options!.map((opt: any) => (
               <label key={opt.value} className="checkboxItem">
                 <input
                   type="checkbox"
@@ -558,7 +569,7 @@ export default function FlightAwaySelection() {
     if (filter.type === "grouped") {
       return (
         <div className="dropdownPanel open">
-          {filter.groups.map((group: any, index: number) => (
+          {filter.groups!.map((group: any, index: number) => (
             <div key={index} className="timeSubSection">
               {index > 0 && <hr className="filterDivider" />}
               <span className="subTitle">{group.title}</span>
@@ -683,7 +694,7 @@ export default function FlightAwaySelection() {
                 <SelectedFlightCard />
                 <button
                   className="NextStepBtn"
-                  onClick={() => window.location.href = "/tour/make-your-own/passenger-info"}
+                  onClick={() => router.push("/tour/make-your-own/passenger-info")}
                 >
                   اطلاعات مسافر
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -792,9 +803,9 @@ export default function FlightAwaySelection() {
                               <p>ساعت رسیدن به مقصد:</p>
                             </div>
                             <div className="left">
-                              <p>{flight.details.originAirport}</p>
+                              <p>{flight.departure.time} — {flight.details.originAirport}</p>
                               <span>هواپیمای شما</span>
-                              <p>{flight.details.destinationAirport}</p>
+                              <p>{flight.arrival.time} — {flight.details.destinationAirport}</p>
                             </div>
                           </div>
                         </div>

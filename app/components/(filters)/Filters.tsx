@@ -195,7 +195,6 @@ function FilterAccordion({ id, title, children }: FilterAccordionProps) {
       <div
         className="dropdownTrigger"
         onClick={() => {
-          console.log('clicked', id);
           setIsOpen(prev => !prev);
         }}
       >

@@ -255,7 +255,7 @@ function TourResultsPageContent() {
             <div className="Right">
               <div className="Title">
                 <img src="istockphoto-1306235331-612x612.jpg" alt="تور" className="cover" />
-                <Link href="/GetTour.html" className="ExperienceTrigger">
+                <Link href="/get-tour" className="ExperienceTrigger">
                   <div className="ContentWrapper">
                     <div className="IconBadge">
                       <FontAwesomeIcon icon={faVrCardboard} />

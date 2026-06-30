@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { usePassengersContext } from "../../../lib/PassengerContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
@@ -68,7 +69,7 @@ const PAGE_DATA = {
       { type: "child", label: "کودک" },
       { type: "infant", label: "نوزاد" },
     ],
-    alertMsg: (adultCount, nonAdultCount) =>
+    alertMsg: (adultCount: number, nonAdultCount: number) =>
       `به ازای هر بزرگسال حداکثر ۳ همراه مجاز است. شما در حال حاضر ${adultCount} بزرگسال و ${nonAdultCount} همراه دارید. ابتدا بزرگسال جدید اضافه کنید.`,
   },
   contactInfo: {
@@ -97,6 +98,17 @@ const NiksaPassengerInfo = () => {
   const [isBillOpen, setIsBillOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState(600);
   const [showTimeoutModal, setShowTimeoutModal] = useState(false);
+  const [contactMobile, setContactMobile] = useState("");
+
+  const {
+    passengers: savedPassengers,
+    addPassenger,
+    updatePassenger: updateSavedPassenger,
+    getPassengerById,
+  } = usePassengersContext();
+  const [selectedSavedIds, setSelectedSavedIds] = useState<
+    Record<number, string>
+  >({});
 
   const [passengers, setPassengers] = useState([
     {
@@ -106,6 +118,16 @@ const NiksaPassengerInfo = () => {
       gender: "آقا",
       nationality: "iranian",
       issuingCountry: "",
+      firstName: "",
+      lastName: "",
+      nationalId: "",
+      birthDay: "",
+      birthMonth: "",
+      birthYear: "",
+      passportNumber: "",
+      expiryDay: "",
+      expiryMonth: "",
+      expiryYear: "",
     },
   ]);
 
@@ -120,13 +142,13 @@ const NiksaPassengerInfo = () => {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  const formatTime = (seconds) => {
+  const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const handleAddPassenger = (pType, pLabel) => {
+  const handleAddPassenger = (pType: string, pLabel: string) => {
     const adultCount = passengers.filter((p) => p.type === "adult").length;
     const nonAdultCount = passengers.filter((p) => p.type !== "adult").length;
 
@@ -141,7 +163,7 @@ const NiksaPassengerInfo = () => {
     }
   };
 
-  const addNew = (type, label) => {
+  const addNew = (type: string, label: string) => {
     setPassengers([
       ...passengers,
       {
@@ -151,20 +173,94 @@ const NiksaPassengerInfo = () => {
         gender: "آقا",
         nationality: "iranian",
         issuingCountry: "",
+        firstName: "",
+        lastName: "",
+        nationalId: "",
+        birthDay: "",
+        birthMonth: "",
+        birthYear: "",
+        passportNumber: "",
+        expiryDay: "",
+        expiryMonth: "",
+        expiryYear: "",
       },
     ]);
   };
 
-  const updatePassenger = (id, field, value) => {
+  const updatePassenger = (id: number, field: string, value: string) => {
     setPassengers((prev) =>
       prev.map((p) => (p.id === id ? { ...p, [field]: value } : p)),
     );
   };
 
-  const removePassenger = (id) => {
+  const removePassenger = (id: number) => {
     if (passengers.length > 1) {
       setPassengers((prev) => prev.filter((p) => p.id !== id));
     }
+  };
+
+  const handleSelectSavedPassenger = (formId: number, savedId: string) => {
+    setSelectedSavedIds((prev) => ({ ...prev, [formId]: savedId }));
+    if (!savedId) {
+      updatePassenger(formId, "firstName", "");
+      updatePassenger(formId, "lastName", "");
+      updatePassenger(formId, "nationalId", "");
+      updatePassenger(formId, "gender", "آقا");
+      return;
+    }
+    const saved = getPassengerById(savedId);
+    if (saved) {
+      updatePassenger(formId, "firstName", saved.firstName);
+      updatePassenger(formId, "lastName", saved.lastName);
+      updatePassenger(formId, "nationalId", saved.nationalId);
+      updatePassenger(
+        formId,
+        "gender",
+        saved.gender === "male" ? "آقا" : "خانوم",
+      );
+    }
+  };
+
+  const handleSubmitAndSave = () => {
+    const hasErrors = passengers.some((p) => {
+      if (!p.firstName.trim() || !p.lastName.trim()) return true;
+      if (p.nationality === "iranian" && !p.nationalId.trim()) return true;
+      if (p.nationality === "foreign" && !p.passportNumber.trim()) return true;
+      if (!p.birthDay || !p.birthMonth || !p.birthYear) return true;
+      return false;
+    });
+    if (hasErrors) {
+      alert("لطفاً تمام فیلدهای اجباری را پر کنید");
+      return;
+    }
+    if (!contactMobile.trim()) {
+      alert("لطفاً شماره موبایل را وارد کنید");
+      return;
+    }
+    passengers.forEach((p) => {
+      if (p.firstName && p.lastName) {
+        const existing = p.nationalId
+          ? savedPassengers.find((sp) => sp.nationalId === p.nationalId)
+          : undefined;
+        const passengerData = {
+          firstName: p.firstName,
+          lastName: p.lastName,
+          nationalId: p.nationalId,
+          birthDate:
+            p.birthYear && p.birthMonth && p.birthDay
+              ? `${p.birthYear}-${p.birthMonth}-${p.birthDay}`
+              : "",
+          gender: p.gender === "آقا" ? ("male" as const) : ("female" as const),
+          passportNumber: p.passportNumber || undefined,
+        };
+        if (existing) {
+          updateSavedPassenger(existing.id, passengerData);
+        } else {
+          addPassenger(passengerData);
+        }
+      }
+    });
+    router.push(PAGE_DATA.bill.href);
   };
 
   return (
@@ -271,13 +367,34 @@ const NiksaPassengerInfo = () => {
                     </select>
                   </div>
                   <div className="addNew">
-                    <FontAwesomeIcon icon={faUserClock} />
-                    <p>{PAGE_DATA.passengerCard.prevPassengers}</p>
+                    <select
+                      value={selectedSavedIds[passenger.id] || ""}
+                      onChange={(e) =>
+                        handleSelectSavedPassenger(passenger.id, e.target.value)
+                      }
+                      style={{
+                        padding: "6px 10px",
+                        borderRadius: "8px",
+                        border: "1px solid #ddd",
+                        fontSize: "13px",
+                        cursor: "pointer",
+                        maxWidth: "180px",
+                      }}
+                    >
+                      <option value="">
+                        {PAGE_DATA.passengerCard.prevPassengers}
+                      </option>
+                      {savedPassengers.map((sp) => (
+                        <option key={sp.id} value={sp.id}>
+                          {sp.firstName} {sp.lastName}
+                        </option>
+                      ))}
+                    </select>
                     {index > 0 && (
                       <FontAwesomeIcon
                         icon={faTrash}
                         style={{
-                          marginRight: "15px",
+                          marginRight: "10px",
                           color: "#ff4d4d",
                           cursor: "pointer",
                         }}
@@ -290,20 +407,56 @@ const NiksaPassengerInfo = () => {
                 <div className="OtherInoformation">
                   <div className="top">
                     <label>
-                      {PAGE_DATA.passengerCard.labels.firstName}
-                      <input type="text" placeholder="First Name" />
+                      {PAGE_DATA.passengerCard.labels.firstName}{" "}
+                      <span style={{ color: "red" }}>*</span>
+                      <input
+                        type="text"
+                        placeholder="First Name"
+                        value={passenger.firstName || ""}
+                        onChange={(e) =>
+                          updatePassenger(
+                            passenger.id,
+                            "firstName",
+                            e.target.value,
+                          )
+                        }
+                      />
                     </label>
                     <label>
-                      {PAGE_DATA.passengerCard.labels.lastName}
-                      <input type="text" placeholder="Last Name" />
+                      {PAGE_DATA.passengerCard.labels.lastName}{" "}
+                      <span style={{ color: "red" }}>*</span>
+                      <input
+                        type="text"
+                        placeholder="Last Name"
+                        value={passenger.lastName || ""}
+                        onChange={(e) =>
+                          updatePassenger(
+                            passenger.id,
+                            "lastName",
+                            e.target.value,
+                          )
+                        }
+                      />
                     </label>
                   </div>
 
                   <div className="bottom">
                     {passenger.nationality === "iranian" ? (
                       <label style={{ flex: 1 }}>
-                        {PAGE_DATA.passengerCard.labels.nationalId}
-                        <input type="text" placeholder="شماره ملی" />
+                        {PAGE_DATA.passengerCard.labels.nationalId}{" "}
+                        <span style={{ color: "red" }}>*</span>
+                        <input
+                          type="text"
+                          placeholder="شماره ملی"
+                          value={passenger.nationalId || ""}
+                          onChange={(e) =>
+                            updatePassenger(
+                              passenger.id,
+                              "nationalId",
+                              e.target.value,
+                            )
+                          }
+                        />
                       </label>
                     ) : (
                       <label className="CountrySelectors" style={{ flex: 1 }}>
@@ -329,9 +482,19 @@ const NiksaPassengerInfo = () => {
                     )}
 
                     <label style={{ flex: 1 }}>
-                      {PAGE_DATA.passengerCard.labels.birthDate}
+                      {PAGE_DATA.passengerCard.labels.birthDate}{" "}
+                      <span style={{ color: "red" }}>*</span>
                       <div className="dateSelectors">
-                        <select>
+                        <select
+                          value={passenger.birthDay || ""}
+                          onChange={(e) =>
+                            updatePassenger(
+                              passenger.id,
+                              "birthDay",
+                              e.target.value,
+                            )
+                          }
+                        >
                           <option value="">روز</option>
                           {PAGE_DATA.passengerCard.days.map((d) => (
                             <option key={d} value={d}>
@@ -339,7 +502,16 @@ const NiksaPassengerInfo = () => {
                             </option>
                           ))}
                         </select>
-                        <select>
+                        <select
+                          value={passenger.birthMonth || ""}
+                          onChange={(e) =>
+                            updatePassenger(
+                              passenger.id,
+                              "birthMonth",
+                              e.target.value,
+                            )
+                          }
+                        >
                           <option value="">ماه</option>
                           {PAGE_DATA.passengerCard.months.map((m) => (
                             <option key={m.value} value={m.value}>
@@ -347,7 +519,18 @@ const NiksaPassengerInfo = () => {
                             </option>
                           ))}
                         </select>
-                        <input type="number" placeholder="سال" />
+                        <input
+                          type="number"
+                          placeholder="سال"
+                          value={passenger.birthYear || ""}
+                          onChange={(e) =>
+                            updatePassenger(
+                              passenger.id,
+                              "birthYear",
+                              e.target.value,
+                            )
+                          }
+                        />
                       </div>
                     </label>
                   </div>
@@ -355,14 +538,35 @@ const NiksaPassengerInfo = () => {
                   {passenger.nationality === "foreign" && (
                     <div className="bottom" style={{ marginTop: "10px" }}>
                       <label style={{ flex: 1 }}>
-                        {PAGE_DATA.passengerCard.labels.passportNumber}
-                        <input type="text" placeholder="Passport Number" />
+                        {PAGE_DATA.passengerCard.labels.passportNumber}{" "}
+                        <span style={{ color: "red" }}>*</span>
+                        <input
+                          type="text"
+                          placeholder="Passport Number"
+                          value={passenger.passportNumber || ""}
+                          onChange={(e) =>
+                            updatePassenger(
+                              passenger.id,
+                              "passportNumber",
+                              e.target.value,
+                            )
+                          }
+                        />
                       </label>
 
                       <label style={{ flex: 1 }}>
                         {PAGE_DATA.passengerCard.labels.expiryDate}
                         <div className="dateSelectors">
-                          <select>
+                          <select
+                            value={passenger.expiryDay || ""}
+                            onChange={(e) =>
+                              updatePassenger(
+                                passenger.id,
+                                "expiryDay",
+                                e.target.value,
+                              )
+                            }
+                          >
                             <option value="">روز</option>
                             {PAGE_DATA.passengerCard.days.map((d) => (
                               <option key={d} value={d}>
@@ -370,7 +574,16 @@ const NiksaPassengerInfo = () => {
                               </option>
                             ))}
                           </select>
-                          <select>
+                          <select
+                            value={passenger.expiryMonth || ""}
+                            onChange={(e) =>
+                              updatePassenger(
+                                passenger.id,
+                                "expiryMonth",
+                                e.target.value,
+                              )
+                            }
+                          >
                             <option value="">ماه</option>
                             {PAGE_DATA.passengerCard.months.map((m) => (
                               <option key={m.value} value={m.value}>
@@ -378,7 +591,18 @@ const NiksaPassengerInfo = () => {
                               </option>
                             ))}
                           </select>
-                          <input type="number" placeholder="سال" />
+                          <input
+                            type="number"
+                            placeholder="سال"
+                            value={passenger.expiryYear || ""}
+                            onChange={(e) =>
+                              updatePassenger(
+                                passenger.id,
+                                "expiryYear",
+                                e.target.value,
+                              )
+                            }
+                          />
                         </div>
                       </label>
                     </div>
@@ -429,7 +653,13 @@ const NiksaPassengerInfo = () => {
                 <div className="top">
                   <label>
                     {PAGE_DATA.contactInfo.mobile}{" "}
-                    <input type="text" placeholder="0912..." />
+                    <span style={{ color: "red" }}>*</span>{" "}
+                    <input
+                      type="text"
+                      placeholder="0912..."
+                      value={contactMobile}
+                      onChange={(e) => setContactMobile(e.target.value)}
+                    />
                   </label>
                   <label>
                     {PAGE_DATA.contactInfo.telephone}{" "}
@@ -473,11 +703,9 @@ const NiksaPassengerInfo = () => {
                 </div>
               </div>
             )}
-            <Link href={PAGE_DATA.bill.href}>
-              <button>
-                {PAGE_DATA.bill.btnText} <FontAwesomeIcon icon={faArrowLeft} />
-              </button>
-            </Link>
+            <button onClick={handleSubmitAndSave}>
+              {PAGE_DATA.bill.btnText} <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
           </div>
         </div>
       </div>

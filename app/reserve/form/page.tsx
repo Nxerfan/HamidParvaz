@@ -114,13 +114,13 @@ const NiksaPassengerInfo = () => {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  const formatTime = (seconds) => {
+  const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const handleAddPassenger = (pType, pLabel) => {
+  const handleAddPassenger = (pType: string, pLabel: string) => {
     const adultCount = passengers.filter((p) => p.type === "adult").length;
     const nonAdultCount = passengers.filter((p) => p.type !== "adult").length;
 
@@ -138,7 +138,7 @@ const NiksaPassengerInfo = () => {
     }
   };
 
-  const addNew = (type, label) => {
+  const addNew = (type: string, label: string) => {
     setPassengers([
       ...passengers,
       {
@@ -152,13 +152,13 @@ const NiksaPassengerInfo = () => {
     ]);
   };
 
-  const updatePassenger = (id, field, value) => {
+  const updatePassenger = (id: number, field: string, value: string) => {
     setPassengers((prev) =>
       prev.map((p) => (p.id === id ? { ...p, [field]: value } : p)),
     );
   };
 
-  const removePassenger = (id) => {
+  const removePassenger = (id: number) => {
     if (passengers.length > 1) {
       setPassengers((prev) => prev.filter((p) => p.id !== id));
     }

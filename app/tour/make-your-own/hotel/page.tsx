@@ -35,7 +35,9 @@ import PriceRangeFilter from "../../../components/(filters)/PriceRangeFilter";
 import CheckboxFilter from "../../../components/(filters)/CheckboxFilter";
 import "../../../components/(filters)/FiltersGlobal.css";
 
-const FILTER_ICONS: Record<string, any> = {
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+
+const FILTER_ICONS: Record<string, IconDefinition> = {
   breakfast: faMugHot,
   pool: faSwimmingPool,
   parking: faCar,
@@ -53,14 +55,14 @@ const PAGE_DATA = {
     hotel: faHotel,
     sliders: faSliders,
     smile: faFaceSmile,
-  },
+  } as Record<string, IconDefinition>,
   rightSidebar: {
     headerImage: {
       src: "istockphoto-1306235331-612x612.jpg",
       alt: "تصویر هتل",
     },
     mapLink: {
-      href: "/hotelOnMap",
+      href: "/hotel-on-map",
       text: "مشاهده هتل‌ها روی نقشه",
       icon: "map",
     },
@@ -259,7 +261,22 @@ export default function HotelList() {
   });
   const [activeSort, setActiveSort] = useState<string | null>("score");
   const [showHotelList, setShowHotelList] = useState(false);
-  const [selectedHotel, setSelectedHotel] = useState<any>(null);
+  interface HotelOption {
+    id: number;
+    image: string;
+    name: string;
+    stars: number;
+    location: string;
+    options: string[];
+    score: number;
+    price: number;
+    roomType: string[];
+    facilities: string[];
+    boarding: string;
+    priceSection: { label: string; value: string; unit: string };
+  }
+
+  const [selectedHotel, setSelectedHotel] = useState<HotelOption | null>(null);
   const [isAutoSelecting, setIsAutoSelecting] = useState(true);
 
   React.useEffect(() => {
@@ -280,9 +297,9 @@ export default function HotelList() {
     (f) => f.id === "price",
   )!;
 
-  const [priceRange, setPriceRange] = useState({
-    min: priceFilter.min,
-    max: priceFilter.max,
+  const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
+    min: priceFilter.min ?? 0,
+    max: priceFilter.max ?? 0,
   });
 
   const [checkedOptions, setCheckedOptions] = useState<
@@ -301,15 +318,16 @@ export default function HotelList() {
   };
 
   const handlePriceChange = (type: "min" | "max", value: number) => {
+    const step = priceFilter.step ?? 50000;
     if (type === "min") {
       setPriceRange((prev) => ({
         ...prev,
-        min: Math.min(value, prev.max - priceFilter.step),
+        min: Math.min(value, prev.max - step),
       }));
     } else {
       setPriceRange((prev) => ({
         ...prev,
-        max: Math.max(value, prev.min + priceFilter.step),
+        max: Math.max(value, prev.min + step),
       }));
     }
   };
@@ -327,15 +345,18 @@ export default function HotelList() {
     });
   };
 
+  const pfMin = priceFilter.min ?? 0;
+  const pfMax = priceFilter.max ?? 0;
+
   const clearAllFilters = () => {
-    setPriceRange({ min: priceFilter.min, max: priceFilter.max });
+    setPriceRange({ min: pfMin, max: pfMax });
     setCheckedOptions({});
   };
 
   // شمارش تعداد فیلترهای فعال
   const activeFiltersCount = useMemo(() => {
     let count = 0;
-    if (priceRange.min > priceFilter.min || priceRange.max < priceFilter.max)
+    if (priceRange.min > pfMin || priceRange.max < pfMax)
       count++;
     Object.values(checkedOptions).forEach((arr) => {
       if (arr.length > 0) count++;
@@ -407,12 +428,12 @@ export default function HotelList() {
 
   const getProgressPercent = () => {
     const minPercent =
-      ((priceRange.min - priceFilter.min) /
-        (priceFilter.max - priceFilter.min)) *
+      ((priceRange.min - pfMin) /
+        (pfMax - pfMin)) *
       100;
     const maxPercent =
-      ((priceRange.max - priceFilter.min) /
-        (priceFilter.max - priceFilter.min)) *
+      ((priceRange.max - pfMin) /
+        (pfMax - pfMin)) *
       100;
     return { minPercent, maxPercent };
   };
@@ -478,8 +499,8 @@ export default function HotelList() {
               const isOpen = openFilters[filter.id];
               const hasValue =
                 filter.id === "price"
-                  ? priceRange.min > priceFilter.min ||
-                    priceRange.max < priceFilter.max
+                  ? priceRange.min > pfMin ||
+                    priceRange.max < pfMax
                   : (checkedOptions[filter.id] || []).length > 0;
 
               const getSelectedSummary = () => {
@@ -511,9 +532,9 @@ export default function HotelList() {
                     <PriceRangeFilter
                       min={priceRange.min}
                       max={priceRange.max}
-                      globalMin={priceFilter.min}
-                      globalMax={priceFilter.max}
-                      step={priceFilter.step}
+                      globalMin={pfMin}
+                      globalMax={pfMax}
+                      step={priceFilter.step ?? 0}
                       onMinChange={(val) => handlePriceChange("min", val)}
                       onMaxChange={(val) => handlePriceChange("max", val)}
                       formatPrice={toPersianNumber}
@@ -699,6 +720,14 @@ export default function HotelList() {
               </div>
             </div>
           ) : null}
+          {selectedHotel && (
+            <Link href="/tour/make-your-own/hotel/room">
+              <button className="ContinueBtn">
+                ادامه و انتخاب اتاق
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </>

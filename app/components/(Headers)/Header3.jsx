@@ -20,6 +20,7 @@ export default function Header() {
                 <Link href="/hotel" className="DropdownItem">رزرو هتل</Link>
                 <Link href="/flight " className="DropdownItem">رزرو پرواز</Link>
                 <Link href="/tour" className="DropdownItem">تور مسافرتی</Link>
+                <Link href="/tour/make-your-own" className="DropdownItem">تور دلخواه خود را بسازید</Link>
               </div>
             </div>
 

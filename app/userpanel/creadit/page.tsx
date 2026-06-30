@@ -140,7 +140,6 @@ export default function UserCredit() {
               <button
                 className="BtnPrimary"
                 onClick={() => {
-                  console.log("Withdrawal requested");
                   setShowWithdrawModal(false);
                 }}
               >

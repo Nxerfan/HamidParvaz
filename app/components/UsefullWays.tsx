@@ -54,6 +54,8 @@ export default function UsefulWays() {
 
           <div className="items">
             <p>سایر خدمات</p>
+            <Link href="/tour/make-your-own">تور دلخواه خود را بسازید</Link>
+            <Link href="/reserve/auto-reserve">رزرو خودکار</Link>
             <Link href="/contact-us">تماس با ما</Link>
             <Link href="/blog">وبلاگ</Link>
           </div>

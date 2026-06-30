@@ -20,6 +20,7 @@ const PAGE_DATA = {
         { id: 11, label: "رزرو هتل", href: "/hotel" },
         { id: 12, label: "رزرو پرواز", href: "/flight" },
         { id: 13, label: "تور مسافرتی", href: "/tour" },
+        { id: 14, label: "تور دلخواه خود را بسازید", href: "/tour/make-your-own" },
       ],
     },
     {

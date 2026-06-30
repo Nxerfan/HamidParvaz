@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
@@ -19,119 +19,8 @@ import { FaCar, FaSwimmingPool, FaSink } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import SecondHeader from "./(Headers)/SecondHeader";
 import "../tour/tourch/globals.css";
-
-const jalaali = {
-  toJalaali: function (gy, gm, gd) {
-    var g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-    var jy = gy <= 1600 ? 0 : 979;
-    gy -= gy <= 1600 ? 621 : 1600;
-    var gy2 = gm > 2 ? gy + 1 : gy;
-    var days =
-      365 * gy +
-      Math.floor((gy2 + 3) / 4) -
-      Math.floor((gy2 + 99) / 100) +
-      Math.floor((gy2 + 399) / 400) -
-      80 +
-      gd +
-      g_d_m[gm - 1];
-    jy += 33 * Math.floor(days / 12053);
-    days %= 12053;
-    jy += 4 * Math.floor(days / 1461);
-    days %= 1461;
-    jy += Math.floor((days - 1) / 365);
-    if (days > 365) days = (days - 1) % 365;
-    var jm =
-      days < 186
-        ? 1 + Math.floor(days / 31)
-        : 7 + Math.floor((days - 186) / 30);
-    var jd = 1 + (days < 186 ? days % 31 : (days - 186) % 30);
-    return { jy: jy, jm: jm, jd: jd };
-  },
-  toGregorian: function (jy, jm, jd) {
-    var gy = jy <= 979 ? 621 : 1600;
-    jy -= jy <= 979 ? 0 : 979;
-    var days =
-      365 * jy +
-      Math.floor(jy / 33) * 8 +
-      Math.floor(((jy % 33) + 3) / 4) +
-      78 +
-      jd +
-      (jm < 7 ? (jm - 1) * 31 : (jm - 7) * 30 + 186);
-    gy += 400 * Math.floor(days / 146097);
-    days %= 146097;
-    if (days > 36524) {
-      gy += 100 * Math.floor(--days / 36524);
-      days %= 36524;
-      if (days >= 365) days++;
-    }
-    gy += 4 * Math.floor(days / 1461);
-    days %= 1461;
-    gy += Math.floor((days - 1) / 365);
-    if (days > 365) days = (days - 1) % 365;
-    var gd = days + 1;
-    var gm = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    for (var i = 0; i < 13; i++) {
-      var v =
-        gm[i] +
-        (i === 2 && ((gy % 4 === 0 && gy % 100 !== 0) || gy % 400 === 0)
-          ? 1
-          : 0);
-      if (gd <= v) break;
-      gd -= v;
-    }
-    return { gy: gy, gm: i, gd: gd };
-  },
-  isValidJalaaliDate: function (jy, jm, jd) {
-    return (
-      jy >= -61 &&
-      jy <= 3177 &&
-      jm >= 1 &&
-      jm <= 12 &&
-      jd >= 1 &&
-      jd <=
-        (jm <= 6 ? 31 : jm <= 11 ? 30 : jalaali.isLeapJalaaliYear(jy) ? 30 : 29)
-    );
-  },
-  isLeapJalaaliYear: function (jy) {
-    return jalaali.jalCal(jy).leap === 0;
-  },
-  jalCal: function (jy) {
-    var breaks = [
-      -61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097,
-      2192, 2262, 2324, 2394, 2456, 3178,
-    ];
-    var bl = breaks.length;
-    var gy = jy + 621;
-    var leapJ = -14;
-    var jp = breaks[0];
-    var jump;
-    if (jy < jp || jy >= breaks[bl - 1])
-      throw new Error("Invalid Jalaali year " + jy);
-    for (var i = 1; i < bl; i += 1) {
-      var jm = breaks[i];
-      jump = jm - jp;
-      if (jy < jm) break;
-      leapJ = leapJ + Math.floor(jump / 33) * 8 + Math.floor((jump % 33) / 4);
-      jp = jm;
-    }
-    var n = jy - jp;
-    leapJ = leapJ + Math.floor(n / 33) * 8 + Math.floor(((n % 33) + 3) / 4);
-    if (jump % 33 === 4 && jump - n === 4) leapJ += 1;
-    var leapG =
-      Math.floor(gy / 4) - Math.floor(gy / 100 + 1) + Math.floor(gy / 400);
-    var march = 20 + (leapJ - leapG);
-    if (jump - n < 6) n = n - jump + Math.floor((jump + 4) / 33) * 33;
-    var leap = (((n + 1) % 33) - 1) % 4;
-    if (leap === -1) leap = 4;
-    return { leap: leap, gy: gy, march: march };
-  },
-  jMonthLength: function (jy, jm) {
-    if (jm <= 6) return 31;
-    if (jm <= 11) return 30;
-    if (jalaali.isLeapJalaaliYear(jy)) return 30;
-    return 29;
-  },
-};
+import { useCalendar } from "../lib/useCalendar";
+import type { ReactNode } from "react";
 
 const TEXTS = {
   optionsTitle: "امکانات و ویژگی‌ها",
@@ -153,14 +42,24 @@ const TEXTS = {
   closeButton: "بستن",
   weekDays: ["ش", "ی", "د", "س", "چ", "پ", "ج"],
   monthNames: [
-    "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
-    "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند",
+    "فروردین",
+    "اردیبهشت",
+    "خرداد",
+    "تیر",
+    "مرداد",
+    "شهریور",
+    "مهر",
+    "آبان",
+    "آذر",
+    "دی",
+    "بهمن",
+    "اسفند",
   ],
   departureFlight: "پرواز رفت",
   returnFlight: "پرواز برگشت",
 };
 
-const iconMap = {
+const iconMap: Record<string, ReactNode> = {
   FaCar: <FaCar />,
   FaSwimmingPool: <FaSwimmingPool />,
   FaCartShopping: <FaCartShopping />,
@@ -170,12 +69,33 @@ const iconMap = {
 export type TourDetailData = {
   images: string[];
   options: { icon: string; label: string }[];
-  hotelInfoData: { title: string; rating: number; options: string[]; description: string }[];
+  hotelInfoData: {
+    title: string;
+    rating: number;
+    options: string[];
+    description: string;
+  }[];
   hotelRules: { checkIn: string; checkOut: string; descriptions: string[] };
   faqData: { question: string; answer: string }[];
-  hotels: { name: string; stars: number; rate: number; price: number; priceText: string; location: string }[];
-  itineraryData: { duration: string; days: { day: string; title: string; description: string }[] };
-  tourData: { badges: string[]; title: string; priceLabel: string; price: number; flights: { departure: string; return: string } };
+  hotels: {
+    name: string;
+    stars: number;
+    rate: number;
+    price: number;
+    priceText: string;
+    location: string;
+  }[];
+  itineraryData: {
+    duration: string;
+    days: { day: string; title: string; description: string }[];
+  };
+  tourData: {
+    badges: string[];
+    title: string;
+    priceLabel: string;
+    price: number;
+    flights: { departure: string; return: string };
+  };
 };
 
 export default function TourDetailFull({ data }: { data: TourDetailData }) {
@@ -186,8 +106,8 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
   const prevImage = () =>
     setCurrent((prev) => (prev - 1 + images.length) % images.length);
 
-  const [activeIndex, setActiveIndex] = useState(null);
-  const toggleFAQ = (index) => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const toggleFAQ = (index: number) => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
 
@@ -198,7 +118,7 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
   const maxChildrenInfants = 3 * adults;
   const totalChildrenInfants = children + infants;
 
-  const handleIncrement = (type) => {
+  const handleIncrement = (type: "adults" | "children" | "infants") => {
     if (type === "adults") setAdults((prev) => prev + 1);
     if (type === "children") {
       if (totalChildrenInfants < maxChildrenInfants)
@@ -210,7 +130,7 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
     }
   };
 
-  const handleDecrement = (type) => {
+  const handleDecrement = (type: "adults" | "children" | "infants") => {
     if (type === "adults") {
       setAdults((prev) => {
         const newAdult = Math.max(0, prev - 1);
@@ -239,236 +159,34 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
     if (type === "infants" && infants > 0) setInfants((prev) => prev - 1);
   };
 
-  const [selectedStartDate, setSelectedStartDate] = useState(null);
-  const [selectedEndDate, setSelectedEndDate] = useState(null);
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [activeInput, setActiveInput] = useState(null);
-  const [hoverDate, setHoverDate] = useState(null);
-  const [currentJy, setCurrentJy] = useState(1403);
-  const [currentJm, setCurrentJm] = useState(1);
-  const [currentView, setCurrentView] = useState("days");
-  const calendarRef = useRef(null);
+  // تور با زمان ثابت: اگر پرواز رفت از قبل تعیین شده، نیاز به انتخاب تاریخ نیست
+  const isFixedTimeTour = Boolean(data.tourData.flights.departure.trim());
 
-  const today = new Date();
-  const jToday = jalaali.toJalaali(
-    today.getFullYear(),
-    today.getMonth() + 1,
-    today.getDate(),
-  );
+  const calendar = useCalendar({ mode: "range" });
 
-  const jDateToString = useCallback((jy, jm, jd) => {
-    return `${jy}/${String(jm).padStart(2, "0")}/${String(jd).padStart(2, "0")}`;
-  }, []);
-
-  const stringToJDate = useCallback((str) => {
-    if (!str) return null;
-    const parts = str.split("/");
-    if (parts.length !== 3) return null;
-    return {
-      jy: parseInt(parts[0]),
-      jm: parseInt(parts[1]),
-      jd: parseInt(parts[2]),
-    };
-  }, []);
-
-  const getDateValue = useCallback(
-    (jy, jm, jd) => jy * 10000 + jm * 100 + jd,
-    [],
-  );
-
-  const isDateInRange = useCallback(
-    (jy, jm, jd) => {
-      if (!selectedStartDate || !selectedEndDate) return false;
-      const start = stringToJDate(selectedStartDate);
-      const end = stringToJDate(selectedEndDate);
-      const val = getDateValue(jy, jm, jd);
-      const startVal = getDateValue(start.jy, start.jm, start.jd);
-      const endVal = getDateValue(end.jy, end.jm, end.jd);
-      return val > startVal && val < endVal;
-    },
-    [selectedStartDate, selectedEndDate, stringToJDate, getDateValue],
-  );
-
-  const isDateInHoverRange = useCallback(
-    (jy, jm, jd) => {
-      if (!selectedStartDate || selectedEndDate || !hoverDate) return false;
-      const start = stringToJDate(selectedStartDate);
-      const end = hoverDate;
-      const val = getDateValue(jy, jm, jd);
-      const startVal = getDateValue(start.jy, start.jm, start.jd);
-      const endVal = getDateValue(end.jy, end.jm, end.jd);
-      return val > startVal && val < endVal;
-    },
-    [
-      selectedStartDate,
-      selectedEndDate,
-      hoverDate,
-      stringToJDate,
-      getDateValue,
-    ],
-  );
-
-  const selectDate = useCallback(
-    (jy, jm, jd) => {
-      const dateStr = jDateToString(jy, jm, jd);
-      if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
-        setSelectedStartDate(dateStr);
-        setSelectedEndDate(null);
-        setActiveInput("end");
-        setHoverDate(null);
-        setShowCalendar(true);
-        setCurrentJy(jy);
-        setCurrentJm(jm);
-        setCurrentView("days");
-      } else {
-        const start = stringToJDate(selectedStartDate);
-        const currentVal = getDateValue(jy, jm, jd);
-        const startVal = getDateValue(start.jy, start.jm, start.jd);
-        if (currentVal < startVal) {
-          setSelectedEndDate(selectedStartDate);
-          setSelectedStartDate(dateStr);
-        } else {
-          setSelectedEndDate(dateStr);
-        }
-        setShowCalendar(false);
-        setActiveInput(null);
-        setHoverDate(null);
-      }
-    },
-    [
-      selectedStartDate,
-      selectedEndDate,
-      jDateToString,
-      stringToJDate,
-      getDateValue,
-    ],
-  );
-
-  const openCalendar = useCallback(
-    (inputType) => {
-      let targetDate;
-      if (inputType === "start") {
-        targetDate = selectedStartDate
-          ? stringToJDate(selectedStartDate)
-          : null;
-      } else {
-        targetDate = selectedEndDate
-          ? stringToJDate(selectedEndDate)
-          : selectedStartDate
-            ? stringToJDate(selectedStartDate)
-            : null;
-      }
-      if (!targetDate) targetDate = jToday;
-      setActiveInput(inputType);
-      setCurrentJy(targetDate.jy);
-      setCurrentJm(targetDate.jm);
-      setCurrentView("days");
-      setShowCalendar(true);
-      setHoverDate(null);
-    },
-    [selectedStartDate, selectedEndDate, jToday, stringToJDate],
-  );
-
-  const closeCalendar = useCallback(() => {
-    setShowCalendar(false);
-    setActiveInput(null);
-    setHoverDate(null);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        calendarRef.current &&
-        !calendarRef.current.contains(e.target) &&
-        e.target.id !== "startDateInput" &&
-        e.target.id !== "endDateInput"
-      ) {
-        closeCalendar();
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [closeCalendar]);
-
-  const renderCalendar = useCallback(() => {
-    const daysInMonth = jalaali.jMonthLength(currentJy, currentJm);
-    const gDate = jalaali.toGregorian(currentJy, currentJm, 1);
-    const dateObj = new Date(gDate.gy, gDate.gm - 1, gDate.gd);
-    let startDayOfWeek = (dateObj.getDay() + 1) % 7;
-
-    const cells = [];
-    for (let i = 0; i < startDayOfWeek; i++) {
-      cells.push(<div key={`empty-${i}`} className="calendarDay empty"></div>);
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateStr = jDateToString(currentJy, currentJm, day);
-      const isToday =
-        currentJy === jToday.jy && currentJm === jToday.jm && day === jToday.jd;
-      const isSelected =
-        dateStr === selectedStartDate || dateStr === selectedEndDate;
-      const inRange = isDateInRange(currentJy, currentJm, day);
-      const inHoverRange = isDateInHoverRange(currentJy, currentJm, day);
-
-      const dayClass = `calendarDay${isToday ? " today" : ""}${
-        isSelected ? " selected" : ""
-      }${inRange ? " in-range" : ""}${inHoverRange ? " hover-range" : ""}`;
-
-      cells.push(
-        <div
-          key={day}
-          className={dayClass}
-          data-date={`${currentJy}-${currentJm}-${day}`}
-          onClick={() => selectDate(currentJy, currentJm, day)}
-          onMouseEnter={() => {
-            if (selectedStartDate && !selectedEndDate) {
-              setHoverDate({ jy: currentJy, jm: currentJm, jd: day });
-            }
-          }}
-        >
-          {day}
-        </div>,
-      );
-    }
-    return cells;
-  }, [
-    currentJy,
-    currentJm,
+  const {
     selectedStartDate,
     selectedEndDate,
-    hoverDate,
-    jToday,
+    showCalendar,
+    activeInput,
+    currentJy,
+    currentJm,
+    currentView,
+    calendarRef,
     jDateToString,
-    isDateInRange,
-    isDateInHoverRange,
+    jToday,
     selectDate,
-  ]);
-
-  const handleCalendarTitleClick = () => {
-    if (currentView === "days") setCurrentView("years");
-    else if (currentView === "years") setCurrentView("months");
-    else setCurrentView("days");
-  };
-
-  const handlePrevMonth = () => {
-    setCurrentJm((prev) => {
-      if (prev === 1) {
-        setCurrentJy((y) => y - 1);
-        return 12;
-      }
-      return prev - 1;
-    });
-  };
-
-  const handleNextMonth = () => {
-    setCurrentJm((prev) => {
-      if (prev === 12) {
-        setCurrentJy((y) => y + 1);
-        return 1;
-      }
-      return prev + 1;
-    });
-  };
+    openCalendar,
+    closeCalendar,
+    handleCalendarTitleClick,
+    handlePrevMonth,
+    handleNextMonth,
+    renderCalendarDays,
+    setCurrentJy,
+    setCurrentJm,
+    setCurrentView,
+    setHoverDate,
+  } = calendar;
 
   const handleSearch = () => {
     const params = {
@@ -478,7 +196,6 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
       children,
       infants,
     };
-    console.log("Search params:", params);
   };
 
   return (
@@ -526,8 +243,7 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
 
           <div className="ItinerarySection">
             <h4>
-              {TEXTS.itineraryTitle} (
-              {data.itineraryData.duration})
+              {TEXTS.itineraryTitle} ({data.itineraryData.duration})
             </h4>
             <div className="Card ItineraryCard">
               {data.itineraryData.days.map((day, index) => (
@@ -549,8 +265,7 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
                 <div className="Top">
                   <div className="Title">
                     <p>
-                      {hotel.title}{" "}
-                      <FontAwesomeIcon icon={faStar} />{" "}
+                      {hotel.title} <FontAwesomeIcon icon={faStar} />{" "}
                       {hotel.rating}
                     </p>
                   </div>
@@ -560,11 +275,7 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
                     {hotel.options.map((option, i) => (
                       <div className="Option" key={i}>
                         <FontAwesomeIcon
-                          icon={
-                            i === 0
-                              ? faLocationDot
-                              : faUtensils
-                          }
+                          icon={i === 0 ? faLocationDot : faUtensils}
                         />{" "}
                         {option}
                       </div>
@@ -664,205 +375,224 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
               <div className="text">
                 <FontAwesomeIcon icon={faPlaneDeparture} />
                 <p>
-                  {TEXTS.departureFlight}:{" "}
-                  {data.tourData.flights.departure}
+                  {TEXTS.departureFlight}: {data.tourData.flights.departure}
                 </p>
               </div>
               <div className="text">
                 <FontAwesomeIcon icon={faPlaneArrival} />
                 <p>
-                  {TEXTS.returnFlight}:{" "}
-                  {data.tourData.flights.return}
+                  {TEXTS.returnFlight}: {data.tourData.flights.return}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="Card LeftFilterCard">
-            <div className="filters" ref={calendarRef}>
-              <p>{TEXTS.departureLabel}</p>
-              <input
-                type="text"
-                id="startDateInput"
-                placeholder={TEXTS.datePlaceholderStart}
-                value={selectedStartDate || ""}
-                readOnly
-                onClick={() => openCalendar("start")}
-                className={activeInput === "start" ? "active" : ""}
-              />
-              <p>{TEXTS.returnLabel}</p>
-              <input
-                type="text"
-                id="endDateInput"
-                placeholder={TEXTS.datePlaceholderEnd}
-                value={selectedEndDate || ""}
-                readOnly
-                onClick={() => openCalendar("end")}
-                className={activeInput === "end" ? "active" : ""}
-              />
-              {showCalendar && (
-                <div
-                  className="calendarPopup show"
-                  onMouseLeave={() => setHoverDate(null)}
-                >
+          {!isFixedTimeTour && (
+            <div className="Card LeftFilterCard">
+              <div className="filters" ref={calendarRef}>
+                <p>{TEXTS.departureLabel}</p>
+                <input
+                  type="text"
+                  id="startDateInput"
+                  placeholder={TEXTS.datePlaceholderStart}
+                  value={
+                    selectedStartDate
+                      ? jDateToString(
+                          selectedStartDate.jy,
+                          selectedStartDate.jm,
+                          selectedStartDate.jd,
+                        )
+                      : ""
+                  }
+                  readOnly
+                  onClick={() => openCalendar("start")}
+                  className={activeInput === "start" ? "active" : ""}
+                />
+                <p>{TEXTS.returnLabel}</p>
+                <input
+                  type="text"
+                  id="endDateInput"
+                  placeholder={TEXTS.datePlaceholderEnd}
+                  value={
+                    selectedEndDate
+                      ? jDateToString(
+                          selectedEndDate.jy,
+                          selectedEndDate.jm,
+                          selectedEndDate.jd,
+                        )
+                      : ""
+                  }
+                  readOnly
+                  onClick={() => openCalendar("end")}
+                  className={activeInput === "end" ? "active" : ""}
+                />
+                {showCalendar && (
                   <div
-                    className="calendarHeader"
-                    style={{
-                      visibility: currentView === "days" ? "visible" : "hidden",
-                    }}
+                    className="calendarPopup show"
+                    onMouseLeave={() => setHoverDate(null)}
                   >
-                    <button
-                      className="calendarNavBtn"
-                      onClick={handleNextMonth}
+                    <div
+                      className="calendarHeader"
+                      style={{
+                        visibility:
+                          currentView === "days" ? "visible" : "hidden",
+                      }}
                     >
-                      &gt;
-                    </button>
-                    <span
-                      className="calendarTitle"
-                      onClick={handleCalendarTitleClick}
-                    >
-                      {currentView === "days"
-                        ? `${currentJy} ${TEXTS.monthNames[currentJm - 1]}`
-                        : currentView === "months"
-                          ? `${currentJy} - انتخاب ماه`
-                          : "انتخاب سال"}
-                    </span>
-                    <button
-                      className="calendarNavBtn"
-                      onClick={handlePrevMonth}
-                    >
-                      &lt;
-                    </button>
-                  </div>
-                  {currentView === "days" && (
-                    <div className="calendarView active">
-                      <div className="calendarWeekdays">
-                        {TEXTS.weekDays.map((d, i) => (
-                          <div key={i}>{d}</div>
-                        ))}
-                      </div>
-                      <div className="calendarDays">{renderCalendar()}</div>
+                      <button
+                        className="calendarNavBtn"
+                        onClick={handlePrevMonth}
+                      >
+                        &gt;
+                      </button>
+                      <span
+                        className="calendarTitle"
+                        onClick={handleCalendarTitleClick}
+                      >
+                        {currentView === "days"
+                          ? `${currentJy} ${TEXTS.monthNames[currentJm - 1]}`
+                          : currentView === "months"
+                            ? `${currentJy} - انتخاب ماه`
+                            : "انتخاب سال"}
+                      </span>
+                      <button
+                        className="calendarNavBtn"
+                        onClick={handleNextMonth}
+                      >
+                        &lt;
+                      </button>
                     </div>
-                  )}
-                  {currentView === "months" && (
-                    <div className="calendarView active">
-                      <div className="monthsGrid">
-                        {TEXTS.monthNames.map((name, idx) => (
-                          <div
-                            key={idx}
-                            className={`monthItem ${currentJm === idx + 1 ? "selected" : ""}`}
-                            onClick={() => {
-                              setCurrentJm(idx + 1);
-                              setCurrentView("days");
-                            }}
-                          >
-                            {name}
-                          </div>
-                        ))}
+                    {currentView === "days" && (
+                      <div className="calendarView active">
+                        <div className="calendarWeekdays">
+                          {TEXTS.weekDays.map((d, i) => (
+                            <div key={i}>{d}</div>
+                          ))}
+                        </div>
+                        <div className="calendarDays">
+                          {renderCalendarDays()}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  {currentView === "years" && (
-                    <div className="calendarView active">
-                      <div className="yearsWrapper">
-                        <div className="yearsGrid">
-                          {Array.from(
-                            { length: jToday.jy - 1300 + 1 },
-                            (_, i) => jToday.jy - i,
-                          ).map((y) => (
+                    )}
+                    {currentView === "months" && (
+                      <div className="calendarView active">
+                        <div className="monthsGrid">
+                          {TEXTS.monthNames.map((name, idx) => (
                             <div
-                              key={y}
-                              className={`yearItem ${y === currentJy ? "selected" : ""}`}
+                              key={idx}
+                              className={`monthItem ${currentJm === idx + 1 ? "selected" : ""}`}
                               onClick={() => {
-                                setCurrentJy(y);
-                                setCurrentView("months");
+                                setCurrentJm(idx + 1);
+                                setCurrentView("days");
                               }}
                             >
-                              {y}
+                              {name}
                             </div>
                           ))}
                         </div>
                       </div>
+                    )}
+                    {currentView === "years" && (
+                      <div className="calendarView active">
+                        <div className="yearsWrapper">
+                          <div className="yearsGrid">
+                            {Array.from(
+                              { length: jToday.jy - 1300 + 1 },
+                              (_, i) => jToday.jy - i,
+                            ).map((y) => (
+                              <div
+                                key={y}
+                                className={`yearItem ${y === currentJy ? "selected" : ""}`}
+                                onClick={() => {
+                                  setCurrentJy(y);
+                                  setCurrentView("months");
+                                }}
+                              >
+                                {y}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    <div className="calendarFooter">
+                      <button className="btnClose" onClick={closeCalendar}>
+                        {TEXTS.closeButton}
+                      </button>
                     </div>
-                  )}
-                  <div className="calendarFooter">
-                    <button className="btnClose" onClick={closeCalendar}>
-                      {TEXTS.closeButton}
-                    </button>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
 
-            <div className="PassengerFilter">
-              <p>{TEXTS.passengerLabel}</p>
-              <div className="PassengerControl">
-                <div className="ControlGroup">
-                  <label>{TEXTS.adultLabel}</label>
-                  <div className="Counter">
-                    <button
-                      className="Minus"
-                      onClick={() => handleDecrement("adults")}
-                      disabled={adults <= 0}
-                    >
-                      <FontAwesomeIcon icon={faMinus} />
-                    </button>
-                    <span>{adults}</span>
-                    <button
-                      className="Plus"
-                      onClick={() => handleIncrement("adults")}
-                    >
-                      <FontAwesomeIcon icon={faPlus} />
-                    </button>
+              <div className="PassengerFilter">
+                <p>{TEXTS.passengerLabel}</p>
+                <div className="PassengerControl">
+                  <div className="ControlGroup">
+                    <label>{TEXTS.adultLabel}</label>
+                    <div className="Counter">
+                      <button
+                        className="Minus"
+                        onClick={() => handleDecrement("adults")}
+                        disabled={adults <= 0}
+                      >
+                        <FontAwesomeIcon icon={faMinus} />
+                      </button>
+                      <span>{adults}</span>
+                      <button
+                        className="Plus"
+                        onClick={() => handleIncrement("adults")}
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className="ControlGroup">
-                  <label>{TEXTS.childLabel}</label>
-                  <div className="Counter">
-                    <button
-                      className="Minus"
-                      onClick={() => handleDecrement("children")}
-                      disabled={children <= 0}
-                    >
-                      <FontAwesomeIcon icon={faMinus} />
-                    </button>
-                    <span>{children}</span>
-                    <button
-                      className="Plus"
-                      onClick={() => handleIncrement("children")}
-                      disabled={totalChildrenInfants >= maxChildrenInfants}
-                    >
-                      <FontAwesomeIcon icon={faPlus} />
-                    </button>
+                  <div className="ControlGroup">
+                    <label>{TEXTS.childLabel}</label>
+                    <div className="Counter">
+                      <button
+                        className="Minus"
+                        onClick={() => handleDecrement("children")}
+                        disabled={children <= 0}
+                      >
+                        <FontAwesomeIcon icon={faMinus} />
+                      </button>
+                      <span>{children}</span>
+                      <button
+                        className="Plus"
+                        onClick={() => handleIncrement("children")}
+                        disabled={totalChildrenInfants >= maxChildrenInfants}
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className="ControlGroup">
-                  <label>{TEXTS.infantLabel}</label>
-                  <div className="Counter">
-                    <button
-                      className="Minus"
-                      onClick={() => handleDecrement("infants")}
-                      disabled={infants <= 0}
-                    >
-                      <FontAwesomeIcon icon={faMinus} />
-                    </button>
-                    <span>{infants}</span>
-                    <button
-                      className="Plus"
-                      onClick={() => handleIncrement("infants")}
-                      disabled={totalChildrenInfants >= maxChildrenInfants}
-                    >
-                      <FontAwesomeIcon icon={faPlus} />
-                    </button>
+                  <div className="ControlGroup">
+                    <label>{TEXTS.infantLabel}</label>
+                    <div className="Counter">
+                      <button
+                        className="Minus"
+                        onClick={() => handleDecrement("infants")}
+                        disabled={infants <= 0}
+                      >
+                        <FontAwesomeIcon icon={faMinus} />
+                      </button>
+                      <span>{infants}</span>
+                      <button
+                        className="Plus"
+                        onClick={() => handleIncrement("infants")}
+                        disabled={totalChildrenInfants >= maxChildrenInfants}
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <button className="Btn1" onClick={handleSearch}>
-              {TEXTS.searchButton}
-            </button>
-          </div>
+              <button className="Btn1" onClick={handleSearch}>
+                {TEXTS.searchButton}
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <style jsx>{`

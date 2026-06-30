@@ -2,6 +2,7 @@
 import { usePathname } from "next/navigation";
 import "./globals.css";
 import Footer from "../app/components/Footer";
+import { PassengerProvider } from "../app/lib/PassengerContext";
 
 export default function RootLayout({
   children,
@@ -13,7 +14,9 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body suppressHydrationWarning={true}>
-        {children}
+        <PassengerProvider>
+          {children}
+        </PassengerProvider>
         {pathname !== "/auth" && <Footer />}
       </body>
     </html>

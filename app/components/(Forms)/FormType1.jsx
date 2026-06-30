@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useCalendar } from "../../lib/useCalendar";
 import "../globals.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,119 +18,6 @@ import {
   faDoorOpen,
   faSave,
 } from "@fortawesome/free-solid-svg-icons";
-
-const jalaali = {
-  toJalaali: function (gy, gm, gd) {
-    var g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-    var jy = gy <= 1600 ? 0 : 979;
-    gy -= gy <= 1600 ? 621 : 1600;
-    var gy2 = gm > 2 ? gy + 1 : gy;
-    var days =
-      365 * gy +
-      Math.floor((gy2 + 3) / 4) -
-      Math.floor((gy2 + 99) / 100) +
-      Math.floor((gy2 + 399) / 400) -
-      80 +
-      gd +
-      g_d_m[gm - 1];
-    jy += 33 * Math.floor(days / 12053);
-    days %= 12053;
-    jy += 4 * Math.floor(days / 1461);
-    days %= 1461;
-    jy += Math.floor((days - 1) / 365);
-    if (days > 365) days = (days - 1) % 365;
-    var jm =
-      days < 186
-        ? 1 + Math.floor(days / 31)
-        : 7 + Math.floor((days - 186) / 30);
-    var jd = 1 + (days < 186 ? days % 31 : (days - 186) % 30);
-    return { jy: jy, jm: jm, jd: jd };
-  },
-  toGregorian: function (jy, jm, jd) {
-    var gy = jy <= 979 ? 621 : 1600;
-    jy -= jy <= 979 ? 0 : 979;
-    var days =
-      365 * jy +
-      Math.floor(jy / 33) * 8 +
-      Math.floor(((jy % 33) + 3) / 4) +
-      78 +
-      jd +
-      (jm < 7 ? (jm - 1) * 31 : (jm - 7) * 30 + 186);
-    gy += 400 * Math.floor(days / 146097);
-    days %= 146097;
-    if (days > 36524) {
-      gy += 100 * Math.floor(--days / 36524);
-      days %= 36524;
-      if (days >= 365) days++;
-    }
-    gy += 4 * Math.floor(days / 1461);
-    days %= 1461;
-    gy += Math.floor((days - 1) / 365);
-    if (days > 365) days = (days - 1) % 365;
-    var gd = days + 1;
-    var gm = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    for (var i = 0; i < 13; i++) {
-      var v =
-        gm[i] +
-        (i === 2 && ((gy % 4 === 0 && gy % 100 !== 0) || gy % 400 === 0)
-          ? 1
-          : 0);
-      if (gd <= v) break;
-      gd -= v;
-    }
-    return { gy: gy, gm: i, gd: gd };
-  },
-  isValidJalaaliDate: function (jy, jm, jd) {
-    return (
-      jy >= -61 &&
-      jy <= 3177 &&
-      jm >= 1 &&
-      jm <= 12 &&
-      jd >= 1 &&
-      jd <=
-        (jm <= 6 ? 31 : jm <= 11 ? 30 : jalaali.isLeapJalaaliYear(jy) ? 30 : 29)
-    );
-  },
-  isLeapJalaaliYear: function (jy) {
-    return jalaali.jalCal(jy).leap === 0;
-  },
-  jalCal: function (jy) {
-    var breaks = [
-      -61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097,
-      2192, 2262, 2324, 2394, 2456, 3178,
-    ];
-    var bl = breaks.length;
-    var gy = jy + 621;
-    var leapJ = -14;
-    var jp = breaks[0];
-    var jump;
-    if (jy < jp || jy >= breaks[bl - 1])
-      throw new Error("Invalid Jalaali year " + jy);
-    for (var i = 1; i < bl; i += 1) {
-      var jm = breaks[i];
-      jump = jm - jp;
-      if (jy < jm) break;
-      leapJ = leapJ + Math.floor(jump / 33) * 8 + Math.floor((jump % 33) / 4);
-      jp = jm;
-    }
-    var n = jy - jp;
-    leapJ = leapJ + Math.floor(n / 33) * 8 + Math.floor(((n % 33) + 3) / 4);
-    if (jump % 33 === 4 && jump - n === 4) leapJ += 1;
-    var leapG =
-      Math.floor(gy / 4) - Math.floor(gy / 100 + 1) + Math.floor(gy / 400);
-    var march = 20 + (leapJ - leapG);
-    if (jump - n < 6) n = n - jump + Math.floor((jump + 4) / 33) * 33;
-    var leap = (((n + 1) % 33) - 1) % 4;
-    if (leap === -1) leap = 4;
-    return { leap: leap, gy: gy, march: march };
-  },
-  jMonthLength: function (jy, jm) {
-    if (jm <= 6) return 31;
-    if (jm <= 11) return 30;
-    if (jalaali.isLeapJalaaliYear(jy)) return 30;
-    return 29;
-  },
-};
 
 const PAGE_DATA = {
   radioOptions: [
@@ -219,15 +107,39 @@ export default function Form1() {
   const dropdownRef = useRef(null);
   const destinationInputRef = useRef(null);
 
-  const [currentJy, setCurrentJy] = useState(1403);
-  const [currentJm, setCurrentJm] = useState(1);
-  const [currentView, setCurrentView] = useState("days");
-  const [selectedStartDate, setSelectedStartDate] = useState(null);
-  const [selectedEndDate, setSelectedEndDate] = useState(null);
-  const [hoverDate, setHoverDate] = useState(null);
-  const [activeInput, setActiveInput] = useState(null);
-  const [showCalendar, setShowCalendar] = useState(false);
-  const calendarRef = useRef(null);
+  const calendar = useCalendar({ mode: "range" });
+  const {
+    selectedStartDate,
+    selectedEndDate,
+    showCalendar,
+    activeInput,
+    hoverDate,
+    currentJy,
+    currentJm,
+    currentView,
+    calendarRef,
+    jToday,
+    jDateToString,
+    stringToJDate,
+    getDateValue,
+    isDateInRange,
+    isDateInHoverRange,
+    selectDate,
+    openCalendar,
+    closeCalendar,
+    handleCalendarTitleClick,
+    handlePrevMonth,
+    handleNextMonth,
+    setCurrentJy,
+    setCurrentJm,
+    setCurrentView,
+    setHoverDate,
+    setShowCalendar,
+    setActiveInput,
+    setSelectedStartDate,
+    setSelectedEndDate,
+    renderCalendarDays,
+  } = calendar;
 
   const [adultCount, setAdultCount] = useState(1);
   const [childCount, setChildCount] = useState(0);
@@ -244,13 +156,6 @@ export default function Form1() {
   // خطاها و شیک
   const [errors, setErrors] = useState({});
   const [shakeFields, setShakeFields] = useState({});
-
-  const today = new Date();
-  const jToday = jalaali.toJalaali(
-    today.getFullYear(),
-    today.getMonth() + 1,
-    today.getDate(),
-  );
 
   const maxChildrenInfants = 3 * adultCount;
   const totalChildrenInfants = childCount + infantCount;
@@ -384,221 +289,6 @@ export default function Form1() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const jDateToString = useCallback((jy, jm, jd) => {
-    return `${jy}/${String(jm).padStart(2, "0")}/${String(jd).padStart(2, "0")}`;
-  }, []);
-
-  const stringToJDate = useCallback((str) => {
-    if (!str) return null;
-    const parts = str.split("/");
-    if (parts.length !== 3) return null;
-    return {
-      jy: parseInt(parts[0]),
-      jm: parseInt(parts[1]),
-      jd: parseInt(parts[2]),
-    };
-  }, []);
-
-  const getDateValue = useCallback((jy, jm, jd) => {
-    return jy * 10000 + jm * 100 + jd;
-  }, []);
-
-  const isDateInRange = useCallback(
-    (jy, jm, jd) => {
-      if (!selectedStartDate || !selectedEndDate) return false;
-      const start = stringToJDate(selectedStartDate);
-      const end = stringToJDate(selectedEndDate);
-      const val = getDateValue(jy, jm, jd);
-      const startVal = getDateValue(start.jy, start.jm, start.jd);
-      const endVal = getDateValue(end.jy, end.jm, end.jd);
-      return val > startVal && val < endVal;
-    },
-    [selectedStartDate, selectedEndDate, stringToJDate, getDateValue],
-  );
-
-  const isDateInHoverRange = useCallback(
-    (jy, jm, jd) => {
-      if (!selectedStartDate || selectedEndDate || !hoverDate) return false;
-      const start = stringToJDate(selectedStartDate);
-      const end = hoverDate;
-      const val = getDateValue(jy, jm, jd);
-      const startVal = getDateValue(start.jy, start.jm, start.jd);
-      const endVal = getDateValue(end.jy, end.jm, end.jd);
-      return val > startVal && val < endVal;
-    },
-    [
-      selectedStartDate,
-      selectedEndDate,
-      hoverDate,
-      stringToJDate,
-      getDateValue,
-    ],
-  );
-
-  const selectDate = useCallback(
-    (jy, jm, jd) => {
-      const dateStr = jDateToString(jy, jm, jd);
-      if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
-        setSelectedStartDate(dateStr);
-        setSelectedEndDate(null);
-        setActiveInput("end");
-        setHoverDate(null);
-        setShowCalendar(true);
-        setCurrentJy(jy);
-        setCurrentJm(jm);
-        setCurrentView("days");
-        setErrors((prev) => ({ ...prev, startDate: false, endDate: false }));
-      } else {
-        const start = stringToJDate(selectedStartDate);
-        const currentVal = getDateValue(jy, jm, jd);
-        const startVal = getDateValue(start.jy, start.jm, start.jd);
-        if (currentVal < startVal) {
-          setSelectedEndDate(selectedStartDate);
-          setSelectedStartDate(dateStr);
-        } else {
-          setSelectedEndDate(dateStr);
-        }
-        setShowCalendar(false);
-        setActiveInput(null);
-        setHoverDate(null);
-        setErrors((prev) => ({ ...prev, endDate: false }));
-      }
-    },
-    [
-      selectedStartDate,
-      selectedEndDate,
-      jDateToString,
-      stringToJDate,
-      getDateValue,
-    ],
-  );
-
-  const openCalendar = useCallback(
-    (inputType) => {
-      let targetDate;
-      if (inputType === "start") {
-        targetDate = selectedStartDate
-          ? stringToJDate(selectedStartDate)
-          : null;
-      } else {
-        targetDate = selectedEndDate
-          ? stringToJDate(selectedEndDate)
-          : selectedStartDate
-            ? stringToJDate(selectedStartDate)
-            : null;
-      }
-      if (!targetDate) targetDate = jToday;
-      setActiveInput(inputType);
-      setCurrentJy(targetDate.jy);
-      setCurrentJm(targetDate.jm);
-      setCurrentView("days");
-      setShowCalendar(true);
-      setHoverDate(null);
-    },
-    [selectedStartDate, selectedEndDate, jToday, stringToJDate],
-  );
-
-  const closeCalendar = useCallback(() => {
-    setShowCalendar(false);
-    setActiveInput(null);
-    setHoverDate(null);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        calendarRef.current &&
-        !calendarRef.current.contains(e.target) &&
-        e.target.id !== "startDateInput" &&
-        e.target.id !== "endDateInput"
-      ) {
-        closeCalendar();
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [closeCalendar]);
-
-  const renderCalendar = useCallback(() => {
-    const daysInMonth = jalaali.jMonthLength(currentJy, currentJm);
-    const gDate = jalaali.toGregorian(currentJy, currentJm, 1);
-    const dateObj = new Date(gDate.gy, gDate.gm - 1, gDate.gd);
-    let startDayOfWeek = (dateObj.getDay() + 1) % 7;
-
-    const cells = [];
-    for (let i = 0; i < startDayOfWeek; i++) {
-      cells.push(<div key={`empty-${i}`} className="calendarDay empty"></div>);
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateStr = jDateToString(currentJy, currentJm, day);
-      const isToday =
-        currentJy === jToday.jy && currentJm === jToday.jm && day === jToday.jd;
-      const isSelected =
-        dateStr === selectedStartDate || dateStr === selectedEndDate;
-      const inRange = isDateInRange(currentJy, currentJm, day);
-      const inHoverRange = isDateInHoverRange(currentJy, currentJm, day);
-
-      const dayClass = `calendarDay${isToday ? " today" : ""}${
-        isSelected ? " selected" : ""
-      }${inRange ? " in-range" : ""}${inHoverRange ? " hover-range" : ""}`;
-
-      cells.push(
-        <div
-          key={day}
-          className={dayClass}
-          data-date={`${currentJy}-${currentJm}-${day}`}
-          onClick={() => selectDate(currentJy, currentJm, day)}
-          onMouseEnter={() => {
-            if (selectedStartDate && !selectedEndDate) {
-              setHoverDate({ jy: currentJy, jm: currentJm, jd: day });
-            }
-          }}
-        >
-          {day}
-        </div>,
-      );
-    }
-    return cells;
-  }, [
-    currentJy,
-    currentJm,
-    selectedStartDate,
-    selectedEndDate,
-    hoverDate,
-    jToday,
-    jDateToString,
-    isDateInRange,
-    isDateInHoverRange,
-    selectDate,
-  ]);
-
-  const handleCalendarTitleClick = () => {
-    if (currentView === "days") setCurrentView("years");
-    else if (currentView === "years") setCurrentView("months");
-    else setCurrentView("days");
-  };
-
-  const handlePrevMonth = () => {
-    setCurrentJm((prev) => {
-      if (prev === 1) {
-        setCurrentJy((y) => y - 1);
-        return 12;
-      }
-      return prev - 1;
-    });
-  };
-
-  const handleNextMonth = () => {
-    setCurrentJm((prev) => {
-      if (prev === 12) {
-        setCurrentJy((y) => y + 1);
-        return 1;
-      }
-      return prev + 1;
-    });
-  };
-
   const renderMonthsGrid = () => {
     return PAGE_DATA.monthNames.map((name, index) => {
       const month = index + 1;
@@ -639,8 +329,16 @@ export default function Form1() {
     return years;
   };
 
-  const startDateInputValue = selectedStartDate || "";
-  const endDateInputValue = selectedEndDate || "";
+  const startDateInputValue = selectedStartDate
+    ? jDateToString(
+        selectedStartDate.jy,
+        selectedStartDate.jm,
+        selectedStartDate.jd,
+      )
+    : "";
+  const endDateInputValue = selectedEndDate
+    ? jDateToString(selectedEndDate.jy, selectedEndDate.jm, selectedEndDate.jd)
+    : "";
 
   // توابع اعتبارسنجی و شیک
   const triggerErrorShake = (field) => {
@@ -699,15 +397,26 @@ export default function Form1() {
     const params = {
       tripType,
       destination: destinationInput,
-      startDate: selectedStartDate,
-      endDate: selectedEndDate,
+      startDate: selectedStartDate
+        ? jDateToString(
+            selectedStartDate.jy,
+            selectedStartDate.jm,
+            selectedStartDate.jd,
+          )
+        : null,
+      endDate: selectedEndDate
+        ? jDateToString(
+            selectedEndDate.jy,
+            selectedEndDate.jm,
+            selectedEndDate.jd,
+          )
+        : null,
       adultCount,
       childCount,
       infantCount,
       rooms: numRooms,
       bedDistribution,
     };
-    console.log("Search params:", params);
     if (PAGE_DATA.onSearch) PAGE_DATA.onSearch(params);
   };
 
@@ -838,7 +547,7 @@ export default function Form1() {
                       >
                         <button
                           className="calendarNavBtn"
-                          onClick={handleNextMonth}
+                          onClick={handlePrevMonth}
                         >
                           &gt;
                         </button>
@@ -854,7 +563,7 @@ export default function Form1() {
                         </span>
                         <button
                           className="calendarNavBtn"
-                          onClick={handlePrevMonth}
+                          onClick={handleNextMonth}
                         >
                           &lt;
                         </button>
@@ -867,7 +576,9 @@ export default function Form1() {
                               <div key={i}>{d}</div>
                             ))}
                           </div>
-                          <div className="calendarDays">{renderCalendar()}</div>
+                          <div className="calendarDays">
+                            {renderCalendarDays()}
+                          </div>
                         </div>
                       )}
 

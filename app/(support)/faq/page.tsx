@@ -63,7 +63,7 @@ export default function FAQPage() {
   const handleSubmitTicket = (e: React.FormEvent) => {
     e.preventDefault();
     // اینجا می‌توانید درخواست API برای ارسال تیکت را قرار دهید
-    console.log("Ticket Submitted:", formData);
+
     alert("تیکت شما با موفقیت ثبت شد!");
     setIsModalOpen(false);
     setFormData({ name: "", contact: "", subject: "", message: "" });

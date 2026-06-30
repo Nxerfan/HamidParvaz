@@ -1,370 +1,389 @@
 .mainContainer {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding-top: 50px;
-  .headerSection {
-    text-align: center;
-    margin-bottom: 40px;
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      color: var(--textDark);
-    }
-
-    p {
-      color: var(--textGray);
-      font-size: 1.1rem;
-    }
-  }
-
-  .gridLayout {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    justify-content: center;
-
-    .cardWrapper {
-      width: 100%;
-
-      .cardLink {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        height: 100%;
-
-        .cardComponent {
-          background-color: var(--bgWhite);
-          border: var(--borderLight);
-          border-radius: 12px;
-          box-shadow: var(--boxShadow);
-          padding: 40px 30px;
-          text-align: center;
-          transition: var(--transition);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-between;
-          height: 100%;
-          position: relative;
-          overflow: hidden;
-
-          &:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            border-color: var(--gold);
-            background-color: var(--grayBgHover);
-
-            .iconBox {
-              background-color: var(--gold);
-              color: var(--white);
-
-              svg {
-                fill: var(--white);
-              }
-            }
-
-            .btnAction {
-              background-color: var(--gold);
-              color: var(--goldText);
-              border-color: var(--gold);
-            }
-          }
-
-          .iconBox {
-            width: 80px;
-            height: 80px;
-            background-color: var(--grayBg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-            transition: var(--transition);
-            color: var(--goldDark);
-
-            svg {
-              width: 40px;
-              height: 40px;
-              fill: currentColor;
-              transition: var(--transition);
-            }
-          }
-
-          .contentBox {
-            h2 {
-              font-size: 1.4rem;
-              margin-bottom: 12px;
-              color: var(--textDark);
-            }
-
-            p {
-              color: var(--textGray);
-              font-size: var(--fontSize);
-              line-height: 1.8;
-              margin-bottom: 24px;
-            }
-          }
-
-          .btnAction {
-            margin-top: auto;
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: transparent;
-            color: var(--goldDark);
-            border: 1px solid var(--gold);
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: var(--fontSize);
-            transition: var(--transition);
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .mainContainer {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 50px;
     .headerSection {
-      h1 {
-        font-size: 1.6rem;
-      }
+        text-align: center;
+        margin-bottom: 40px;
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--textDark);
+        }
+
+        p {
+            color: var(--textGray);
+            font-size: 1.1rem;
+        }
     }
 
     .gridLayout {
-      .cardWrapper {
-        .cardLink {
-          .cardComponent {
-            padding: 30px 20px;
-          }
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        justify-content: center;
+
+        .cardWrapper {
+            width: 100%;
+
+            .cardLink {
+                text-decoration: none;
+                color: inherit;
+                display: block;
+                height: 100%;
+
+                .cardComponent {
+                    background-color: var(--bgWhite);
+                    border: var(--borderLight);
+                    border-radius: 12px;
+                    box-shadow: var(--boxShadow);
+                    padding: 40px 30px;
+                    text-align: center;
+                    transition: var(--transition);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-between;
+                    height: 100%;
+                    position: relative;
+                    overflow: hidden;
+
+                    &:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+                        border-color: var(--gold);
+                        background-color: var(--grayBgHover);
+
+                        .iconBox {
+                            background-color: var(--gold);
+                            color: var(--white);
+
+                            svg {
+                                fill: var(--white);
+                            }
+                        }
+
+                        .btnAction {
+                            background-color: var(--gold);
+                            color: var(--goldText);
+                            border-color: var(--gold);
+                        }
+                    }
+
+                    .iconBox {
+                        width: 80px;
+                        height: 80px;
+                        background-color: var(--grayBg);
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 24px;
+                        transition: var(--transition);
+                        color: var(--goldDark);
+
+                        svg {
+                            width: 40px;
+                            height: 40px;
+                            fill: currentColor;
+                            transition: var(--transition);
+                        }
+                    }
+
+                    .contentBox {
+                        h2 {
+                            font-size: 1.4rem;
+                            margin-bottom: 12px;
+                            color: var(--textDark);
+                        }
+
+                        p {
+                            color: var(--textGray);
+                            font-size: var(--fontSize);
+                            line-height: 1.8;
+                            margin-bottom: 24px;
+                        }
+                    }
+
+                    .btnAction {
+                        margin-top: auto;
+                        display: inline-block;
+                        padding: 12px 30px;
+                        background-color: transparent;
+                        color: var(--goldDark);
+                        border: 1px solid var(--gold);
+                        border-radius: 8px;
+                        font-weight: bold;
+                        font-size: var(--fontSize);
+                        transition: var(--transition);
+                    }
+                }
+            }
         }
-      }
     }
-  }
+}
+
+@media (max-width: 600px) {
+    .mainContainer {
+        .headerSection {
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+
+        .gridLayout {
+            .cardWrapper {
+                .cardLink {
+                    .cardComponent {
+                        padding: 30px 20px;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .TrackContainer {
-  width: 1200px;
-  justify-self: center;
-  padding: 40px 0;
-  font-family: var(--Font);
-  direction: rtl;
-  display: grid;
-  gap: 20px;
-  /* Hero */
-  .TrackHero {
-    text-align: center;
+    width: 1200px;
+    justify-self: center;
+    padding: 40px 0;
+    font-family: var(--Font);
+    direction: rtl;
     display: grid;
-    gap: 10px;
-    h1 {
-      font-size: 26px;
-      color: var(--textDark);
-    }
-
-    p {
-      font-size: 15px;
-      color: var(--textGray);
-    }
-  }
-
-  /* Common */
-  .Secti {
-    onTitle {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--textDark);
-      border-right: 4px solid var(--gold);
-      padding-right: 12px;
-    }
-  }
-  .Grid2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 20px;
-  }
+    /* Hero */
+    .TrackHero {
+        text-align: center;
+        display: grid;
+        gap: 10px;
+        h1 {
+            font-size: 26px;
+            color: var(--textDark);
+        }
 
-  .Field {
-    display: grid;
-    gap: 8px;
-    label {
-      display: block;
-      font-size: 14px;
-      color: var(--textDark);
+        p {
+            font-size: 15px;
+            color: var(--textGray);
+        }
     }
 
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: var(--borderLight);
-      background: var(--bgLight);
-      font-family: var(--Font);
-      &:focus {
-        outline: none;
-        border-color: var(--gold);
-        background: var(--grayBgHover);
-      }
+    /* Common */
+    .Secti {
+        onTitle {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--textDark);
+            border-right: 4px solid var(--gold);
+            padding-right: 12px;
+        }
     }
-  }
-
-  .SubmitArea {
-    text-align: left;
-
-    .SubmitBtn {
-      width: 100%;
-      padding: 12px;
-      background: var(--gold);
-      color: var(--textDark);
-      font-family: var(--Font);
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-
-      &:hover {
-        background: var(--goldDark);
-      }
-    }
-  }
-
-  /* Search */
-  .SearchCard {
-    background: var(--bgWhite);
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: var(--boxShadow);
-    display: grid;
-    gap: 15px;
-    border: 1px solid var(--gold);
-  }
-
-  /* Result */
-  .BookingResultCard {
-    background: var(--bgWhite);
-    border-radius: 16px;
-    box-shadow: var(--boxShadow);
-    overflow: hidden;
-
-    .ResultHeader {
-      padding: 15px 25px;
-      display: flex;
-      justify-content: space-between;
-      border-bottom: var(--bgLight);
-
-      .TypeBadge {
-        background: var(--bgLight);
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-      }
-
-      .BookingID span {
-        font-weight: bold;
-      }
-
-      .StatusBadge.success {
-        color: var(--success);
-        font-weight: bold;
-      }
+    .Grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
     }
 
-    .ResultBody {
-      padding: 25px;
-      .TravelInfo {
+    .Field {
+        display: grid;
+        gap: 8px;
+        label {
+            display: block;
+            font-size: 14px;
+            color: var(--textDark);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: var(--borderLight);
+            background: var(--bgLight);
+            font-family: var(--Font);
+            &:focus {
+                outline: none;
+                border-color: var(--gold);
+                background: var(--grayBgHover);
+            }
+        }
+    }
+
+    .SubmitArea {
+        text-align: left;
+
+        .SubmitBtn {
+            width: 100%;
+            padding: 12px;
+            background: var(--gold);
+            color: var(--textDark);
+            font-family: var(--Font);
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+
+            &:hover {
+                background: var(--goldDark);
+            }
+        }
+    }
+
+    /* Search */
+    .SearchCard {
+        background: var(--bgWhite);
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: var(--boxShadow);
         display: grid;
         gap: 15px;
-        .Route {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
+        border: 1px solid var(--gold);
+    }
 
-          text-align: center;
+    /* Not Found */
+    .NotFoundCard {
+        background: var(--bgWhite);
+        border-radius: 16px;
+        box-shadow: var(--boxShadow);
+        padding: 30px;
+        text-align: center;
+        border-right: 5px solid tomato;
+        h3 {
+            color: tomato;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        p {
+            color: var(--textGray);
+            font-size: 14px;
+        }
+    }
 
-          .Point {
-            strong {
-              display: block;
-              font-size: 18px;
+    /* Result */
+    .BookingResultCard {
+        background: var(--bgWhite);
+        border-radius: 16px;
+        box-shadow: var(--boxShadow);
+        overflow: hidden;
+
+        .ResultHeader {
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: var(--bgLight);
+
+            .TypeBadge {
+                background: var(--bgLight);
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 12px;
             }
 
-            span {
-              font-size: 13px;
-              color: var(--textGray);
+            .BookingID span {
+                font-weight: bold;
             }
-          }
 
-          .Line {
-            flex-grow: 1;
-            border-bottom: 2px dotted var(--textGray);
-            margin: 0 20px;
-          }
-        }
-        .PassengerInfo {
-          background: var(--bgLight);
-          padding: 12px;
-          border-radius: 8px;
-          display: flex;
-          gap: 30px;
-          font-size: 14px;
-        }
-      }
-
-      .ActionButtons {
-        display: flex;
-        gap: 15px;
-        margin-top: 25px;
-
-        button {
-          flex: 1;
-          padding: 12px;
-          border-radius: 8px;
-          border: none;
-          font-weight: bold;
-          cursor: pointer;
-          font-family: var(--Font);
+            .StatusBadge.success {
+                color: var(--success);
+                font-weight: bold;
+            }
         }
 
-        .BtnSecondary {
-          background: var(--grayBg);
-          transition: 0.3s;
-          &:hover {
-            transform: translateY(-5px);
-            background-color: var(--grayBgHover);
-          }
-        }
+        .ResultBody {
+            padding: 25px;
+            .TravelInfo {
+                display: grid;
+                gap: 15px;
+                .Route {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
 
-        .BtnDanger {
-          background: tomato;
-          color: var(--danger);
-          border: 1px solid var(--danger);
-          transition: 0.3s;
-          &:hover {
-            background: rgb(255, 66, 33);
-            transform: translateY(-5px);
-          }
+                    text-align: center;
+
+                    .Point {
+                        strong {
+                            display: block;
+                            font-size: 18px;
+                        }
+
+                        span {
+                            font-size: 13px;
+                            color: var(--textGray);
+                        }
+                    }
+
+                    .Line {
+                        flex-grow: 1;
+                        border-bottom: 2px dotted var(--textGray);
+                        margin: 0 20px;
+                    }
+                }
+                .PassengerInfo {
+                    background: var(--bgLight);
+                    padding: 12px;
+                    border-radius: 8px;
+                    display: flex;
+                    gap: 30px;
+                    font-size: 14px;
+                }
+            }
+
+            .ActionButtons {
+                display: flex;
+                gap: 15px;
+                margin-top: 25px;
+
+                button {
+                    flex: 1;
+                    padding: 12px;
+                    border-radius: 8px;
+                    border: none;
+                    font-weight: bold;
+                    cursor: pointer;
+                    font-family: var(--Font);
+                }
+
+                .BtnSecondary {
+                    background: var(--grayBg);
+                    transition: 0.3s;
+                    &:hover {
+                        transform: translateY(-5px);
+                        background-color: var(--grayBgHover);
+                    }
+                }
+
+                .BtnDanger {
+                    background: tomato;
+                    color: var(--danger);
+                    border: 1px solid var(--danger);
+                    transition: 0.3s;
+                    &:hover {
+                        background: rgb(255, 66, 33);
+                        transform: translateY(-5px);
+                    }
+                }
+            }
         }
-      }
     }
-  }
 
-  /* Policy */
-  .PolicyCard {
-    background: var(--grayBgHover);
-    padding: 25px;
-    border-radius: 16px;
-    border-right: 5px solid var(--gold);
-    font-size: 16px;
-    font-weight: bold;
-    display: grid;
-    gap: 10px;
-    ul {
-      padding-right: 20px;
+    /* Policy */
+    .PolicyCard {
+        background: var(--grayBgHover);
+        padding: 25px;
+        border-radius: 16px;
+        border-right: 5px solid var(--gold);
+        font-size: 16px;
+        font-weight: bold;
+        display: grid;
+        gap: 10px;
+        ul {
+            padding-right: 20px;
 
-      li {
-        font-size: 13px;
-        line-height: 1.6;
-      }
+            li {
+                font-size: 13px;
+                line-height: 1.6;
+            }
+        }
     }
-  }
 }

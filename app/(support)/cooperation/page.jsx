@@ -238,7 +238,6 @@ export default function CooperationPage() {
       resume: resumeFile,
     };
 
-    console.log("Ready to send to server:", formDataToSend);
     setShowSuccess(true);
   };
 

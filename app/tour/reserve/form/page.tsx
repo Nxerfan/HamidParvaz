@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { usePassengersContext } from "../../../lib/PassengerContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
@@ -154,6 +155,17 @@ const NiksaPassengerInfo = () => {
   const [isHotelOpen, setIsHotelOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState(600);
   const [showTimeoutModal, setShowTimeoutModal] = useState(false);
+  const [contactMobile, setContactMobile] = useState("");
+
+  const {
+    passengers: savedPassengers,
+    addPassenger,
+    updatePassenger: updateSavedPassenger,
+    getPassengerById,
+  } = usePassengersContext();
+  const [selectedSavedIds, setSelectedSavedIds] = useState<
+    Record<number, string>
+  >({});
 
   const [passengers, setPassengers] = useState([
     {
@@ -163,6 +175,16 @@ const NiksaPassengerInfo = () => {
       gender: "آقا",
       nationality: "iranian",
       issuingCountry: "",
+      firstName: "",
+      lastName: "",
+      nationalId: "",
+      birthDay: "",
+      birthMonth: "",
+      birthYear: "",
+      passportNumber: "",
+      expiryDay: "",
+      expiryMonth: "",
+      expiryYear: "",
     },
   ]);
 
@@ -177,13 +199,13 @@ const NiksaPassengerInfo = () => {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  const formatTime = (seconds) => {
+  const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const handleAddPassenger = (pType, pLabel) => {
+  const handleAddPassenger = (pType: string, pLabel: string) => {
     const adultCount = passengers.filter((p) => p.type === "adult").length;
     const nonAdultCount = passengers.filter((p) => p.type !== "adult").length;
 
@@ -200,7 +222,7 @@ const NiksaPassengerInfo = () => {
     }
   };
 
-  const addNew = (type, label) => {
+  const addNew = (type: string, label: string) => {
     setPassengers([
       ...passengers,
       {
@@ -210,20 +232,94 @@ const NiksaPassengerInfo = () => {
         gender: "آقا",
         nationality: "iranian",
         issuingCountry: "",
+        firstName: "",
+        lastName: "",
+        nationalId: "",
+        birthDay: "",
+        birthMonth: "",
+        birthYear: "",
+        passportNumber: "",
+        expiryDay: "",
+        expiryMonth: "",
+        expiryYear: "",
       },
     ]);
   };
 
-  const updatePassenger = (id, field, value) => {
+  const updatePassenger = (id: number, field: string, value: string) => {
     setPassengers((prev) =>
       prev.map((p) => (p.id === id ? { ...p, [field]: value } : p)),
     );
   };
 
-  const removePassenger = (id) => {
+  const removePassenger = (id: number) => {
     if (passengers.length > 1) {
       setPassengers((prev) => prev.filter((p) => p.id !== id));
     }
+  };
+
+  const handleSelectSavedPassenger = (formId: number, savedId: string) => {
+    setSelectedSavedIds((prev) => ({ ...prev, [formId]: savedId }));
+    if (!savedId) {
+      updatePassenger(formId, "firstName", "");
+      updatePassenger(formId, "lastName", "");
+      updatePassenger(formId, "nationalId", "");
+      updatePassenger(formId, "gender", "آقا");
+      return;
+    }
+    const saved = getPassengerById(savedId);
+    if (saved) {
+      updatePassenger(formId, "firstName", saved.firstName);
+      updatePassenger(formId, "lastName", saved.lastName);
+      updatePassenger(formId, "nationalId", saved.nationalId);
+      updatePassenger(
+        formId,
+        "gender",
+        saved.gender === "male" ? "آقا" : "خانوم",
+      );
+    }
+  };
+
+  const handleSubmitAndSave = () => {
+    const hasErrors = passengers.some((p) => {
+      if (!p.firstName.trim() || !p.lastName.trim()) return true;
+      if (p.nationality === "iranian" && !p.nationalId.trim()) return true;
+      if (p.nationality === "foreign" && !p.passportNumber.trim()) return true;
+      if (!p.birthDay || !p.birthMonth || !p.birthYear) return true;
+      return false;
+    });
+    if (hasErrors) {
+      alert("لطفاً تمام فیلدهای اجباری را پر کنید");
+      return;
+    }
+    if (!contactMobile.trim()) {
+      alert("لطفاً شماره موبایل را وارد کنید");
+      return;
+    }
+    passengers.forEach((p) => {
+      if (p.firstName && p.lastName) {
+        const existing = p.nationalId
+          ? savedPassengers.find((sp) => sp.nationalId === p.nationalId)
+          : undefined;
+        const passengerData = {
+          firstName: p.firstName,
+          lastName: p.lastName,
+          nationalId: p.nationalId,
+          birthDate:
+            p.birthYear && p.birthMonth && p.birthDay
+              ? `${p.birthYear}-${p.birthMonth}-${p.birthDay}`
+              : "",
+          gender: p.gender === "آقا" ? ("male" as const) : ("female" as const),
+          passportNumber: p.passportNumber || undefined,
+        };
+        if (existing) {
+          updateSavedPassenger(existing.id, passengerData);
+        } else {
+          addPassenger(passengerData);
+        }
+      }
+    });
+    router.push("/tour/reserve/prepay");
   };
 
   return (
@@ -288,177 +384,198 @@ const NiksaPassengerInfo = () => {
                 : PAGE_DATA.passengerCard.months;
 
             return (
-            <div className="Card" key={passenger.id}>
-              <div className="TopCard">
-                <p>{PAGE_DATA.passengerCard.title}</p>
-                <div className="Clock">
-                  <p>{formatTime(timeLeft)}</p>
-                  <FontAwesomeIcon icon={PAGE_DATA.icons.clock} />
+              <div className="Card" key={passenger.id}>
+                <div className="TopCard">
+                  <p>{PAGE_DATA.passengerCard.title}</p>
+                  <div className="Clock">
+                    <p>{formatTime(timeLeft)}</p>
+                    <FontAwesomeIcon icon={PAGE_DATA.icons.clock} />
+                  </div>
                 </div>
-              </div>
 
-              <div className="bottomCard">
-                <div className="gender">
-                  <div className="nationality">
-                    <p>
-                      {index + 1}. {passenger.typeLabel}
-                    </p>
-                    <div className="gender-radios">
-                      {PAGE_DATA.passengerCard.genderOptions.map((g) => (
-                        <label key={g.value}>
-                          <input
-                            type="radio"
-                            name={`gender-${passenger.id}`}
-                            checked={passenger.gender === g.value}
-                            onChange={() =>
-                              updatePassenger(passenger.id, "gender", g.value)
-                            }
-                          />
-                          {g.label}
-                        </label>
-                      ))}
+                <div className="bottomCard">
+                  <div className="gender">
+                    <div className="nationality">
+                      <p>
+                        {index + 1}. {passenger.typeLabel}
+                      </p>
+                      <div className="gender-radios">
+                        {PAGE_DATA.passengerCard.genderOptions.map((g) => (
+                          <label key={g.value}>
+                            <input
+                              type="radio"
+                              name={`gender-${passenger.id}`}
+                              checked={passenger.gender === g.value}
+                              onChange={() =>
+                                updatePassenger(passenger.id, "gender", g.value)
+                              }
+                            />
+                            {g.label}
+                          </label>
+                        ))}
+                      </div>
+                      <select
+                        value={passenger.nationality}
+                        onChange={(e) =>
+                          updatePassenger(
+                            passenger.id,
+                            "nationality",
+                            e.target.value,
+                          )
+                        }
+                      >
+                        {PAGE_DATA.passengerCard.nationalityOptions.map(
+                          (opt) => (
+                            <option key={opt.value} value={opt.value}>
+                              {opt.label}
+                            </option>
+                          ),
+                        )}
+                      </select>
                     </div>
-                    <select
-                      value={passenger.nationality}
-                      onChange={(e) =>
-                        updatePassenger(
-                          passenger.id,
-                          "nationality",
-                          e.target.value,
-                        )
-                      }
-                    >
-                      {PAGE_DATA.passengerCard.nationalityOptions.map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="addNew">
-                    <FontAwesomeIcon icon={PAGE_DATA.icons.userClock} />
-                    <p>{PAGE_DATA.passengerCard.previousPassengers}</p>
-                    {index > 0 && (
-                      <FontAwesomeIcon
-                        icon={PAGE_DATA.icons.trash}
+                    <div className="addNew">
+                      <select
+                        value={selectedSavedIds[passenger.id] || ""}
+                        onChange={(e) =>
+                          handleSelectSavedPassenger(
+                            passenger.id,
+                            e.target.value,
+                          )
+                        }
                         style={{
-                          marginRight: "15px",
-                          color: "#ff4d4d",
+                          padding: "6px 10px",
+                          borderRadius: "8px",
+                          border: "1px solid #ddd",
+                          fontSize: "13px",
                           cursor: "pointer",
+                          maxWidth: "180px",
                         }}
-                        onClick={() => removePassenger(passenger.id)}
-                      />
-                    )}
-                  </div>
-                </div>
-
-                <div className="OtherInoformation">
-                  <div className="top">
-                    <label>
-                      {PAGE_DATA.passengerCard.labels.firstName}
-                      <input
-                        type="text"
-                        placeholder={
-                          PAGE_DATA.passengerCard.placeholders.firstName
-                        }
-                      />
-                    </label>
-                    <label>
-                      {PAGE_DATA.passengerCard.labels.lastName}
-                      <input
-                        type="text"
-                        placeholder={
-                          PAGE_DATA.passengerCard.placeholders.lastName
-                        }
-                      />
-                    </label>
+                      >
+                        <option value="">
+                          {PAGE_DATA.passengerCard.previousPassengers}
+                        </option>
+                        {savedPassengers.map((sp) => (
+                          <option key={sp.id} value={sp.id}>
+                            {sp.firstName} {sp.lastName}
+                          </option>
+                        ))}
+                      </select>
+                      {index > 0 && (
+                        <FontAwesomeIcon
+                          icon={PAGE_DATA.icons.trash}
+                          style={{
+                            marginRight: "10px",
+                            color: "#ff4d4d",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => removePassenger(passenger.id)}
+                        />
+                      )}
+                    </div>
                   </div>
 
-                  <div className="bottom">
-                    {passenger.nationality === "iranian" ? (
-                      <label style={{ flex: 1 }}>
-                        {PAGE_DATA.passengerCard.labels.nationalId}
+                  <div className="OtherInoformation">
+                    <div className="top">
+                      <label>
+                        {PAGE_DATA.passengerCard.labels.firstName}{" "}
+                        <span style={{ color: "red" }}>*</span>
                         <input
                           type="text"
                           placeholder={
-                            PAGE_DATA.passengerCard.placeholders.nationalId
+                            PAGE_DATA.passengerCard.placeholders.firstName
                           }
-                        />
-                      </label>
-                    ) : (
-                      <label className="CountrySelectors" style={{ flex: 1 }}>
-                        {PAGE_DATA.passengerCard.labels.issuingCountry}
-                        <select
-                          value={passenger.issuingCountry}
+                          value={passenger.firstName || ""}
                           onChange={(e) =>
                             updatePassenger(
                               passenger.id,
-                              "issuingCountry",
+                              "firstName",
                               e.target.value,
                             )
                           }
-                        >
-                          <option value="">
-                            {PAGE_DATA.passengerCard.placeholders.selectCountry}
-                          </option>
-                          {PAGE_DATA.passengerCard.countries.map((c) => (
-                            <option key={c.value} value={c.value}>
-                              {c.label}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                    )}
-
-                    <label style={{ flex: 1 }}>
-                      {PAGE_DATA.passengerCard.labels.birthDate}
-                      <div className="dateSelectors">
-                        <select>
-                          <option value="">
-                            {PAGE_DATA.passengerCard.selectOptions.day}
-                          </option>
-                          {PAGE_DATA.passengerCard.days.map((d) => (
-                            <option key={d} value={d}>
-                              {d}
-                            </option>
-                          ))}
-                        </select>
-                        <select>
-                          <option value="">
-                            {PAGE_DATA.passengerCard.selectOptions.month}
-                          </option>
-                          {months.map((m) => (
-                            <option key={m.value} value={m.value}>
-                              {m.label}
-                            </option>
-                          ))}
-                        </select>
-                        <input
-                          type="number"
-                          placeholder={
-                            PAGE_DATA.passengerCard.placeholders.year
-                          }
                         />
-                      </div>
-                    </label>
-                  </div>
-
-                  {passenger.nationality === "foreign" && (
-                    <div className="bottom" style={{ marginTop: "10px" }}>
-                      <label style={{ flex: 1 }}>
-                        {PAGE_DATA.passengerCard.labels.passportNumber}
+                      </label>
+                      <label>
+                        {PAGE_DATA.passengerCard.labels.lastName}{" "}
+                        <span style={{ color: "red" }}>*</span>
                         <input
                           type="text"
                           placeholder={
-                            PAGE_DATA.passengerCard.placeholders.passport
+                            PAGE_DATA.passengerCard.placeholders.lastName
+                          }
+                          value={passenger.lastName || ""}
+                          onChange={(e) =>
+                            updatePassenger(
+                              passenger.id,
+                              "lastName",
+                              e.target.value,
+                            )
                           }
                         />
                       </label>
+                    </div>
+
+                    <div className="bottom">
+                      {passenger.nationality === "iranian" ? (
+                        <label style={{ flex: 1 }}>
+                          {PAGE_DATA.passengerCard.labels.nationalId}{" "}
+                          <span style={{ color: "red" }}>*</span>
+                          <input
+                            type="text"
+                            placeholder={
+                              PAGE_DATA.passengerCard.placeholders.nationalId
+                            }
+                            value={passenger.nationalId || ""}
+                            onChange={(e) =>
+                              updatePassenger(
+                                passenger.id,
+                                "nationalId",
+                                e.target.value,
+                              )
+                            }
+                          />
+                        </label>
+                      ) : (
+                        <label className="CountrySelectors" style={{ flex: 1 }}>
+                          {PAGE_DATA.passengerCard.labels.issuingCountry}
+                          <select
+                            value={passenger.issuingCountry}
+                            onChange={(e) =>
+                              updatePassenger(
+                                passenger.id,
+                                "issuingCountry",
+                                e.target.value,
+                              )
+                            }
+                          >
+                            <option value="">
+                              {
+                                PAGE_DATA.passengerCard.placeholders
+                                  .selectCountry
+                              }
+                            </option>
+                            {PAGE_DATA.passengerCard.countries.map((c) => (
+                              <option key={c.value} value={c.value}>
+                                {c.label}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                      )}
 
                       <label style={{ flex: 1 }}>
-                        {PAGE_DATA.passengerCard.labels.expiryDate}
+                        {PAGE_DATA.passengerCard.labels.birthDate}{" "}
+                        <span style={{ color: "red" }}>*</span>
                         <div className="dateSelectors">
-                          <select>
+                          <select
+                            value={passenger.birthDay || ""}
+                            onChange={(e) =>
+                              updatePassenger(
+                                passenger.id,
+                                "birthDay",
+                                e.target.value,
+                              )
+                            }
+                          >
                             <option value="">
                               {PAGE_DATA.passengerCard.selectOptions.day}
                             </option>
@@ -468,7 +585,16 @@ const NiksaPassengerInfo = () => {
                               </option>
                             ))}
                           </select>
-                          <select>
+                          <select
+                            value={passenger.birthMonth || ""}
+                            onChange={(e) =>
+                              updatePassenger(
+                                passenger.id,
+                                "birthMonth",
+                                e.target.value,
+                              )
+                            }
+                          >
                             <option value="">
                               {PAGE_DATA.passengerCard.selectOptions.month}
                             </option>
@@ -483,15 +609,103 @@ const NiksaPassengerInfo = () => {
                             placeholder={
                               PAGE_DATA.passengerCard.placeholders.year
                             }
+                            value={passenger.birthYear || ""}
+                            onChange={(e) =>
+                              updatePassenger(
+                                passenger.id,
+                                "birthYear",
+                                e.target.value,
+                              )
+                            }
                           />
                         </div>
                       </label>
                     </div>
-                  )}
+
+                    {passenger.nationality === "foreign" && (
+                      <div className="bottom" style={{ marginTop: "10px" }}>
+                        <label style={{ flex: 1 }}>
+                          {PAGE_DATA.passengerCard.labels.passportNumber}{" "}
+                          <span style={{ color: "red" }}>*</span>
+                          <input
+                            type="text"
+                            placeholder={
+                              PAGE_DATA.passengerCard.placeholders.passport
+                            }
+                            value={passenger.passportNumber || ""}
+                            onChange={(e) =>
+                              updatePassenger(
+                                passenger.id,
+                                "passportNumber",
+                                e.target.value,
+                              )
+                            }
+                          />
+                        </label>
+
+                        <label style={{ flex: 1 }}>
+                          {PAGE_DATA.passengerCard.labels.expiryDate}
+                          <div className="dateSelectors">
+                            <select
+                              value={passenger.expiryDay || ""}
+                              onChange={(e) =>
+                                updatePassenger(
+                                  passenger.id,
+                                  "expiryDay",
+                                  e.target.value,
+                                )
+                              }
+                            >
+                              <option value="">
+                                {PAGE_DATA.passengerCard.selectOptions.day}
+                              </option>
+                              {PAGE_DATA.passengerCard.days.map((d) => (
+                                <option key={d} value={d}>
+                                  {d}
+                                </option>
+                              ))}
+                            </select>
+                            <select
+                              value={passenger.expiryMonth || ""}
+                              onChange={(e) =>
+                                updatePassenger(
+                                  passenger.id,
+                                  "expiryMonth",
+                                  e.target.value,
+                                )
+                              }
+                            >
+                              <option value="">
+                                {PAGE_DATA.passengerCard.selectOptions.month}
+                              </option>
+                              {months.map((m) => (
+                                <option key={m.value} value={m.value}>
+                                  {m.label}
+                                </option>
+                              ))}
+                            </select>
+                            <input
+                              type="number"
+                              placeholder={
+                                PAGE_DATA.passengerCard.placeholders.year
+                              }
+                              value={passenger.expiryYear || ""}
+                              onChange={(e) =>
+                                updatePassenger(
+                                  passenger.id,
+                                  "expiryYear",
+                                  e.target.value,
+                                )
+                              }
+                            />
+                          </div>
+                        </label>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
+            );
           })}
 
           <div className="AddMember">
@@ -533,10 +747,13 @@ const NiksaPassengerInfo = () => {
               <div className="OtherInoformation">
                 <div className="top">
                   <label>
-                    {PAGE_DATA.contactInfo.labels.mobile}
+                    {PAGE_DATA.contactInfo.labels.mobile}{" "}
+                    <span style={{ color: "red" }}>*</span>
                     <input
                       type="text"
                       placeholder={PAGE_DATA.contactInfo.placeholders.mobile}
+                      value={contactMobile}
+                      onChange={(e) => setContactMobile(e.target.value)}
                     />
                   </label>
                   <label>
@@ -563,32 +780,27 @@ const NiksaPassengerInfo = () => {
 
         <div className="left">
           <div className={`hotelCard ${isHotelOpen ? "open" : ""}`}>
-            <div className="card1">
-              <div className="top">
-                <div
-                  className="ChoosedHotel"
-                  onClick={() => setIsHotelOpen(!isHotelOpen)}
-                >
-                  <img
-                    src={PAGE_DATA.hotelCard.image}
-                    alt={PAGE_DATA.hotelCard.alt}
-                  />
-                  <h4>{PAGE_DATA.hotelCard.name}</h4>
-                  <FontAwesomeIcon icon={PAGE_DATA.icons.angleDown} />
-                </div>
+            <div
+              className="ChoosedHotel"
+              onClick={() => setIsHotelOpen(!isHotelOpen)}
+            >
+              <img
+                src={PAGE_DATA.hotelCard.image}
+                alt={PAGE_DATA.hotelCard.alt}
+              />
+              <h4>{PAGE_DATA.hotelCard.name}</h4>
+              <FontAwesomeIcon icon={PAGE_DATA.icons.angleDown} />
+            </div>
+            <div className="bottom">
+              <div className="In">
+                <p>{PAGE_DATA.hotelCard.checkIn.time}</p>
+                <FontAwesomeIcon icon={PAGE_DATA.icons.circle} />
+                <p>{PAGE_DATA.hotelCard.checkIn.label}</p>
               </div>
-
-              <div className="bottom">
-                <div className="In">
-                  <p>{PAGE_DATA.hotelCard.checkIn.time}</p>
-                  <FontAwesomeIcon icon={PAGE_DATA.icons.circle} />
-                  <p>{PAGE_DATA.hotelCard.checkIn.label}</p>
-                </div>
-                <div className="In">
-                  <p>{PAGE_DATA.hotelCard.checkOut.time}</p>
-                  <FontAwesomeIcon icon={PAGE_DATA.icons.circle} />
-                  <p>{PAGE_DATA.hotelCard.checkOut.label}</p>
-                </div>
+              <div className="In">
+                <p>{PAGE_DATA.hotelCard.checkOut.time}</p>
+                <FontAwesomeIcon icon={PAGE_DATA.icons.circle} />
+                <p>{PAGE_DATA.hotelCard.checkOut.label}</p>
               </div>
             </div>
           </div>
@@ -616,12 +828,10 @@ const NiksaPassengerInfo = () => {
                 </div>
               </div>
             </div>
-            <Link href="/tour/reserve/prepay">
-              <button>
-                {PAGE_DATA.buttons.next}{" "}
-                <FontAwesomeIcon icon={PAGE_DATA.icons.arrowLeft} />
-              </button>
-            </Link>
+            <button onClick={handleSubmitAndSave}>
+              {PAGE_DATA.buttons.next}{" "}
+              <FontAwesomeIcon icon={PAGE_DATA.icons.arrowLeft} />
+            </button>
           </div>
         </div>
       </div>

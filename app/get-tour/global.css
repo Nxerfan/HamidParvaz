@@ -1,0 +1,11 @@
+.get-tour-page .hero {
+  background: linear-gradient(135deg, #00695c, #00897b);
+  color: #fff;
+  padding: 80px 20px;
+  text-align: center;
+}
+.get-tour-page .hero h1 { font-size: 2rem; margin-bottom: 16px; }
+.get-tour-page .hero p { font-size: 1.1rem; max-width: 600px; margin: 0 auto; opacity: 0.9; }
+.get-tour-page .gallery { padding: 60px 20px; text-align: center; }
+.placeholder-text { color: #999; font-size: 1.1rem; padding: 40px; }
+.container { max-width: 1200px; margin: 0 auto; }

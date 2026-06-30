@@ -127,7 +127,7 @@ const PAGE_DATA = {
 
 export default function BookingReview() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("gateway");
-  const [openAccordions, setOpenAccordions] = useState({});
+  const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
   // اضافه شدن state برای باز و بسته شدن صورتحساب
   const [isBillOpen, setIsBillOpen] = useState(false);
   // اضافه شدن state برای مسافران (در این صفحه فقط برای نمایش تعداد)
@@ -141,7 +141,7 @@ export default function BookingReview() {
     },
   ]);
 
-  const toggleAccordion = (title) => {
+  const toggleAccordion = (title: string) => {
     setOpenAccordions((prev) => ({ ...prev, [title]: !prev[title] }));
   };
 
@@ -395,7 +395,7 @@ export default function BookingReview() {
                   </div>
                 </div>
               </div>
-              <Link href="/AutoReserve(4)">
+              <Link href="/userpanel/tracking">
                 <button>
                   {PAGE_DATA.confirmButton}{" "}
                   <FontAwesomeIcon icon={faArrowLeft} />

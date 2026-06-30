@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleDot,
@@ -270,6 +271,8 @@ const allBaggageOptions = Array.from(
 ).sort();
 
 export default function FlightResultsPage() {
+  const searchParams = useSearchParams();
+  const airportParam = searchParams.get("airport") || "";
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(3000000);
   const globalMin = 0;
@@ -515,25 +518,25 @@ export default function FlightResultsPage() {
                 {flight.classRate}
               </p>
             </div>
-            <div className="contet">
-              <div className="right">
-                <p>ساعت ورود به فرودگاه: </p>
-                <span>
-                  ساعت حرکت <FontAwesomeIcon icon={faClock} />:
-                </span>
-                <p>ساعت رسیدن به مقصد:</p>
-              </div>
-              <div className="left">
-                <p>
-                  {flight.origin}، فرودگاه مهرآباد ({flight.originCode}) -
-                  ترمینال 1
-                </p>
-                <span>هواپیمای شما</span>
-                <p>
-                  {flight.destination}، فرودگاه کیش ({flight.destinationCode})
-                </p>
-              </div>
-            </div>
+              <div className="contet">
+                      <div className="right">
+                        <p>ساعت ورود به فرودگاه: </p>
+                        <span>
+                          ساعت حرکت <FontAwesomeIcon icon={faClock} />:
+                        </span>
+                        <p>ساعت رسیدن به مقصد:</p>
+                      </div>
+                      <div className="left">
+                        <p>
+                          {flight.departureTime} — {flight.origin}، فرودگاه مهرآباد ({flight.originCode}) -
+                          ترمینال 1
+                        </p>
+                        <span>هواپیمای شما</span>
+                        <p>
+                          {flight.arrivalTime} — {flight.destination}، فرودگاه کیش ({flight.destinationCode})
+                        </p>
+                      </div>
+                    </div>
           </div>
           <div className="orw">
             <div className="top">
@@ -579,7 +582,7 @@ export default function FlightResultsPage() {
           <div className="Countainer">
             <div className="Right">
               <div className="Title">
-                <span>بلیط هواپیما تهران به کیش</span>
+                <span>بلیط هواپیما{airportParam ? ` ${airportParam}` : " تهران به کیش"}</span>
               </div>
 
               <div className="NotifMe">

@@ -1,5 +1,7 @@
+"use client";
 import "../global.css";
 import SecondHeader from "../../components/(Headers)/SecondHeader";
+import { useState } from "react";
 
 const PAGE_DATA = {
   hero: {
@@ -59,6 +61,30 @@ const PAGE_DATA = {
 };
 
 export default function TrackPage() {
+  const [searchValues, setSearchValues] = useState<string[]>(["", ""]);
+  const [searchResult, setSearchResult] = useState<
+    "not_searched" | "found" | "not_found"
+  >("not_searched");
+
+  const handleSearch = () => {
+    const code = searchValues[1]?.trim().toUpperCase();
+    if (!code) {
+      alert("لطفاً کد پیگیری را وارد کنید.");
+      return;
+    }
+    setSearchResult(
+      code === PAGE_DATA.booking.bookingID ? "found" : "not_found",
+    );
+  };
+
+  const updateField = (index: number, value: string) => {
+    setSearchValues((prev) => {
+      const next = [...prev];
+      next[index] = value;
+      return next;
+    });
+  };
+
   return (
     <>
       <SecondHeader />
@@ -73,65 +99,82 @@ export default function TrackPage() {
             {PAGE_DATA.search.fields.map((field, index) => (
               <div key={index} className="Field">
                 <label>{field.label}</label>
-                <input type={field.type} placeholder={field.placeholder} />
+                <input
+                  type={field.type}
+                  placeholder={field.placeholder}
+                  value={searchValues[index]}
+                  onChange={(e) => updateField(index, e.target.value)}
+                />
               </div>
             ))}
           </div>
 
           <div className="SubmitArea">
-            <button className="SubmitBtn">{PAGE_DATA.search.buttonText}</button>
+            <button className="SubmitBtn" onClick={handleSearch}>
+              {PAGE_DATA.search.buttonText}
+            </button>
           </div>
         </div>
 
-        <h2 className="SectionTitle">{PAGE_DATA.sectionTitle}</h2>
-
-        <div className="BookingResultCard">
-          <div className="ResultHeader">
-            <div className="TypeBadge">{PAGE_DATA.booking.typeBadge}</div>
-            <div className="BookingID">
-              {PAGE_DATA.booking.bookingLabel}{" "}
-              <span>{PAGE_DATA.booking.bookingID}</span>
-            </div>
-            <div className={`StatusBadge ${PAGE_DATA.booking.statusClass}`}>
-              {PAGE_DATA.booking.status}
-            </div>
+        {searchResult === "not_found" && (
+          <div className="NotFoundCard">
+            <h3>رزروی با این مشخصات یافت نشد</h3>
+            <p>لطفاً کد پیگیری را بررسی کنید و دوباره تلاش کنید.</p>
           </div>
+        )}
+        {searchResult === "found" && (
+          <>
+            <h2 className="SectionTitle">{PAGE_DATA.sectionTitle}</h2>
 
-          <div className="ResultBody">
-            <div className="TravelInfo">
-              <div className="Route">
-                <div className="Point">
-                  <strong>{PAGE_DATA.booking.route.from.city}</strong>
-                  <span>{PAGE_DATA.booking.route.from.time}</span>
+            <div className="BookingResultCard">
+              <div className="ResultHeader">
+                <div className="TypeBadge">{PAGE_DATA.booking.typeBadge}</div>
+                <div className="BookingID">
+                  {PAGE_DATA.booking.bookingLabel}{" "}
+                  <span>{PAGE_DATA.booking.bookingID}</span>
                 </div>
-                <div className="Line"></div>
-                <div className="Point">
-                  <strong>{PAGE_DATA.booking.route.to.city}</strong>
-                  <span>{PAGE_DATA.booking.route.to.time}</span>
+                <div className={`StatusBadge ${PAGE_DATA.booking.statusClass}`}>
+                  {PAGE_DATA.booking.status}
                 </div>
               </div>
 
-              <div className="PassengerInfo">
-                <span>
-                  {PAGE_DATA.booking.passengerLabel}{" "}
-                  <strong>{PAGE_DATA.booking.passengers}</strong>
-                </span>
-                <span>
-                  {PAGE_DATA.booking.airlineLabel}{" "}
-                  <strong>{PAGE_DATA.booking.airline}</strong>
-                </span>
+              <div className="ResultBody">
+                <div className="TravelInfo">
+                  <div className="Route">
+                    <div className="Point">
+                      <strong>{PAGE_DATA.booking.route.from.city}</strong>
+                      <span>{PAGE_DATA.booking.route.from.time}</span>
+                    </div>
+                    <div className="Line"></div>
+                    <div className="Point">
+                      <strong>{PAGE_DATA.booking.route.to.city}</strong>
+                      <span>{PAGE_DATA.booking.route.to.time}</span>
+                    </div>
+                  </div>
+
+                  <div className="PassengerInfo">
+                    <span>
+                      {PAGE_DATA.booking.passengerLabel}{" "}
+                      <strong>{PAGE_DATA.booking.passengers}</strong>
+                    </span>
+                    <span>
+                      {PAGE_DATA.booking.airlineLabel}{" "}
+                      <strong>{PAGE_DATA.booking.airline}</strong>
+                    </span>
+                  </div>
+                </div>
+
+                <div className="ActionButtons">
+                  {PAGE_DATA.booking.actions.map((action, index) => (
+                    <button key={index} className={action.className}>
+                      {action.text}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
-
-            <div className="ActionButtons">
-              {PAGE_DATA.booking.actions.map((action, index) => (
-                <button key={index} className={action.className}>
-                  {action.text}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
+          </>
+        )}
 
         <div className="PolicyCard">
           <div className="SectionTitle">{PAGE_DATA.policy.title}</div>

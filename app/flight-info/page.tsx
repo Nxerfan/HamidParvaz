@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import "./global.css";
+import Header from "../components/(Headers)/SecondHeader";
 
 const PAGE_DATA = {
   airports: [
@@ -43,6 +45,7 @@ export default function FlightAirports() {
 
   return (
     <>
+      <Header />
       <div className="List3">
         <div className="Form">
           <div className="BottomHotel">

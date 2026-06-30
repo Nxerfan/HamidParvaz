@@ -28,6 +28,12 @@ export default function Footer() {
               <Link href="/tour">
                 <p>مشاهده ی تورها</p>
               </Link>
+              <Link href="/tour/make-your-own">
+                <p>تور دلخواه خود را بسازید</p>
+              </Link>
+              <Link href="/reserve/auto-reserve">
+                <p>رزرو خودکار</p>
+              </Link>
             </div>
 
             <div className="canccel">
@@ -42,7 +48,7 @@ export default function Footer() {
             <p>
               خدمات اختصاصی برای سازمان‌ها و شرکت‌ها جهت مدیریت سفرهای کاری.
             </p>
-            <Link href="/">
+            <Link href="/company">
               <button>فعال‌سازی پنل سازمانی</button>
             </Link>
           </div>
@@ -89,14 +95,6 @@ export default function Footer() {
                 <Image
                   src={"/samandehi.png"}
                   alt="ساماندهی نماد"
-                  width={80}
-                  height={80}
-                />
-              </Link>
-              <Link href="/">
-                <Image
-                  src={"/tnemad.jpg"}
-                  alt="تی نماد"
                   width={80}
                   height={80}
                 />

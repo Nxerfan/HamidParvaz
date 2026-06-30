@@ -132,7 +132,7 @@ const PAGE_DATA = {
   nationalityOptions: ["ایرانی", "خارجی"],
   changePassword: {
     text: "تغییر رمز عبور",
-    href: "/ForgetPassword.html",
+    href: "/userpanel/change-password",
   },
   userFields: [
     { label: "نام فارسی", placeholder: "نام", id: "firstName" },
@@ -217,8 +217,18 @@ const PAGE_DATA = {
       "اسفند",
     ],
     gregorianMonths: [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ],
   },
 };
@@ -252,8 +262,12 @@ export default function ProfileManagement() {
 
   const currentGregYear = new Date().getFullYear();
   const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
-  const shamsiYears = Array.from({ length: 121 }, (_, i) => (jToday.jy - i).toString());
-  const gregorianYears = Array.from({ length: 121 }, (_, i) => (currentGregYear - i).toString());
+  const shamsiYears = Array.from({ length: 121 }, (_, i) =>
+    (jToday.jy - i).toString(),
+  );
+  const gregorianYears = Array.from({ length: 121 }, (_, i) =>
+    (currentGregYear - i).toString(),
+  );
 
   const radius = 45;
   const circumference = radius * 2 * Math.PI;
@@ -285,7 +299,11 @@ export default function ProfileManagement() {
       setCurrentYear(now.getFullYear());
       setCurrentMonth(now.getMonth() + 1);
     } else {
-      const j = jalaali.toJalaali(now.getFullYear(), now.getMonth() + 1, now.getDate());
+      const j = jalaali.toJalaali(
+        now.getFullYear(),
+        now.getMonth() + 1,
+        now.getDate(),
+      );
       setCurrentYear(j.jy);
       setCurrentMonth(j.jm);
     }
@@ -334,7 +352,11 @@ export default function ProfileManagement() {
       if (!targetDate) {
         if (isGregorian) {
           const now = new Date();
-          targetDate = { jy: now.getFullYear(), jm: now.getMonth() + 1, jd: now.getDate() };
+          targetDate = {
+            jy: now.getFullYear(),
+            jm: now.getMonth() + 1,
+            jd: now.getDate(),
+          };
         } else {
           targetDate = jToday;
         }
@@ -486,10 +508,6 @@ export default function ProfileManagement() {
     setErrors({});
     const formData = new FormData(formRef.current);
     const data = Object.fromEntries(formData.entries());
-    console.log("Profile save data:", {
-      ...data,
-      passportExpiry: passportExpiryDate,
-    });
   };
 
   return (
@@ -595,22 +613,40 @@ export default function ProfileManagement() {
                 <div className="Field">
                   <label>{PAGE_DATA.birthDate.label}</label>
                   <div className="Grid3">
-                    <select value={birthDay} onChange={(e) => setBirthDay(e.target.value)}>
+                    <select
+                      value={birthDay}
+                      onChange={(e) => setBirthDay(e.target.value)}
+                    >
                       <option>روز</option>
                       {days.map((d) => (
-                        <option key={d} value={d}>{d}</option>
+                        <option key={d} value={d}>
+                          {d}
+                        </option>
                       ))}
                     </select>
-                    <select value={birthMonth} onChange={(e) => setBirthMonth(e.target.value)}>
+                    <select
+                      value={birthMonth}
+                      onChange={(e) => setBirthMonth(e.target.value)}
+                    >
                       <option>ماه</option>
-                      {(isGregorian ? PAGE_DATA.calendar.gregorianMonths : PAGE_DATA.calendar.monthNames).map((m, i) => (
-                        <option key={i} value={i + 1}>{m}</option>
+                      {(isGregorian
+                        ? PAGE_DATA.calendar.gregorianMonths
+                        : PAGE_DATA.calendar.monthNames
+                      ).map((m, i) => (
+                        <option key={i} value={i + 1}>
+                          {m}
+                        </option>
                       ))}
                     </select>
-                    <select value={birthYear} onChange={(e) => setBirthYear(e.target.value)}>
+                    <select
+                      value={birthYear}
+                      onChange={(e) => setBirthYear(e.target.value)}
+                    >
                       <option>سال</option>
                       {(isGregorian ? gregorianYears : shamsiYears).map((y) => (
-                        <option key={y} value={y}>{y}</option>
+                        <option key={y} value={y}>
+                          {y}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -659,7 +695,9 @@ export default function ProfileManagement() {
                                 ? `${currentYear} ${isGregorian ? PAGE_DATA.calendar.gregorianMonths[currentMonth - 1] : PAGE_DATA.calendar.monthNames[currentMonth - 1]}`
                                 : currentView === "months"
                                   ? `${currentYear} - ${isGregorian ? "Select Month" : "انتخاب ماه"}`
-                                  : isGregorian ? "Select Year" : "انتخاب سال"}
+                                  : isGregorian
+                                    ? "Select Year"
+                                    : "انتخاب سال"}
                             </span>
                             <button
                               className="calendarNavBtn"
@@ -683,22 +721,23 @@ export default function ProfileManagement() {
                           {currentView === "months" && (
                             <div className="calendarView active">
                               <div className="monthsGrid">
-                                {(isGregorian ? PAGE_DATA.calendar.gregorianMonths : PAGE_DATA.calendar.monthNames).map(
-                                  (name, idx) => (
-                                    <div
-                                      key={idx}
-                                      className={`monthItem ${
-                                        currentMonth === idx + 1 ? "selected" : ""
-                                      }`}
-                                      onClick={() => {
-                                        setCurrentMonth(idx + 1);
-                                        setCurrentView("days");
-                                      }}
-                                    >
-                                      {name}
-                                    </div>
-                                  ),
-                                )}
+                                {(isGregorian
+                                  ? PAGE_DATA.calendar.gregorianMonths
+                                  : PAGE_DATA.calendar.monthNames
+                                ).map((name, idx) => (
+                                  <div
+                                    key={idx}
+                                    className={`monthItem ${
+                                      currentMonth === idx + 1 ? "selected" : ""
+                                    }`}
+                                    onClick={() => {
+                                      setCurrentMonth(idx + 1);
+                                      setCurrentView("days");
+                                    }}
+                                  >
+                                    {name}
+                                  </div>
+                                ))}
                               </div>
                             </div>
                           )}
@@ -707,8 +746,15 @@ export default function ProfileManagement() {
                               <div className="yearsWrapper">
                                 <div className="yearsGrid">
                                   {Array.from(
-                                    { length: isGregorian ? 100 : jToday.jy - 1300 + 1 },
-                                    (_, i) => (isGregorian ? new Date().getFullYear() : jToday.jy) - i,
+                                    {
+                                      length: isGregorian
+                                        ? 100
+                                        : jToday.jy - 1300 + 1,
+                                    },
+                                    (_, i) =>
+                                      (isGregorian
+                                        ? new Date().getFullYear()
+                                        : jToday.jy) - i,
                                   ).map((y) => (
                                     <div
                                       key={y}

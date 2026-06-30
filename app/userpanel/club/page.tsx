@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FilterUserPannel from "../../components/(filters)/FilterUserPannel";
@@ -121,12 +122,25 @@ const PAGE_DATA = {
   clubLevelHref: "/userpanel/club/level ",
 };
 
+interface RewardItem {
+  id: number;
+  category: string;
+  image: string;
+  title: string;
+  date: string;
+  points: number;
+  pointsText: string;
+  buttonText: string;
+  description: string;
+  terms: string[];
+}
+
 export default function Page() {
   const [activeOption, setActiveOption] = useState(
     PAGE_DATA.sliderOptions[0].id,
   );
-  const [selectedReward, setSelectedReward] = useState(null);
-  const trackRef = useRef(null);
+  const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
 
   const handleNext = () => {
     if (trackRef.current) {
@@ -140,11 +154,11 @@ export default function Page() {
     }
   };
 
-  const handleSelectOption = (id) => {
+  const handleSelectOption = (id: string) => {
     setActiveOption(id);
   };
 
-  const openModal = (reward) => {
+  const openModal = (reward: RewardItem) => {
     setSelectedReward(reward);
     document.body.style.overflow = "hidden";
   };

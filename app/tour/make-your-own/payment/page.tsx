@@ -2,6 +2,7 @@
 import "../global.css";
 import HeaderMakeYourTour from "../../../components/(Headers)/HeaderMakeYourTour";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -140,10 +141,10 @@ const PAGE_DATA = {
 };
 
 export default function CheckoutPage() {
-  const [activePayment, setActivePayment] = useState("gateway");
+  const router = useRouter();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("gateway");
-  const [openAccordions, setOpenAccordions] = useState({});
-  const toggleAccordion = (id) => {
+  const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
+  const toggleAccordion = (id: string) => {
     setOpenAccordions((prev) => ({
       ...prev,
       [id]: !prev[id],
@@ -183,7 +184,7 @@ export default function CheckoutPage() {
                     <span className="hotelMiniStarsText">{PAGE_DATA.hotel.stars} ستاره</span>
                   </div>
                 </div>
-                <button className="editBtn" title="ویرایش هتل">
+                <button className="editBtn" title="ویرایش هتل" onClick={() => router.push("/tour/make-your-own/hotel")}>
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
@@ -243,7 +244,7 @@ export default function CheckoutPage() {
                     </div>
                     {flight.title}
                   </div>
-                  <button className="editBtn sm" title="ویرایش پرواز">
+                  <button className="editBtn sm" title="ویرایش پرواز" onClick={() => router.push("/tour/make-your-own/flight/away")}>
                     <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
@@ -300,7 +301,7 @@ export default function CheckoutPage() {
                   <span className="payTotalValue">{PAGE_DATA.rightSidebar.summary.priceValue}</span>
                 </div>
               </div>
-              <button className="payButton">
+              <button className="payButton" onClick={() => router.push("/userpanel/tracking")}>
                 <span>پرداخت و تکمیل سفارش</span>
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />

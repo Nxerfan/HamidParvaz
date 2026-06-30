@@ -17,16 +17,25 @@ import {
 import "../blog/global.css";
 import SecondHeader from "./(Headers)/SecondHeader";
 import { loadArticles } from "../data/articles";
+import type {
+  Article,
+  ShareLink,
+  ContentBlock,
+  TocItem,
+  RelatedPost,
+} from "../types";
 
 const NiksaArticle = ({ slug }: { slug: string }) => {
-  const [article, setArticle] = useState<any>(null);
+  const [article, setArticle] = useState<Article | null>(null);
   const [activeTocId, setActiveTocId] = useState("");
   const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     const allArticles = loadArticles();
     const cleanSlug = slug.trim();
-    const found = allArticles.find((a: any) => a.slug.trim() === cleanSlug);
+    const found = allArticles.find(
+      (a: Article) => a.slug.trim() === cleanSlug,
+    );
     if (found) {
       setArticle(found);
     } else {
@@ -99,6 +108,7 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
   }
 
   const data = article.fullContent;
+  if (!data) return null;
 
   return (
     <>
@@ -152,7 +162,7 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
             <div className="share-top">
               <span>{data.share.title}</span>
               <div className="social-icons">
-                {data.share.links.map((social: any, index: number) => (
+                {data.share.links.map((social: ShareLink, index: number) => (
                   <a
                     key={index}
                     href={social.href}
@@ -176,7 +186,7 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
             </div>
 
             <div className="article-text">
-              {data.articleContent.map((block: any, index: number) => {
+              {data.articleContent.map((block: ContentBlock, index: number) => {
                 if (block.type === "p")
                   return <p key={index}>{block.content}</p>;
                 if (block.type === "h2")
@@ -190,7 +200,7 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
                 if (block.type === "ul")
                   return (
                     <ul key={index}>
-                      {block.items.map((item: string, i: number) => (
+                      {block.items!.map((item: string, i: number) => (
                         <li key={i}>{item}</li>
                       ))}
                     </ul>
@@ -230,7 +240,7 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
                 <FontAwesomeIcon icon={faListUl} /> فهرست مطالب
               </div>
               <ul className="toc-list">
-                {data.toc.map((item: any, index: number) => (
+                {data.toc.map((item: TocItem, index: number) => (
                   <li key={index}>
                     <a
                       href={`#${item.id}`}
@@ -260,7 +270,7 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
                 <FontAwesomeIcon icon={faBookOpen} /> مقالات مرتبط
               </div>
               {data.relatedPosts.length > 0 ? (
-                data.relatedPosts.map((post: any, index: number) => (
+                data.relatedPosts.map((post: RelatedPost, index: number) => (
                   <div key={index} className="related-card">
                     <img src={post.image} alt={post.title} />
                     <div>

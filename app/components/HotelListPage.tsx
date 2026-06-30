@@ -6,7 +6,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { toursDB } from "../data/tours";
 
 export default function HotelListPage() {
-  const [expanded, setExpanded] = useState(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   const hotels = toursDB.map((tour) => ({
     id: tour.id,

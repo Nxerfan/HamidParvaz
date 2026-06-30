@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useCalendar } from "../../lib/useCalendar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
@@ -13,83 +14,6 @@ import {
   faMinus,
   faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
-
-const jalaali = {
-  toJalaali: function (gy, gm, gd) {
-    var g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-    var jy = gy <= 1600 ? 0 : 979;
-    gy -= gy <= 1600 ? 621 : 1600;
-    var gy2 = gm > 2 ? gy + 1 : gy;
-    var days =
-      365 * gy +
-      Math.floor((gy2 + 3) / 4) -
-      Math.floor((gy2 + 99) / 100) +
-      Math.floor((gy2 + 399) / 400) -
-      80 +
-      gd +
-      g_d_m[gm - 1];
-    jy += 33 * Math.floor(days / 12053);
-    days %= 12053;
-    jy += 4 * Math.floor(days / 1461);
-    days %= 1461;
-    jy += Math.floor((days - 1) / 365);
-    if (days > 365) days = (days - 1) % 365;
-    var jm =
-      days < 186
-        ? 1 + Math.floor(days / 31)
-        : 7 + Math.floor((days - 186) / 30);
-    var jd = 1 + (days < 186 ? days % 31 : (days - 186) % 30);
-    return { jy: jy, jm: jm, jd: jd };
-  },
-  toGregorian: function (jy, jm, jd) {
-    var gy = jy <= 979 ? 621 : 1600;
-    jy -= jy <= 979 ? 0 : 979;
-    var days =
-      365 * jy +
-      Math.floor(jy / 33) * 8 +
-      Math.floor(((jy % 33) + 3) / 4) +
-      78 +
-      jd +
-      (jm < 7 ? (jm - 1) * 31 : (jm - 7) * 30 + 186);
-    gy += 400 * Math.floor(days / 146097);
-    days %= 146097;
-    if (days > 36524) {
-      gy += 100 * Math.floor(--days / 36524);
-      days %= 36524;
-      if (days >= 365) days++;
-    }
-    gy += 4 * Math.floor(days / 1461);
-    days %= 1461;
-    gy += Math.floor((days - 1) / 365);
-    if (days > 365) days = (days - 1) % 365;
-    var gd = days + 1;
-    var gm = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    for (var i = 0; i < 13; i++) {
-      var v =
-        gm[i] +
-        (i === 2 && ((gy % 4 === 0 && gy % 100 !== 0) || gy % 400 === 0)
-          ? 1
-          : 0);
-      if (gd <= v) break;
-      gd -= v;
-    }
-    return { gy: gy, gm: i, gd: gd };
-  },
-  jMonthLength: function (jy, jm) {
-    if (jm <= 6) return 31;
-    if (jm <= 11) return 30;
-    const isLeap =
-      jy % 33 === 1 ||
-      jy % 33 === 5 ||
-      jy % 33 === 9 ||
-      jy % 33 === 13 ||
-      jy % 33 === 17 ||
-      jy % 33 === 22 ||
-      jy % 33 === 26 ||
-      jy % 33 === 30;
-    return isLeap ? 30 : 29;
-  },
-};
 
 const TOUR_DATA = {
   radioOptions: [
@@ -151,7 +75,6 @@ const TOUR_DATA = {
   onSearch: null,
 };
 
-
 export default function TourSearchForm({ showOrigin = false }) {
   const [tourType, setTourType] = useState(null);
 
@@ -169,12 +92,30 @@ export default function TourSearchForm({ showOrigin = false }) {
   const dropdownRef = useRef(null);
   const destinationInputRef = useRef(null);
 
-  const [startDate, setStartDate] = useState(null);
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [currentJy, setCurrentJy] = useState(1403);
-  const [currentJm, setCurrentJm] = useState(1);
-  const [currentView, setCurrentView] = useState("days");
-  const calendarRef = useRef(null);
+  const calendar = useCalendar({ mode: "single" });
+  const {
+    selectedStartDate: startDate,
+    setSelectedStartDate: setStartDate,
+    showCalendar,
+    setShowCalendar,
+    currentJy,
+    setCurrentJy,
+    currentJm,
+    setCurrentJm,
+    currentView,
+    setCurrentView,
+    calendarRef,
+    jToday,
+    jDateToString,
+    stringToJDate,
+    selectDate,
+    openCalendar,
+    closeCalendar,
+    handleCalendarTitleClick,
+    handlePrevMonth,
+    handleNextMonth,
+    renderCalendarDays,
+  } = calendar;
 
   const [durationNights, setDurationNights] = useState(5);
   const [showDurationDropdown, setShowDurationDropdown] = useState(false);
@@ -188,90 +129,6 @@ export default function TourSearchForm({ showOrigin = false }) {
 
   const [errors, setErrors] = useState({});
   const [shakeFields, setShakeFields] = useState({});
-
-  const today = new Date();
-  const jToday = jalaali.toJalaali(
-    today.getFullYear(),
-    today.getMonth() + 1,
-    today.getDate(),
-  );
-
-  const jDateToString = (jy, jm, jd) =>
-    `${jy}/${String(jm).padStart(2, "0")}/${String(jd).padStart(2, "0")}`;
-
-  const stringToJDate = (str) => {
-    if (!str) return null;
-    const parts = str.split("/");
-    return {
-      jy: parseInt(parts[0]),
-      jm: parseInt(parts[1]),
-      jd: parseInt(parts[2]),
-    };
-  };
-
-  const selectDate = (jy, jm, jd) => {
-    const dateStr = jDateToString(jy, jm, jd);
-    setStartDate(dateStr);
-    setShowCalendar(false);
-    setErrors((prev) => ({ ...prev, startDate: false }));
-  };
-
-  const openCalendar = () => {
-    setCurrentJy(startDate ? stringToJDate(startDate).jy : jToday.jy);
-    setCurrentJm(startDate ? stringToJDate(startDate).jm : jToday.jm);
-    setCurrentView("days");
-    setShowCalendar(true);
-  };
-
-  const closeCalendar = () => {
-    setShowCalendar(false);
-  };
-
-  const renderCalendar = () => {
-    const daysInMonth = jalaali.jMonthLength(currentJy, currentJm);
-    const gDate = jalaali.toGregorian(currentJy, currentJm, 1);
-    const startDayOfWeek =
-      (new Date(gDate.gy, gDate.gm - 1, gDate.gd).getDay() + 1) % 7;
-    let cells = [];
-    for (let i = 0; i < startDayOfWeek; i++)
-      cells.push(<div key={`e-${i}`} className="calendarDay empty"></div>);
-    for (let d = 1; d <= daysInMonth; d++) {
-      const dateStr = jDateToString(currentJy, currentJm, d);
-      const isToday =
-        currentJy === jToday.jy && currentJm === jToday.jm && d === jToday.jd;
-      const isSelected = dateStr === startDate;
-      cells.push(
-        <div
-          key={d}
-          className={`calendarDay${isToday ? " today" : ""}${isSelected ? " selected" : ""}`}
-          onClick={() => selectDate(currentJy, currentJm, d)}
-        >
-          {d}
-        </div>,
-      );
-    }
-    return cells;
-  };
-
-  const handlePrevMonth = () => {
-    if (currentJm === 1) {
-      setCurrentJy((y) => y - 1);
-      setCurrentJm(12);
-    } else setCurrentJm((m) => m - 1);
-  };
-
-  const handleNextMonth = () => {
-    if (currentJm === 12) {
-      setCurrentJy((y) => y + 1);
-      setCurrentJm(1);
-    } else setCurrentJm((m) => m + 1);
-  };
-
-  const handleCalendarTitleClick = () => {
-    if (currentView === "days") setCurrentView("years");
-    else if (currentView === "years") setCurrentView("months");
-    else setCurrentView("days");
-  };
 
   const renderMonthsGrid = () =>
     TOUR_DATA.monthNames.map((n, idx) => (
@@ -367,7 +224,6 @@ export default function TourSearchForm({ showOrigin = false }) {
     setErrors((prev) => ({ ...prev, origin: false }));
   };
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -428,14 +284,15 @@ export default function TourSearchForm({ showOrigin = false }) {
       tourType,
       origin: showOrigin ? originInput : undefined,
       destination: destinationInput,
-      startDate,
+      startDate: startDate
+        ? jDateToString(startDate.jy, startDate.jm, startDate.jd)
+        : null,
       durationNights,
       durationText: getDurationText(),
       adults: adultCount,
       children: childCount,
       infants: infantCount,
     };
-    console.log("Tour Search Params:", params);
     if (TOUR_DATA.onSearch) TOUR_DATA.onSearch(params);
   };
 
@@ -609,9 +466,13 @@ export default function TourSearchForm({ showOrigin = false }) {
               <input
                 type="text"
                 placeholder="تاریخ حرکت"
-                value={startDate || ""}
+                value={
+                  startDate
+                    ? jDateToString(startDate.jy, startDate.jm, startDate.jd)
+                    : ""
+                }
                 readOnly
-                onClick={openCalendar}
+                onClick={() => openCalendar("start")}
                 className={`${errors.startDate ? "error" : ""} ${shakeFields.startDate ? "shake" : ""}`}
               />
             </div>
@@ -623,7 +484,7 @@ export default function TourSearchForm({ showOrigin = false }) {
                     visibility: currentView === "days" ? "visible" : "hidden",
                   }}
                 >
-                  <button className="calendarNavBtn" onClick={handleNextMonth}>
+                  <button className="calendarNavBtn" onClick={handlePrevMonth}>
                     &gt;
                   </button>
                   <span
@@ -636,7 +497,7 @@ export default function TourSearchForm({ showOrigin = false }) {
                         ? `${currentJy} - انتخاب ماه`
                         : "انتخاب سال"}
                   </span>
-                  <button className="calendarNavBtn" onClick={handlePrevMonth}>
+                  <button className="calendarNavBtn" onClick={handleNextMonth}>
                     &lt;
                   </button>
                 </div>
@@ -647,7 +508,7 @@ export default function TourSearchForm({ showOrigin = false }) {
                         <div key={i}>{d}</div>
                       ))}
                     </div>
-                    <div className="calendarDays">{renderCalendar()}</div>
+                    <div className="calendarDays">{renderCalendarDays()}</div>
                   </div>
                 )}
                 {currentView === "months" && (

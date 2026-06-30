@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -139,6 +140,7 @@ const PAGE_DATA = {
         id: "credit",
         title: "استفاده از اعتبار (۰ تومان)",
         hint: "کیف پول داخلی",
+        banks: [],
       },
     ],
     accordions: [
@@ -177,12 +179,13 @@ const PAGE_DATA = {
 };
 
 export default function TourReviewPage() {
+  const router = useRouter();
   const [activePayment, setActivePayment] = useState("gateway");
-  const [openAccordions, setOpenAccordions] = useState({});
+  const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
   const [isHotelOpen, setIsHotelOpen] = useState(false);
 
-  const handlePaymentClick = (methodId) => setActivePayment(methodId);
-  const toggleAccordion = (id) =>
+  const handlePaymentClick = (methodId: string) => setActivePayment(methodId);
+  const toggleAccordion = (id: string) =>
     setOpenAccordions((prev) => ({ ...prev, [id]: !prev[id] }));
 
   return (
@@ -383,7 +386,7 @@ export default function TourReviewPage() {
                 {activePayment === "gateway" && (
                   <div className="bankListWrapper open">
                     <div className="bankList">
-                      {PAGE_DATA.payment.options[0].banks.map((bank, i) => (
+                      {PAGE_DATA.payment.options[0]!.banks.map((bank, i) => (
                         <div key={i} className="bankItem">
                           {bank}
                         </div>
@@ -417,7 +420,7 @@ export default function TourReviewPage() {
                         </div>
                       ) : (
                         <div
-                          dangerouslySetInnerHTML={{ __html: item.content }}
+                          dangerouslySetInnerHTML={{ __html: item.content ?? '' }}
                         />
                       )}
                     </div>
@@ -461,7 +464,7 @@ export default function TourReviewPage() {
             <div className="card2">
               <span>{PAGE_DATA.sidebar.invoice}</span>
             </div>
-            <button>
+            <button onClick={() => router.push("/userpanel/tracking")}>
               {PAGE_DATA.sidebar.btnText} <FontAwesomeIcon icon={faArrowLeft} />
             </button>
           </div>

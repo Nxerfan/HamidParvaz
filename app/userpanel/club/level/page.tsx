@@ -73,7 +73,7 @@ const PAGE_DATA = {
       promoAction: "فقط برای اعضای ویژه",
       className: "vip-mode",
     },
-  },
+  } as Record<string, { title: string; features: string[]; badgeName: string; promoTitle: string; promoDesc: string; promoAction: string; className: string }>,
 };
 
 export default function Page() {
