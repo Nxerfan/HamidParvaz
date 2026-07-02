@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useActionState } from "react";
 import { useRouter } from "next/navigation";
 import SecondHeader from "../../components/(Headers)/SecondHeader";
+import { changePassword } from "../../actions/user";
+import type { PasswordState } from "../../actions/user";
 
 export default function ChangePasswordPage() {
   const router = useRouter();
@@ -11,6 +13,16 @@ export default function ChangePasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [passwordState, passwordFormAction, isPending] = useActionState(changePassword, { success: false, message: "" } as PasswordState);
+
+  useEffect(() => {
+    if (passwordState.success) {
+      setSuccess(true);
+      setTimeout(() => router.push("/userpanel"), 2000);
+    } else if (passwordState.message) {
+      setError(passwordState.message);
+    }
+  }, [passwordState, router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,9 +41,11 @@ export default function ChangePasswordPage() {
       return;
     }
 
-    // در اینجا فراخوانی API برای تغییر رمز عبور انجام می‌شود
-    setSuccess(true);
-    setTimeout(() => router.push("/userpanel"), 2000);
+    const fd = new FormData();
+    fd.set("oldPassword", currentPassword);
+    fd.set("newPassword", newPassword);
+    fd.set("confirmPassword", confirmPassword);
+    passwordFormAction(fd);
   };
 
   return (
@@ -70,6 +84,7 @@ export default function ChangePasswordPage() {
               رمز عبور فعلی <span style={{ color: "red" }}>*</span>
               <input
                 type="password"
+                name="oldPassword"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="رمز عبور فعلی"
@@ -87,6 +102,7 @@ export default function ChangePasswordPage() {
               رمز عبور جدید <span style={{ color: "red" }}>*</span>
               <input
                 type="password"
+                name="newPassword"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="حداقل ۶ کاراکتر"
@@ -104,6 +120,7 @@ export default function ChangePasswordPage() {
               تکرار رمز عبور جدید <span style={{ color: "red" }}>*</span>
               <input
                 type="password"
+                name="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="تکرار رمز عبور جدید"

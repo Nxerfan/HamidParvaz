@@ -307,7 +307,7 @@ export default function PassengerManagement() {
   };
 
   const headerTitleStyle: React.CSSProperties = {
-    color: "#3e2e00",
+    color: "#5c4b00",
     fontSize: "20px",
     fontWeight: 700,
     margin: 0,
@@ -466,7 +466,7 @@ export default function PassengerManagement() {
     background: active
       ? "linear-gradient(135deg, #ffcd11 0%, #cea500 100%)"
       : "transparent",
-    color: active ? "#3e2e00" : "#64748b",
+    color: active ? "#5c4b00" : "#64748b",
     fontSize: "13.5px",
     fontWeight: 600,
     cursor: "pointer",
@@ -526,7 +526,7 @@ export default function PassengerManagement() {
       : "linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%)",
     border: "none",
     borderRadius: "12px",
-    color: valid ? "#3e2e00" : "#fff",
+    color: valid ? "#5c4b00" : "#fff",
     fontSize: "14px",
     fontWeight: 700,
     cursor: valid ? "pointer" : "not-allowed",
@@ -575,7 +575,7 @@ export default function PassengerManagement() {
   };
 
   const ModalContent = (
-    <div style={backdropStyle} onClick={closeModal}>
+    <div style={backdropStyle} onClick={closeModal} role="presentation">
       <style>{`
         @keyframes modalShine {
           0% { transform: translateX(-100%); }
@@ -612,7 +612,7 @@ export default function PassengerManagement() {
         .lux-body::-webkit-scrollbar-thumb:hover { background: #b89400; }
       `}</style>
 
-      <div style={modalStyle} onClick={(e) => e.stopPropagation()}>
+      <div style={modalStyle} onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="paxModalTitle">
         {/* ===== هدر ===== */}
         <div style={headerStyle}>
           <div style={headerPatternStyle}></div>
@@ -622,7 +622,7 @@ export default function PassengerManagement() {
                 <Icon path={ICONS.user} size={22} />
               </div>
               <div>
-                <h3 style={headerTitleStyle}>
+                <h3 style={headerTitleStyle} id="paxModalTitle">
                   {editingId
                     ? PAGE_DATA.modal.titleEdit
                     : PAGE_DATA.modal.titleAdd}

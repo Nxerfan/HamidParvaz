@@ -7,15 +7,12 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
-  faAngleUp,
   faPlane,
   faBell,
   faBolt,
   faCircleDot,
   faClock,
-  faSliders,
   faRotateRight,
-  faCheck,
   faStar,
   faLocationDot,
   faHotel,
@@ -23,6 +20,11 @@ import {
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderMakeYourTour from "../../../../components/(Headers)/HeaderMakeYourTour";
+import FilterSidebar from "../../../../components/(filters)/FilterSidebar";
+import FilterAccordion from "../../../../components/(filters)/FilterAccordion";
+import PriceRangeFilter from "../../../../components/(filters)/PriceRangeFilter";
+import CheckboxFilter from "../../../../components/(filters)/CheckboxFilter";
+import "../../../../components/(filters)/FiltersGlobal.css";
 
 interface FilterItem {
   id: string; title: string; type: string;
@@ -241,6 +243,11 @@ export default function FlightAwaySelection() {
     });
   };
 
+  const handleClassChange = (value: string) => handleCheckboxChange("class", value);
+  const handleTimeChange = (value: string) => handleCheckboxChange("time", value);
+  const handleAirlineChange = (value: string) => handleCheckboxChange("airline", value);
+  const handleBaggageChange = (value: string) => handleCheckboxChange("baggage", value);
+
   const handleResetFilters = () => {
     setPriceRange({
       min: PAGE_DATA.sidebar.filters[0]!.min ?? 0,
@@ -305,15 +312,8 @@ export default function FlightAwaySelection() {
     return result;
   }, [priceRange, checkedOptions, activeSort]);
 
-  const priceFilter = PAGE_DATA.sidebar.filters[0]!;
-  const pfMin = priceFilter.min ?? 0;
-  const pfMax = priceFilter.max ?? 0;
-  const minPercent =
-    ((priceRange.min - pfMin) / (pfMax - pfMin)) *
-    100;
-  const maxPercent =
-    ((priceRange.max - pfMin) / (pfMax - pfMin)) *
-    100;
+  const pfMin = PAGE_DATA.sidebar.filters[0]!.min ?? 0;
+  const pfMax = PAGE_DATA.sidebar.filters[0]!.max ?? 0;
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -412,14 +412,14 @@ export default function FlightAwaySelection() {
       <div className="HotelSummaryActions">
         <button
           className="HotelSummaryViewBtn"
-          onClick={() => (window.location.href = "/tour/make-your-own/hotel")}
+          onClick={() => router.push("/tour/make-your-own/hotel")}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
           مشاهده هتل
         </button>
         <button
           className="HotelSummaryChangeBtn"
-          onClick={() => (window.location.href = "/tour/make-your-own/hotel")}
+          onClick={() => router.push("/tour/make-your-own/hotel")}
         >
           <FontAwesomeIcon icon={faRotateRight} />
           تغییر هتل
@@ -487,172 +487,128 @@ export default function FlightAwaySelection() {
     </div>
   );
 
-  const renderFilterContent = (filter: FilterItem) => {
-    if (filter.type === "range") {
-      return (
-        <div className="dropdownPanel open">
-          <div className="priceSliderBox">
-            <div className="priceLabels">
-              <div className="labelGroup">
-                <span>از</span>
-                <span className="displayMin">
-                  {toPersianNumber(priceRange.min)}
-                </span>
-                <span>تومان</span>
-              </div>
-              <span className="labelSeparator">—</span>
-              <div className="labelGroup">
-                <span>تا</span>
-                <span className="displayMax">
-                  {toPersianNumber(priceRange.max)}
-                </span>
-                <span>تومان</span>
-              </div>
-            </div>
-            <div className="rangeSliderContainer">
-              <div className="sliderTrack" />
-              <div
-                className="sliderProgress"
-                style={{
-                  left: `${minPercent}%`,
-                  width: `${maxPercent - minPercent}%`,
-                }}
-              />
-              <div className="rangeInputs">
-                <input
-                  type="range"
-                  className="rangeMin"
-                  min={filter.min}
-                  max={filter.max}
-                  value={priceRange.min}
-                  step={filter.step}
-                  onChange={(e) => handlePriceChange("min", e.target.value)}
-                />
-                <input
-                  type="range"
-                  className="rangeMax"
-                  min={filter.min}
-                  max={filter.max}
-                  value={priceRange.max}
-                  step={filter.step}
-                  onChange={(e) => handlePriceChange("max", e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    if (filter.type === "checkbox") {
-      return (
-        <div className="dropdownPanel open">
-          <div className="checkboxGroup">
-            {filter.options!.map((opt: any) => (
-              <label key={opt.value} className="checkboxItem">
-                <input
-                  type="checkbox"
-                  checked={(checkedOptions[filter.id] || []).includes(
-                    opt.value,
-                  )}
-                  onChange={() => handleCheckboxChange(filter.id, opt.value)}
-                />
-                <span className="checkmark" />
-                <span>{opt.label}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-      );
-    }
-
-    if (filter.type === "grouped") {
-      return (
-        <div className="dropdownPanel open">
-          {filter.groups!.map((group: any, index: number) => (
-            <div key={index} className="timeSubSection">
-              {index > 0 && <hr className="filterDivider" />}
-              <span className="subTitle">{group.title}</span>
-              <div className="checkboxGroup">
-                {group.options.map((opt: any) => (
-                  <label key={opt.value} className="checkboxItem">
-                    <input
-                      type="checkbox"
-                      checked={(checkedOptions[filter.id] || []).includes(
-                        opt.value,
-                      )}
-                      onChange={() =>
-                        handleCheckboxChange(filter.id, opt.value)
-                      }
-                    />
-                    <span className="checkmark" />
-                    <span>{opt.label}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return null;
-  };
-
   return (
     <>
       <HeaderMakeYourTour currentStep={3} />
       <div className="Countainer flightSelectionPage">
         <div className="Right flightSidebar">
-          <div className="sidebarFilters">
-            <div className="filterHeader">
-              <div className="filterHeaderLeft">
-                <FontAwesomeIcon icon={faSliders} />
-                <span>{PAGE_DATA.sidebar.header}</span>
+          <FilterSidebar
+            activeFiltersCount={activeFilterCount}
+            onClearFilters={handleResetFilters}
+            resultCount={`${filteredFlights.length} پرواز یافت شد`}
+          >
+            <FilterAccordion
+              title="محدوده قیمت (تومان)"
+              isOpen={openFilter === "price"}
+              onToggle={() => handleToggleFilter("price")}
+              hasActive={priceRange.min > pfMin || priceRange.max < pfMax}
+              selectedSummary={
+                priceRange.min > pfMin || priceRange.max < pfMax
+                  ? `${toPersianNumber(priceRange.min)} تا ${toPersianNumber(priceRange.max)} تومان`
+                  : undefined
+              }
+            >
+              <PriceRangeFilter
+                min={priceRange.min}
+                max={priceRange.max}
+                globalMin={pfMin}
+                globalMax={pfMax}
+                step={50000}
+                onMinChange={(val) => handlePriceChange("min", val)}
+                onMaxChange={(val) => handlePriceChange("max", val)}
+              />
+            </FilterAccordion>
+
+            <FilterAccordion
+              title="کلاس پروازی"
+              isOpen={openFilter === "class"}
+              onToggle={() => handleToggleFilter("class")}
+              hasActive={(checkedOptions["class"] || []).length > 0}
+              activeCount={(checkedOptions["class"] || []).length}
+            >
+              <CheckboxFilter
+                options={[
+                  { value: "economy", label: "اکونومی" },
+                  { value: "business", label: "بیزنس" },
+                ]}
+                selectedValues={checkedOptions["class"] || []}
+                onChange={handleClassChange}
+              />
+            </FilterAccordion>
+
+            <FilterAccordion
+              title="زمان پرواز"
+              isOpen={openFilter === "time"}
+              onToggle={() => handleToggleFilter("time")}
+              hasActive={(checkedOptions["time"] || []).length > 0}
+              activeCount={(checkedOptions["time"] || []).length}
+            >
+              <div className="timeSubSection">
+                <span className="subTitle">زمان حرکت از مبدأ</span>
+                <CheckboxFilter
+                  options={[
+                    { value: "0-8", label: "۰۰:۰۰ تا ۰۸:۰۰" },
+                    { value: "8-18", label: "۰۸:۰۰ تا ۱۸:۰۰" },
+                    { value: "18-24", label: "۱۸:۰۰ تا ۰۰:۰۰" },
+                  ]}
+                  selectedValues={checkedOptions["time"] || []}
+                  onChange={handleTimeChange}
+                />
               </div>
-              {activeFilterCount > 0 && (
-                <button
-                  className="resetFiltersBtn"
-                  onClick={handleResetFilters}
-                >
-                  <FontAwesomeIcon icon={faRotateRight} />
-                  <span>حذف</span>
-                  <span className="filterBadge">{activeFilterCount}</span>
-                </button>
-              )}
-            </div>
+              <hr className="filterDivider" />
+              <div className="timeSubSection">
+                <span className="subTitle">زمان رسیدن به مقصد</span>
+                <CheckboxFilter
+                  options={[
+                    { value: "0-8", label: "۰۰:۰۰ تا ۰۸:۰۰" },
+                    { value: "8-18", label: "۰۸:۰۰ تا ۱۸:۰۰" },
+                    { value: "18-24", label: "۱۸:۰۰ تا ۰۰:۰۰" },
+                  ]}
+                  selectedValues={checkedOptions["time"] || []}
+                  onChange={handleTimeChange}
+                />
+              </div>
+            </FilterAccordion>
 
-            <div className="filterContentArea">
-              <span className="resultsCount">
-                <FontAwesomeIcon icon={faCheck} style={{ marginLeft: 6 }} />
-                {filteredFlights.length} پرواز یافت شد
-              </span>
+            <FilterAccordion
+              title="شرکت‌های هواپیمایی"
+              isOpen={openFilter === "airline"}
+              onToggle={() => handleToggleFilter("airline")}
+              hasActive={(checkedOptions["airline"] || []).length > 0}
+              activeCount={(checkedOptions["airline"] || []).length}
+            >
+              <CheckboxFilter
+                options={[
+                  { value: "چابهار", label: "چابهار" },
+                  { value: "فلای کیش", label: "فلای کیش" },
+                  { value: "آسمان", label: "آسمان" },
+                  { value: "کیش ایر", label: "کیش ایر" },
+                  { value: "قشم ایر", label: "قشم ایر" },
+                  { value: "معراج", label: "معراج" },
+                ]}
+                selectedValues={checkedOptions["airline"] || []}
+                onChange={handleAirlineChange}
+              />
+            </FilterAccordion>
 
-              {PAGE_DATA.sidebar.filters.map((filter) => (
-                <div
-                  key={filter.id}
-                  className={`filterItem ${openFilter === filter.id ? "open" : ""}`}
-                >
-                  <div
-                    className="dropdownTrigger"
-                    onClick={() => handleToggleFilter(filter.id)}
-                  >
-                    <div className="triggerLeft">
-                      <span>{filter.title}</span>
-                      {checkedOptions[filter.id]?.length > 0 && (
-                        <span className="filterCountBadge">
-                          {checkedOptions[filter.id].length}
-                        </span>
-                      )}
-                    </div>
-                    <FontAwesomeIcon
-                      icon={openFilter === filter.id ? faAngleUp : faAngleDown}
-                    />
-                  </div>
-                  {openFilter === filter.id && renderFilterContent(filter)}
-                </div>
-              ))}
-            </div>
-          </div>
+            <FilterAccordion
+              title="مقدار بار مجاز"
+              isOpen={openFilter === "baggage"}
+              onToggle={() => handleToggleFilter("baggage")}
+              hasActive={(checkedOptions["baggage"] || []).length > 0}
+              activeCount={(checkedOptions["baggage"] || []).length}
+            >
+              <CheckboxFilter
+                options={[
+                  { value: "20kg", label: "۲۰ کیلوگرم" },
+                  { value: "25kg", label: "۲۵ کیلوگرم" },
+                  { value: "30kg", label: "۳۰ کیلوگرم" },
+                ]}
+                selectedValues={checkedOptions["baggage"] || []}
+                onChange={handleBaggageChange}
+              />
+            </FilterAccordion>
+          </FilterSidebar>
         </div>
 
         <div className="Left flightContent">

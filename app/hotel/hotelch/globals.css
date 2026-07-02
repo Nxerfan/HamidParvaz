@@ -334,63 +334,79 @@
       justify-self: center;
       padding: 10px;
       margin-bottom: 80px;
-      .top {
-        span {
-          font-size: 24px;
-          font-weight: bold;
-          color: var(--textDark);
-        }
+
+      .SectionTitle {
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--textDark);
       }
 
-      .bottom {
-        box-shadow: var(--boxShadow);
-        border-radius: 12px;
-        background-color: var(--bgWhite);
-      }
-
-      .question {
-        .Button {
-          width: 100%;
-          padding: 10px;
-          background: none;
-          border: none;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          cursor: pointer;
-          text-align: right;
-          font-size: 16px;
-          color: var(--textDark);
-          font-family: inherit;
-          transition: background 0.3s;
-
-          &:hover {
-            background: var(--grayBgHover);
-          }
-
-          .Icon {
-            font-size: 22px;
-            color: var(--goldDark);
-            transition: transform 0.3s;
-          }
-        }
-      }
-
-      .ansure {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-out;
+      .FAQWrapper {
         background: var(--bgWhite);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 
-        p {
-          padding: 0 20px 20px;
-          color: var(--textGray);
-          line-height: 1.8;
-          font-size: 14px;
-        }
-        &.open {
-          max-height: 500px;
-          opacity: 1;
+        .FAQItem {
+          border-bottom: var(--borderLight);
+          border-color: #00000012;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          &.active {
+            .Icon {
+              transform: rotate(45deg);
+            }
+          }
+
+          .FAQButton {
+            width: 100%;
+            padding: 20px 24px;
+            background: none;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: right;
+            font-size: 16px;
+            color: var(--textDark);
+            font-family: inherit;
+            transition: 0.3s;
+            font-weight: 500;
+
+            &:hover {
+              background: var(--grayBgHover);
+            }
+
+            .Icon {
+              font-size: 22px;
+              color: var(--goldDark);
+              transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+          }
+
+          .FAQAnswer {
+            overflow: hidden;
+            background: var(--bgWhite);
+            transition:
+              max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+
+            > * {
+              overflow: hidden;
+            }
+
+            p {
+              color: var(--textGray);
+              line-height: 1.8;
+              font-size: 14px;
+              margin: 0;
+              padding: 0 20px 20px 20px;
+            }
+          }
         }
       }
     }

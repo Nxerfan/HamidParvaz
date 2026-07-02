@@ -1,13 +1,19 @@
 "use client";
-import React, { useState } from "react";
-import Link from "next/link"; // اضافه شد
+import { Suspense, useState, useEffect, useActionState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { createBooking } from "../../../actions/booking";
+import type { BookingState } from "../../../actions/booking";
+import { useToast } from "../../../lib/hooks/useToast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
   faArrowLeft,
   faPlane,
   faPlus,
-  faAngleDown,
+  faChevronDown,
+  faUsers,
+  faBuilding,
+  faGem,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCircleDot } from "@fortawesome/free-solid-svg-icons";
 import "../../../reserve/global.css";
@@ -25,7 +31,7 @@ const PAGE_DATA = {
     airplaneIcon: "✈",
   },
   bill: {
-    title: "صورتحاسب صفر", // اصلاح املایی
+    title: "صورتحساب",
     totalLabel: "مجموع",
     currency: "تومان",
     pricePerPassenger: "9,572,000",
@@ -115,7 +121,7 @@ const PAGE_DATA = {
   dotsCount: 8,
   cancellationRules: "قوانین جریمه و استرداد",
   charter: "چارتری",
-  invoiceZero: "صورتحاسب صفر",
+  invoiceZero: "صورتحساب",
   confirmButton: "تایید و ادامه",
   icons: {
     arrowLeft: faArrowLeft,
@@ -125,12 +131,18 @@ const PAGE_DATA = {
   },
 };
 
-export default function BookingReview() {
+function formatPrice(price: number) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function BookingReviewContent() {
+  const searchParams = useSearchParams();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("gateway");
   const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
-  // اضافه شدن state برای باز و بسته شدن صورتحساب
   const [isBillOpen, setIsBillOpen] = useState(false);
-  // اضافه شدن state برای مسافران (در این صفحه فقط برای نمایش تعداد)
+  const router = useRouter();
+  const toast = useToast();
+  const [bookingState, bookingFormAction, isBookingPending] = useActionState(createBooking, { success: false, message: "" } as BookingState);
   const [passengers] = useState([
     {
       id: 1,
@@ -140,6 +152,31 @@ export default function BookingReview() {
       nationality: "iranian",
     },
   ]);
+
+  useEffect(() => {
+    if (bookingState.success && bookingState.bookingId) {
+      router.push("/userpanel/tracking");
+    } else if (bookingState.message) {
+      toast.error(bookingState.message);
+    }
+  }, [bookingState, router]);
+
+  const handleConfirm = () => {
+    const fd = new FormData();
+    fd.set("type", "flight");
+    fd.set("itemId", invoiceOrigin + "-" + invoiceDestination);
+    fd.set("passengerName", passengers[0]?.typeLabel || "");
+    fd.set("passengerPhone", PAGE_DATA.contactTable.rows[0]?.[0] || "");
+    fd.set("date", invoiceOrigin);
+    fd.set("passengers", invoicePassengers);
+    bookingFormAction(fd);
+  };
+
+  const invoicePassengers = searchParams.get('passengers') || passengers.length.toString();
+  const invoiceOrigin = searchParams.get('origin') || PAGE_DATA.flightInfo.originCity;
+  const invoiceDestination = searchParams.get('destination') || PAGE_DATA.flightInfo.destinationCity;
+  const invoicePrice = searchParams.get('price') || '1500000';
+  const formattedPrice = formatPrice(Number(invoicePrice));
 
   const toggleAccordion = (title: string) => {
     setOpenAccordions((prev) => ({ ...prev, [title]: !prev[title] }));
@@ -371,40 +408,51 @@ export default function BookingReview() {
             </div>
 
             {/* کارت صورتحساب (card2) */}
-            <div className="card2">
-              <div className="T" onClick={() => setIsBillOpen(!isBillOpen)}>
-                <span>{PAGE_DATA.bill.title}</span>
-                <FontAwesomeIcon icon={faAngleDown} />
+            <div className="invoiceContainer">
+              <div className="invoiceHeader" onClick={() => setIsBillOpen(!isBillOpen)}>
+                <div className="invoiceHeaderRight">
+                  <span className="invoiceHeaderTitle">{PAGE_DATA.bill.title}</span>
+                  <FontAwesomeIcon icon={faChevronDown} className={`invoiceChevron ${isBillOpen ? "open" : ""}`} />
+                </div>
+                <span className="invoiceHeaderPrice">{formattedPrice} تومان</span>
               </div>
-              <div className={`SeeMore ${isBillOpen ? "active" : ""}`}>
-                <div className="MoreDetails" style={{ padding: "15px" }}>
-                  <div className="Spand">
-                    <div className="items">
-                      <p>
-                        {passengers.length} {PAGE_DATA.bill.passengerCountLabel}
-                      </p>
-                      <p>{PAGE_DATA.bill.pricePerPassenger}</p>
-                    </div>
-                    <div className="items">
-                      <p>{PAGE_DATA.bill.totalLabel}</p>
-                      <p>
-                        {PAGE_DATA.bill.totalPrice}{" "}
-                        <span>{PAGE_DATA.bill.currency}</span>
-                      </p>
-                    </div>
+              <div className={`invoiceBody ${isBillOpen ? "open" : ""}`}>
+                <div className="invoiceBodyInner">
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faUsers} /> تعداد مسافران</span>
+                    <span className="invoiceRowValue">{invoicePassengers} نفر</span>
+                  </div>
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faPlane} /> مبدا</span>
+                    <span className="invoiceRowValue">{invoiceOrigin}</span>
+                  </div>
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faPlane} /> مقصد</span>
+                    <span className="invoiceRowValue">{invoiceDestination}</span>
+                  </div>
+                  <div className="invoiceDivider" />
+                  <div className="invoiceTotalRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faGem} /> قیمت کل</span>
+                    <span className="invoiceRowValue">{formattedPrice} تومان</span>
                   </div>
                 </div>
               </div>
-              <Link href="/userpanel/tracking">
-                <button>
-                  {PAGE_DATA.confirmButton}{" "}
-                  <FontAwesomeIcon icon={faArrowLeft} />
-                </button>
-              </Link>
+              <button onClick={handleConfirm} disabled={isBookingPending} style={{ width: "100%", marginTop: 0, borderRadius: "0 0 12px 12px" }}>
+                {isBookingPending ? "در حال پردازش..." : PAGE_DATA.confirmButton}{" "}
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </button>
             </div>
           </div>
         </div>
       </section>
     </>
+  );
+}
+
+export default function BookingReview() {
+  return (
+    <Suspense fallback={<div style={{ padding: "2rem", textAlign: "center" }}>در حال بارگذاری...</div>}>
+      <BookingReviewContent />
+    </Suspense>
   );
 }

@@ -14,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../global.css";
 import HeaderAutoReserve from "../../components/(Headers)/HeaderAutoReserve";
+import { useToast } from "../../lib/hooks/useToast";
 
 const PAGE_DATA = {
   passengerCard: {
@@ -91,6 +92,7 @@ const NiksaPassengerInfo = () => {
   const [isBillOpen, setIsBillOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState(600);
   const [showTimeoutModal, setShowTimeoutModal] = useState(false);
+  const toast = useToast();
 
   const [passengers, setPassengers] = useState([
     {
@@ -129,7 +131,7 @@ const NiksaPassengerInfo = () => {
     } else {
       // قانون جدید: به ازای هر بزرگسال ۳ همراه (کودک یا نوزاد)
       if (nonAdultCount >= adultCount * 3) {
-        alert(
+        toast.warning(
           `به ازای هر بزرگسال حداکثر ۳ همراه مجاز است. شما در حال حاضر ${adultCount} بزرگسال و ${nonAdultCount} همراه دارید. ابتدا بزرگسال جدید اضافه کنید.`,
         );
         return;

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faXmark,
@@ -40,6 +41,7 @@ interface Props {
   onSelectRoom?: (hotelId: number) => void;
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const facilityIcons: Record<string, any> = {
   "اینترنت رایگان": faWifi,
   "ترانسفر رایگان": faCar,
@@ -61,6 +63,31 @@ export default function HotelDetailModal({
     };
   }, [hotel]);
 
+  // Focus trap implementation
+  useEffect(() => {
+    if (!hotel) return;
+    const modal = document.querySelector('.hotelModal') as HTMLElement | null;
+    if (!modal) return;
+
+    const focusableSelector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const focusable = Array.from(modal.querySelectorAll<HTMLElement>(focusableSelector));
+    if (focusable.length) focusable[0].focus();
+
+    const handleTabTrap = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+
+    modal.addEventListener('keydown', handleTabTrap);
+    return () => modal.removeEventListener('keydown', handleTabTrap);
+  }, [hotel]);
+
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -72,16 +99,16 @@ export default function HotelDetailModal({
   if (!hotel) return null;
 
   return (
-    <div className="hotelModalOverlay" onClick={onClose}>
-      <div className="hotelModal" onClick={(e) => e.stopPropagation()}>
+    <div className="hotelModalOverlay" onClick={onClose} role="presentation">
+      <div className="hotelModal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="hotelModalTitle">
         <button className="modalClose" onClick={onClose} aria-label="بستن">
           <FontAwesomeIcon icon={faXmark} />
         </button>
 
         <div className="modalHero">
-          <img src={hotel.image} alt={hotel.name} />
+          <Image src={hotel.image} alt={`تصویر هتل ${hotel.name}`} fill sizes="(max-width: 768px) 100vw, 600px" style={{ objectFit: "cover" }} />
           <div className="modalHeroOverlay">
-            <h2>{hotel.name}</h2>
+            <h2 id="hotelModalTitle">{hotel.name}</h2>
             <div className="modalMeta">
               <span>
                 {Array(hotel.stars)

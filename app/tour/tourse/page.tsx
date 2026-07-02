@@ -20,8 +20,10 @@ import FilterAccordion from "../../components/(filters)/FilterAccordion";
 import PriceRangeFilter from "../../components/(filters)/PriceRangeFilter";
 import CheckboxFilter from "../../components/(filters)/CheckboxFilter";
 import "../../components/(filters)/FiltersGlobal.css";
+import Image from "next/image";
 import "./global.css";
 import Form from "../../components/(Forms)/FormType3";
+import LoadingSkeleton from "../../components/LoadingSkeleton";
 
 interface Tour {
   id: number;
@@ -236,6 +238,9 @@ function TourResultsPageContent() {
     e.preventDefault();
   };
 
+  const activeFiltersCount = (minPrice > globalMinPrice || maxPrice < globalMaxPrice ? 1 : 0) + selectedDurations.length + selectedHotelStars.length + selectedServices.length;
+  const clearAllFilters = () => { setMinPrice(globalMinPrice); setMaxPrice(globalMaxPrice); setSelectedDurations([]); setSelectedHotelStars([]); setSelectedServices([]); };
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -254,7 +259,9 @@ function TourResultsPageContent() {
           <div className="Container">
             <div className="Right">
               <div className="Title">
-                <img src="istockphoto-1306235331-612x612.jpg" alt="تور" className="cover" />
+                <div style={{ position: "relative", width: "100%", height: "200px" }}>
+                  <Image src="/istockphoto-1306235331-612x612.jpg" alt="تور" fill sizes="100vw" style={{ objectFit: "cover" }} />
+                </div>
                 <Link href="/get-tour" className="ExperienceTrigger">
                   <div className="ContentWrapper">
                     <div className="IconBadge">
@@ -304,6 +311,8 @@ function TourResultsPageContent() {
               </div>
 
               <FilterSidebar
+                activeFiltersCount={activeFiltersCount}
+                onClearFilters={clearAllFilters}
                 resultCount={`نمایش ${filteredTours.length} از ${toursData.length} نتیجه`}
               >
                 <FilterAccordion
@@ -409,7 +418,7 @@ function TourResultsPageContent() {
                 <div className="TourCard" key={tour.id}>
                   <div className="TourImage">
                     {tour.badge && <span className={`Badge ${tour.isSpecial ? "Special" : ""}`}>{tour.badge}</span>}
-                    <img src={tour.image} alt={tour.title} />
+                    <Image src={tour.image} alt={tour.title} fill sizes="(max-width: 768px) 100vw, 320px" style={{ objectFit: "cover" }} />
                   </div>
                   <div className="TourContent">
                     <div>
@@ -445,7 +454,7 @@ function TourResultsPageContent() {
                           tour.capacity
                         )}
                       </div>
-                      <div style={{ display: "flex", alignItems: "center" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                         <div className="PriceBox">
                           {tour.originalPrice && (
                             <span className="PriceLabel">{tour.originalPrice.toLocaleString("fa-IR")}</span>
@@ -472,7 +481,7 @@ function TourResultsPageContent() {
 
 export default function TourResultsPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingSkeleton type="list" />}>
       <TourResultsPageContent />
     </Suspense>
   );

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import HeaderAutoReserve from "../../components/(Headers)/HeaderAutoReserve";
@@ -210,8 +211,7 @@ const NiksaChooseOpt = () => {
                       onClick={() => toggleFlight(opt.id)}
                     >
                       <div className="R">
-                        <div className="pic">
-                          <img src={opt.logo} alt="logo" />
+                        <div className="pic">                           <Image src={opt.logo} alt="logo" width={32} height={32} />
                         </div>
                         <div className="Content">
                           <p>{opt.time}</p>

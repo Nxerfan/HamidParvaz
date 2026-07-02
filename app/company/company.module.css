@@ -1,0 +1,608 @@
+/* ================================================
+   HamidParvaz — Premium About Us
+   Gold × Black  ·  Elegant & Chic
+   ================================================ */
+
+/* ---- Hero ---- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.heroTexture {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(205, 165, 0, 0.015) 2px,
+      rgba(205, 165, 0, 0.015) 4px
+    ),
+    radial-gradient(ellipse at 30% 40%, rgba(205, 165, 0, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(255, 205, 17, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.heroGlow {
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(205, 165, 0, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.heroEye {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--goldDark);
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s ease forwards;
+}
+
+.heroTitle {
+  font-size: 56px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 1s 0.5s ease forwards;
+}
+
+.heroTitleAccent {
+  display: block;
+  font-weight: 300;
+  font-size: 22px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  margin-top: 12px;
+}
+
+.heroDivider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 28px;
+  opacity: 0;
+  animation: fadeUp 1s 0.7s ease forwards;
+}
+
+.heroTagline {
+  font-size: 16px;
+  font-weight: 400;
+  color: #777;
+  line-height: 2;
+  max-width: 480px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 1s 0.9s ease forwards;
+}
+
+.heroScroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s ease forwards;
+}
+
+.heroScrollLine {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--goldDark), transparent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ---- Section Common ---- */
+.section {
+  padding: 120px 24px;
+}
+
+.sectionNarrow {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sectionWide {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--goldDark);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.sectionTitle {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.sectionDesc {
+  font-size: 15px;
+  color: #999;
+  line-height: 1.9;
+  max-width: 520px;
+}
+
+/* ---- Story ---- */
+.story {
+  background: #fafafa;
+}
+
+.storyLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.storyAccent {
+  width: 1px;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  margin: 0 auto 40px;
+}
+
+.storyText h3 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.storyText p {
+  font-size: 15px;
+  color: #777;
+  line-height: 2;
+  margin-bottom: 16px;
+}
+
+.storyVisual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.storyFrame {
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(205, 165, 0, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.storyFrameInner {
+  width: 240px;
+  height: 240px;
+  border: 1px solid rgba(205, 165, 0, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  color: var(--gold);
+}
+
+.storyFrame::before {
+  content: "";
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border: 1px dashed rgba(205, 165, 0, 0.1);
+  border-radius: 50%;
+  animation: spin 40s linear infinite;
+}
+
+/* ---- Stats ---- */
+.stats {
+  background: #0a0a0a;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.statItem {
+  text-align: center;
+  padding: 48px 24px;
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.5s ease;
+}
+
+.statItem:first-child {
+  border-left: none;
+}
+
+.statItem:hover {
+  background: rgba(205, 165, 0, 0.03);
+}
+
+.statNumber {
+  font-size: 52px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 12px;
+  font-feature-settings: "tnum";
+}
+
+.statSuffix {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+/* ---- Values ---- */
+.values {
+  background: #fff;
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #eee;
+  margin-top: 60px;
+}
+
+.valueCard {
+  background: #fff;
+  padding: 48px 36px;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.valueCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s ease;
+}
+
+.valueCard:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.04);
+}
+
+.valueCard:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.valueIcon {
+  font-size: 20px;
+  color: var(--gold);
+  margin-bottom: 24px;
+  display: block;
+}
+
+.valueCard h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 14px;
+}
+
+.valueCard p {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.9;
+}
+
+/* ---- Parallax Quote ---- */
+.parallax {
+  position: relative;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.parallaxBg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(205, 165, 0, 0.05) 0%, transparent 50%),
+    linear-gradient(225deg, rgba(255, 205, 17, 0.03) 0%, transparent 50%),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(205, 165, 0, 0.008) 40px,
+      rgba(205, 165, 0, 0.008) 41px
+    );
+}
+
+.parallaxContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 80px 24px;
+  max-width: 700px;
+}
+
+.parallaxQuote {
+  font-size: 28px;
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.8;
+  margin-bottom: 32px;
+  font-style: italic;
+}
+
+.parallaxQuote span {
+  color: var(--gold);
+}
+
+.parallaxDivider {
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 24px;
+}
+
+.parallaxAuthor {
+  font-size: 13px;
+  color: #666;
+  letter-spacing: 2px;
+}
+
+/* ---- Timeline ---- */
+.timeline {
+  background: #fafafa;
+}
+
+.timelineWrapper {
+  position: relative;
+  padding: 20px 0;
+}
+
+.timelineLine {
+  position: absolute;
+  right: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, #ddd 10%, #ddd 90%, transparent);
+}
+
+.timelineItem {
+  display: flex;
+  margin-bottom: 80px;
+  position: relative;
+}
+
+.timelineItem:nth-child(odd) {
+  flex-direction: row;
+}
+
+.timelineItem:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.timelineContent {
+  flex: 1;
+  padding: 0 48px;
+}
+
+.timelineYear {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--goldDark);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.timelineTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.timelineDesc {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.9;
+}
+
+.timelineDot {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #fafafa;
+  z-index: 2;
+}
+
+.timelineSpacer {
+  flex: 1;
+}
+
+/* ---- CTA ---- */
+.cta {
+  background: #0a0a0a;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.ctaDesc {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 48px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.9;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 48px;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--goldDark);
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  letter-spacing: 1px;
+}
+
+.ctaBtn:hover {
+  background: var(--gold);
+  color: #0a0a0a;
+  box-shadow: 0 0 40px rgba(205, 165, 0, 0.15);
+}
+
+.ctaInfo {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.ctaInfoItem {
+  font-size: 13px;
+  color: #555;
+  letter-spacing: 0.5px;
+}
+
+.ctaInfoItem strong {
+  color: var(--goldDark);
+  font-weight: 500;
+}
+
+/* ---- Footer Line ---- */
+.footerLine {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--goldDark), transparent);
+  opacity: 0.3;
+}
+
+/* ---- Animations ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ---- Responsive: Tablet ---- */
+@media (max-width: 900px) {
+  .heroTitle { font-size: 40px; }
+  .heroTitleAccent { font-size: 18px; letter-spacing: 4px; }
+  .section { padding: 80px 24px; }
+  .storyLayout { grid-template-columns: 1fr; gap: 48px; }
+  .storyVisual { order: -1; }
+  .storyFrame { width: 220px; height: 220px; }
+  .storyFrameInner { width: 180px; height: 180px; font-size: 44px; }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .statItem { border-left: none; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .valuesGrid { grid-template-columns: 1fr; }
+  .timelineLine { right: 20px; }
+  .timelineItem,
+  .timelineItem:nth-child(even) { flex-direction: row; padding-right: 40px; }
+  .timelineSpacer { display: none; }
+  .timelineDot { right: 20px; }
+  .timelineContent { padding: 0 24px; }
+  .parallaxQuote { font-size: 22px; }
+  .ctaInfo { flex-direction: column; gap: 16px; }
+}
+
+/* ---- Responsive: Mobile ---- */
+@media (max-width: 600px) {
+  .section { padding: 60px 20px; }
+  .hero { min-height: 90vh; }
+  .heroTitle { font-size: 30px; }
+  .heroTitleAccent { font-size: 14px; letter-spacing: 3px; }
+  .heroEye { font-size: 10px; letter-spacing: 3px; }
+  .sectionTitle { font-size: 24px; }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .statNumber { font-size: 36px; }
+  .statItem { padding: 32px 16px; }
+  .valueCard { padding: 36px 24px; }
+  .storyFrame { width: 180px; height: 180px; }
+  .storyFrameInner { width: 140px; height: 140px; font-size: 36px; }
+  .parallaxQuote { font-size: 18px; }
+  .timelineTitle { font-size: 16px; }
+}

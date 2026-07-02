@@ -1,7 +1,31 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getTourBySlug, Tour } from "../../data/tours";
 import TourDetailFull, { TourDetailData } from "../../components/TourDetailFull";
+
+interface Tour {
+  id: number;
+  slug: string;
+  title: string;
+  destination: string;
+  agency: string;
+  image: string;
+  images?: string[];
+  durationNights: number;
+  durationDays: number;
+  mealPlan: string;
+  hotelStars: number;
+  price: number;
+  originalPrice?: number;
+  capacity: number | string;
+  isSpecial: boolean;
+  badge?: string;
+  departureCity: string;
+  airline?: string;
+  services: string[];
+  location?: string;
+  date?: string;
+  description?: string;
+}
 
 const FALLBACK_IMG = "https://img2.taw-bio.ir/2026/498727/1lhvp9pu.jpeg";
 
@@ -91,9 +115,17 @@ export default function TourDetailClient({ slug }: { slug: string }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const found = getTourBySlug(slug);
-    setTour(found || null);
-    setLoading(false);
+    fetch(`/api/tours?destination=`)
+      .then((res) => res.json())
+      .then((data: Tour[]) => {
+        const found = data.find((t) => t.slug === slug);
+        setTour(found || null);
+        setLoading(false);
+      })
+      .catch(() => {
+        setTour(null);
+        setLoading(false);
+      });
   }, [slug]);
 
   if (loading) {

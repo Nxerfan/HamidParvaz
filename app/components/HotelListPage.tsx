@@ -1,26 +1,62 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { toursDB } from "../data/tours";
+
+interface TourData {
+  id: number;
+  slug: string;
+  title: string;
+  destination: string;
+  hotelStars: number;
+  price: number;
+  image: string;
+  description?: string;
+}
+
+interface HotelListItem {
+  id: number;
+  name: string;
+  stars: number;
+  rate: number;
+  price: number;
+  priceText: string;
+  location: string;
+  image: string;
+  description?: string;
+  hotelStars: number;
+  slug: string;
+}
 
 export default function HotelListPage() {
+  const router = useRouter();
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [hotels, setHotels] = useState<HotelListItem[]>([]);
 
-  const hotels = toursDB.map((tour) => ({
-    id: tour.id,
-    name: tour.title,
-    stars: tour.hotelStars,
-    rate: 8.5,
-    price: tour.price / 10000,
-    priceText: "قیمت 1 شب اتاق 1 تخشت",
-    location: tour.destination,
-    image: tour.image,
-    description: tour.description,
-    hotelStars: tour.hotelStars,
-    slug: tour.slug,
-  }));
+  useEffect(() => {
+    fetch("/api/tours")
+      .then((res) => res.json())
+      .then((data: TourData[]) => {
+        setHotels(
+          data.map((tour) => ({
+            id: tour.id,
+            name: tour.title,
+            stars: tour.hotelStars,
+            rate: 8.5,
+            price: tour.price / 10000,
+            priceText: "قیمت 1 شب اتاق 1 تخشت",
+            location: tour.destination,
+            image: tour.image,
+            description: tour.description,
+            hotelStars: tour.hotelStars,
+            slug: tour.slug,
+          })),
+        );
+      })
+      .catch(() => setHotels([]));
+  }, []);
 
   return (
     <div className="container26">
@@ -29,7 +65,7 @@ export default function HotelListPage() {
           <div
             key={hotel.id}
             className="Card"
-            onClick={() => (window.location.href = `/hotel/hotelch?id=${hotel.id}`)}
+            onClick={() => router.push(`/hotel/hotelch?id=${hotel.id}`)}
             style={{ cursor: "pointer" }}
           >
             <div className="rating">

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
@@ -130,7 +131,7 @@ const NiksaAutoReserveConfirm = () => {
                 {PAGE_DATA.availableFlights.map((flight, index) => (
                   <div key={index} className="Option">
                     <div className="R">
-                      <img src={flight.logo} alt="" />
+                      <Image src={flight.logo} alt={`لوگوی ${flight.airline}`} width={32} height={32} />
                       <p>{flight.airline}</p>
                     </div>
                     <div className="L">

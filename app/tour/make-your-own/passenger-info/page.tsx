@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../global.css";
 import HeaderMakeYourTour from "../../../components/(Headers)/HeaderMakeYourTour";
+import { useToast } from "../../../lib/hooks/useToast";
 
 const PAGE_DATA = {
   header: {
@@ -99,12 +100,14 @@ const NiksaPassengerInfo = () => {
   const [timeLeft, setTimeLeft] = useState(600);
   const [showTimeoutModal, setShowTimeoutModal] = useState(false);
   const [contactMobile, setContactMobile] = useState("");
+  const toast = useToast();
 
   const {
     passengers: savedPassengers,
     addPassenger,
     updatePassenger: updateSavedPassenger,
     getPassengerById,
+    removePassenger: removeSavedPassenger,
   } = usePassengersContext();
   const [selectedSavedIds, setSelectedSavedIds] = useState<
     Record<number, string>
@@ -156,7 +159,7 @@ const NiksaPassengerInfo = () => {
       addNew(pType, pLabel);
     } else {
       if (nonAdultCount >= adultCount * 3) {
-        alert(PAGE_DATA.addPassenger.alertMsg(adultCount, nonAdultCount));
+        toast.warning(PAGE_DATA.addPassenger.alertMsg(adultCount, nonAdultCount));
         return;
       }
       addNew(pType, pLabel);
@@ -200,6 +203,14 @@ const NiksaPassengerInfo = () => {
   };
 
   const handleSelectSavedPassenger = (formId: number, savedId: string) => {
+    if (selectedSavedIds[formId] === savedId) {
+      setSelectedSavedIds((prev) => ({ ...prev, [formId]: "" }));
+      updatePassenger(formId, "firstName", "");
+      updatePassenger(formId, "lastName", "");
+      updatePassenger(formId, "nationalId", "");
+      updatePassenger(formId, "gender", "آقا");
+      return;
+    }
     setSelectedSavedIds((prev) => ({ ...prev, [formId]: savedId }));
     if (!savedId) {
       updatePassenger(formId, "firstName", "");
@@ -230,11 +241,11 @@ const NiksaPassengerInfo = () => {
       return false;
     });
     if (hasErrors) {
-      alert("لطفاً تمام فیلدهای اجباری را پر کنید");
+      toast.warning("لطفاً تمام فیلدهای اجباری را پر کنید");
       return;
     }
     if (!contactMobile.trim()) {
-      alert("لطفاً شماره موبایل را وارد کنید");
+      toast.warning("لطفاً شماره موبایل را وارد کنید");
       return;
     }
     passengers.forEach((p) => {
@@ -367,29 +378,43 @@ const NiksaPassengerInfo = () => {
                     </select>
                   </div>
                   <div className="addNew">
-                    <select
-                      value={selectedSavedIds[passenger.id] || ""}
-                      onChange={(e) =>
-                        handleSelectSavedPassenger(passenger.id, e.target.value)
-                      }
-                      style={{
-                        padding: "6px 10px",
-                        borderRadius: "8px",
-                        border: "1px solid #ddd",
-                        fontSize: "13px",
-                        cursor: "pointer",
-                        maxWidth: "180px",
-                      }}
-                    >
-                      <option value="">
-                        {PAGE_DATA.passengerCard.prevPassengers}
-                      </option>
-                      {savedPassengers.map((sp) => (
-                        <option key={sp.id} value={sp.id}>
-                          {sp.firstName} {sp.lastName}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="prevPassengersSection">
+                        <p style={{ fontSize: "13px", fontWeight: "bold", marginBottom: "8px", color: "var(--textDark)" }}>
+                          {PAGE_DATA.passengerCard.prevPassengers}
+                        </p>
+                        {savedPassengers.length === 0 ? (
+                          <p style={{ fontSize: "12px", color: "var(--textGray)", fontStyle: "italic" }}>
+                            هنوز مسافری ذخیره نشده است
+                          </p>
+                        ) : (
+                          <div className="prevPassengersList">
+                            {savedPassengers.map((sp) => (
+                              <div
+                                key={sp.id}
+                                className={`prevPassengerCard ${selectedSavedIds[passenger.id] === sp.id ? "selected" : ""}`}
+                                onClick={() => handleSelectSavedPassenger(passenger.id, sp.id)}
+                              >
+                                <div className="prevPassengerInfo">
+                                  <span className="prevPassengerName">{sp.firstName} {sp.lastName}</span>
+                                  <span className="prevPassengerId">{sp.nationalId || "—"}</span>
+                                </div>
+                                <button
+                                  className="prevPassengerDelete"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (confirm('آیا از حذف این مسافر اطمینان دارید؟')) {
+                                      removeSavedPassenger(sp.id);
+                                    }
+                                  }}
+                                  title="حذف مسافر"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     {index > 0 && (
                       <FontAwesomeIcon
                         icon={faTrash}

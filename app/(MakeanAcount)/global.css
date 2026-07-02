@@ -1,5 +1,3 @@
-@import url("https://cdn.jsdelivr.net/gh/rastikerdar/sahel-font@v3.4.0/dist/font-face.css");
-
 :root {
   --gold: #ffcd11;
   --goldDark: #cea500;
@@ -14,7 +12,6 @@
   --fontSize: 15px;
   --boxShadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   --borderLight: 1px solid #00000030;
-  --Font: "Sahel", sans-serif;
 }
 
 *,

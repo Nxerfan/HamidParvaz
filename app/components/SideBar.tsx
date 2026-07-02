@@ -1,4 +1,5 @@
 // components/Sidebar.tsx
+import Image from "next/image";
 import Link from "next/link";
 import './globals.css'
   
@@ -7,19 +8,19 @@ export default function Sidebar() {
       <div className="right">
         <div className="MenuHeader">
           <span className="Username"> وزود به حساب کاربری</span>
-          <img src="/Media/svgexport-12.svg" alt="" />
+          <Image src="/Media/svgexport-12.svg" alt="نمایش منو" width={24} height={24} role="presentation" />
         </div>
 
         <div className="MenuBody">
           <nav className="Nav">
             <Link href="/cancellation" className="Item">
-              <i className="Icon">🎫</i>
+              <i className="Icon" aria-hidden="true">🎫</i>
               پیگیری خرید و کنسلی
             </Link>
 
             <details className="Dropdown">
               <summary className="Item">
-                <i className="Icon">📞</i>
+                <i className="Icon" aria-hidden="true">📞</i>
                 پشتیبانی ۲۴/۷
               </summary>
 
@@ -31,7 +32,7 @@ export default function Sidebar() {
 
             <details className="Dropdown">
               <summary className="Item">
-                <i className="Icon">🧳</i>
+                <i className="Icon" aria-hidden="true">🧳</i>
                 خدمات سفر
               </summary>
 
@@ -43,7 +44,7 @@ export default function Sidebar() {
             </details>
 
             <Link href="/about-us" className="Item">
-              <i className="Icon">ⓘ</i>
+              <i className="Icon" aria-hidden="true">ⓘ</i>
               درباره ما
             </Link>
           </nav>

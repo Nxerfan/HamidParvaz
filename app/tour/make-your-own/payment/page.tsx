@@ -1,8 +1,12 @@
 "use client";
 import "../global.css";
+import Image from "next/image";
 import HeaderMakeYourTour from "../../../components/(Headers)/HeaderMakeYourTour";
-import { useState } from "react";
+import { useState, useEffect, useActionState } from "react";
 import { useRouter } from "next/navigation";
+import { createBooking } from "../../../actions/booking";
+import type { BookingState } from "../../../actions/booking";
+import { useToast } from "../../../lib/hooks/useToast";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -144,6 +148,28 @@ export default function CheckoutPage() {
   const router = useRouter();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("gateway");
   const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
+  const [bookingState, bookingFormAction, isBookingPending] = useActionState(createBooking, { success: false, message: "" } as BookingState);
+  const toast = useToast();
+
+  useEffect(() => {
+    if (bookingState.success && bookingState.bookingId) {
+      router.push("/userpanel/tracking");
+    } else if (bookingState.message) {
+      toast.error(bookingState.message);
+    }
+  }, [bookingState, router]);
+
+  const handleConfirm = () => {
+    const fd = new FormData();
+    fd.set("type", "tour");
+    fd.set("itemId", PAGE_DATA.hotel.name);
+    fd.set("passengerName", PAGE_DATA.passengerSection.passengers[0]?.name || "");
+    fd.set("passengerPhone", PAGE_DATA.passengerSection.contactNumber);
+    fd.set("date", PAGE_DATA.hotel.details[0].value);
+    fd.set("passengers", PAGE_DATA.passengerSection.passengers.length.toString());
+    bookingFormAction(fd);
+  };
+
   const toggleAccordion = (id: string) => {
     setOpenAccordions((prev) => ({
       ...prev,
@@ -171,7 +197,9 @@ export default function CheckoutPage() {
             <div className="hotelMiniCard">
               <div className="hotelMiniTop">
                 <div className="hotelMiniImgWrap">
-                  <img src={PAGE_DATA.hotel.image} alt={PAGE_DATA.hotel.name} />
+                  <div style={{ position: "relative", width: "100%", height: "100%" }}>
+                    <Image src={PAGE_DATA.hotel.image} alt={PAGE_DATA.hotel.name} fill sizes="80px" unoptimized style={{ objectFit: "cover", borderRadius: "8px" }} />
+                  </div>
                 </div>
                 <div className="hotelMiniMeta">
                   <div className="hotelMiniName">{PAGE_DATA.hotel.name}</div>
@@ -301,8 +329,8 @@ export default function CheckoutPage() {
                   <span className="payTotalValue">{PAGE_DATA.rightSidebar.summary.priceValue}</span>
                 </div>
               </div>
-              <button className="payButton" onClick={() => router.push("/userpanel/tracking")}>
-                <span>پرداخت و تکمیل سفارش</span>
+              <button className="payButton" onClick={handleConfirm} disabled={isBookingPending}>
+                <span>{isBookingPending ? "در حال پردازش..." : "پرداخت و تکمیل سفارش"}</span>
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
@@ -319,7 +347,9 @@ export default function CheckoutPage() {
           </div>
 
           <div className="MediaElementHotel">
-            <img src={PAGE_DATA.hotel.image} alt={PAGE_DATA.hotel.name} />
+            <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
+              <Image src={PAGE_DATA.hotel.image} alt={PAGE_DATA.hotel.name} fill sizes="(max-width: 768px) 100vw, 600px" unoptimized style={{ objectFit: "cover" }} />
+            </div>
             <div className="Down">
               <p>{PAGE_DATA.hotel.name}</p>
               <div className="rating">

@@ -1,11 +1,19 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useState, useEffect, useActionState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { createBooking } from "../../../actions/booking";
+import type { BookingState } from "../../../actions/booking";
+import { useToast } from "../../../lib/hooks/useToast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faAngleDown,
   faCircle,
+  faChevronDown,
+  faUsers,
+  faCalendarAlt,
+  faBuilding,
+  faGem,
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderBuyRoom from "../../../components/(Headers)/HeaderBuyRoom";
 
@@ -84,7 +92,7 @@ const PAGE_DATA = {
     },
   },
   hotelCard: {
-    image: "choosedTour.jpg", // Add proper extension
+    image: "choosedTour.jpg",
     alt: "تور",
     name: "تور استانبول",
     checkIn: {
@@ -173,16 +181,50 @@ const PAGE_DATA = {
       rules: "قوانین جریمه و استرداد",
       tag: "چارتری",
     },
-    invoice: "صورتحاسب صفر",
+    invoice: "صورتحساب",
     btnText: "تایید و ادامه",
   },
 };
 
-export default function TourReviewPage() {
+function formatPrice(price: number) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function TourReviewContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [activePayment, setActivePayment] = useState("gateway");
   const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
   const [isHotelOpen, setIsHotelOpen] = useState(false);
+  const [isInvoiceExpanded, setIsInvoiceExpanded] = useState(false);
+  const [bookingState, bookingFormAction, isBookingPending] = useActionState(createBooking, { success: false, message: "" } as BookingState);
+  const toast = useToast();
+
+  useEffect(() => {
+    if (bookingState.success && bookingState.bookingId) {
+      router.push("/userpanel/tracking");
+    } else if (bookingState.message) {
+      toast.error(bookingState.message);
+    }
+  }, [bookingState, router]);
+
+  const handleConfirm = () => {
+    const fd = new FormData();
+    fd.set("type", "tour");
+    fd.set("itemId", invoiceTourName);
+    fd.set("passengerName", PAGE_DATA.passenger.rows[0]?.name || "");
+    fd.set("passengerPhone", PAGE_DATA.passenger.contact.rows[0]?.mobile || "");
+    fd.set("date", invoiceStartDate);
+    fd.set("passengers", invoicePassengers);
+    bookingFormAction(fd);
+  };
+
+  const invoicePassengers = searchParams.get('passengers') || '1';
+  const invoiceTourName = searchParams.get('tourName') || 'تور استانبول';
+  const invoiceStartDate = searchParams.get('startDate') || 'حرکت: یک‌شنبه 12 اسفند';
+  const invoiceEndDate = searchParams.get('endDate') || 'بازگشت: دوشنبه 18 اسفند';
+  const invoicePrice = searchParams.get('price') || '5000000';
+  const formattedPrice = formatPrice(Number(invoicePrice));
 
   const handlePaymentClick = (methodId: string) => setActivePayment(methodId);
   const toggleAccordion = (id: string) =>
@@ -461,15 +503,54 @@ export default function TourReviewPage() {
                 </div>
               </div>
             </div>
-            <div className="card2">
-              <span>{PAGE_DATA.sidebar.invoice}</span>
+            <div className="invoiceContainer">
+              <div className="invoiceHeader" onClick={() => setIsInvoiceExpanded(!isInvoiceExpanded)}>
+                <div className="invoiceHeaderRight">
+                  <span className="invoiceHeaderTitle">{PAGE_DATA.sidebar.invoice}</span>
+                  <FontAwesomeIcon icon={faChevronDown} className={`invoiceChevron ${isInvoiceExpanded ? "open" : ""}`} />
+                </div>
+                <span className="invoiceHeaderPrice">{formattedPrice} تومان</span>
+              </div>
+              <div className={`invoiceBody ${isInvoiceExpanded ? "open" : ""}`}>
+                <div className="invoiceBodyInner">
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faUsers} /> تعداد مسافران</span>
+                    <span className="invoiceRowValue">{invoicePassengers} نفر</span>
+                  </div>
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faBuilding} /> نام تور</span>
+                    <span className="invoiceRowValue">{invoiceTourName}</span>
+                  </div>
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faCalendarAlt} /> تاریخ حرکت</span>
+                    <span className="invoiceRowValue">{invoiceStartDate}</span>
+                  </div>
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faCalendarAlt} /> تاریخ بازگشت</span>
+                    <span className="invoiceRowValue">{invoiceEndDate}</span>
+                  </div>
+                  <div className="invoiceDivider" />
+                  <div className="invoiceTotalRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faGem} /> قیمت کل</span>
+                    <span className="invoiceRowValue">{formattedPrice} تومان</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <button onClick={() => router.push("/userpanel/tracking")}>
-              {PAGE_DATA.sidebar.btnText} <FontAwesomeIcon icon={faArrowLeft} />
+            <button onClick={handleConfirm} disabled={isBookingPending}>
+              {isBookingPending ? "در حال پردازش..." : PAGE_DATA.sidebar.btnText} <FontAwesomeIcon icon={faArrowLeft} />
             </button>
           </div>
         </div>
       </section>
     </>
+  );
+}
+
+export default function TourReviewPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: "2rem", textAlign: "center" }}>در حال بارگذاری...</div>}>
+      <TourReviewContent />
+    </Suspense>
   );
 }

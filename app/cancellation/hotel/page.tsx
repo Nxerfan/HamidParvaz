@@ -1,7 +1,11 @@
 "use client";
 import "../global.css";
 import SecondHeader from "../../components/(Headers)/SecondHeader";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useActionState } from "react";
+import { cancelBooking } from "../../actions/booking";
+import type { CancelBookingState } from "../../actions/booking";
+import { useToast } from "../../lib/hooks/useToast";
 
 const PAGE_DATA = {
   hero: {
@@ -67,15 +71,29 @@ export default function TrackPage() {
     "not_searched" | "found" | "not_found"
   >("not_searched");
 
+  const [cancelState, cancelFormAction, isCancelling] = useActionState(cancelBooking, { success: false, message: "" } as CancelBookingState);
+
+  const toast = useToast();
+
+  useEffect(() => {
+    if (cancelState.message) toast.info(cancelState.message);
+  }, [cancelState, toast]);
+
   const handleSearch = () => {
     const code = searchValues[1]?.trim().toUpperCase();
     if (!code) {
-      alert("لطفاً کد پیگیری را وارد کنید.");
+      toast.warning("لطفاً کد پیگیری را وارد کنید.");
       return;
     }
     setSearchResult(
       code === PAGE_DATA.booking.bookingID ? "found" : "not_found",
     );
+  };
+
+  const handleCancel = () => {
+    const formData = new FormData();
+    formData.set("bookingId", PAGE_DATA.booking.bookingID);
+    cancelFormAction(formData);
   };
 
   const updateField = (index: number, value: string) => {
@@ -167,8 +185,8 @@ export default function TrackPage() {
 
                 <div className="ActionButtons">
                   {PAGE_DATA.booking.actions.map((action, index) => (
-                    <button key={index} className={action.className}>
-                      {action.text}
+                    <button key={index} className={action.className} onClick={action.text === "درخواست کنسلی" ? handleCancel : undefined} disabled={action.text === "درخواست کنسلی" && isCancelling}>
+                      {action.text === "درخواست کنسلی" && isCancelling ? "در حال پردازش..." : action.text}
                     </button>
                   ))}
                 </div>

@@ -1,0 +1,611 @@
+/* ===== Premium Rooms Section Override ===== */
+.roomsCard {
+    background: linear-gradient(180deg, #fff 0%, #fffcf5 100%) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(202, 162, 63, 0.1) !important;
+    overflow: hidden;
+    position: relative;
+}
+
+.roomsCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--goldDark), var(--gold));
+    border-radius: 20px 20px 0 0;
+    z-index: 1;
+}
+
+.roomsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px 20px !important;
+    border-bottom: 1px solid rgba(202, 162, 63, 0.1);
+    background: linear-gradient(135deg, rgba(255, 248, 225, 0.4) 0%, transparent 100%);
+}
+
+.roomsHeaderMain h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e293b;
+    letter-spacing: -0.3px;
+}
+
+.roomsHeaderMain p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 6px 0 0;
+    line-height: 1.4;
+}
+
+.selectionSummary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #fffcf5 0%, #fef3c7 100%) !important;
+    border-radius: 12px !important;
+    padding: 10px 18px !important;
+    border: 1px solid rgba(202, 162, 63, 0.2);
+    box-shadow: 0 2px 8px rgba(202, 162, 63, 0.1);
+}
+
+.summaryItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.summaryCount {
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    background: linear-gradient(135deg, var(--goldDark), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.summaryLabel {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.summaryDivider {
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(to bottom, transparent, rgba(202, 162, 63, 0.3), transparent);
+}
+
+/* ===== Room Cards ===== */
+.roomsContent {
+    display: grid;
+    gap: 14px;
+    padding: 20px 28px;
+}
+
+.RoomSelect {
+    border: 1px solid rgba(202, 162, 63, 0.12) !important;
+    border-radius: 14px !important;
+    padding: 20px !important;
+    background: #fff;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.RoomSelect::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background: transparent;
+    transition: background 0.35s ease;
+    border-radius: 0 14px 14px 0;
+}
+
+.RoomSelect:hover {
+    border-color: rgba(202, 162, 63, 0.25) !important;
+    box-shadow: 0 4px 20px rgba(202, 162, 63, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    transform: translateY(-2px);
+}
+
+.RoomSelect:hover::before {
+    background: linear-gradient(to bottom, var(--gold), var(--goldDark));
+}
+
+.RoomSelect.selected {
+    border-color: rgba(202, 162, 63, 0.4) !important;
+    background: linear-gradient(135deg, #fff 0%, #fffcf5 100%) !important;
+    box-shadow: 0 6px 24px rgba(202, 162, 63, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.RoomSelect.selected::before {
+    background: linear-gradient(to bottom, var(--gold), var(--goldDark));
+}
+
+.RoomSelectRow {
+    display: flex;
+    align-items: center;
+    gap: 20px !important;
+}
+
+.RoomSelectIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--goldDark);
+    font-size: 20px;
+    flex-shrink: 0;
+    border: 1px solid rgba(202, 162, 63, 0.15);
+}
+
+.RoomSelectType {
+    flex: 3 !important;
+}
+
+.RoomSelectTitle {
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    letter-spacing: -0.2px;
+}
+
+.RoomSelectSubtitle {
+    font-size: 13px;
+    color: var(--textGray);
+    margin-top: 6px;
+}
+
+.mealTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px !important;
+    border-radius: 20px !important;
+    font-size: 12px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%) !important;
+    color: var(--goldDark) !important;
+    font-weight: 600;
+    border: 1px solid rgba(202, 162, 63, 0.15);
+}
+
+.mealTag svg {
+    font-size: 11px;
+    color: var(--gold);
+}
+
+.RoomSelectMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+/* ===== Counters ===== */
+.RoomSelectCounters {
+    display: flex;
+    gap: 24px !important;
+    flex-shrink: 0;
+}
+
+.RoomSelectCounterLabel {
+    font-size: 11px !important;
+    color: #94a3b8 !important;
+    margin-bottom: 8px !important;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.RoomSelectCounterBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px !important;
+    background: #f8fafc !important;
+    border-radius: 10px !important;
+    padding: 6px 8px !important;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.RoomSelectBtn {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(202, 162, 63, 0.2) !important;
+    font-size: 14px !important;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    color: var(--goldDark);
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.RoomSelectBtn:hover:not(.disabled) {
+    background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%) !important;
+    border-color: var(--gold) !important;
+    box-shadow: 0 2px 8px rgba(202, 162, 63, 0.2);
+    transform: scale(1.08);
+}
+
+.RoomSelectBtn:active:not(.disabled) {
+    transform: scale(0.92);
+}
+
+.RoomSelectBtn.disabled {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+    color: #cbd5e1 !important;
+}
+
+.RoomSelectValue {
+    min-width: 24px !important;
+    text-align: center;
+    font-size: 16px !important;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* ===== Continue Button ===== */
+.RoomSelectSelectBtn {
+    display: flex;
+    margin-top: 20px !important;
+    justify-content: center;
+    align-items: center;
+    gap: 10px !important;
+    width: 100%;
+    padding: 14px 24px !important;
+    border-radius: 12px !important;
+    border: none !important;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--goldDark) 100%) !important;
+    color: #fff !important;
+    font-family: var(--Font);
+    font-size: 15px !important;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(202, 162, 63, 0.3);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.2px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.RoomSelectSelectBtn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.RoomSelectSelectBtn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 25px rgba(202, 162, 63, 0.4) !important;
+}
+
+.RoomSelectSelectBtn:hover::before {
+    transform: translateX(100%);
+}
+
+.RoomSelectSelectBtn:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 10px rgba(202, 162, 63, 0.3) !important;
+}
+
+.RoomSelectSelectBtn.disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.RoomSelectSelectBtn.disabled::before {
+    display: none;
+}
+
+/* ===== Selected Room Card ===== */
+.SelectedRoomCard {
+    background: linear-gradient(135deg, #fff 0%, #fffcf5 100%);
+    border: 1.5px solid rgba(202, 162, 63, 0.3);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+}
+
+.SelectedRoomCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--goldDark), var(--gold));
+}
+
+.SelectedRoomHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(202, 162, 63, 0.1);
+}
+
+.SelectedRoomHeader h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.ChangeSelectionBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px !important;
+    padding: 8px 16px !important;
+    background: rgba(202, 162, 63, 0.08) !important;
+    border: 1px solid rgba(202, 162, 63, 0.15) !important;
+    border-radius: 10px !important;
+    font-size: 12px !important;
+    font-weight: 600;
+    color: var(--goldDark) !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ChangeSelectionBtn:hover {
+    background: rgba(202, 162, 63, 0.15) !important;
+    border-color: var(--gold) !important;
+    transform: translateY(-1px);
+}
+
+.ChangeSelectionBtn svg {
+    font-size: 11px !important;
+    transition: transform 0.4s ease;
+}
+
+.ChangeSelectionBtn:hover svg {
+    transform: rotate(180deg);
+}
+
+.SelectedRoomContent {
+    padding: 18px 22px;
+}
+
+.SelectedRoomInfo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.SelectedRoomIcon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--goldDark);
+    font-size: 22px;
+    flex-shrink: 0;
+    border: 1px solid rgba(202, 162, 63, 0.15);
+}
+
+.SelectedRoomType h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.SelectedRoomMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.SelectedRoomSummary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 22px;
+    background: linear-gradient(135deg, #fffcf5 0%, #fef3c7 100%);
+    border-top: 1px solid rgba(202, 162, 63, 0.1);
+}
+
+.SummaryItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.SummaryCount {
+    font-size: 20px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--goldDark), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.SummaryLabel {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.SummaryDivider {
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(to bottom, transparent, rgba(202, 162, 63, 0.3), transparent);
+}
+
+/* ===== Footer Card ===== */
+.footerCard {
+    background: linear-gradient(135deg, #fff 0%, #fffcf5 100%) !important;
+    border: 1px solid rgba(202, 162, 63, 0.1) !important;
+}
+
+.footerCard .Titel .Footer2 h3 a {
+    color: var(--goldDark) !important;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footerCard .Titel .Footer2 h3 a:hover {
+    color: var(--gold) !important;
+    text-decoration: underline;
+}
+
+/* ===== Responsive: Tablet ===== */
+@media (max-width: 768px) {
+    .roomsHeader {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 20px !important;
+    }
+
+    .selectionSummary {
+        align-self: stretch;
+        justify-content: center;
+    }
+
+    .roomsContent {
+        padding: 16px 20px;
+        gap: 12px;
+    }
+
+    .RoomSelectRow {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px !important;
+    }
+
+    .RoomSelectIcon {
+        width: 40px;
+        height: 40px;
+        font-size: 17px;
+    }
+
+    .RoomSelectCounters {
+        justify-content: center;
+    }
+
+    .SelectedRoomHeader {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px 18px;
+    }
+
+    .SelectedRoomSummary {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        padding: 14px 18px;
+    }
+}
+
+/* ===== Responsive: Mobile ===== */
+@media (max-width: 480px) {
+    .roomsHeader {
+        padding: 16px !important;
+    }
+
+    .roomsContent {
+        padding: 14px 16px;
+    }
+
+    .RoomSelect {
+        padding: 16px !important;
+    }
+
+    .RoomSelectRow {
+        gap: 12px !important;
+    }
+
+    .RoomSelectIcon {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+        border-radius: 10px;
+    }
+
+    .RoomSelectTitle {
+        font-size: 15px !important;
+    }
+
+    .RoomSelectCounters {
+        gap: 16px !important;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .RoomSelectBtn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 12px !important;
+    }
+
+    .RoomSelectValue {
+        font-size: 14px !important;
+    }
+
+    .RoomSelectSelectBtn {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+    }
+
+    .SelectedRoomInfo {
+        gap: 12px;
+    }
+
+    .SelectedRoomIcon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+
+    .SelectedRoomType h4 {
+        font-size: 15px;
+    }
+
+    .SelectedRoomMeta {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .SelectionSummary,
+    .SelectedRoomSummary {
+        gap: 10px !important;
+        padding: 12px 16px !important;
+    }
+
+    .selectionSummary {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

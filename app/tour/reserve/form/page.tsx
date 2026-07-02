@@ -10,13 +10,19 @@ import {
   faPlus,
   faArrowLeft,
   faAngleDown,
-  faUserClock,
   faTrash,
   faCircle,
+  faChevronDown,
+  faUsers,
+  faBuilding,
+  faCalendarAlt,
+  faMoon,
+  faGem,
 } from "@fortawesome/free-solid-svg-icons";
 import "../../../reserve/global.css";
 
 import HeaderBuyRoom from "../../../components/(Headers)/HeaderBuyRoom";
+import { useToast } from "../../../lib/hooks/useToast";
 
 const PAGE_DATA = {
   passengerCard: {
@@ -140,7 +146,6 @@ const PAGE_DATA = {
   },
   icons: {
     clock: faClock,
-    userClock: faUserClock,
     trash: faTrash,
     angleDown: faAngleDown,
     arrowLeft: faArrowLeft,
@@ -148,20 +153,26 @@ const PAGE_DATA = {
   },
 };
 const Total = 9772000;
-const OneBlitPrice = 95852000;
+
+function formatPrice(price: number) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 const NiksaPassengerInfo = () => {
   const router = useRouter();
-  const [isBillOpen, setIsBillOpen] = useState(false);
+  const [isInvoiceExpanded, setIsInvoiceExpanded] = useState(false);
   const [isHotelOpen, setIsHotelOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState(600);
   const [showTimeoutModal, setShowTimeoutModal] = useState(false);
   const [contactMobile, setContactMobile] = useState("");
+  const toast = useToast();
 
   const {
     passengers: savedPassengers,
     addPassenger,
     updatePassenger: updateSavedPassenger,
     getPassengerById,
+    removePassenger: removeSavedPassenger,
   } = usePassengersContext();
   const [selectedSavedIds, setSelectedSavedIds] = useState<
     Record<number, string>
@@ -213,7 +224,7 @@ const NiksaPassengerInfo = () => {
       addNew(pType, pLabel);
     } else {
       if (nonAdultCount >= adultCount * 3) {
-        alert(
+        toast.warning(
           `به ازای هر بزرگسال حداکثر ۳ همراه مجاز است. شما در حال حاضر ${adultCount} بزرگسال و ${nonAdultCount} همراه دارید. ابتدا بزرگسال جدید اضافه کنید.`,
         );
         return;
@@ -259,6 +270,14 @@ const NiksaPassengerInfo = () => {
   };
 
   const handleSelectSavedPassenger = (formId: number, savedId: string) => {
+    if (selectedSavedIds[formId] === savedId) {
+      setSelectedSavedIds((prev) => ({ ...prev, [formId]: "" }));
+      updatePassenger(formId, "firstName", "");
+      updatePassenger(formId, "lastName", "");
+      updatePassenger(formId, "nationalId", "");
+      updatePassenger(formId, "gender", "آقا");
+      return;
+    }
     setSelectedSavedIds((prev) => ({ ...prev, [formId]: savedId }));
     if (!savedId) {
       updatePassenger(formId, "firstName", "");
@@ -289,11 +308,11 @@ const NiksaPassengerInfo = () => {
       return false;
     });
     if (hasErrors) {
-      alert("لطفاً تمام فیلدهای اجباری را پر کنید");
+      toast.warning("لطفاً تمام فیلدهای اجباری را پر کنید");
       return;
     }
     if (!contactMobile.trim()) {
-      alert("لطفاً شماره موبایل را وارد کنید");
+      toast.warning("لطفاً شماره موبایل را وارد کنید");
       return;
     }
     passengers.forEach((p) => {
@@ -319,7 +338,14 @@ const NiksaPassengerInfo = () => {
         }
       }
     });
-    router.push("/tour/reserve/prepay");
+    const params = new URLSearchParams();
+    params.set('passengers', passengers.length.toString());
+    params.set('tourName', PAGE_DATA.hotelCard.name);
+    params.set('startDate', PAGE_DATA.hotelCard.checkIn.label);
+    params.set('endDate', PAGE_DATA.hotelCard.checkOut.label);
+    const tourPrice = 5000000 * passengers.length;
+    params.set('price', tourPrice.toString());
+    router.push(`/tour/reserve/prepay?${params.toString()}`);
   };
 
   return (
@@ -434,32 +460,43 @@ const NiksaPassengerInfo = () => {
                       </select>
                     </div>
                     <div className="addNew">
-                      <select
-                        value={selectedSavedIds[passenger.id] || ""}
-                        onChange={(e) =>
-                          handleSelectSavedPassenger(
-                            passenger.id,
-                            e.target.value,
-                          )
-                        }
-                        style={{
-                          padding: "6px 10px",
-                          borderRadius: "8px",
-                          border: "1px solid #ddd",
-                          fontSize: "13px",
-                          cursor: "pointer",
-                          maxWidth: "180px",
-                        }}
-                      >
-                        <option value="">
+                      <div className="prevPassengersSection">
+                        <p style={{ fontSize: "13px", fontWeight: "bold", marginBottom: "8px", color: "var(--textDark)" }}>
                           {PAGE_DATA.passengerCard.previousPassengers}
-                        </option>
-                        {savedPassengers.map((sp) => (
-                          <option key={sp.id} value={sp.id}>
-                            {sp.firstName} {sp.lastName}
-                          </option>
-                        ))}
-                      </select>
+                        </p>
+                        {savedPassengers.length === 0 ? (
+                          <p style={{ fontSize: "12px", color: "var(--textGray)", fontStyle: "italic" }}>
+                            هنوز مسافری ذخیره نشده است
+                          </p>
+                        ) : (
+                          <div className="prevPassengersList">
+                            {savedPassengers.map((sp) => (
+                              <div
+                                key={sp.id}
+                                className={`prevPassengerCard ${selectedSavedIds[passenger.id] === sp.id ? "selected" : ""}`}
+                                onClick={() => handleSelectSavedPassenger(passenger.id, sp.id)}
+                              >
+                                <div className="prevPassengerInfo">
+                                  <span className="prevPassengerName">{sp.firstName} {sp.lastName}</span>
+                                  <span className="prevPassengerId">{sp.nationalId || "—"}</span>
+                                </div>
+                                <button
+                                  className="prevPassengerDelete"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (confirm('آیا از حذف این مسافر اطمینان دارید؟')) {
+                                      removeSavedPassenger(sp.id);
+                                    }
+                                  }}
+                                  title="حذف مسافر"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                       {index > 0 && (
                         <FontAwesomeIcon
                           icon={PAGE_DATA.icons.trash}
@@ -804,35 +841,48 @@ const NiksaPassengerInfo = () => {
               </div>
             </div>
           </div>
-          <div className="card2">
-            <div className="T" onClick={() => setIsBillOpen(!isBillOpen)}>
-              <span>{PAGE_DATA.bill.title}</span>
-              <FontAwesomeIcon icon={PAGE_DATA.icons.angleDown} />
+          <div className="invoiceContainer">
+            <div className="invoiceHeader" onClick={() => setIsInvoiceExpanded(!isInvoiceExpanded)}>
+              <div className="invoiceHeaderRight">
+                <span className="invoiceHeaderTitle">{PAGE_DATA.bill.title}</span>
+                <FontAwesomeIcon icon={faChevronDown} className={`invoiceChevron ${isInvoiceExpanded ? "open" : ""}`} />
+              </div>
+              <span className="invoiceHeaderPrice">{formatPrice(Total)} تومان</span>
             </div>
-            <div className={`SeeMore ${isBillOpen ? "active" : ""}`}>
-              <div className="MoreDetails" style={{ padding: "15px" }}>
-                <div className="Spand">
-                  <div className="items">
-                    <p>
-                      {passengers.length} {PAGE_DATA.bill.passengersLabel}
-                    </p>
-                    <p>{OneBlitPrice}</p>
-                  </div>
-                  <div className="items">
-                    <p>{PAGE_DATA.bill.totalLabel}</p>
-                    <p>
-                      {Total}
-                      <span>{PAGE_DATA.bill.currency}</span>
-                    </p>
-                  </div>
+            <div className={`invoiceBody ${isInvoiceExpanded ? "open" : ""}`}>
+              <div className="invoiceBodyInner">
+                <div className="invoiceRow">
+                  <span className="invoiceRowLabel"><FontAwesomeIcon icon={faUsers} /> تعداد مسافران</span>
+                  <span className="invoiceRowValue">{passengers.length} نفر</span>
+                </div>
+                <div className="invoiceRow">
+                  <span className="invoiceRowLabel"><FontAwesomeIcon icon={faBuilding} /> نام تور</span>
+                  <span className="invoiceRowValue">{PAGE_DATA.hotelCard.name}</span>
+                </div>
+                <div className="invoiceRow">
+                  <span className="invoiceRowLabel"><FontAwesomeIcon icon={faCalendarAlt} /> تاریخ حرکت</span>
+                  <span className="invoiceRowValue">{PAGE_DATA.hotelCard.checkIn.label}</span>
+                </div>
+                <div className="invoiceRow">
+                  <span className="invoiceRowLabel"><FontAwesomeIcon icon={faCalendarAlt} /> تاریخ بازگشت</span>
+                  <span className="invoiceRowValue">{PAGE_DATA.hotelCard.checkOut.label}</span>
+                </div>
+                <div className="invoiceRow">
+                  <span className="invoiceRowLabel"><FontAwesomeIcon icon={faMoon} /> مدت اقامت</span>
+                  <span className="invoiceRowValue">6 شب</span>
+                </div>
+                <div className="invoiceDivider" />
+                <div className="invoiceTotalRow">
+                  <span className="invoiceRowLabel"><FontAwesomeIcon icon={faGem} /> قیمت کل</span>
+                  <span className="invoiceRowValue">{formatPrice(Total)} تومان</span>
                 </div>
               </div>
             </div>
-            <button onClick={handleSubmitAndSave}>
-              {PAGE_DATA.buttons.next}{" "}
-              <FontAwesomeIcon icon={PAGE_DATA.icons.arrowLeft} />
-            </button>
           </div>
+          <button onClick={handleSubmitAndSave}>
+            {PAGE_DATA.buttons.next}{" "}
+            <FontAwesomeIcon icon={PAGE_DATA.icons.arrowLeft} />
+          </button>
         </div>
       </div>
     </>

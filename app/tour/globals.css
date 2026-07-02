@@ -230,7 +230,7 @@
     }
   }
 }
-.tourCard {
+.TourCard {
   background: var(--bgWhite);
   display: flex;
   border-radius: 12px;
@@ -238,7 +238,7 @@
   box-shadow: var(--boxShadow);
   position: relative;
   transition: 0.3s;
-  align-items: stretch; /* تغییر از start به stretch برای کشیده شدن ارتفاع */
+  align-items: stretch;
   margin-bottom: 12px;
   height: fit-content;
 
@@ -246,20 +246,21 @@
     transform: translateY(-5px);
   }
 
-  .tourImageWrapper {
-    width: 280px; /* عرض رو به خود wrapper دادیم */
-    flex-shrink: 0; /* جلوگیری از کوچک شدن عرض عکس وقتی متن زیاده */
+  .TourImage {
+    width: 280px;
+    flex-shrink: 0;
     position: relative;
+    align-self: stretch;
 
     img {
-      width: 100%;
-      height: 100%;
+      width: 280px !important;
+      height: 100% !important;
       object-fit: cover;
-      display: block; /* حذف فاصله سفید اضافی پایین عکس */
+      display: block;
     }
   }
 
-  .tourInfo {
+  .TourContent {
     padding: 20px;
     display: grid;
     gap: 8px;

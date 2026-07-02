@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -313,8 +314,7 @@ const PAGE_DATA = {
         },
       ],
     },
-  ] as SectionType[],
-  destinationsData: {
+  ] as SectionType[],    destinationsData: {
     header: "رزرو آنلاین هتل در تمام شهرها",
     list: [
       {
@@ -322,49 +322,42 @@ const PAGE_DATA = {
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg",
         alt: "تهران",
         title: "رزرو هتل تهران",
-        link: "/hotels/tehran",
       },
       {
         id: 2,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg",
         alt: "مشهد",
         title: "رزرو هتل مشهد",
-        link: "/hotels/mashhad",
       },
       {
         id: 3,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg",
         alt: "اصفهان",
         title: "رزرو هتل اصفهان",
-        link: "/hotels/isfahan",
       },
       {
         id: 4,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg",
         alt: "شیراز",
         title: "رزرو هتل شیراز",
-        link: "/hotels/shiraz",
       },
       {
         id: 5,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg",
         alt: "تبریز",
         title: "رزرو هتل تبریز",
-        link: "/hotels/tabriz",
       },
       {
         id: 6,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg",
         alt: "کیش",
         title: "رزرو هتل کیش",
-        link: "/hotels/kish",
       },
       {
         id: 7,
         src: "https://cdn.alibaba.ir/ostorage/alibaba-mag/wp-content/uploads/Goharshad-mosque.jpg",
         alt: "قشم",
         title: "رزرو هتل قشم",
-        link: "/hotels/qeshm",
       },
     ],
   },
@@ -513,10 +506,10 @@ export default function HotelsPage() {
   const destinationsJSX: React.ReactElement[] = [];
   for (const item of PAGE_DATA.destinationsData.list) {
     destinationsJSX.push(
-      <div key={item.id} className="destinationItem">
-        <img src={item.src} alt={item.alt} width={140} height={140} />
+      <Link key={item.id} href={`/hotel/hotelse?destination=${encodeURIComponent(item.alt)}`} className="destinationItem">
+        <Image src={item.src} alt={item.alt} width={140} height={140} style={{ objectFit: "cover", borderRadius: "8px", width: "auto", height: "auto" }} />
         <span>{item.title}</span>
-      </div>,
+      </Link>,
     );
   }
 
@@ -524,7 +517,9 @@ export default function HotelsPage() {
   for (const item of PAGE_DATA.hotelGroupsData.list) {
     groupsJSX.push(
       <div key={item.id} className="MediaElement">
-        <img src={item.src} alt={item.alt} />
+        <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
+          <Image src={item.src} alt={item.alt} fill sizes="(max-width: 768px) 100vw, 300px" style={{ objectFit: "cover" }} />
+        </div>
         <p>{item.caption}</p>
         <div className="Options">
           <Link href={item.internalLink}>
@@ -553,9 +548,9 @@ export default function HotelsPage() {
             <header className="destinationsHeader">
               <h5>{PAGE_DATA.destinationsData.header}</h5>
             </header>
-            <Link href={"/hotel/hotelse"} className="destinationsList">
+            <div className="destinationsList">
               {destinationsJSX}
-            </Link>
+            </div>
           </section>
 
           <Description />
@@ -592,7 +587,9 @@ function HotelCard({
 }: HotelCardType & { onViewDetails: () => void; onCardClick: () => void }) {
   return (
     <div className="MediaElementHotel" onClick={onCardClick} style={{ cursor: "pointer" }}>
-      <img src={image} alt={title} />
+      <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
+        <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, 300px" style={{ objectFit: "cover" }} />
+      </div>
       <p>{title}</p>
       <div className="rating">
         <div className="Stars">

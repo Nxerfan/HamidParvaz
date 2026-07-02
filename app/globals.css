@@ -18,9 +18,27 @@
 /* ================= Font ================= */
 @font-face {
   font-family: "Sahel";
-  src: url("../public/sahel-font-v1.0.0-alpha9/Sahel.ttf") format("truetype");
+  src: url("/sahel-font-v1.0.0-alpha9/Sahel.woff") format("woff"),
+       url("/sahel-font-v1.0.0-alpha9/Sahel.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sahel";
+  src: url("/sahel-font-v1.0.0-alpha9/Sahel-Bold.woff") format("woff"),
+       url("/sahel-font-v1.0.0-alpha9/Sahel-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sahel";
+  src: url("/sahel-font-v1.0.0-alpha9/Sahel-Black.woff") format("woff"),
+       url("/sahel-font-v1.0.0-alpha9/Sahel-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 /* ================= Reset ================= */
 * {
@@ -34,4 +52,47 @@ body {
   color: var(--textDark);
   background: var(--bgLight);
   direction: rtl;
+}
+
+/* ================= Focus Indicators (WCAG 2.4.7) ================= */
+:focus-visible {
+  outline: 2px solid var(--goldDark);
+  outline-offset: 2px;
+}
+
+/* Remove outline only for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ================= Reduced Motion (WCAG 2.3.3) ================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ================= Accessibility Utilities ================= */
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

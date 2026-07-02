@@ -13,12 +13,14 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import Header from "../../components/(Headers)/SecondHeader";
+import LoadingSkeleton from "../../components/LoadingSkeleton";
 import Form from "../../components/(Forms)/FormType1";
 import FilterSidebar from "../../components/(filters)/FilterSidebar";
 import FilterAccordion from "../../components/(filters)/FilterAccordion";
 import PriceRangeFilter from "../../components/(filters)/PriceRangeFilter";
 import CheckboxFilter from "../../components/(filters)/CheckboxFilter";
 import "../../components/(filters)/FiltersGlobal.css";
+import Image from "next/image";
 import "../globals.css";
 import HotelDetailModal, {
   HotelDetail,
@@ -205,6 +207,7 @@ function HotelResultsPageContent() {
 
   const filteredHotels = hotelsData
     .filter((hotel) => {
+      if (destination && !hotel.location.includes(destination)) return false;
       if (hotel.pricePerNight < minPrice || hotel.pricePerNight > maxPrice)
         return false;
       if (
@@ -332,11 +335,15 @@ function HotelResultsPageContent() {
           <div className="Countainer">
             <div className="Right">
               <div className="Title">
-                <img
-                  src="/Media/istockphoto-1306235331-612x612.jpg"
-                  alt="hotel cover"
-                  className="cover"
-                />
+                <div style={{ position: "relative", width: "100%", height: "200px" }}>
+                  <Image
+                    src="/istockphoto-1306235331-612x612.jpg"
+                    alt="hotel cover"
+                    fill
+                    sizes="100vw"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
                 <Link href="/hotel-on-map">
                   <span>
                     <FontAwesomeIcon icon={faMap} /> مشاهده هتل‌ها روی نقشه
@@ -548,7 +555,9 @@ function HotelResultsPageContent() {
 
                 return (
                   <div className="MediaElementHotel" key={hotel.id} onClick={() => router.push(`/hotel/hotelch?id=${hotel.id}`)} style={{ cursor: "pointer" }}>
-                    <img src={hotel.image} alt={hotel.name} />
+                    <div style={{ position: "relative", width: "280px", flexShrink: 0, alignSelf: "stretch" }}>
+                      <Image src={hotel.image} alt={hotel.name} fill sizes="(max-width: 768px) 100vw, 280px" style={{ objectFit: "cover" }} />
+                    </div>
                     <div className="Down">
                       <p>{hotel.name}</p>
                       <div className="rating">
@@ -630,7 +639,7 @@ function HotelResultsPageContent() {
 
 export default function HotelResultsPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingSkeleton type="list" />}>
       <HotelResultsPageContent />
     </Suspense>
   );

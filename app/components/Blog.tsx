@@ -13,7 +13,9 @@ import {
   faTimes,
   faImage,
 } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 import "../blog/global.css";
+import { useToast } from "../lib/hooks/useToast";
 
 const PAGE_DATA = {
   hero: {
@@ -175,6 +177,7 @@ const Blog = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const toast = useToast();
 
   useEffect(() => {
     setIsAdmin(localStorage.getItem("blog_admin") === "true");
@@ -211,17 +214,30 @@ const Blog = () => {
     setTimeout(() => setIsLoadingMore(false), 1000);
   };
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      alert("با تشکر! ایمیل شما با موفقیت در خبرنامه ثبت شد.");
-      setEmail("");
+      setIsSubscribing(true);
+      try {
+        const { subscribeNewsletter } = await import("../actions/contact");
+        const formData = new FormData();
+        formData.set("email", email);
+        const result = await subscribeNewsletter({ success: false, message: "" }, formData);
+        toast.success(result.message || "با تشکر! ایمیل شما با موفقیت در خبرنامه ثبت شد.");
+        setEmail("");
+      } catch {
+        toast.error("خطا در ارسال درخواست");
+      } finally {
+        setIsSubscribing(false);
+      }
     }
   };
 
   const addArticle = () => {
     if (!newTitle.trim()) {
-      alert("لطفاً عنوان مقاله را وارد کنید.");
+      toast.error("لطفاً عنوان مقاله را وارد کنید.");
       return;
     }
 
@@ -348,7 +364,9 @@ const Blog = () => {
         {/* ===== Hero قابل کلیک ===== */}
         <Link href={`/blog/${PAGE_DATA.hero.slug}`} className="blog-hero-link">
           <section className="blog-hero">
-            <img src={PAGE_DATA.hero.image} alt="سفر به استانبول" />
+            <div style={{ position: "relative", width: "100%", height: "100%" }}>
+              <Image src={PAGE_DATA.hero.image} alt="سفر به استانبول" fill sizes="(max-width: 768px) 100vw, 1200px" style={{ objectFit: "cover" }} />
+            </div>
             <div className="hero-overlay"></div>
             <div className="hero-content">
               <span className="hero-tag">{PAGE_DATA.hero.tag}</span>
@@ -428,7 +446,9 @@ const Blog = () => {
               >
                 <div className="card-image-wrapper">
                   <span className="card-category">{article.categoryLabel}</span>
-                  <img src={article.image} alt={article.title} />
+                  <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
+                    <Image src={article.image} alt={article.title} fill sizes="(max-width: 768px) 100vw, 400px" style={{ objectFit: "cover" }} />
+                  </div>
                 </div>
                 <div className="card-content">
                   <h3 className="card-title">{article.title}</h3>
@@ -502,7 +522,7 @@ const Blog = () => {
             <h3 className="widget-title">{PAGE_DATA.sidebar.popularTitle}</h3>
             {PAGE_DATA.sidebar.popularPosts.map((p, i) => (
               <div key={i} className="popular-post">
-                <img src={p.image} alt="مقاله" />
+                <Image src={p.image} alt="مقاله" width={80} height={60} style={{ objectFit: "cover", borderRadius: "8px" }} />
                 <div className="popular-post-info">
                   <h4>{p.title}</h4>
                   <span>
@@ -647,19 +667,15 @@ const Blog = () => {
                     border: "1px solid #e5e7eb",
                   }}
                 >
-                  <img
-                    src={newImage}
-                    alt="پیش‌نمایش"
-                    style={{
-                      width: "100%",
-                      height: "150px",
-                      objectFit: "cover",
-                      display: "block",
-                    }}
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = "none";
-                    }}
-                  />
+                  <div style={{ position: "relative", width: "100%", height: "150px" }}>
+                    <Image
+                      src={newImage}
+                      alt="پیش‌نمایش"
+                      fill
+                      sizes="550px"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
                 </div>
               )}
 

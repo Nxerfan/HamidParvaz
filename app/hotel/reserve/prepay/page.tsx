@@ -1,12 +1,21 @@
 "use client"
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useState, useEffect, useActionState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { createBooking } from "../../../actions/booking";
+import type { BookingState } from "../../../actions/booking";
+import { useToast } from "../../../lib/hooks/useToast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
   faArrowLeft,
   faPlane,
   faPlus,
+  faChevronDown,
+  faUsers,
+  faCalendarAlt,
+  faBuilding,
+  faMoon,
+  faGem,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCircleDot } from "@fortawesome/free-solid-svg-icons";
 import "../../../reserve/global.css";
@@ -82,7 +91,7 @@ const PAGE_DATA = {
   dotsCount: 8,
   cancellationRules: "قوانین جریمه و استرداد",
   charter: "چارتری",
-  invoiceZero: "صورتحاسب صفر",
+  invoiceZero: "صورتحساب",
   confirmButton: "تایید و ادامه",
   icons: {
     arrowLeft: faArrowLeft,
@@ -92,10 +101,44 @@ const PAGE_DATA = {
   },
 };
 
-export default function BookingReview() {
+function formatPrice(price: number) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function BookingReviewContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("gateway");
   const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
+  const [isInvoiceExpanded, setIsInvoiceExpanded] = useState(false);
+  const [bookingState, bookingFormAction, isBookingPending] = useActionState(createBooking, { success: false, message: "" } as BookingState);
+  const toast = useToast();
+
+  useEffect(() => {
+    if (bookingState.success && bookingState.bookingId) {
+      router.push("/userpanel/tracking");
+    } else if (bookingState.message) {
+      toast.error(bookingState.message);
+    }
+  }, [bookingState, router]);
+
+  const handleConfirm = () => {
+    const fd = new FormData();
+    fd.set("type", "hotel");
+    fd.set("itemId", invoiceHotelName);
+    fd.set("passengerName", "amir sadeghi");
+    fd.set("passengerPhone", "09981826109");
+    fd.set("date", invoiceStartDate);
+    fd.set("passengers", invoicePassengers);
+    bookingFormAction(fd);
+  };
+
+  const invoicePassengers = searchParams.get('passengers') || '1';
+  const invoiceHotelName = searchParams.get('hotelName') || 'هتل آپارتمان جمالی';
+  const invoiceStartDate = searchParams.get('startDate') || 'ورود: یک‌شنبه 17 اسفند';
+  const invoiceEndDate = searchParams.get('endDate') || 'خروج: دوشنبه 18 اسفند';
+  const invoicePrice = searchParams.get('price') || '4000000';
+  const formattedPrice = formatPrice(Number(invoicePrice));
 
   const toggleAccordion = (title: string) => {
     setOpenAccordions((prev) => ({ ...prev, [title]: !prev[title] }));
@@ -285,16 +328,59 @@ export default function BookingReview() {
             </div>
           </div>
           <div className="left2">
-            <div className="card2">
-              <span>{PAGE_DATA.invoiceZero}</span>
+            <div className="invoiceContainer">
+              <div className="invoiceHeader" onClick={() => setIsInvoiceExpanded(!isInvoiceExpanded)}>
+                <div className="invoiceHeaderRight">
+                  <span className="invoiceHeaderTitle">{PAGE_DATA.invoiceZero}</span>
+                  <FontAwesomeIcon icon={faChevronDown} className={`invoiceChevron ${isInvoiceExpanded ? "open" : ""}`} />
+                </div>
+                <span className="invoiceHeaderPrice">{formattedPrice} تومان</span>
+              </div>
+              <div className={`invoiceBody ${isInvoiceExpanded ? "open" : ""}`}>
+                <div className="invoiceBodyInner">
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faUsers} /> تعداد مسافران</span>
+                    <span className="invoiceRowValue">{invoicePassengers} نفر</span>
+                  </div>
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faBuilding} /> نام هتل</span>
+                    <span className="invoiceRowValue">{invoiceHotelName}</span>
+                  </div>
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faCalendarAlt} /> تاریخ ورود</span>
+                    <span className="invoiceRowValue">{invoiceStartDate}</span>
+                  </div>
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faCalendarAlt} /> تاریخ خروج</span>
+                    <span className="invoiceRowValue">{invoiceEndDate}</span>
+                  </div>
+                  <div className="invoiceRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faMoon} /> تعداد شب</span>
+                    <span className="invoiceRowValue">2 شب</span>
+                  </div>
+                  <div className="invoiceDivider" />
+                  <div className="invoiceTotalRow">
+                    <span className="invoiceRowLabel"><FontAwesomeIcon icon={faGem} /> قیمت کل</span>
+                    <span className="invoiceRowValue">{formattedPrice} تومان</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <button onClick={() => router.push("/userpanel/tracking")}>
-              {PAGE_DATA.confirmButton}{" "}
+            <button onClick={handleConfirm} disabled={isBookingPending}>
+              {isBookingPending ? "در حال پردازش..." : PAGE_DATA.confirmButton}{" "}
               <FontAwesomeIcon icon={PAGE_DATA.icons.arrowLeft} />
             </button>
           </div>
         </div>
       </section>
     </>
+  );
+}
+
+export default function BookingReview() {
+  return (
+    <Suspense fallback={<div style={{ padding: "2rem", textAlign: "center" }}>در حال بارگذاری...</div>}>
+      <BookingReviewContent />
+    </Suspense>
   );
 }

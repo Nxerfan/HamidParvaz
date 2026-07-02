@@ -23,7 +23,13 @@ import {
   faBaby,
 } from "@fortawesome/free-solid-svg-icons";
 import SecondHeader from "../../components/(Headers)/SecondHeader";
-import { hotelsDB, Hotel } from "../../data/hotels";
+import FAQSection from "../../components/FAQSection";
+import type { Hotel } from "../../types/index";
+
+interface HotelFromApi extends Hotel {
+  priceText?: string;
+  roomTypes: { name: string; price: number; capacity: string }[];
+}
 import "./globals.css";
 
 const facilityIcons: Record<string, any> = {
@@ -145,17 +151,28 @@ function HotelDetailInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const id = searchParams.get("id");
-  const hotel = hotelsDB.find((h) => h.id === Number(id)) || hotelsDB[0];
+  const [hotel, setHotel] = useState<HotelFromApi | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!id) {
+      setLoading(false);
+      return;
+    }
+    fetch(`/api/hotels/${id}`)
+      .then((res) => res.json())
+      .then((data: HotelFromApi) => {
+        setHotel(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [id]);
 
   const [current, setCurrent] = useState(0);
-  const images = hotel.images || [hotel.image];
+  const images = hotel?.images || (hotel ? [hotel.image] : []);
   const nextImage = () => setCurrent((prev) => (prev + 1) % images.length);
   const prevImage = () =>
     setCurrent((prev) => (prev - 1 + images.length) % images.length);
-
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const toggleFaq = (index: number) =>
-    setActiveFaq((prev) => (prev === index ? null : index));
 
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
@@ -337,8 +354,25 @@ function HotelDetailInner() {
   };
 
   const handleReserve = () => {
-    router.push(`/hotel/reserve/form?id=${hotel.id}`);
+    if (hotel) router.push(`/hotel/reserve/form?id=${hotel.id}`);
   };
+
+  if (loading) {
+    return (
+      <div style={{ padding: "40px", textAlign: "center" }}>
+        <p>در حال بارگذاری...</p>
+      </div>
+    );
+  }
+
+  if (!hotel) {
+    return (
+      <div style={{ padding: "40px", textAlign: "center" }}>
+        <h2>هتل مورد نظر یافت نشد</h2>
+        <a href="/hotel" style={{ color: "var(--gold)" }}>بازگشت به لیست هتل‌ها</a>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -527,38 +561,7 @@ function HotelDetailInner() {
           </div>
 
           {hotel.faq && hotel.faq.length > 0 && (
-            <div className="FAQSection">
-              <div className="top">
-                <span>{TEXTS.faqTitle}</span>
-              </div>
-              <div className="bottom">
-                {hotel.faq.map((item, index) => (
-                  <div
-                    key={index}
-                    className={`FAQ ${activeFaq === index ? "active" : ""}`}
-                  >
-                    <div className="question">
-                      <button
-                        className="Button"
-                        onClick={() => toggleFaq(index)}
-                      >
-                        {item.question}
-                        <span className="Icon">
-                          {activeFaq === index ? "−" : "+"}
-                        </span>
-                      </button>
-                    </div>
-                    {activeFaq === index && (
-                      <div
-                        className={`ansure ${activeFaq === index ? "open" : ""}`}
-                      >
-                        <p>{item.answer}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+            <FAQSection title={TEXTS.faqTitle} faqData={hotel.faq} />
           )}
         </div>
 

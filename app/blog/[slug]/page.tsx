@@ -1,15 +1,6 @@
 import NiksaArticle from "../../components/Article"; 
-import { loadArticles } from "../../data/articles";
 
-export async function generateStaticParams() {
-  const articles = loadArticles();
-  if (!articles.length) {
-    throw new Error("هیچ مقاله‌ای برای تولید مسیر استاتیک وجود ندارد!");
-  }
-  return articles.map((article) => ({
-    slug: article.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function Page({
   params,

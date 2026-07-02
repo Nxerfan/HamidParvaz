@@ -15,8 +15,8 @@ import {
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import "../blog/global.css";
+import Image from "next/image";
 import SecondHeader from "./(Headers)/SecondHeader";
-import { loadArticles } from "../data/articles";
 import type {
   Article,
   ShareLink,
@@ -31,16 +31,20 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
   const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
-    const allArticles = loadArticles();
-    const cleanSlug = slug.trim();
-    const found = allArticles.find(
-      (a: Article) => a.slug.trim() === cleanSlug,
-    );
-    if (found) {
-      setArticle(found);
-    } else {
-      setIsNotFound(true);
-    }
+    fetch("/api/articles")
+      .then((res) => res.json())
+      .then((data: Article[]) => {
+        const cleanSlug = slug.trim();
+        const found = data.find(
+          (a: Article) => a.slug.trim() === cleanSlug,
+        );
+        if (found) {
+          setArticle(found);
+        } else {
+          setIsNotFound(true);
+        }
+      })
+      .catch(() => setIsNotFound(true));
   }, [slug]);
 
   useEffect(() => {
@@ -133,7 +137,7 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
           <h1>{data.title}</h1>
           <div className="article-meta">
             <div className="author-info">
-              <img src={data.author.image} alt="نویسنده" />
+              <Image src={data.author.image} alt="نویسنده" width={40} height={40} style={{ borderRadius: "50%" }} />
               <div>
                 <span>{data.author.name}</span>
                 <small>{data.author.role}</small>
@@ -153,7 +157,9 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
         <div className="article-grid">
           <article className="content-column">
             <div className="featured-image">
-              <img src={data.featuredImage.src} alt={data.featuredImage.alt} />
+              <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
+                <Image src={data.featuredImage.src} alt={data.featuredImage.alt} fill sizes="(max-width: 768px) 100vw, 800px" style={{ objectFit: "cover" }} />
+              </div>
               <figcaption className="caption">
                 {data.featuredImage.caption}
               </figcaption>
@@ -214,11 +220,12 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
                       </span>
                     </div>
                   );
-                if (block.type === "image")
-                  return (
-                    <div key={index} className="in-article-image">
-                      <img src={block.src} alt={block.alt} />
-                    </div>
+                if (block.type === "image" && block.src)
+                  return (                      <div key={index} className="in-article-image">
+                        <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
+                          <Image src={block.src} alt={block.alt || ""} fill sizes="(max-width: 768px) 100vw, 800px" style={{ objectFit: "cover" }} />
+                        </div>
+                      </div>
                   );
                 return null;
               })}
@@ -272,7 +279,7 @@ const NiksaArticle = ({ slug }: { slug: string }) => {
               {data.relatedPosts.length > 0 ? (
                 data.relatedPosts.map((post: RelatedPost, index: number) => (
                   <div key={index} className="related-card">
-                    <img src={post.image} alt={post.title} />
+                    <Image src={post.image} alt={post.title} width={80} height={60} style={{ objectFit: "cover", borderRadius: "8px" }} />
                     <div>
                       <Link href={post.href}>{post.title}</Link>
                       <small>

@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,6 +22,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Header from "../../components/(Headers)/SecondHeader";
 import Form from "../../components/(Forms)/FormType2";
+import LoadingSkeleton from "../../components/LoadingSkeleton";
 import FilterSidebar from "../../components/(filters)/FilterSidebar";
 import FilterAccordion from "../../components/(filters)/FilterAccordion";
 import PriceRangeFilter from "../../components/(filters)/PriceRangeFilter";
@@ -270,9 +272,33 @@ const allBaggageOptions = Array.from(
   new Set(flightsData.map((f) => f.baggage)),
 ).sort();
 
-export default function FlightResultsPage() {
+const flightRulesData = [
+  {
+    title: "قوانین استرداد بلیط",
+    content:
+      "بلیط‌های چارتری تا ۲۴ ساعت قبل از پرواز قابل استرداد می‌باشند. در صورت استرداد کمتر از ۲۴ ساعت قبل از پرواز، جریمه ۳۰ درصدی اعمال می‌شود. بلیط‌های سیستمی تا ۳ ساعت قبل از پرواز بدون جریمه قابل استرداد هستند. لطفاً توجه داشته باشید که هزینه خدمات آنلاین غیرقابل بازگشت است.",
+  },
+  {
+    title: "قوانین بار مجاز",
+    content:
+      "بار مجاز برای پروازهای اکونومی ۲۰ کیلوگرم و برای پروازهای بیزینس ۳۰ کیلوگرم می‌باشد. حداکثر وزن هر چمدان نباید از ۳۲ کیلوگرم بیشتر شود. بار دستی شامل یک کیف کوچک و یک لپ‌تاپ است. در صورت اضافه بار، هزینه هر کیلوگرم اضافه معادل ۱ درصد قیمت بلیط محاسبه می‌شود.",
+  },
+  {
+    title: "قوانین تغییر بلیط",
+    content:
+      "تغییر تاریخ پرواز تا ۴۸ ساعت قبل از پرواز با پرداخت جریمه ۱۰ درصدی امکان‌پذیر است. تغییر نام مسافر مجاز نمی‌باشد. ارتقاء کلاس پروازی با پرداخت مابه‌التفاوت امکان‌پذیر است. لطفاً برای تغییرات با پشتیبانی تماس بگیرید.",
+  },
+  {
+    title: "قوانین حضور در فرودگاه",
+    content:
+      "مسافران باید حداقل ۲ ساعت قبل از پروازهای داخلی و ۳ ساعت قبل از پروازهای خارجی در فرودگاه حضور داشته باشند. کارت شناسایی معتبر (کارت ملی یا پاسپورت) الزامی است. در صورت تأخیر بیش از ۳۰ دقیقه، با پشتیبانی تماس بگیرید. پذیرش مسافران ۴۵ دقیقه قبل از پرواز بسته می‌شود.",
+  },
+];
+
+function FlightResultsPageContent() {
   const searchParams = useSearchParams();
   const airportParam = searchParams.get("airport") || "";
+  const destinationParam = searchParams.get("destination") || "";
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(3000000);
   const globalMin = 0;
@@ -306,6 +332,7 @@ export default function FlightResultsPage() {
 
   const filteredFlights = flightsData
     .filter((flight) => {
+      if (destinationParam && !flight.destination.includes(destinationParam.trim())) return false;
       if (flight.price < minPrice || flight.price > maxPrice) return false;
       if (
         selectedClasses.length &&
@@ -431,6 +458,9 @@ export default function FlightResultsPage() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
+  const [activeRuleId, setActiveRuleId] = useState<number | null>(null);
+  const [openRuleItem, setOpenRuleItem] = useState<number | null>(null);
+
   const cheapDays = Array(14).fill({ day: "سه‌شنبه 10/2", price: "1,082,000" });
 
   const renderFlightCard = (flight: Flight) => (
@@ -441,7 +471,7 @@ export default function FlightResultsPage() {
       <div className="RightCard">
         <div className="About">
           <div className="Icon">
-            <img src={flight.logo} alt={flight.airline} />
+            <Image src={flight.logo} alt={flight.airline} width={40} height={40} />
             <span>{flight.airline}</span>
           </div>
           <div className="Time">
@@ -473,6 +503,16 @@ export default function FlightResultsPage() {
           >
             <span>
               جزئیات <FontAwesomeIcon icon={faAngleDown} />
+            </span>
+          </div>
+          <div
+            className={`More ${activeRuleId === flight.id ? "active" : ""}`}
+            onClick={() =>
+              setActiveRuleId(activeRuleId === flight.id ? null : flight.id)
+            }
+          >
+            <span>
+              قوانین پرواز <FontAwesomeIcon icon={faAngleDown} />
             </span>
           </div>
           <div className="Avablity">
@@ -559,6 +599,31 @@ export default function FlightResultsPage() {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+      <div
+        className={`FlightRules ${activeRuleId === flight.id ? "active" : ""}`}
+      >
+        <div className="RulesContent">
+          {flightRulesData.map((rule, rIdx) => {
+            const isRuleOpen = activeRuleId === flight.id && openRuleItem === rIdx;
+            return (
+              <div key={rIdx} className="RuleItem">
+                <div
+                  className={`RuleHeader ${isRuleOpen ? "active" : ""}`}
+                  onClick={() =>
+                    setOpenRuleItem(isRuleOpen ? null : rIdx)
+                  }
+                >
+                  <span>{rule.title}</span>
+                  <FontAwesomeIcon icon={faAngleDown} />
+                </div>
+                <div className={`RuleBody ${isRuleOpen ? "active" : ""}`}>
+                  <p>{rule.content}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -850,7 +915,7 @@ export default function FlightResultsPage() {
           </div>
         </section>
 
-        {/* پاپ‌آپ مدرن */}
+              {/* پاپ‌آپ مدرن */}
         {showPopup && (
           <div
             className="popup-overlay show"
@@ -1015,5 +1080,13 @@ export default function FlightResultsPage() {
         )}
       </main>
     </>
+  );
+}
+
+export default function FlightResultsPage() {
+  return (
+    <Suspense fallback={<LoadingSkeleton type="list" />}>
+      <FlightResultsPageContent />
+    </Suspense>
   );
 }

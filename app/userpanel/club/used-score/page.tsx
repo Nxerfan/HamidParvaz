@@ -299,7 +299,7 @@ export default function Page() {
         }
         .calendarTitle:hover {
           background-color: var(--gold);
-          color: #3e2e00;
+          color: #5c4b00;
         }
         .calendarView {
           display: none;
@@ -346,7 +346,7 @@ export default function Page() {
         }
         .calendarDay.selected {
           background-color: var(--gold) !important;
-          color: #3e2e00 !important;
+          color: #5c4b00 !important;
           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         .calendarDay.in-range {
@@ -377,7 +377,7 @@ export default function Page() {
         }
         .monthItem.selected {
           background-color: var(--gold);
-          color: #3e2e00;
+          color: #5c4b00;
         }
         .yearsWrapper {
           max-height: 200px;
@@ -411,7 +411,7 @@ export default function Page() {
         }
         .yearItem.selected {
           background-color: var(--gold);
-          color: #3e2e00;
+          color: #5c4b00;
         }
         .calendarFooter {
           display: flex;

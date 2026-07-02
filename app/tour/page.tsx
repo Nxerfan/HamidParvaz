@@ -2,6 +2,7 @@
 import React from "react";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
@@ -164,11 +165,11 @@ export default function Offers() {
   const toursJSX: React.ReactElement[] = [];
   for (const tour of PAGE_DATA.offersSection.tours) {
     toursJSX.push(
-      <article key={tour.id} className="tourCard">
-        <figure className="tourImageWrapper">
-          <img src={tour.image} alt={tour.alt} width={800} height={500} />
+      <article key={tour.id} className="TourCard">
+        <figure className="TourImage">
+          <Image src={tour.image} alt={tour.alt} width={800} height={500} style={{ objectFit: "cover" }} />
         </figure>
-        <div className="tourInfo">
+        <div className="TourContent">
           <h3>{tour.title}</h3>
           <p>
             <FontAwesomeIcon icon={faLocationDot} /> {tour.location}
@@ -204,10 +205,10 @@ export default function Offers() {
   const destinationsJSX: React.ReactElement[] = [];
   for (const item of PAGE_DATA.destinations.list) {
     destinationsJSX.push(
-      <div key={item.id} className="destinationItem">
-        <img src={item.src} alt={item.alt} width={140} height={140} />
+      <Link key={item.id} href={`/tour/tourse?destination=${encodeURIComponent(item.alt)}`} className="destinationItem">
+        <Image src={item.src} alt={item.alt} width={140} height={140} style={{ objectFit: "cover", borderRadius: "8px", width: "auto", height: "auto" }} />
         <span>{item.title}</span>
-      </div>,
+      </Link>,
     );
   }
 
@@ -230,9 +231,9 @@ export default function Offers() {
             <header className="destinationsHeader">
               <h5>{PAGE_DATA.destinations.header}</h5>
             </header>
-            <Link href={"/tour/tourse"} className="destinationsList">
+            <div className="destinationsList">
               {destinationsJSX}
-            </Link>
+            </div>
           </section>
 
           <Description />

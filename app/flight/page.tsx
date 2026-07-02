@@ -1,6 +1,7 @@
 "use client";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 import Description from "../components/Description";
 import UsefulWays from "../components/UsefullWays";
 import Header from "../components/(Headers)/Header";
@@ -43,19 +44,19 @@ const PAGE_DATA = {
       },
       {
         id: 3,
-        src: "mashhad city.jpg",
+        src: "/mashhad city.jpg",
         alt: "مشهد",
         title: "بلیط هواپیما مشهد",
       },
       {
         id: 4,
-        src: "gheshm city.jpg",
+        src: "/gheshm city.jpg",
         alt: "قشم",
         title: "بلیط هواپیما قشم",
       },
       {
         id: 5,
-        src: "shiraz city.jpg",
+        src: "/shiraz city.jpg",
         alt: "شیراز",
         title: "بلیط هواپیما شیراز",
       },
@@ -200,8 +201,10 @@ const Page = () => {
               </div>
               <div className="bottom">
                 {PAGE_DATA.offerSection.links.map((link) => (
-                  <Link key={link.id} href={link.href}>
-                    <img src={link.src} alt={link.alt} />
+                  <Link key={link.id} href={link.href} style={{ display: "block" }}>
+                    <div style={{ position: "relative", width: "100%", height: "270px" }}>
+                      <Image src={link.src} alt={link.alt} fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: "cover" }} />
+                    </div>
                   </Link>
                 ))}
               </div>
@@ -218,15 +221,16 @@ const Page = () => {
                 PAGE_DATA.destinationsSection.list.length > 0 ? (
                   PAGE_DATA.destinationsSection.list.map((item, i) => (
                     <Link
-                      href={"/flight/flightse"}
+                      href={`/flight/flightse?destination=${encodeURIComponent(item.alt)}`}
                       key={item.id || i}
                       className="destinationItem"
                     >
-                      <img
+                      <Image
                         src={item.src}
                         alt={item.alt}
                         width={140}
                         height={140}
+                        style={{ objectFit: "cover", borderRadius: "8px", width: "auto", height: "auto" }}
                       />
                       <span>{item.title}</span>
                     </Link>
@@ -245,7 +249,9 @@ const Page = () => {
             <div className="MediaScroller">
               {PAGE_DATA.airlinesSection.list.map((item, i) => (
                 <div key={i} className="MediaElement">
-                  <img src={item.src} alt={item.alt} />
+                  <div style={{ position: "relative", width: "100px", height: "100px" }}>
+                    <Image src={item.src} alt={item.alt} fill sizes="100px" style={{ objectFit: "contain" }} />
+                  </div>
                   <p>{item.name}</p>
                   <div className="Options2">
                     <Link href={item.internalLink}>

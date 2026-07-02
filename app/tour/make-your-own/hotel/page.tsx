@@ -33,6 +33,7 @@ import FilterSidebar from "../../../components/(filters)/FilterSidebar";
 import FilterAccordion from "../../../components/(filters)/FilterAccordion";
 import PriceRangeFilter from "../../../components/(filters)/PriceRangeFilter";
 import CheckboxFilter from "../../../components/(filters)/CheckboxFilter";
+import Image from "next/image";
 import "../../../components/(filters)/FiltersGlobal.css";
 
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
@@ -58,7 +59,7 @@ const PAGE_DATA = {
   } as Record<string, IconDefinition>,
   rightSidebar: {
     headerImage: {
-      src: "istockphoto-1306235331-612x612.jpg",
+      src: "/istockphoto-1306235331-612x612.jpg",
       alt: "تصویر هتل",
     },
     mapLink: {
@@ -470,11 +471,16 @@ export default function HotelList() {
         {/* ============ سایدبار راست (فیلترها) ============ */}
         <div className="Right">
           <div className="Title">
-            <img
-              src={PAGE_DATA.rightSidebar.headerImage.src}
-              alt={PAGE_DATA.rightSidebar.headerImage.alt}
-              className="cover"
-            />
+            <div style={{ position: "relative", width: "100%", height: "200px" }}>
+              <Image
+                src={PAGE_DATA.rightSidebar.headerImage.src}
+                alt={PAGE_DATA.rightSidebar.headerImage.alt}
+                fill
+                sizes="100vw"
+                unoptimized
+                style={{ objectFit: "cover" }}
+              />
+            </div>
             <div className="TitleOverlay">
               <div className="TitleInfo">
                 <FontAwesomeIcon icon={faHotel} />
@@ -602,7 +608,9 @@ export default function HotelList() {
             sortedHotels.length > 0 ? (
               sortedHotels.map((hotel) => (
                 <div key={hotel.id} className="MediaElementHotel">
-                  <img src={hotel.image} alt={hotel.name} />
+                  <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
+                    <Image src={hotel.image} alt={hotel.name} fill sizes="(max-width: 768px) 100vw, 400px" unoptimized style={{ objectFit: "cover" }} />
+                  </div>
                   <div className="Down">
                     <p>{hotel.name}</p>
                     <div className="rating">
@@ -681,7 +689,9 @@ export default function HotelList() {
                 </button>
               </div>
               <div className="SelectedHotelContent">
-                <img src={selectedHotel.image} alt={selectedHotel.name} className="SelectedHotelImage" />
+                <div className="SelectedHotelImage" style={{ position: "relative" }}>
+                  <Image src={selectedHotel.image} alt={selectedHotel.name} fill sizes="160px" unoptimized style={{ objectFit: "cover", borderRadius: "12px" }} />
+                </div>
                 <div className="SelectedHotelInfo">
                   <div className="SelectedHotelNameStars">
                     <h4>{selectedHotel.name}</h4>

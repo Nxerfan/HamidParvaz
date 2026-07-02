@@ -3,6 +3,8 @@ import { useState, useRef } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import FilterUserPannel from "../../components/(filters)/FilterUserPannel";
 import UserPannelHeader from "../../components/(Headers)/UserPannelHeader";
 import {
@@ -140,6 +142,7 @@ export default function Page() {
     PAGE_DATA.sliderOptions[0].id,
   );
   const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
+  const router = useRouter();
   const trackRef = useRef<HTMLDivElement | null>(null);
 
   const handleNext = () => {
@@ -190,7 +193,7 @@ export default function Page() {
                 <div
                   className="Score "
                   onClick={() =>
-                    (window.location.href = PAGE_DATA.clubLevelHref)
+                    router.push(PAGE_DATA.clubLevelHref.trim())
                   }
                 >
                   <p>
@@ -236,7 +239,9 @@ export default function Page() {
                   filteredRewards.map((reward, index) => (
                     <div className="Option " key={reward.id || index}>
                       <div className="R ">
-                        <img src={reward.image} alt="image " />
+                        <div style={{ position: "relative", width: "100%", height: "120px" }}>
+                          <Image src={reward.image} alt="image " fill sizes="200px" style={{ objectFit: "cover", borderRadius: "8px" }} />
+                        </div>
                         <p>{reward.title}</p>
                         <span>{reward.date}</span>
                       </div>
@@ -337,15 +342,12 @@ export default function Page() {
                 overflow: "hidden",
                 borderRadius: "16px 16px 0 0 ",
               }}
-            >
-              <img
+            >              <Image
                 src={selectedReward.image}
                 alt={selectedReward.title}
-                style={{
-                  width: "100% ",
-                  height: "100% ",
-                  objectFit: "cover",
-                }}
+                fill
+                sizes="600px"
+                style={{ objectFit: "cover" }}
               />
             </div>
 

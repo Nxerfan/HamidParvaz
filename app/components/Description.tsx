@@ -12,7 +12,7 @@ export default function Description() {
           <div className="item">
             <Image
               src="/svgviewer-png-output.png"
-              alt=""
+              alt="آیکون موجودی کامل"
               width={64}
               height={64}
             />
@@ -27,7 +27,7 @@ export default function Description() {
           <div className="item">
             <Image
               src="/svgviewer-png-output (1).png"
-              alt=""
+              alt="آیکون تجربه خرید"
               width={64}
               height={64}
             />
@@ -39,7 +39,7 @@ export default function Description() {
           <div className="item">
             <Image
               src="/svgviewer-png-output (2).png"
-              alt=""
+              alt="آیکون مدیریت هزینه"
               width={64}
               height={64}
             />
@@ -54,7 +54,7 @@ export default function Description() {
           <div className="item">
             <Image
               src="/svgviewer-png-output (3).png"
-              alt=""
+              alt="آیکون پشتیبانی سفر"
               width={64}
               height={64}
             />

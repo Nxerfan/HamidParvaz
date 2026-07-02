@@ -5,6 +5,7 @@ import Link from "next/link";
 import Sidebar from "../../components/SideBar";
 import FAQSection from "../../components/FAQSection";
 import "../globals.css";
+import { useToast } from "../../lib/hooks/useToast";
 
 const faqPageMock = {
   headerTitle: "چطور می‌توانیم به شما کمک کنیم؟",
@@ -58,15 +59,28 @@ export default function FAQPage() {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  };  const [isSubmitting, setIsSubmitting] = useState(false);
+  const toast = useToast();
 
-  const handleSubmitTicket = (e: React.FormEvent) => {
+  const handleSubmitTicket = async (e: React.FormEvent) => {
     e.preventDefault();
-    // اینجا می‌توانید درخواست API برای ارسال تیکت را قرار دهید
-
-    alert("تیکت شما با موفقیت ثبت شد!");
-    setIsModalOpen(false);
-    setFormData({ name: "", contact: "", subject: "", message: "" });
+    setIsSubmitting(true);
+    try {
+      const { sendContactMessage } = await import("../../actions/contact");
+      const fd = new FormData();
+      fd.set("name", formData.name);
+      fd.set("email", formData.contact);
+      fd.set("subject", formData.subject);
+      fd.set("message", formData.message);
+      const result = await sendContactMessage({ success: false, message: "" }, fd);
+      toast.success(result.message || "تیکت شما با موفقیت ثبت شد!");
+      setIsModalOpen(false);
+      setFormData({ name: "", contact: "", subject: "", message: "" });
+    } catch {
+      toast.error("خطا در ارسال تیکت");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
