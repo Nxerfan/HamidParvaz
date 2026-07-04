@@ -1,5 +1,6 @@
 .containerr {
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   height: fit-content;
   justify-self: center;
   display: flex;
@@ -396,7 +397,8 @@
 
 .UP {
   display: flex;
-  width: 1600px;
+  width: 100%;
+  max-width: 1600px;
   justify-self: center;
   padding-top: 50px;
   .FAQHeader {

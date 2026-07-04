@@ -1,5 +1,6 @@
 .ImgForOfer {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     justify-self: center;
     gap: 20px;
     display: grid;
@@ -18,6 +19,13 @@
             width: 592px;
             height: 270px;
         }
+        @media (max-width: 768px) {
+            flex-direction: column;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
     }
     .bottomHotel {
         display: grid;
@@ -28,6 +36,9 @@
     background: var(--bgWhite);
     gap: 40px;
     padding: 20px 0 0 0;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 .destinationsContainer {
     display: grid;
@@ -48,14 +59,17 @@
         display: grid;
         padding: 20px 0 0 0;
         gap: 20px;
-        width: 1200px;
+        width: 100%;
+        max-width: 1200px;
         justify-self: center;
         text-align: center;
 
         .destinationsList {
             display: flex;
+            flex-wrap: wrap;
             height: auto;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 12px;
 
             .destinationItem {
                 overflow: hidden;
@@ -104,7 +118,8 @@
     display: grid;
     gap: 20px;
     margin-bottom: 20px;
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     justify-self: center;
     .SectionTitle {
         margin: 0 20px 10px;
@@ -121,6 +136,10 @@
         overscroll-behavior-inline: contain;
         scroll-snap-type: inline mandatory;
         scroll-padding-inline: 20px;
+        @media (max-width: 768px) {
+            grid-auto-columns: 70%;
+            padding: 0 12px 12px;
+        }
         .MediaElement {
             display: grid;
             gap: 20px;
@@ -155,7 +174,8 @@
 .FAQSection {
     display: grid;
     gap: 20px;
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     justify-self: center;
     padding: 10px;
     margin-bottom: 80px;
@@ -241,6 +261,7 @@
     font-weight: bold;
     color: var(--textDark);
     max-width: 1200px;
+    width: 100%;
     justify-self: center;
 }
 .MediaScroller {
@@ -254,7 +275,12 @@
     scroll-snap-type: inline mandatory;
     scroll-padding-inline: 20px;
     max-width: 1200px;
+    width: 100%;
     justify-self: center;
+    @media (max-width: 768px) {
+        grid-auto-columns: 70%;
+        padding: 0 12px 12px;
+    }
     .MediaElement {
         display: grid;
         gap: 20px;

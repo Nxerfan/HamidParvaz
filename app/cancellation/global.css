@@ -146,7 +146,8 @@
 }
 
 .TrackContainer {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     justify-self: center;
     padding: 40px 0;
     font-family: var(--Font);

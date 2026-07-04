@@ -1,5 +1,6 @@
 .Countainer {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     gap: 15px;
     justify-self: center;
     margin-top: 10px;
@@ -961,7 +962,8 @@ button {
     background-color: var(--grayBgHover);
 }
 .container {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     position: relative;
     justify-self: center;
     background: none;
@@ -1140,7 +1142,8 @@ button {
                             input[type="text"] {
                                 border: none;
                                 height: 50px;
-                                width: 400px;
+                                width: 100%;
+                                max-width: 400px;
                                 background-color: var(--bgLight);
                                 font-family: var(--Font);
                                 color: var(--textDark);
@@ -1161,7 +1164,8 @@ button {
                             input[type="text"] {
                                 border: none;
                                 height: 50px;
-                                width: 400px;
+                                width: 100%;
+                                max-width: 400px;
                                 background-color: var(--bgLight);
                                 font-family: var(--Font);
                                 color: var(--textDark);

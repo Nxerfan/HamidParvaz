@@ -1,5 +1,5 @@
 .Countainer {
-    width: 1200px;
+    width: 100%;
     justify-self: center;
     margin-top: 10px;
     display: flex;
@@ -1593,7 +1593,8 @@
     }
 }
 .container {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     position: relative;
     justify-self: center;
     background: none;
@@ -1770,7 +1771,7 @@
                             input[type="text"] {
                                 border: none;
                                 height: 50px;
-                                width: 400px;
+                                width: 100%; max-width: 400px;
                                 background-color: var(--bgLight);
                                 font-family: var(--Font);
                                 color: var(--textDark);
@@ -1791,7 +1792,7 @@
                             input[type="text"] {
                                 border: none;
                                 height: 50px;
-                                width: 400px;
+                                width: 100%; max-width: 400px;
                                 background-color: var(--bgLight);
                                 font-family: var(--Font);
                                 color: var(--textDark);
@@ -2407,7 +2408,7 @@
                     input[type="text"] {
                         border: none;
                         height: 50px;
-                        width: 400px;
+                        width: 100%; max-width: 400px;
                         background-color: var(--bgLight);
                         font-family: var(--Font);
                         color: var(--textDark);
@@ -2428,7 +2429,7 @@
                     input[type="text"] {
                         border: none;
                         height: 50px;
-                        width: 400px;
+                        width: 100%; max-width: 400px;
                         background-color: var(--bgLight);
                         font-family: var(--Font);
                         color: var(--textDark);

@@ -1,6 +1,7 @@
 .container {
   padding: 40px 0;
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   justify-self: center;
   background: none;
   display: flex;
@@ -176,7 +177,8 @@
               input[type="text"] {
                 border: none;
                 height: 50px;
-                width: 400px;
+                width: 100%;
+                max-width: 400px;
                 background-color: var(--bgLight);
                 font-family: var(--Font);
                 color: var(--textDark);
@@ -197,7 +199,8 @@
               input[type="text"] {
                 border: none;
                 height: 50px;
-                width: 400px;
+                width: 100%;
+                max-width: 400px;
                 background-color: var(--bgLight);
                 font-family: var(--Font);
                 color: var(--textDark);

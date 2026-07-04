@@ -9,9 +9,12 @@ const page = () => {
         style={{
           fontSize: "12px",
           textAlign: "center",
-          width: "1200px",
+          width: "100%",
+          maxWidth: "1200px",
           justifySelf: "center",
-          margin: "30px 0 0 0",
+          margin: "30px auto 0",
+          padding: "0 16px",
+          boxSizing: "border-box",
         }}
       >
         شرکت گردشگری حمید پرواز یکی از پیشروترین پلتفرم‌های آنلاین در ارائه

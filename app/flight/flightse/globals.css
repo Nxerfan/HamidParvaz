@@ -1,6 +1,9 @@
 .Countainer {
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   justify-self: center;
+  padding: 0 16px;
+  box-sizing: border-box;
   margin-top: 10px;
   display: flex;
   position: relative;
@@ -443,6 +446,7 @@
     align-self: flex-start;
     position: sticky;
     width: 300px;
+    min-width: 280px;
     display: flex;
     flex-direction: column;
     gap: 10px;

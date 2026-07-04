@@ -1,6 +1,7 @@
 .MainContent {
   padding: 20px 0 0;
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   justify-self: center;
   display: grid;
   font-family: var(--Font);

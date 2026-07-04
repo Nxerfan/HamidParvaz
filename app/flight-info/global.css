@@ -1,5 +1,6 @@
 .FlightDeateils {
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   justify-self: center;
   padding: 20px;
   background: var(--bgWhite);
@@ -58,7 +59,8 @@
   border-radius: 12px;
   box-shadow: var(--boxShadow);
   justify-self: center;
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   height: auto;
   position: relative;
   margin-bottom: 30px;
@@ -398,7 +400,9 @@
 
 .List3 {
   width: 100%;
-  padding: 0 345px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
   .AirportChooser {
     display: flex;
     gap: 20px;

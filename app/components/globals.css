@@ -111,7 +111,8 @@ header {
             }
         }
         .Items {
-            width: 1200px;
+            width: 100%;
+            max-width: 1200px;
             justify-self: center;
             margin: 0 auto;
             display: flex;
@@ -556,7 +557,8 @@ footer {
 }
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TravelCards !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 .TravelCards {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     justify-self: center;
     .CardsContainer {
         max-width: 900px;
@@ -638,18 +640,19 @@ footer {
 }
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Forms !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* ========== استایل پایه و مشترک برای فرم‌های جستجو ========== */
-.List,
-.List2,
-.List3,
-.List4 {
-    background-color: var(--bgWhite);
-    border-radius: 12px;
-    box-shadow: var(--boxShadow);
-    justify-self: center;
-    margin: 0 auto;
-    width: 1200px;
-    height: auto;
+/* ========== استایل پایه و مشترک برای فرم‌های جستجو ========== */    .List,
+    .List2,
+    .List3,
+    .List4 {
+        background-color: var(--bgWhite);
+        border-radius: 12px;
+        box-shadow: var(--boxShadow);
+        justify-self: center;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1200px;
+        box-sizing: border-box;
+        height: auto;
     position: relative;
     margin-bottom: 30px;
 
@@ -1499,14 +1502,58 @@ footer {
 
 /* ریسپانسیو */
 @media (max-width: 768px) {
+    /* ===== Header Mobile Fix ===== */
+    header .HeaderTop .Container,
+    header .HeaderTop2 .Container {
+        padding: 0 12px;
+        height: 56px;
+    }
+    header .HeaderTop .Container nav,
+    header .HeaderTop2 .Container nav {
+        display: none;
+    }
+    .AuthButtons .BtnPrimary {
+        padding: 6px 14px;
+        font-size: 12px;
+        gap: 4px;
+    }
+    .AuthButtons .BtnPrimary img {
+        width: 14px;
+        height: 14px;
+    }
+    header .HeaderTop .Items,
+    header .HeaderTop2 .Items {
+        gap: 16px;
+        padding: 6px 12px;
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        flex-wrap: nowrap;
+    }
+    header .HeaderTop .Items::-webkit-scrollbar,
+    header .HeaderTop2 .Items::-webkit-scrollbar {
+        display: none;
+    }
+    header .HeaderTop .Items .content,
+    header .HeaderTop2 .Items .content {
+        white-space: nowrap;
+        font-size: 13px;
+    }
+    /* ===== End Header Mobile Fix ===== */
+    .List,
     .List2,
     .List3,
     .List4 {
         width: 100%;
-        margin: 0 10px 20px 10px;
+        padding: 0 12px;
+        margin-bottom: 20px;
     }
     .Form .BottomHotel {
         flex-direction: column;
+    }
+    .Form .BottomHotel > * {
+        width: 100%;
+        min-width: 0;
     }
     .calendarPopup {
         position: fixed;
@@ -1521,6 +1568,119 @@ footer {
     .modalContent {
         width: 95%;
         padding: 16px;
+    }
+    .TravelCards {
+        width: 100%;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
+    .TravelCards .CardsContainer {
+        margin-left: 0;
+        gap: 12px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .TravelCards .CardsContainer::-webkit-scrollbar {
+        display: none;
+    }
+    .TravelCards .TravelCard {
+        padding: 20px 24px;
+        min-width: 140px;
+        margin-top: -50px;
+        scroll-snap-align: start;
+        flex-shrink: 0;
+    }
+    .TravelCards .CardIcon {
+        width: 40px;
+        height: 40px;
+    }
+    .TravelCards .CardText {
+        font-size: 13px;
+    }
+    .description .cards {
+        width: 100%;
+        padding: 16px 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+    .description .cards .item {
+        width: 100%;
+        min-width: 0;
+        max-width: 280px;
+        height: auto;
+        padding: 16px;
+    }
+    .useFullWays {
+        width: 100%;
+        padding: 40px 12px;
+    }
+    .useFullWays .content {
+        flex-direction: column;
+        gap: 24px;
+    }
+    .Hero h1 {
+        font-size: 28px;
+    }
+    .Hero p {
+        font-size: 16px;
+    }
+    .Hero3 {
+        height: auto;
+        min-height: 160px;
+        padding: 20px 16px;
+    }
+    .Hero3 p {
+        font-size: 18px;
+    }
+    .Hero4 {
+        height: auto;
+        min-height: 100px;
+        padding: 20px 16px;
+    }
+    .Hero4 p {
+        font-size: 18px;
+    }
+    footer .Container .TopRow {
+        flex-direction: column;
+        gap: 24px;
+    }
+    footer .Container .TopRow .Contact .buttom {
+        flex-wrap: wrap;
+    }
+    footer .Container .LinksRow {
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px 0;
+    }
+    footer .Container .LinksRow .Links {
+        width: 100%;
+    }
+    footer .Container .Bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .TravelCards {
+        width: 100%;
+        max-width: 1024px;
+        padding: 0 20px;
+    }
+    .description .cards {
+        width: 100%;
+        max-width: 1024px;
+        padding: 20px 20px 32px;
+    }
+    .useFullWays {
+        width: 100%;
+        max-width: 1024px;
     }
 }
 
@@ -1563,17 +1723,14 @@ footer {
             font-size: 18px;
             font-weight: bold;
         }
-    }
-
-    .cards {
+    }        .cards {
         display: flex;
-        width: 1200px;
+        width: 100%;
+        max-width: 1200px;
         height: max-content;
         padding: 20px 0 32px;
         justify-content: space-between;
-        align-items: center;
-
-        .item {
+        align-items: center;            .item {
             display: grid;
             width: 250px;
             height: 180px;
@@ -1603,7 +1760,8 @@ footer {
 
 .useFullWays {
     display: grid;
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     justify-self: center;
     padding: 40px 0;
     gap: 20px;
@@ -1982,7 +2140,9 @@ footer {
     border-radius: 12px;
     box-shadow: var(--boxShadow);
     justify-self: center;
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
     height: auto;
     position: relative;
     margin-bottom: 30px;
