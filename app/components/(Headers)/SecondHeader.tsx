@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import MobileNavDrawer from "./MobileNavDrawer";
 import "../globals.css";
 
 export default function Header() {
@@ -80,6 +81,8 @@ export default function Header() {
               <button className="Btn BtnPrimary"><Image src="/person-ثبت نام.svg" alt="" width={20} height={20} role="presentation" /> ورود</button>
             </Link>
           </div>
+
+          <MobileNavDrawer />
         </div>
       </div>
     </header>

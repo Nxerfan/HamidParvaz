@@ -535,7 +535,7 @@ export default function HotelsPage() {
 
   return (
     <>
-      <Header banner="/HotelBanner.png" />
+      <Header banner="/HotelBanner.png" bannerMobile="/HotelBanner-mobile.png" />
       <TravelCards />
       <Form />
       <main>

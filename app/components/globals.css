@@ -257,6 +257,9 @@ header {
 
 /*!!!!!!!!!!! Hero Section Styles !!!!!!!!!!! */
 
+.Hero--mobile {
+    display: none !important;
+}
 .Hero,
 .Hero2 {
     height: 350px;
@@ -1577,7 +1580,7 @@ footer {
     .TravelCards .CardsContainer {
         margin-left: 0;
         gap: 12px;
-        overflow-x: auto;
+        overflow-x: hidden;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         padding-bottom: 8px;
@@ -1588,9 +1591,10 @@ footer {
         display: none;
     }
     .TravelCards .TravelCard {
-        padding: 20px 24px;
-        min-width: 140px;
-        margin-top: -50px;
+        padding: 16px 18px;
+        min-width: 0;
+        width: calc((100% - 24px) / 3);
+        margin-top: 0;
         scroll-snap-align: start;
         flex-shrink: 0;
     }
@@ -1602,32 +1606,56 @@ footer {
         font-size: 13px;
     }
     .description .cards {
-        width: 100%;
+        flex-direction: column;
+        align-items: center;
         padding: 16px 12px;
-        flex-wrap: wrap;
-        justify-content: center;
         gap: 16px;
     }
     .description .cards .item {
         width: 100%;
         min-width: 0;
-        max-width: 280px;
+        max-width: 320px;
         height: auto;
         padding: 16px;
+        text-align: center;
     }
     .useFullWays {
         width: 100%;
-        padding: 40px 12px;
+        padding: 32px 12px;
     }
     .useFullWays .content {
         flex-direction: column;
+        align-items: center;
         gap: 24px;
+    }
+    .useFullWays .items {
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
     }
     .Hero h1 {
         font-size: 28px;
     }
     .Hero p {
         font-size: 16px;
+    }
+    .Hero {
+        height: 180px;
+    }
+    .Hero--desktop {
+        display: none !important;
+    }
+    .Hero--mobile {
+        display: flex !important;
+        background-size: cover !important;
+        background-position: center !important;
+        height: 180px !important;
+        z-index: 1;
+    }
+    .TravelCards {
+        position: relative;
+        z-index: 2;
+        margin-top: 0;
     }
     .Hero3 {
         height: auto;
@@ -1648,22 +1676,62 @@ footer {
     footer .Container .TopRow {
         flex-direction: column;
         gap: 24px;
+        align-items: center;
+    }
+    footer .Container .TopRow .Contact {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+    footer .Container .TopRow .Contact .Top {
+        justify-content: center;
+        flex-wrap: wrap;
     }
     footer .Container .TopRow .Contact .buttom {
         flex-wrap: wrap;
+        justify-content: center;
+    }
+    footer .Container .TopRow .Contact .canccel {
+        justify-content: center;
+    }
+    footer .Container .TopRow .OrgBox {
+        width: 100%;
+        text-align: center;
+    }
+    footer .Container .TopRow .OrgBox button {
+        margin: 0 auto;
     }
     footer .Container .LinksRow {
         flex-direction: column;
         gap: 24px;
         padding: 24px 0;
+        align-items: center;
     }
     footer .Container .LinksRow .Links {
         width: 100%;
+        max-width: 320px;
+        text-align: center;
+    }
+    footer .Container .LinksRow .Links ul {
+        align-items: center;
+    }
+    footer .Container .LinksRow .Links a {
+        width: 100%;
+        text-align: center;
+    }
+    footer .Container .LinksRow .Description {
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+    }
+    footer .Container .LinksRow .Description .Logos {
+        justify-content: center;
     }
     footer .Container .Bottom {
         flex-direction: column;
         gap: 12px;
         text-align: center;
+        align-items: center;
     }
 }
 
@@ -2738,6 +2806,192 @@ footer {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+/* ============= Hamburger Menu (Mobile Nav) ============= */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 200;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+}
+.hamburgerLine {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--textDark);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+.hamburgerLine.active:first-child {
+    transform: translateY(7px) rotate(45deg);
+}
+.hamburgerLine.active:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.hamburgerLine.active:last-child {
+    transform: translateY(-7px) rotate(-45deg);
+}
+.mobileNavOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+}
+.mobileNavDrawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    max-width: 85vw;
+    background: var(--bgWhite);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+.mobileNavDrawer.open {
+    transform: translateX(0);
+}
+.mobileNavHeader {
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    background: var(--bgWhite);
+}
+.mobileNavLogo img {
+    width: 40px;
+    height: auto;
+}
+.mobileNavClose {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--textGray);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+.mobileNavClose:hover {
+    background: var(--grayBg);
+    color: var(--textDark);
+}
+.mobileNavList {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+    -webkit-overflow-scrolling: touch;
+}
+.mobileNavItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--textDark);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: right;
+    font-family: var(--Font);
+}
+.mobileNavItem:hover,
+.mobileNavItem:active {
+    background: var(--grayBgHover);
+}
+.mobileNavToggle {
+    justify-content: flex-start;
+}
+.mobileNavArrow {
+    margin-right: auto;
+    font-size: 14px;
+    color: var(--textGray);
+    transition: transform 0.3s ease;
+}
+.mobileNavArrow.rotated {
+    transform: rotate(180deg);
+}
+.mobileNavSubItems {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.mobileNavSubItems.expanded {
+    max-height: 300px;
+}
+.mobileNavSubItem {
+    display: block;
+    padding: 12px 20px 12px 52px;
+    font-size: 14px;
+    color: var(--textGray);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.mobileNavSubItem:hover {
+    color: var(--goldDark);
+    background: var(--grayBgHover);
+}
+.mobileNavFooter {
+    padding: 16px 20px;
+    border-top: 1px solid #eee;
+    flex-shrink: 0;
+    background: var(--bgWhite);
+}
+.mobileNavAuthBtn {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    background: var(--gold);
+    color: var(--textDark);
+    font-family: var(--Font);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+.mobileNavAuthBtn:hover {
+    background: var(--goldDark);
+    color: #fff;
+}
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    header .HeaderTop .Container .AuthButtons,
+    header .HeaderTop2 .Container .AuthButtons {
+        display: none;
     }
 }
 /* ============= بخش جدید: موبایل فیلترها و منوی کاربری ============= */

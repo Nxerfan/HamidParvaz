@@ -2,14 +2,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import MobileNavDrawer from "./MobileNavDrawer";
 import "../globals.css";
 
 interface HeaderProps {
   banner?: string;
+  bannerMobile?: string;
   dark?: boolean;
 }
 
-export default function Header({ banner = "", dark = false }: HeaderProps) {
+export default function Header({ banner = "", bannerMobile = "", dark = false }: HeaderProps) {
   return (
     <header className={dark ? "HeaderDark" : ""}>
       <div className="HeaderTop">
@@ -56,11 +58,23 @@ export default function Header({ banner = "", dark = false }: HeaderProps) {
               <button className="Btn BtnPrimary"><Image src="/person-ثبت نام.svg" alt="" width={20} height={20} role="presentation" /> ورود</button>
             </Link>
           </div>
+
+          <MobileNavDrawer />
         </div>
       </div>
 
-      <div className="Hero" style={banner ? { backgroundImage: `url(${banner})`, backgroundSize: '100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' } : undefined}>
-      </div>
+      {banner && (
+        <div className="Hero Hero--desktop" style={{ backgroundImage: `url(${banner})`, backgroundSize: '100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        </div>
+      )}
+      {bannerMobile && (
+        <div className="Hero Hero--mobile" style={{ backgroundImage: `url(${bannerMobile})`, backgroundSize: '100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        </div>
+      )}
+      {!banner && !bannerMobile && (
+        <div className="Hero">
+        </div>
+      )}
     </header>
   );
 }

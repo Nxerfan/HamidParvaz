@@ -7,6 +7,10 @@
     display: flex;
     position: relative;
     justify-content: space-between;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        padding: 0 12px;
+    }
     .Card {
         display: grid;
         gap: 24px;
@@ -22,6 +26,9 @@
 
     .ChooseOpt {
         width: 70%;
+        @media (max-width: 768px) {
+            width: 100%;
+        }
         .Titel {
             p {
                 font-size: 15px;
@@ -150,6 +157,9 @@
         display: grid;
         gap: 24px;
         height: fit-content;
+        @media (max-width: 768px) {
+            width: 100%;
+        }
         p {
             font-size: 14px;
             color: var(--textGray);
@@ -320,11 +330,21 @@
     display: flex;
     gap: 24px;
     width: 100%;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        padding: 0 12px;
+    }
     .R {
         width: calc(100% - 41%);
+        @media (max-width: 768px) {
+            width: 100%;
+        }
     }
     .L {
         width: 35%;
+        @media (max-width: 768px) {
+            width: 100%;
+        }
     }
     .UserPanelParts {
         h2 {
@@ -1413,6 +1433,9 @@ button {
     .Right2 {
         display: grid;
         width: calc(100%-35%);
+        @media (max-width: 768px) {
+            width: 100%;
+        }
     }
     .left,
     .left2 {
@@ -1420,6 +1443,9 @@ button {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        @media (max-width: 768px) {
+            width: 100%;
+        }
         .hotelCard {
             position: relative;
             background-color: var(--bgWhite);

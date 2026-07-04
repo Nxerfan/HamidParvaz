@@ -189,7 +189,7 @@ const PAGE_DATA = {
 const Page = () => {
   return (
     <>
-      <Header banner="/FlightBanner.png" />
+      <Header banner="/FlightBanner.png" bannerMobile="/FlightBanner-mobile.png" />
       <TravelCards />
       <Form2 />
       <main>

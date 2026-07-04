@@ -38,7 +38,7 @@
     padding: 20px 0 0 0;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 .destinationsContainer {
     display: grid;
@@ -78,6 +78,7 @@
                 max-width: 140px;
                 border-radius: 20px;
                 position: relative;
+                flex-shrink: 0;
 
                 &::after {
                     content: "";
@@ -323,4 +324,81 @@
 
 .MediaScroller > * {
     scroll-snap-align: start;
+}
+
+/* ===== Flight Page Mobile Fixes ===== */
+@media (max-width: 768px) {
+    .main {
+        padding: 16px 16px 0;
+        gap: 28px;
+    }
+    /* 1. ImgForOfer mobile */
+    .ImgForOfer {
+        padding: 0;
+    }
+    .ImgForOfer .top h4 {
+        font-size: 18px;
+    }
+    .ImgForOfer .bottom {
+        gap: 16px;
+    }
+    .ImgForOfer .bottom img {
+        height: auto;
+        max-height: 200px;
+    }
+    /* 2. destinationsSection mobile */
+    .destinationsContainer {
+        gap: 32px;
+        padding: 0;
+    }
+    .destinationsContainer .destinationsHeader h5 {
+        font-size: 20px;
+    }
+    .destinationsContainer .destinationsSection {
+        padding: 0;
+    }
+    .destinationsContainer .destinationsList .destinationItem {
+        max-width: 110px;
+        height: 150px;
+    }
+    .destinationsContainer .destinationsList .destinationItem span {
+        font-size: 13px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 16px;
+        width: auto;
+        max-width: 90%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    /* 3. description mobile (global fix already applies, verify /flight override) */
+    .description {
+        box-shadow: none;
+    }
+    .description .cards .item {
+        max-width: 320px;
+    }
+    /* 4. MediaScroller mobile */
+    .MediaScroller .MediaElement .Options2 {
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+    .MediaScroller .MediaElement .Options2 a {
+        font-size: 11px;
+        white-space: nowrap;
+    }
+    .SectionTitle {
+        margin: 0 0 10px;
+        font-size: 18px;
+    }
+    .FAQSection {
+        padding: 0 12px;
+        margin-bottom: 40px;
+    }
+    .FAQSection .FAQButton {
+        font-size: 14px;
+        padding: 16px;
+    }
 }

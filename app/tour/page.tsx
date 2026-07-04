@@ -214,7 +214,7 @@ export default function Offers() {
 
   return (
     <>
-      <Header banner="/TourBanner.png" />
+      <Header banner="/TourBanner.png" bannerMobile="/TourBanner-mobile.png" />
       <TravelCards />
       <Form5 />
       <main className="offersContainer">
