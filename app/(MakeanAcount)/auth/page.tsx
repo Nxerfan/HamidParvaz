@@ -3,10 +3,11 @@ import "../global.css";
 import { useState, useEffect, Suspense } from "react";
 import { useActionState } from "react";
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { login, register } from "../../actions/auth";
 import type { AuthState } from "../../actions/auth";
 import { useToast } from "../../lib/hooks/useToast";
+import { useAuth } from "../../lib/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -207,6 +208,8 @@ function AuthContent() {
   };
 
   const toast = useToast();
+  const auth = useAuth();
+  const router = useRouter();
   const [loginState, loginFormAction, isLoginPending] = useActionState(login, { success: false, message: "" } as AuthState);
   const [registerState, registerFormAction, isRegisterPending] = useActionState(register, { success: false, message: "" } as AuthState);
 
@@ -264,6 +267,10 @@ function AuthContent() {
     if (loginState.message) {
       if (loginState.success) {
         toast.success(loginState.message);
+        if (loginState.user) {
+          auth.login(loginState.user);
+        }
+        router.push("/userpanel");
       } else {
         toast.error(loginState.message);
       }
@@ -274,6 +281,10 @@ function AuthContent() {
     if (registerState.message) {
       if (registerState.success) {
         toast.success(registerState.message);
+        if (registerState.user) {
+          auth.login(registerState.user);
+        }
+        router.push("/userpanel");
       } else {
         toast.error(registerState.message);
       }

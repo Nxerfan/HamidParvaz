@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
+import AuthButtonsClient from "./AuthButtonsClient";
 
 interface NavDropdownItem {
   id: number;
@@ -113,11 +114,7 @@ export default function Header() {
               ))}
             </nav>
 
-            <div className="AuthButtons">
-              <Link href={PAGE_DATA.auth.login.href}>
-                <button className="Btn BtnPrimary"><Image src="/person-ثبت نام.svg" alt="" width={20} height={20} role="presentation" /> {PAGE_DATA.auth.login.label}</button>
-              </Link>
-            </div>
+            <AuthButtonsClient />
           </div>
         </div>
 

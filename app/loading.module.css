@@ -11,14 +11,45 @@
   position: relative;
   background: var(--bgWhite);
   border: 1px solid rgba(205, 165, 0, 0.15);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(206, 165, 0, 0.06);
+  border-radius: 24px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    0 2px 8px rgba(206, 165, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   padding: 3.5rem 2.5rem;
   max-width: 520px;
   width: 100%;
   text-align: center;
   overflow: hidden;
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Floating glow orbs behind card ── */
+.glowOrbA,
+.glowOrbB {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.15;
+  animation: orbPulse 5s ease-in-out infinite alternate;
+}
+
+.glowOrbA {
+  width: 180px;
+  height: 180px;
+  background: var(--gold);
+  top: -40px;
+  right: -40px;
+}
+
+.glowOrbB {
+  width: 140px;
+  height: 140px;
+  background: var(--goldDark);
+  bottom: -30px;
+  left: -30px;
+  animation-delay: 2.5s;
 }
 
 /* ── Floating decorative dots (same as 404) ── */
@@ -30,7 +61,7 @@
   bottom: 0;
   pointer-events: none;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 24px;
 }
 
 .dot {
@@ -43,156 +74,357 @@
   animation: float 6s ease-in-out infinite;
 }
 
-.dot:nth-child(1) { top: 15%; right: 10%; animation-delay: 0s; }
-.dot:nth-child(2) { top: 30%; left: 8%; animation-delay: 1.5s; width: 4px; height: 4px; }
-.dot:nth-child(3) { bottom: 18%; right: 18%; animation-delay: 3s; width: 8px; height: 8px; }
-.dot:nth-child(4) { bottom: 30%; left: 12%; animation-delay: 4.5s; }
-.dot:nth-child(5) { top: 50%; right: 50%; animation-delay: 2s; width: 5px; height: 5px; opacity: 0.08; }
+.dot:nth-child(1) { top: 12%; right: 8%; animation-delay: 0s; }
+.dot:nth-child(2) { top: 25%; left: 6%; animation-delay: 1s; width: 4px; height: 4px; opacity: 0.08; }
+.dot:nth-child(3) { bottom: 15%; right: 15%; animation-delay: 2s; width: 8px; height: 8px; }
+.dot:nth-child(4) { bottom: 28%; left: 10%; animation-delay: 3s; width: 5px; height: 5px; }
+.dot:nth-child(5) { top: 55%; right: 45%; animation-delay: 4s; width: 3px; height: 3px; opacity: 0.06; }
+.dot:nth-child(6) { top: 80%; right: 70%; animation-delay: 5s; width: 7px; height: 7px; opacity: 0.1; }
 
-/* ── Paper Plane Icon ── */
-.planeIcon {
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 1.25rem;
+/* ── Sparkle particles ── */
+.sparkleContainer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.sparkle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  animation: sparklePop 3s ease-in-out infinite;
+}
+
+.sparkle:nth-child(1) { top: 20%; left: 12%; animation-delay: 0.2s; width: 4px; height: 4px; }
+.sparkle:nth-child(2) { top: 45%; right: 8%; animation-delay: 0.9s; }
+.sparkle:nth-child(3) { bottom: 25%; left: 20%; animation-delay: 1.7s; width: 2px; height: 2px; }
+.sparkle:nth-child(4) { top: 65%; right: 15%; animation-delay: 2.3s; width: 5px; height: 5px; }
+.sparkle:nth-child(5) { bottom: 40%; left: 50%; animation-delay: 2.9s; }
+
+/* ── Icon Group: Globe + Orbiting Plane ── */
+.iconGroup {
   position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1rem;
   z-index: 1;
+}
+
+/* Outer orbit ring */
+.orbitRing {
+  position: absolute;
+  inset: 2px;
+  border: 1.5px dashed rgba(206, 165, 0, 0.15);
+  border-radius: 50%;
+  animation: orbitSpin 6s linear infinite;
+}
+
+.orbitDot {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 12px rgba(206, 165, 0, 0.4);
+  animation: orbitDotPulse 2s ease-in-out infinite;
+}
+
+/* Inner orbit ring (counter-rotating) */
+.orbitRingInner {
+  position: absolute;
+  inset: 12px;
+  border: 1px dotted rgba(206, 165, 0, 0.1);
+  border-radius: 50%;
+  animation: orbitSpinReverse 8s linear infinite;
+}
+
+.orbitDotInner {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--goldDark);
+  opacity: 0.5;
+  animation: orbitDotPulse 2.5s ease-in-out infinite 0.5s;
+}
+
+/* Globe icon */
+.globeIcon {
+  position: absolute;
+  inset: 14px;
   color: var(--goldDark);
-  animation: planeFloat 2.4s ease-in-out infinite;
+  opacity: 0.4;
+  animation: globeRotate 12s linear infinite;
+}
+
+.globeIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Paper plane — floating + orbiting */
+.planeIcon {
+  position: absolute;
+  inset: 22px;
+  color: var(--goldDark);
+  z-index: 2;
+  animation: planeFloat 2.8s ease-in-out infinite;
+  filter: drop-shadow(0 2px 8px rgba(206, 165, 0, 0.25));
 }
 
 .planeIcon svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 4px 12px rgba(206, 165, 0, 0.2));
 }
 
-/* ── Title ── */
+/* ── Gradient Title ── */
 .title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--textDark);
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--goldDark) 0%, #b89400 40%, #f5d742 70%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  margin-bottom: 0.6rem;
   position: relative;
   z-index: 1;
   font-family: var(--Font);
+  animation: shimmerText 3s ease-in-out infinite;
+  letter-spacing: 0.02em;
 }
 
 /* ── Subtitle ── */
 .subtitle {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--textGray);
   line-height: 1.7;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
   position: relative;
   z-index: 1;
   font-family: var(--Font);
+  opacity: 0.7;
 }
 
-/* ── Loading bar ── */
+/* ── Loading bar with glow ── */
 .loadingBar {
   position: relative;
   z-index: 1;
-  width: 200px;
-  height: 4px;
+  width: 220px;
+  height: 5px;
   margin: 0 auto;
-  background: rgba(206, 165, 0, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
+  background: rgba(206, 165, 0, 0.08);
+  border-radius: 8px;
+  overflow: visible;
 }
 
 .loadingBarFill {
   height: 100%;
-  width: 30%;
-  background: linear-gradient(90deg, var(--gold), var(--goldDark), var(--gold));
-  border-radius: 4px;
-  animation: loadingSlide 1.8s ease-in-out infinite;
-  background-size: 200% 100%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--gold), var(--goldDark), #f5d742, var(--gold));
+  background-size: 300% 100%;
+  animation: loadingSlide 2s ease-in-out infinite;
 }
 
-/* ── Bouncing dots beneath bar ── */
-.bounceDots {
+.loadingBarGlow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 60px;
+  height: 20px;
+  margin-top: -10px;
+  background: radial-gradient(ellipse, rgba(206, 165, 0, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: glowSlide 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ── Pulsing dots beneath bar ── */
+.dotsBar {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 1rem;
+  gap: 10px;
+  margin-top: 1.25rem;
   position: relative;
   z-index: 1;
+  height: 6px;
 }
 
-.bounceDot {
-  width: 8px;
-  height: 8px;
+.dotsBarDot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--goldDark);
-  opacity: 0.25;
-  animation: bounce 1.4s ease-in-out infinite;
+  opacity: 0.2;
+  animation: dotsBarBounce 1.6s ease-in-out infinite;
 }
 
-.bounceDot:nth-child(2) { animation-delay: 0.2s; }
-.bounceDot:nth-child(3) { animation-delay: 0.4s; }
+.dotsBarDot:nth-child(2) {
+  animation-delay: 0.32s;
+}
+
+.dotsBarDot:nth-child(3) {
+  animation-delay: 0.64s;
+}
+
+/* ── Travel Quote ── */
+.quote {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--textGray);
+  opacity: 0.5;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+  font-family: var(--Font);
+  line-height: 1.6;
+  animation: quoteFade 3s ease-in-out infinite;
+}
 
 /* ── Keyframes ── */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(30px) scale(0.97);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-10px) scale(1.1); }
+  50% { transform: translateY(-12px) scale(1.15); }
+}
+
+@keyframes sparklePop {
+  0%, 100% { opacity: 0; transform: scale(0) translateY(0); }
+  30% { opacity: 0.7; transform: scale(1.2) translateY(-4px); }
+  60% { opacity: 0.3; transform: scale(0.8) translateY(2px); }
+}
+
+@keyframes orbPulse {
+  0% { opacity: 0.08; transform: scale(1); }
+  100% { opacity: 0.2; transform: scale(1.15); }
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbitSpinReverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes orbitDotPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+@keyframes globeRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes planeFloat {
   0%, 100% {
-    transform: translateY(0) rotate(-2deg);
+    transform: translateY(0) rotate(-3deg) scale(1);
+  }
+  25% {
+    transform: translateY(-3px) rotate(-1deg) scale(1.02);
   }
   50% {
-    transform: translateY(-8px) rotate(2deg);
+    transform: translateY(-6px) rotate(3deg) scale(1.04);
   }
+  75% {
+    transform: translateY(-2px) rotate(1deg) scale(1.01);
+  }
+}
+
+@keyframes shimmerText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @keyframes loadingSlide {
   0% {
-    transform: translateX(-100%);
-    width: 30%;
+    width: 25%;
+    transform: translateX(-50%);
   }
   50% {
-    width: 60%;
+    width: 55%;
   }
   100% {
-    transform: translateX(400%);
-    width: 30%;
+    width: 25%;
+    transform: translateX(380%);
   }
 }
 
-@keyframes bounce {
+@keyframes glowSlide {
+  0% { transform: translateX(-30px); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateX(200px); opacity: 0; }
+}
+
+@keyframes dotsBarBounce {
   0%, 80%, 100% {
     transform: scale(0.6);
-    opacity: 0.2;
+    opacity: 0.15;
   }
   40% {
     transform: scale(1);
-    opacity: 0.5;
+    opacity: 0.6;
   }
+}
+
+@keyframes quoteFade {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.6; }
 }
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .card {
     padding: 2.5rem 1.5rem;
+    border-radius: 20px;
   }
   .title {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+  }
+  .iconGroup {
+    width: 80px;
+    height: 80px;
+  }
+  .globeIcon {
+    inset: 10px;
   }
   .planeIcon {
-    width: 60px;
-    height: 60px;
+    inset: 18px;
+  }
+  .orbitRingInner {
+    inset: 8px;
+  }
+  .loadingBar {
+    width: 180px;
+  }
+  .quote {
+    font-size: 0.75rem;
   }
 }

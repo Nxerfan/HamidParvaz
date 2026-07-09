@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useAuth } from "../../lib/AuthContext";
 import "../globals.css";
 
 interface HeaderAutoReserveProps {
@@ -7,6 +10,8 @@ interface HeaderAutoReserveProps {
 }
 
 function HeaderAutoReserve({ currentStep = 1 }: HeaderAutoReserveProps) {
+  const { user, isAuthenticated, loading } = useAuth();
+
   return (
     <>
       <header>
@@ -17,15 +22,33 @@ function HeaderAutoReserve({ currentStep = 1 }: HeaderAutoReserveProps) {
             </Link>
 
             <div className="AuthButtons">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="24"
-                height="24"
-              >
-                <path d="M12 2.5a5.25 5.25 0 0 0-2.519 9.857 9.005 9.005 0 0 0-6.477 8.37.75.75 0 0 0 .727.773H20.27a.75.75 0 0 0 .727-.772 9.005 9.005 0 0 0-6.477-8.37A5.25 5.25 0 0 0 12 2.5Z"></path>
-              </svg>
-              <p>UserName</p>
+              {loading ? (
+                <div style={{ width: 60, height: 24, background: "rgba(0,0,0,0.05)", borderRadius: 6 }} />
+              ) : isAuthenticated && user ? (
+                <Link href="/userpanel" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                  >
+                    <path d="M12 2.5a5.25 5.25 0 0 0-2.519 9.857 9.005 9.005 0 0 0-6.477 8.37.75.75 0 0 0 .727.773H20.27a.75.75 0 0 0 .727-.772 9.005 9.005 0 0 0-6.477-8.37A5.25 5.25 0 0 0 12 2.5Z"></path>
+                  </svg>
+                  <p style={{ margin: 0 }}>{user.name || user.email}</p>
+                </Link>
+              ) : (
+                <Link href="/auth" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                  >
+                    <path d="M12 2.5a5.25 5.25 0 0 0-2.519 9.857 9.005 9.005 0 0 0-6.477 8.37.75.75 0 0 0 .727.773H20.27a.75.75 0 0 0 .727-.772 9.005 9.005 0 0 0-6.477-8.37A5.25 5.25 0 0 0 12 2.5Z"></path>
+                  </svg>
+                  <p style={{ margin: 0 }}>ورود</p>
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -1,5 +1,8 @@
+"use client";
+
 import "../globals.css";
 import Link from "next/link";
+import { useAuth } from "../../lib/AuthContext";
 
 interface TopCard {
   type: string;
@@ -127,13 +130,21 @@ const PAGE_DATA = {
 };
 
 export default function UserMenu() {
+  const { user, logout } = useAuth();
+
+  const handleLogout = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    await logout();
+    window.location.href = "/";
+  };
+
   return (
     <>
       <div className="MenuHeader">
         <button className="EditBtn" aria-label="ویرایش پروفایل">
           <Link href={"/userpanel"} style={{textDecoration:"none"}}>{PAGE_DATA.header.editBtnLabel}</Link>
         </button>
-        <span className="Username">{PAGE_DATA.header.username}</span>
+        <span className="Username">{user?.name || PAGE_DATA.header.username}</span>
       </div>
 
       <div className="MenuBody">
@@ -165,6 +176,19 @@ export default function UserMenu() {
         <nav className="Nav">
           {PAGE_DATA.navItems.map((item, index) => {
             if (item.type === "link") {
+              if (item.specialClass === "Logout") {
+                return (
+                  <a
+                    key={index}
+                    href="#"
+                    onClick={handleLogout}
+                    className="Item Logout"
+                  >
+                    <i className="Icon">{item.icon}</i>
+                    {item.label}
+                  </a>
+                );
+              }
               return (
                 <Link
                   key={index}

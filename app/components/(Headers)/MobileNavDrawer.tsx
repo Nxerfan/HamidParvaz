@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../lib/AuthContext";
 
 interface NavItem {
   label: string;
@@ -53,6 +54,7 @@ const NAV_ITEMS: NavItem[] = [
 export default function MobileNavDrawer() {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedItem, setExpandedItem] = useState<number | null>(null);
+  const { user, isAuthenticated, loading } = useAuth();
 
   // Lock body scroll when drawer is open
   useEffect(() => {
@@ -194,17 +196,41 @@ export default function MobileNavDrawer() {
 
         {/* Auth Button at Bottom */}
         <div className="mobileNavFooter">
-          <Link href="/auth" onClick={() => setIsOpen(false)}>
-            <button className="mobileNavAuthBtn">
-              <Image
-                src="/person-ثبت نام.svg"
-                alt=""
-                width={18}
-                height={18}
-              />
-              ورود
-            </button>
-          </Link>
+          {loading ? (
+            <div style={{ height: 48, borderRadius: 14, background: "rgba(0,0,0,0.04)" }} />
+          ) : isAuthenticated && user ? (
+            <Link href="/userpanel" onClick={() => setIsOpen(false)} style={{ textDecoration: "none" }}>
+              <button className="mobileNavAuthBtn" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
+                <div style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: "50%",
+                  background: "var(--goldDark)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: "var(--textDark)",
+                }}>
+                  {(user.name || user.email || "U").charAt(0).toUpperCase()}
+                </div>
+                {user.name || user.email}
+              </button>
+            </Link>
+          ) : (
+            <Link href="/auth" onClick={() => setIsOpen(false)}>
+              <button className="mobileNavAuthBtn">
+                <Image
+                  src="/person-ثبت نام.svg"
+                  alt=""
+                  width={18}
+                  height={18}
+                />
+                ورود
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </>

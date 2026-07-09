@@ -122,6 +122,13 @@ const PAGE_DATA = {
         link: "/tours/antalya",
       },
       {
+        id: 4,
+        src: "https://umagcdn.utravs.com/JournalsImages/570/860x550/%D8%AC%D8%A7%D8%B0%D8%A8%D9%87%20%D9%87%D8%A7%DB%8C%20%D8%AF%DB%8C%D8%AF%D9%86%DB%8C%20%D8%A8%D8%A7%DA%A9%D9%88.jpg",
+        alt: "آنتالیا",
+        title: "آنتالیا",
+        link: "/tours/antalya",
+      },
+      {
         id: 6,
         src: "https://umagcdn.utravs.com/JournalsImages/570/860x550/%D8%AC%D8%A7%D8%B0%D8%A8%D9%87%20%D9%87%D8%A7%DB%8C%20%D8%AF%DB%8C%D8%AF%D9%86%DB%8C%20%D8%A8%D8%A7%DA%A9%D9%88.jpg",
         alt: "ایروان",

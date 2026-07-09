@@ -198,6 +198,27 @@ header {
             border-color: var(--gold);
             color: var(--textDark);
             transform: translateY(-2px);
+        }
+    }
+    .ProfileAvatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--gold) 0%, var(--goldDark) 100%);
+        color: var(--textDark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        user-select: none;
+        &:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 3px rgba(255, 205, 17, 0.3);
+            border-color: var(--goldDark);
             box-shadow: 0 6px 20px rgba(255, 205, 17, 0.4);
         }
         &:active {

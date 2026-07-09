@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import MobileNavDrawer from "./MobileNavDrawer";
+import AuthButtonsClient from "./AuthButtonsClient";
 import "../globals.css";
 
 interface HeaderProps {
@@ -127,20 +130,7 @@ export default function Header({
             </Link>
           </nav>
 
-          <div className="AuthButtons">
-            <Link href="/auth">
-              <button className="Btn BtnPrimary">
-                <Image
-                  src="/person-ثبت نام.svg"
-                  alt=""
-                  width={20}
-                  height={20}
-                  role="presentation"
-                />{" "}
-                ورود
-              </button>
-            </Link>
-          </div>
+          <AuthButtonsClient />
 
           <MobileNavDrawer />
         </div>
