@@ -1,21 +1,14 @@
-import type { Metadata } from "next";
 import Header from "../components/(Headers)/Header3";
-export const metadata: Metadata = {
-  title: "حمید پرواز ",
-  description: "سایت خرید بلیط هواپیما , تور و هتل",
-};
 
-export default function OtersInMainPagesLayout({
+export default function SupportLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl">
-      <body>
-        <Header />
-        {children}
-      </body>
-    </html>
+    <>
+      <Header />
+      {children}
+    </>
   );
 }

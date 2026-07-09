@@ -85,7 +85,7 @@ const PAGE_DATA = {
     list: [
       {
         id: 1,
-        src: "/Iran_Air.png",
+        src: "/airlines/IRU.svg",
         alt: "ایران ایر",
         name: "ایران ایر (هما)",
         internalLink: "#",
@@ -95,7 +95,7 @@ const PAGE_DATA = {
       },
       {
         id: 2,
-        src: "/mahan-air.png",
+        src: "/airlines/MRJ.svg",
         alt: "ماهان",
         name: "ماهان ایر",
         internalLink: "#",
@@ -105,7 +105,7 @@ const PAGE_DATA = {
       },
       {
         id: 3,
-        src: "/IranAseman_Air.png",
+        src: "/airlines/ASM.svg",
         alt: "آسمان",
         name: "آسمان ایر",
         internalLink: "#",
@@ -115,7 +115,7 @@ const PAGE_DATA = {
       },
       {
         id: 4,
-        src: "/Kish_Air.png",
+        src: "/airlines/KIS.svg",
         alt: "کیش ایر",
         name: "کیش ایر",
         internalLink: "#",
@@ -125,7 +125,7 @@ const PAGE_DATA = {
       },
       {
         id: 5,
-        src: "/Gheshm_Air.png",
+        src: "/airlines/QES.svg",
         alt: "قشم ایر",
         name: "قشم ایر",
         internalLink: "#",
@@ -135,7 +135,7 @@ const PAGE_DATA = {
       },
       {
         id: 6,
-        src: "/Zagros_Air.png",
+        src: "/airlines/ZAG.svg",
         alt: "زاگرس",
         name: "زاگرس ایر",
         internalLink: "#",
@@ -145,7 +145,7 @@ const PAGE_DATA = {
       },
       {
         id: 7,
-        src: "/Ata_Air.png",
+        src: "/airlines/ATA.svg",
         alt: "آتا",
         name: "آتا ایر",
         internalLink: "#",
@@ -267,19 +267,13 @@ const Page = () => {
             <div className="MediaScroller">
               {PAGE_DATA.airlinesSection.list.map((item, i) => (
                 <div key={i} className="MediaElementHotel">
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "100px",
-                      height: "100px",
-                    }}
-                  >
+                  <div className="airline-logo-wrap">
                     <Image
                       src={item.src}
                       alt={item.alt}
-                      fill
-                      sizes="100px"
-                      style={{ objectFit: "contain", left: "-150%" }}
+                      width={60}
+                      height={60}
+                      style={{ objectFit: "contain" }}
                     />
                   </div>
                   <p>{item.name}</p>

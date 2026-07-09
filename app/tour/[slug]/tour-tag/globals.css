@@ -1,0 +1,327 @@
+/* ─── Tour Tag Page ─── */
+.tour-tag-page {
+  direction: rtl;
+  padding: 1rem;
+}
+
+.tag-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tag-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem 0;
+}
+
+.tag-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+.tag-result-count {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.tag-tours-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Override tourse card styles — remove .Left wrapper dependency */
+.tag-tours-list .TourCard {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease;
+}
+
+.tag-tours-list .TourCard:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+@media (min-width: 768px) {
+  .tag-tours-list .TourCard {
+    flex-direction: row;
+  }
+}
+
+.tag-tours-list .TourCard .TourImage {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  min-height: 220px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .tag-tours-list .TourCard .TourImage {
+    width: 320px;
+    height: auto;
+    min-height: 240px;
+  }
+}
+
+.tag-tours-list .TourCard .TourImage img {
+  object-fit: cover;
+}
+
+.tag-tours-list .TourCard .TourImage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.05), transparent 40%);
+  pointer-events: none;
+}
+
+.tag-tours-list .TourCard .TourImage .Badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #e74c3c;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.tag-tours-list .TourCard .TourImage .Badge.Special {
+  background: #f39c12;
+}
+
+.tag-tours-list .TourCard .TourImage .tour-score-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.3;
+  z-index: 2;
+}
+
+.tag-tours-list .TourCard .TourImage .tour-score-badge .score-value {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.tag-tours-list .TourCard .TourImage .tour-score-badge .score-label {
+  font-size: 0.65rem;
+  opacity: 0.85;
+}
+
+/* ─── Tour Content ─── */
+.tag-tours-list .TourCard .TourContent {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 0.75rem;
+}
+
+.tag-tours-list .TourCard .TourTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 0.35rem;
+}
+
+.tag-tours-list .TourCard .TourAgency {
+  font-size: 0.85rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.tag-tours-list .TourCard .TourAgency svg {
+  font-size: 0.8rem;
+  color: #2c9cdb;
+}
+
+.tag-tours-list .TourCard .TourMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.tag-tours-list .TourCard .TourMeta .MetaItem {
+  font-size: 0.82rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.tag-tours-list .TourCard .TourMeta .MetaItem svg {
+  font-size: 0.75rem;
+  color: #2c9cdb;
+}
+
+.tag-tours-list .TourCard .TourServices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.tag-tours-list .TourCard .TourServices .service-pill {
+  font-size: 0.75rem;
+  background: #e8f4fd;
+  color: #2c7ab1;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.tag-tours-list .TourCard .TourServices .service-pill svg {
+  font-size: 0.65rem;
+}
+
+/* ─── Tour Footer ─── */
+.tag-tours-list .TourCard .TourFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #eee;
+}
+
+.tag-tours-list .TourCard .TourFooter .Capacity {
+  font-size: 0.8rem;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tag-tours-list .TourCard .TourFooter .Capacity span {
+  font-weight: 700;
+  color: #e74c3c;
+}
+
+.tag-tours-list .TourCard .TourFooter .price-cta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tag-tours-list .TourCard .TourFooter .PriceBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.tag-tours-list .TourCard .TourFooter .PriceBox .PriceLabel {
+  font-size: 0.75rem;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+.tag-tours-list .TourCard .TourFooter .PriceBox .PriceValue {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.tag-tours-list .TourCard .TourFooter .PriceBox .PriceValue .Currency {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #666;
+}
+
+.tag-tours-list .TourCard .TourFooter .BtnBook {
+  background: #2c9cdb;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.tag-tours-list .TourCard .TourFooter .BtnBook:hover {
+  background: #1f7db3;
+}
+
+/* ─── Empty State ─── */
+.tag-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #666;
+}
+
+.tag-empty p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.tag-back-link {
+  display: inline-block;
+  background: #2c9cdb;
+  color: #fff;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.tag-back-link:hover {
+  background: #1f7db3;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 767px) {
+  .tag-header h1 {
+    font-size: 1.35rem;
+  }
+
+  .tag-tours-list .TourCard .TourFooter .price-cta {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .tag-tours-list .TourCard .TourFooter .BtnBook {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tour-tag-page {
+    padding: 0.75rem;
+  }
+
+  .tag-tours-list .TourCard .TourContent {
+    padding: 0.75rem;
+  }
+
+  .tag-tours-list .TourCard .TourFooter .PriceBox .PriceValue {
+    font-size: 0.95rem;
+  }
+}

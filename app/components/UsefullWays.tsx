@@ -52,8 +52,8 @@ export default function UsefulWays() {
             <Link href="/flight?to=Baghdad">بلیط هواپیما بغداد</Link>
           </div>
 
-          <div className="items">
-            <p>سایر خدمات</p>
+          <div className="items hide-mobile">
+                      <p>سایر خدمات</p>
             <Link href="/tour/make-your-own">تور دلخواه خود را بسازید</Link>
             <Link href="/reserve/auto-reserve">رزرو خودکار</Link>
             <Link href="/contact-us">تماس با ما</Link>

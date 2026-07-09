@@ -1722,22 +1722,45 @@ footer {
         }
         span {
             font-size: 13px;
+            color: var(--textGray);
         }
     }
     .content {
-        justify-content: space-between;
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
         .items {
             display: grid;
             align-content: start;
-            gap: 2px;
+            gap: 6px;
             height: auto;
+            p {
+                font-weight: 700;
+                color: var(--textDark);
+                font-size: 14px;
+                margin-bottom: 4px;
+                position: relative;
+                padding-right: 12px;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    right: 0;
+                    top: 6px;
+                    width: 4px;
+                    height: 14px;
+                    background: var(--gold);
+                    border-radius: 2px;
+                }
+            }
             a {
-                font-size: 12px;
+                font-size: 13px;
                 color: var(--textGray);
                 text-decoration: none;
+                padding: 3px 0;
+                transition: all 0.2s ease;
                 &:hover {
-                    text-decoration: underline;
+                    color: var(--goldDark);
+                    padding-right: 4px;
                 }
             }
         }
@@ -2807,46 +2830,52 @@ footer {
         text-align: center;
     }
     .useFullWays {
-        width: 100%;
-        padding: 16px 12px;
-    }
-    .useFullWays .title {
-        padding: 0;
-        margin-bottom: 6px;
-    }
-    .useFullWays .title p {
-        font-size: 14px;
-        margin: 0;
-    }
-    .useFullWays .title span {
-        display: none;
-    }
-    .useFullWays .content {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 10px 8px !important;
-        align-items: start;
-    }
-    .useFullWays .items {
-        width: 100%;
-        max-width: none;
-        text-align: center;
-    }
-    .useFullWays .items p {
-        font-size: 12px;
-        margin: 0 0 1px;
-        font-weight: 600;
-    }
-    .useFullWays .items.hide-mobile {
-        display: none;
-    }
-    .useFullWays .items a {
-        font-size: 11px;
-        padding: 1px 0;
-    }
-    .useFullWays .items a:nth-child(n+5) {
-        display: none;
-    }
+            width: 100%;
+            padding: 20px 12px;
+        }
+        .useFullWays .title {
+            padding: 0;
+            margin-bottom: 6px;
+        }
+        .useFullWays .title p {
+            font-size: 15px;
+            margin: 0;
+        }
+        .useFullWays .title span {
+            display: none;
+        }
+        .useFullWays .content {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 12px 8px !important;
+            align-items: start;
+        }
+        .useFullWays .items {
+            min-width: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            text-align: center;
+            gap: 3px;
+        }
+        .useFullWays .items p {
+            font-size: 12px;
+            margin: 0 0 2px;
+            font-weight: 700;
+            padding-right: 0;
+            &::before {
+                display: none;
+            }
+        }
+        .useFullWays .items.hide-mobile {
+            display: none;
+        }
+        .useFullWays .items a {
+            font-size: 11px;
+            padding: 2px 0;
+        }
+        .useFullWays .items a:nth-child(n+3) {
+                display: none;
+        }
     .Hero h1 {
         font-size: 28px;
     }
@@ -3133,12 +3162,16 @@ footer {
     align-content: start;
 }
 
-/* Override any header nav flex interference */
+/* Override any header nav flex interference — max specificity */
 header .HeaderTop .Container nav#mobileNavGrid,
 header .HeaderTop2 .Container nav#mobileNavGrid,
-header nav.mobileNavGrid {
+header nav.mobileNavGrid,
+header .HeaderTop .Container nav.mobileNavGrid {
     display: grid !important;
     flex: none !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
 }
 .mobileNavGrid::-webkit-scrollbar,
 #mobileNavGrid::-webkit-scrollbar {
@@ -3632,18 +3665,179 @@ header nav.mobileNavGrid {
     }
 }
 
-/* ============= Unified Card - MediaElementHotel ============= */
+/* ════════════════════════════════════════════════
+   .MediaElementHotel — Unified Premium Card
+   ════════════════════════════════════════════════ */
 .MediaElementHotel {
-    background: var(--bgWhite);
-    border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    overflow: hidden;
     position: relative;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid rgba(0, 0, 0, 0.04);
 }
+
+/* ── Hover lift ── */
 .MediaElementHotel:hover {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 24px 60px rgba(0, 0, 0, 0.04);
+    border-color: rgba(212, 175, 55, 0.12);
+}
+
+/* ── Gold vertical accent — slides in from right on hover ── */
+.MediaElementHotel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 10%, rgba(255, 205, 17, 0.08) 50%, transparent 90%);
+    transition: width 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    z-index: 1;
+}
+.MediaElementHotel:hover::before {
+    width: 4px;
+}
+
+/* ── Gold top accent bar ── */
+.MediaElementHotel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background: linear-gradient(90deg, transparent 20%, #cea500 50%, transparent 80%);
+    transition: height 0.35s ease, opacity 0.35s ease;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+.MediaElementHotel:hover::after {
+    height: 3px;
+    opacity: 1;
+}
+
+/* ════════════════════════════════════════════════
+   .MediaElementHotel — Universal Inner Elements
+   ════════════════════════════════════════════════ */
+
+/* ── Image zoom on hover ── */
+.MediaElementHotel img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.4s ease;
+    will-change: transform;
+}
+.MediaElementHotel:hover img {
+    transform: scale(1.07);
+}
+
+/* ── Card title / heading ── */
+.MediaElementHotel h3 {
+    transition: color 0.3s ease;
+}
+.MediaElementHotel:hover h3 {
+    color: #1a1a1a;
+}
+
+/* ── Bold text in cards ── */
+.MediaElementHotel p {
+    transition: color 0.3s ease;
+}
+.MediaElementHotel:hover p {
+    color: #1a1a1a;
+}
+
+/* ── Star icons ── */
+.MediaElementHotel .star-icon,
+.MediaElementHotel .Stars svg {
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+.MediaElementHotel:hover .star-icon,
+.MediaElementHotel:hover .Stars svg {
+    transform: scale(1.12);
+    color: #e6b800;
+}
+
+/* ── Link pills (Options / Options2) — Premium pill style ── */
+.MediaElementHotel .Options a,
+.MediaElementHotel .Options2 a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 18px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f8f7f2 0%, #f0ede4 100%);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    color: var(--textDark);
+}
+.MediaElementHotel .Options a:hover,
+.MediaElementHotel .Options2 a:hover {
+    background: linear-gradient(135deg, #ffcd11 0%, #cea500 100%);
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.30);
+    border-color: transparent;
+}
+.MediaElementHotel .Options a p,
+.MediaElementHotel .Options2 a p {
+    color: inherit !important;
+    font-weight: 500;
+    transition: none;
+}
+.MediaElementHotel .Options a:hover p,
+.MediaElementHotel .Options2 a:hover p {
+    color: #fff !important;
+}
+
+/* ── Price section ── */
+.MediaElementHotel .price {
+    transition: background 0.4s ease, border-color 0.3s ease;
+}
+.MediaElementHotel:hover .price {
+    background: linear-gradient(135deg, #f8f5e8 0%, #f0ebd0 100%);
+}
+
+/* ── Price amount ── */
+.MediaElementHotel .price .amount {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+.MediaElementHotel:hover .price .amount {
+    transform: scale(1.03);
+}
+
+/* ── Score badge ── */
+.MediaElementHotel .hotel-score-badge {
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.MediaElementHotel:hover .hotel-score-badge {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+}
+
+/* ── Facility pills ── */
+.MediaElementHotel .facility-pill {
+    transition: all 0.25s ease;
+}
+.MediaElementHotel:hover .facility-pill {
+    background: linear-gradient(135deg, #f5f0de 0%, #ede8d5 100%) !important;
+    border-color: rgba(212, 175, 55, 0.12) !important;
+}
+.MediaElementHotel .facility-pill i,
+.MediaElementHotel .facility-pill svg {
+    transition: transform 0.25s ease;
+}
+.MediaElementHotel:hover .facility-pill i,
+.MediaElementHotel:hover .facility-pill svg {
+    transform: scale(1.15);
 }
 
 /* Media Queries برای نمایش/مخفی کردن دکمه‌ها */

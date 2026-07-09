@@ -22,7 +22,7 @@ export default function Header({
         <div className="Container">
           <Link href="/" className="Logo">
             <Image
-              src="/hamidParvaz.png"
+              src="/logo.webp"
               alt="لوگوی سایت"
               width={90}
               height={34}

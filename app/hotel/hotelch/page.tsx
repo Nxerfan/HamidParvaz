@@ -453,7 +453,7 @@ function HotelDetailInner() {
           <div className="Rooms">
             <h4>{TEXTS.roomsTitle}</h4>
             {hotel.roomTypes.map((room, idx) => (
-              <div className="Card HotelListItem" key={idx}>
+              <div className="Card HotelListItem" key={idx} style={{ animationDelay: `${0.28 + 0.1 * idx}s` }}>
                 <div className="Top">
                   <div className="room-title">
                     <p>{room.name}</p>

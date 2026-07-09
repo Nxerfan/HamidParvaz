@@ -194,7 +194,6 @@ export default function HotelDetailsPage() {
                     alt={PAGE_DATA.hotelInfo.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 600px"
-                    unoptimized
                     style={{ objectFit: "cover" }}
                   />
                 </div>
@@ -208,7 +207,7 @@ export default function HotelDetailsPage() {
                   onClick={() => setActiveImage(0)}
                 >
                   <div style={{ position: "relative", width: "100%", height: "100%" }}>
-                    <Image src={PAGE_DATA.hotelInfo.mainImage} alt="main" fill sizes="120px" unoptimized style={{ objectFit: "cover" }} />
+                    <Image src={PAGE_DATA.hotelInfo.mainImage} alt="main" fill sizes="120px" style={{ objectFit: "cover" }} />
                   </div>
                   <div className="galleryOverlay">
                     <span>اصلی</span>
@@ -221,7 +220,7 @@ export default function HotelDetailsPage() {
                     onClick={() => setActiveImage(index + 1)}
                   >
                     <div style={{ position: "relative", width: "100%", height: "100%" }}>
-                      <Image src={src} alt={`gallery-${index}`} fill sizes="120px" unoptimized style={{ objectFit: "cover" }} />
+                      <Image src={src} alt={`gallery-${index}`} fill sizes="120px" style={{ objectFit: "cover" }} />
                     </div>
                     <div className="galleryOverlay">
                       <span>{index + 1}</span>

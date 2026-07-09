@@ -5,10 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faLocationDot,
-  faCalendarDays,
   faClock,
   faPlane,
+  faUtensils,
+  faStar,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import Description from "../components/Description";
 import UsefulWays from "../components/UsefullWays";
@@ -30,11 +31,18 @@ const PAGE_DATA = {
         location: "از تهران به استانبول",
         date: "10 فروردین",
         duration: "4 شب و 5 روز",
+        durationNights: 4,
+        durationDays: 5,
+        mealPlan: "صبحانه",
+        hotelStars: 4,
+        capacity: 12,
+        originalPrice: "26,500,000",
         airline: "پرواز ترکیش",
         description: "اقامت در هتل 4 ستاره با صبحانه و گشت شهری رایگان",
         price: "22,500,000",
         link: "/TourDetails/Istanbul",
         badge: { text: "ویژه", className: "" },
+        services: ["گشت شهری رایگان", "ترانسفر فرودگاهی", "صبحانه هتل"],
       },
       {
         id: 2,
@@ -45,11 +53,18 @@ const PAGE_DATA = {
         location: "از شیراز به کیش",
         date: "15 فروردین",
         duration: "3 شب و 4 روز",
+        durationNights: 3,
+        durationDays: 4,
+        mealPlan: "صبحانه",
+        hotelStars: 5,
+        capacity: 8,
+        originalPrice: "12,500,000",
         airline: "پرواز ماهان",
         description: "پرواز رفت و برگشت + اقامت هتل 5 ستاره ترنج",
         price: "9,850,000",
         link: "/TourDetails/Kish",
         badge: { text: "لحظه آخری", className: "lastMinute" },
+        services: ["پرواز رفت و برگشت", "ویزای فرودگاهی", "ترانسفر"],
       },
       {
         id: 3,
@@ -60,11 +75,18 @@ const PAGE_DATA = {
         location: "از تهران",
         date: "25 فروردین",
         duration: "7 شب",
+        durationNights: 7,
+        durationDays: 8,
+        mealPlan: "صبحانه و شام",
+        hotelStars: 5,
+        capacity: 6,
+        originalPrice: "79,000,000",
         airline: "پرواز قطر ایرویز",
         description: "تور خارجی ویژه با دو مقصد و خدمات فول پکیج",
         price: "68,000,000",
         link: "/TourDetails/Thailand",
         badge: { text: "تور خارجی", className: "foreign" },
+        services: ["ویزای تایلند", "لیدر فارسی‌زبان", "ترانسفر", "بیمه مسافرتی"],
       },
     ],
   },
@@ -166,43 +188,59 @@ export default function Offers() {
   for (const tour of PAGE_DATA.offersSection.tours) {
     toursJSX.push(
       <article key={tour.id} className="TourCard">
-        <figure className="TourImage">
+        <div className="TourImage">
           <Image src={tour.image} alt={tour.alt} fill sizes="(max-width: 768px) 100vw, 320px" />
           <span className={`badge ${tour.badge.className}`}>{tour.badge.text}</span>
           <div className="tour-score-badge">
             <span className="score-value">۴.۵</span>
             <span className="score-label">امتیاز</span>
           </div>
-        </figure>
+        </div>
         <div className="TourContent">
           <div>
-            <h3 className="TourTitle">{tour.title}</h3>
-            <div className="TourAgency">
-              <FontAwesomeIcon icon={faPlane} /> {tour.airline}
+            <div className="TourHeader">
+              <h3 className="TourTitle">{tour.title}</h3>
+              <div className="TourAgency">
+                <FontAwesomeIcon icon={faPlane} /> {tour.airline}
+              </div>
             </div>
             <div className="TourMeta">
               <div className="MetaItem">
-                <FontAwesomeIcon icon={faCalendarDays} /> {tour.date}
+                <FontAwesomeIcon icon={faClock} /> {tour.durationNights} شب و {tour.durationDays} روز
               </div>
               <div className="MetaItem">
-                <FontAwesomeIcon icon={faClock} /> {tour.duration}
+                <FontAwesomeIcon icon={faUtensils} /> {tour.mealPlan}
               </div>
               <div className="MetaItem">
-                <FontAwesomeIcon icon={faLocationDot} /> {tour.location}
+                <FontAwesomeIcon icon={faStar} /> {tour.hotelStars} ستاره
               </div>
             </div>
+            {tour.services.length > 0 && (
+              <div className="TourServices">
+                {tour.services.map((svc, idx) => (
+                  <span key={idx} className="service-pill">
+                    <FontAwesomeIcon icon={faCheck} /> {svc}
+                  </span>
+                ))}
+              </div>
+            )}
             <p className="tourDesc">{tour.description}</p>
           </div>
           <div className="TourFooter">
-            <div className="Capacity">ظرفیت محدود</div>
+            <div className="Capacity">
+              <span>{tour.capacity}</span> صندلی باقی‌مانده
+            </div>
             <div className="price-cta">
               <div className="PriceBox">
+                {tour.originalPrice && (
+                  <span className="PriceLabel">{tour.originalPrice}</span>
+                )}
                 <span className="PriceValue">
                   {tour.price} <span className="Currency">تومان</span>
                 </span>
               </div>
               <Link href={`/tour/${tour.slug}`}>
-                <button className="BtnBook">مشاهده جزئیات</button>
+                <button className="BtnBook">رزرو تور</button>
               </Link>
             </div>
           </div>
@@ -212,14 +250,14 @@ export default function Offers() {
   }
 
   const destinationsJSX: React.ReactElement[] = [];
-  for (const item of PAGE_DATA.destinations.list) {
-    destinationsJSX.push(
-      <Link key={item.id} href={`/tour/tourse?destination=${encodeURIComponent(item.alt)}`} className="destinationItem">
-        <Image src={item.src} alt={item.alt} width={140} height={190} />
-        <span>{item.title}</span>
-      </Link>
-    );
-  }
+    for (const item of PAGE_DATA.destinations.list) {
+      destinationsJSX.push(
+        <Link key={item.id} href={`/tour/${encodeURIComponent(item.alt)}/tour-tag`} className="destinationItem">
+          <Image src={item.src} alt={item.alt} fill sizes="140px" />
+          <span>{item.title}</span>
+        </Link>
+      );
+    }
 
   return (
     <>

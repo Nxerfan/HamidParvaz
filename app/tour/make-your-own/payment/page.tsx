@@ -197,7 +197,7 @@ export default function CheckoutPage() {
               <div className="hotelMiniTop">
                 <div className="hotelMiniImgWrap">
                   <div style={{ position: "relative", width: "100%", height: "100%" }}>
-                    <Image src={PAGE_DATA.hotel.image} alt={PAGE_DATA.hotel.name} fill sizes="80px" unoptimized style={{ objectFit: "cover", borderRadius: "8px" }} />
+                    <Image src={PAGE_DATA.hotel.image} alt={PAGE_DATA.hotel.name} fill sizes="80px" style={{ objectFit: "cover", borderRadius: "8px" }} />
                   </div>
                 </div>
                 <div className="hotelMiniMeta">
@@ -347,7 +347,7 @@ export default function CheckoutPage() {
 
           <div className="MediaElementHotel">
             <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
-              <Image src={PAGE_DATA.hotel.image} alt={PAGE_DATA.hotel.name} fill sizes="(max-width: 768px) 100vw, 600px" unoptimized style={{ objectFit: "cover" }} />
+              <Image src={PAGE_DATA.hotel.image} alt={PAGE_DATA.hotel.name} fill sizes="(max-width: 768px) 100vw, 600px" style={{ objectFit: "cover" }} />
             </div>
             <div className="Down">
               <p>{PAGE_DATA.hotel.name}</p>

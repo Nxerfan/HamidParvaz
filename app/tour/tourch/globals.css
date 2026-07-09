@@ -2,6 +2,29 @@
    Tour Detail Page — Premium Responsive Design (RTL)
    ═══════════════════════════════════════════════════════ */
 
+/* ── Global Keyframes ── */
+@keyframes detailFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes detailScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* ── Loading & Error States ── */
 .loadingContainer {
   display: flex;
@@ -49,6 +72,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  transition: padding 0.3s ease, gap 0.3s ease;
+  animation: detailFadeInUp 0.5s ease-out forwards;
 }
 @media (min-width: 1024px) {
   .container26 {
@@ -90,6 +115,7 @@
   display: grid;
   gap: 20px;
   border: 1px solid #f0f0f0;
+  animation: detailScaleIn 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 /* ── Main Image Gallery ── */
@@ -605,6 +631,7 @@
   display: grid;
   gap: 20px;
   border: 1px solid #f0f0f0;
+  animation: detailScaleIn 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 /* ── Tour Header ── */
@@ -790,10 +817,86 @@
   box-shadow: 0 4px 14px rgba(255, 203, 17, 0.3);
   width: 100%;
   text-align: center;
+  min-height: 48px;
 }
 .container26 .left .Card .Btn1:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+/* ══════════════════════════════════════════════════
+   PREMIUM INTERACTIONS: Hover & Transitions
+   ══════════════════════════════════════════════════ */
+
+/* ── Card lift on hover ── */
+.container26 .right .Card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.container26 .right .Card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+}
+
+/* ── Main image zoom ── */
+.container26 .right .Card .MainImg img {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.container26 .right .Card .MainImg:hover img {
+  transform: scale(1.04);
+}
+
+/* ── Thumbnail zoom ── */
+.container26 .right .Card .MoreImg > div {
+  transition: all 0.3s ease;
+}
+.container26 .right .Card .MoreImg > div:hover {
+  transform: scale(1.05);
+}
+
+/* ── Options icon hover ── */
+.container26 .right .Options .Card .Option {
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.container26 .right .Options .Card .Option:hover {
+  transform: translateY(-2px);
+}
+
+/* ── Rule value card hover ── */
+.container26 .right .Rules .Card .Time .Value {
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.container26 .right .Rules .Card .Time .Value:hover {
+  background: #faf6e8;
+}
+
+/* ── Itinerary day marker pulse ── */
+.container26 .right .ItinerarySection .DayItem .DayMarker {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.container26 .right .ItinerarySection .DayItem .DayMarker:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(255, 203, 17, 0.4);
+}
+
+/* ── Sidebar Card lift ── */
+.container26 .left .Card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.container26 .left .Card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+}
+
+/* ── Touch-friendly button sizing ── */
+.container26 .right .Rooms .Card .Top .AboutRoom button {
+  min-height: 46px;
+}
+.container26 .left .Card .Btn1 {
+  min-height: 48px;
+}
+.container26 .right .FAQSection .FAQButton {
+  min-height: 48px;
 }
 
 /* ══════════════════════════════════════════════════
@@ -824,6 +927,10 @@
     border-radius: 12px;
     gap: 14px;
   }
+  .container26 .right .Card .MainImg {
+    aspect-ratio: 16 / 9;
+    max-height: 280px;
+  }
   .container26 .right .Card .MainImg .nav {
     width: 36px;
     height: 36px;
@@ -838,12 +945,34 @@
   .container26 .right .Options .Card .Option p {
     font-size: 12px;
   }
+  .container26 .right .Rooms .Card .Top .Title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .container26 .right .Rooms .Card .Top .Title p {
+    font-size: 15px;
+  }
+  .container26 .right .Rooms .Card .Top .Title span {
+    font-size: 12px;
+  }
   .container26 .right .Rooms .Card .Top .AboutRoom {
     flex-direction: column;
     align-items: stretch;
   }
   .container26 .right .Rooms .Card .Top .AboutRoom p {
     min-width: 0;
+  }
+  .container26 .right .Rooms .Card .Top .AboutRoom button {
+    width: 100%;
+    min-width: 0;
+  }
+  .container26 .right .Rooms .RoomOption {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .container26 .right .Rooms .RoomOption .content {
+    max-height: none;
   }
   .container26 .right .Rules .Card .Time {
     flex-direction: column;
@@ -853,11 +982,22 @@
   }
   .container26 .right .ItinerarySection .DayItem {
     gap: 12px;
+    flex-direction: column;
   }
   .container26 .right .ItinerarySection .DayItem .DayMarker {
-    width: 65px;
+    width: auto;
     font-size: 11px;
-    padding: 5px 10px;
+    padding: 5px 14px;
+    display: inline-block;
+  }
+  .container26 .right .ItinerarySection .DayItem .DayMarker::after {
+    display: none;
+  }
+  .container26 .right .ItinerarySection .DayItem .DayContent h5 {
+    font-size: 14px;
+  }
+  .container26 .right .ItinerarySection .DayItem .DayContent p {
+    font-size: 13px;
   }
   .container26 .right .FAQSection .FAQButton {
     font-size: 14px;
@@ -874,14 +1014,55 @@
   .container26 .left .Card .rating .titel p span {
     font-size: 20px;
   }
-}
+  .container26 .left .Card .Stars {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .container26 .left .Card .price .text p {
+    font-size: 13px;
+  }
+  .container26 .left .Card .Btn1 {
+      font-size: 14px;
+      padding: 12px 16px;
+      min-height: 44px;
+    }
+    .container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter button {
+      min-width: 44px;
+      min-height: 44px;
+    }
+  }
 
-@media (max-width: 480px) {
+  @media (max-width: 480px) {
   .container26 {
-    padding: 12px 10px 0;
+    padding: 12px 8px 0;
+    gap: 16px;
+  }
+  .container26 .right {
+    gap: 18px;
+  }
+  .container26 .right h4 {
+    font-size: 15px;
   }
   .container26 .right .Card {
     padding: 12px;
+    gap: 10px;
+    border-radius: 10px;
+  }
+  .container26 .right .Card .MainImg {
+    border-radius: 8px;
+    max-height: 220px;
+  }
+  .container26 .right .Card .MainImg .nav {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+  .container26 .right .Card .MainImg .prev {
+    left: 8px;
+  }
+  .container26 .right .Card .MainImg .next {
+    right: 8px;
   }
   .container26 .right .Card .MoreImg {
     grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
@@ -894,8 +1075,48 @@
     padding: 8px;
     gap: 6px;
   }
+  .container26 .right .Options .Card .Option svg {
+    font-size: 14px;
+  }
+  .container26 .right .Options .Card .Option p {
+    font-size: 11px;
+  }
+  .container26 .right .Rooms .Card .Top .Title p {
+    font-size: 14px;
+  }
+  .container26 .right .Rules .Card .Time .Value {
+    padding: 10px;
+  }
+  .container26 .right .Rules .Card .Time .Value span {
+    font-size: 13px;
+  }
+  .container26 .right .ItinerarySection .DayItem .DayContent h5 {
+    font-size: 13px;
+  }
+  .container26 .right .FAQSection .FAQButton {
+    font-size: 13px;
+    padding: 14px;
+    min-height: 44px;
+  }
+  .container26 .right .FAQSection .FAQButton .Icon {
+    font-size: 18px;
+  }
+  .container26 .right .FAQSection .FAQAnswer p {
+    font-size: 12px;
+  }
+  .container26 .left .Card {
+    padding: 14px;
+    border-radius: 10px;
+  }
   .container26 .left .Card .Btn1 {
     font-size: 14px;
     padding: 12px 16px;
+    min-height: 44px;
+  }
+  .container26 .left .Card .rating .titel p span {
+    font-size: 18px;
+  }
+  .container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup label {
+    font-size: 13px;
   }
 }

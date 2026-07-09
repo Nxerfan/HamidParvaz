@@ -12,10 +12,10 @@ export default function Header() {
         <div className="Container">
           <Link href="/" className="Logo">
             <Image
-              src="/hamidParvaz.png"
-              alt="لوگوی سایت "
-              width={800}
-              height={300}
+              src="/logo.webp"
+              alt="لوگوی سایت"
+              width={200}
+              height={75}
             />
           </Link>
 

@@ -107,10 +107,10 @@ export default function MobileNavDrawer() {
         <div className="mobileNavHeader">
           <Link href="/" className="mobileNavLogo" onClick={() => setIsOpen(false)}>
             <Image
-              src="/hamidParvaz.png"
+              src="/logo.webp"
               alt="لوگوی سایت"
-              width={800}
-              height={300}
+              width={200}
+              height={75}
             />
           </Link>
           <button

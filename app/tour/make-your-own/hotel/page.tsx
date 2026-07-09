@@ -462,7 +462,6 @@ export default function HotelList() {
                 alt={PAGE_DATA.rightSidebar.headerImage.alt}
                 fill
                 sizes="100vw"
-                unoptimized
                 style={{ objectFit: "cover" }}
               />
             </div>
@@ -594,7 +593,7 @@ export default function HotelList() {
               sortedHotels.map((hotel) => (
                 <div key={hotel.id} className="MediaElementHotel">
                   <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
-                    <Image src={hotel.image} alt={hotel.name} fill sizes="(max-width: 768px) 100vw, 400px" unoptimized style={{ objectFit: "cover" }} />
+                    <Image src={hotel.image} alt={hotel.name} fill sizes="(max-width: 768px) 100vw, 400px" style={{ objectFit: "cover" }} />
                   </div>
                   <div className="Down">
                     <p>{hotel.name}</p>
@@ -675,7 +674,7 @@ export default function HotelList() {
               </div>
               <div className="SelectedHotelContent">
                 <div className="SelectedHotelImage" style={{ position: "relative" }}>
-                  <Image src={selectedHotel.image} alt={selectedHotel.name} fill sizes="160px" unoptimized style={{ objectFit: "cover", borderRadius: "12px" }} />
+                  <Image src={selectedHotel.image} alt={selectedHotel.name} fill sizes="160px" style={{ objectFit: "cover", borderRadius: "12px" }} />
                 </div>
                 <div className="SelectedHotelInfo">
                   <div className="SelectedHotelNameStars">

@@ -1146,92 +1146,126 @@ button {
                     }
                 }
                 .OtherInoformation {
-                    width: 100%;
-                    display: grid;
-                    gap: 25px;
-                    .top {
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                        gap: 12px;
-                        label {
-                            display: grid;
-                            justify-content: start;
-                            gap: 5px;
-                            font-size: 14px;
-                            input[type="text"] {
-                                border: none;
-                                height: 50px;
-                                width: 100%;
-                                background-color: var(--bgLight);
-                                font-family: var(--Font);
-                                color: var(--textDark);
-                                border-radius: 8px;
-                                padding: 0 10px;
-                            }
-                        }
-                    }
-                    .bottom {
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                        gap: 12px;
-                        label {
-                            display: grid;
-                            justify-content: start;
-                            gap: 5px;
-                            font-size: 14px;
-                            input[type="text"] {
-                                border: none;
-                                height: 50px;
-                                width: 100%;
-                                background-color: var(--bgLight);
-                                font-family: var(--Font);
-                                color: var(--textDark);
-                                border-radius: 8px;
-                                padding: 0 10px;
-                            }
-                            .dateSelectors {
-                                display: flex;
-                                justify-content: start;
-                                gap: 5px;
-
-                                font-size: 14px;
-                                input {
-                                    border: none;
-                                    height: 50px;
-                                    width: 130px;
-                                    background-color: var(--bgLight);
-                                    font-family: var(--Font);
-                                    color: var(--textDark);
-                                    border-radius: 8px;
-                                    padding: 0 10px;
-                                }
-                                select {
-                                    border: none;
-                                    width: 130px;
-                                    color: var(--textDark);
-                                    background-color: var(--bgLight);
-                                    border-radius: 8px;
-                                    padding: 0 10px;
-                                    cursor: pointer;
-                                    appearance: none;
-                                    -webkit-appearance: none;
-                                    -moz-appearance: none;
-                                    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-                                    background-repeat: no-repeat;
-                                    background-position: left 10px center;
-                                    background-size: 15px;
-                                    &:focus {
-                                        border: none;
-                                        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+                                    width: 100%;
+                                    display: grid;
+                                    gap: 20px;
+                                    .top {
+                                        display: grid;
+                                        grid-template-columns: 1fr 1fr;
+                                        gap: 12px;
+                                        @media (max-width: 480px) {
+                                            grid-template-columns: 1fr;
+                                        }
+                                        label {
+                                            display: grid;
+                                            justify-content: start;
+                                            gap: 5px;
+                                            font-size: 14px;
+                                            input[type="text"] {
+                                                border: 1px solid rgba(0,0,0,0.06);
+                                                height: 50px;
+                                                width: 100%;
+                                                background-color: var(--bgLight);
+                                                font-family: var(--Font);
+                                                color: var(--textDark);
+                                                border-radius: 10px;
+                                                padding: 0 14px;
+                                                transition: all 0.25s ease;
+                                                &:focus {
+                                                    border-color: var(--gold);
+                                                    box-shadow: 0 0 0 3px rgba(255, 205, 17, 0.12);
+                                                    outline: none;
+                                                    background: #fff;
+                                                }
+                                            }
+                                        }
                                     }
-                                    &:focus-visible {
-                                        outline: none;
+                                    .bottom {
+                                        display: grid;
+                                        grid-template-columns: 1fr 1fr;
+                                        gap: 12px;
+                                        @media (max-width: 480px) {
+                                            grid-template-columns: 1fr;
+                                        }
+                                        label {
+                                            display: grid;
+                                            justify-content: start;
+                                            gap: 5px;
+                                            font-size: 14px;
+                                            input[type="text"] {
+                                                border: 1px solid rgba(0,0,0,0.06);
+                                                height: 50px;
+                                                width: 100%;
+                                                background-color: var(--bgLight);
+                                                font-family: var(--Font);
+                                                color: var(--textDark);
+                                                border-radius: 10px;
+                                                padding: 0 14px;
+                                                transition: all 0.25s ease;
+                                                &:focus {
+                                                    border-color: var(--gold);
+                                                    box-shadow: 0 0 0 3px rgba(255, 205, 17, 0.12);
+                                                    outline: none;
+                                                    background: #fff;
+                                                }
+                                            }
+                                            .dateSelectors {
+                                                display: flex;
+                                                justify-content: start;
+                                                gap: 6px;
+                                                flex-wrap: wrap;
+                                                font-size: 14px;
+                                                input {
+                                                    border: 1px solid rgba(0,0,0,0.06);
+                                                    height: 50px;
+                                                    width: 120px;
+                                                    background-color: var(--bgLight);
+                                                    font-family: var(--Font);
+                                                    color: var(--textDark);
+                                                    border-radius: 10px;
+                                                    padding: 0 14px;
+                                                    transition: all 0.25s ease;
+                                                    &:focus {
+                                                        border-color: var(--gold);
+                                                        box-shadow: 0 0 0 3px rgba(255, 205, 17, 0.12);
+                                                        outline: none;
+                                                        background: #fff;
+                                                    }
+                                                }
+                                                select {
+                                                    border: 1px solid rgba(0,0,0,0.06);
+                                                    height: 50px;
+                                                    width: 120px;
+                                                    color: var(--textDark);
+                                                    background-color: var(--bgLight);
+                                                    border-radius: 10px;
+                                                    padding: 0 14px;
+                                                    padding-left: 36px;
+                                                    cursor: pointer;
+                                                    font-family: var(--Font);
+                                                    appearance: none;
+                                                    -webkit-appearance: none;
+                                                    -moz-appearance: none;
+                                                    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+                                                    background-repeat: no-repeat;
+                                                    background-position: left 12px center;
+                                                    background-size: 15px;
+                                                    transition: all 0.25s ease;
+                                                    &:focus {
+                                                        border-color: var(--gold);
+                                                        box-shadow: 0 0 0 3px rgba(255, 205, 17, 0.12);
+                                                        outline: none;
+                                                        background-color: #fff;
+                                                        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+                                                    }
+                                                    &:focus-visible {
+                                                        outline: none;
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                        }
-                    }
-                }
             }
             .BottomCard {
                 padding: 12px 0 0 0;
@@ -2137,64 +2171,13 @@ button {
 
 /* ========== Responsive: Tablet & Mobile ========== */
 @media (max-width: 768px) {
-    /* Stack main layout */
-    .container .left,
-    .container .left2 {
-        width: 100% !important;
-    }
+  /* Stack main layout */
+  .container .left,
+  .container .left2 {
+      width: 100% !important;
+  }
 
-    /* Stack form fields to 1 column on mobile */
-    .OtherInoformation .top {
-        grid-template-columns: 1fr;
-    }
-
-    .OtherInoformation .top label {
-        width: 100%;
-        margin-right: 0 !important;
-    }
-
-    .OtherInoformation .top label input[type="text"] {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    .OtherInoformation .bottom {
-        grid-template-columns: 1fr;
-    }
-
-    .OtherInoformation .bottom label {
-        width: 100%;
-        margin-right: 0 !important;
-    }
-
-    .OtherInoformation .bottom label input[type="text"] {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-
-        .OtherInoformation .bottom label input[type="number"] {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-
-        /* The birthDate + passport/ID row: make dateSelectors span its grid cell */
-    .OtherInoformation .bottom .dateSelectors {
-        width: 100%;
-    }
-
-    /* Responsive date selectors */
-    .dateSelectors {
-        width: 100%;
-    }
-
-    .dateSelectors input,
-    .dateSelectors select {
-        width: calc(33.33% - 4px) !important;
-        min-width: 0 !important;
-        font-size: 13px !important;
-    }
-
-    /* Gender & nationality row */
+  /* Gender & nationality row */
     .container .Right .Card .bottomCard .gender {
         flex-direction: column;
         gap: 16px;
@@ -2293,32 +2276,83 @@ button {
 
 /* ========== Responsive: Small Mobile ========== */
 @media (max-width: 480px) {
-    /* Smaller padding */
-    .container {
-        padding: 0 12px;
-        gap: 12px;
-    }
+  /* Smaller padding */
+  .container {
+      padding: 0 12px;
+      gap: 12px;
+  }
 
-    .container .Right .Card,
-    .container .Right .AddMember,
-    .container .left .card1,
-    .container .left .card2,
-    .container .left .hotelCard {
-        padding: 14px !important;
-    }
+  .container .Right .Card,
+  .container .Right .AddMember,
+  .container .left .card1,
+  .container .left .card2,
+  .container .left .hotelCard {
+      padding: 14px !important;
+  }
 
-    /* Smaller typography */
-    .TopCard p {
-        font-size: 15px !important;
-    }
+  /* Smaller typography */
+  .TopCard p {
+      font-size: 15px !important;
+  }
 
-    .container .Right .Card .bottomCard .gender .nationality p {
-        font-size: 13px !important;
-    }
+  .container .Right .Card .bottomCard .gender .nationality p {
+      font-size: 13px !important;
+  }
 
-    .OtherInoformation label {
-        font-size: 13px !important;
-    }
+  .OtherInoformation label {
+      font-size: 13px !important;
+  }
+
+  /* Stack form fields to 1 column on small mobile (<=480px) */
+  .OtherInoformation .top {
+      grid-template-columns: 1fr;
+  }
+
+  .OtherInoformation .top label {
+      width: 100%;
+      margin-right: 0 !important;
+  }
+
+  .OtherInoformation .top label input[type="text"] {
+      width: 100% !important;
+      max-width: 100% !important;
+  }
+
+  .OtherInoformation .bottom {
+      grid-template-columns: 1fr;
+  }
+
+  .OtherInoformation .bottom label {
+      width: 100%;
+      margin-right: 0 !important;
+  }
+
+  .OtherInoformation .bottom label input[type="text"] {
+          width: 100% !important;
+          max-width: 100% !important;
+      }
+
+      .OtherInoformation .bottom label input[type="number"] {
+          width: 100% !important;
+          max-width: 100% !important;
+      }
+
+      /* The birthDate + passport/ID row: make dateSelectors span its grid cell */
+  .OtherInoformation .bottom .dateSelectors {
+      width: 100%;
+  }
+
+  /* Responsive date selectors */
+  .dateSelectors {
+      width: 100%;
+  }
+
+  .dateSelectors input,
+  .dateSelectors select {
+      width: calc(33.33% - 4px) !important;
+      min-width: 0 !important;
+      font-size: 13px !important;
+  }
 
     /* Full-width add member buttons */
     .AddMember .AddOptions button {
