@@ -171,13 +171,12 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
       <div className="container26">
         <div className="right">
           <div className="Card">
-            <div className="MainImg" style={{ position: "relative" }}>
+            <div className="MainImg">
               <Image
                 src={images[current]}
                 width={790}
                 height={430}
                 alt="main"
-                style={{ objectFit: "cover", borderRadius: "4px" }}
               />
               <button onClick={prevImage} className="nav prev">
                 ‹
@@ -189,7 +188,7 @@ export default function TourDetailFull({ data }: { data: TourDetailData }) {
 
             <div className="MoreImg">
               {images.map((img, idx) => (
-                <div key={idx} onClick={() => setCurrent(idx)}>
+                <div key={idx} onClick={() => setCurrent(idx)} className={current === idx ? "active" : ""}>
                   <Image src={img} width={129} height={73} alt="thumb" />
                 </div>
               ))}

@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
+  faCheck,
   faVrCardboard,
   faPlaneDeparture,
   faClock,
@@ -232,8 +233,8 @@ function TourResultsPageContent() {
           <div className="Container">
             <div className="Right">
               <div className="Title">
-                <div style={{ position: "relative", width: "100%", height: "200px" }}>
-                  <Image src="/istockphoto-1306235331-612x612.jpg" alt="تور" fill sizes="100vw" style={{ objectFit: "cover" }} />
+                <div className="cover-img-wrapper">
+                  <Image src="/istockphoto-1306235331-612x612.jpg" alt="تور" fill sizes="100vw" />
                 </div>
                 <Link href="/get-tour" className="ExperienceTrigger">
                   <div className="ContentWrapper">
@@ -368,17 +369,11 @@ function TourResultsPageContent() {
             <div className="Left">
               <div className="SortBar">
                 <span>نتایج یافت شده: {filteredTours.length} تور</span>
-                <div>
+                <div className="sort-controls">
                   <span className="SortLabel">مرتب‌سازی: </span>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value as "price_asc" | "price_desc" | "date_asc")}
-                    style={{
-                      border: "1px solid #ddd",
-                      padding: "5px",
-                      borderRadius: "4px",
-                      fontFamily: "var(--font)",
-                    }}
                   >
                     <option value="price_asc">ارزان‌ترین</option>
                     <option value="price_desc">گران‌ترین</option>
@@ -391,7 +386,11 @@ function TourResultsPageContent() {
                 <div className="TourCard" key={tour.id}>
                   <div className="TourImage">
                     {tour.badge && <span className={`Badge ${tour.isSpecial ? "Special" : ""}`}>{tour.badge}</span>}
-                    <Image src={tour.image} alt={tour.title} fill sizes="(max-width: 768px) 100vw, 320px" style={{ objectFit: "cover" }} />
+                    <div className="tour-score-badge">
+                      <span className="score-value">{tour.hotelStars}.0</span>
+                      <span className="score-label">ستاره</span>
+                    </div>
+                    <Image src={tour.image} alt={tour.title} fill sizes="(max-width: 768px) 100vw, 320px" />
                   </div>
                   <div className="TourContent">
                     <div>
@@ -416,6 +415,15 @@ function TourResultsPageContent() {
                           <FontAwesomeIcon icon={faHotel} /> {tour.hotelStars} ستاره
                         </div>
                       </div>
+                      {tour.services.length > 0 && (
+                        <div className="TourServices">
+                          {tour.services.map((svc, idx) => (
+                            <span key={idx} className="service-pill">
+                              <FontAwesomeIcon icon={faCheck} /> {svc}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                     <div className="TourFooter">
                       <div className="Capacity">
@@ -427,7 +435,7 @@ function TourResultsPageContent() {
                           tour.capacity
                         )}
                       </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                      <div className="price-cta">
                         <div className="PriceBox">
                           {tour.originalPrice && (
                             <span className="PriceLabel">{tour.originalPrice.toLocaleString("fa-IR")}</span>
@@ -436,7 +444,7 @@ function TourResultsPageContent() {
                             {tour.price.toLocaleString("fa-IR")} <span className="Currency">تومان</span>
                           </span>
                         </div>
-                        <Link href={`/travel/${tour.slug}`}>
+                        <Link href={`/tour/${tour.slug}`}>
                           <button className="BtnBook">رزرو تور</button>
                         </Link>
                       </div>

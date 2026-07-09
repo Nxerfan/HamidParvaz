@@ -1,0 +1,1525 @@
+
+> nextjs-dashboard@0.1.0 lint
+> eslint
+
+
+D:\Works\Project001\sex\HamidParvaz\app\(MakeanAcount)\auth\page.tsx
+  265:7  warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+  271:7  warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+
+D:\Works\Project001\sex\HamidParvaz\app\(support)\cooperation\page.tsx
+  266:11  warning  '_formDataToSend' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\(support)\faq\page.tsx
+  62:14  warning  'isSubmitting' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\actions\booking.ts
+  22:9  warning  'date' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  23:9  warning  'passengers' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\actions\contact.ts
+  40:9  warning  'subject' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\actions\user.ts
+  18:9  warning  'lastName' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  20:9  warning  'phone' is assigned a value but never used     @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\company\page.tsx
+  188:10  warning  'AnimatedSection' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\components\(Forms)\FormType1.tsx
+  154:5   warning  'setShowCalendar' is assigned a value but never used                                                      @typescript-eslint/no-unused-vars
+  168:22  warning  'setDestShowDropdown' is assigned a value but never used                                                  @typescript-eslint/no-unused-vars
+  173:21  warning  'destRecentSearches' is assigned a value but never used                                                   @typescript-eslint/no-unused-vars
+  253:6   warning  React Hook useEffect has a missing dependency: 'guest'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  594:39  warning  '_idx' is defined but never used                                                                          @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\components\(Forms)\FormType2.tsx
+  136:22  warning  'setOriginShowDropdown' is assigned a value but never used                                                @typescript-eslint/no-unused-vars
+  140:21  warning  'originFilteredRecent' is assigned a value but never used                                                 @typescript-eslint/no-unused-vars
+  151:22  warning  'setDestShowDropdown' is assigned a value but never used                                                  @typescript-eslint/no-unused-vars
+  178:6   warning  React Hook useEffect has a missing dependency: 'guest'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\Works\Project001\sex\HamidParvaz\app\components\(Forms)\FormType3.tsx
+  112:5   warning  'activeInput' is assigned a value but never used                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+  118:5   warning  'selectedEndDate' is assigned a value but never used                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  122:5   warning  'setHoverDate' is assigned a value but never used                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  139:21  warning  'originFilteredRecent' is assigned a value but never used                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  155:21  warning  'destFilteredRecent' is assigned a value but never used                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  258:6   warning  React Hook useEffect has missing dependencies: 'calendarRef', 'destDropdownRef', 'guest', 'origin', 'originDropdownRef', 'setDestShowDropdown', 'setOriginShowDropdown', and 'setShowCalendar'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\Works\Project001\sex\HamidParvaz\app\components\(Forms)\FormType5.tsx
+  120:5   warning  'setShowCalendar' is assigned a value but never used                                                      @typescript-eslint/no-unused-vars
+  134:22  warning  'setOriginShowDropdown' is assigned a value but never used                                                @typescript-eslint/no-unused-vars
+  139:21  warning  'originRecentSearches' is assigned a value but never used                                                 @typescript-eslint/no-unused-vars
+  150:22  warning  'setDestShowDropdown' is assigned a value but never used                                                  @typescript-eslint/no-unused-vars
+  155:21  warning  'destRecentSearches' is assigned a value but never used                                                   @typescript-eslint/no-unused-vars
+  174:6   warning  React Hook useEffect has a missing dependency: 'guest'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\Works\Project001\sex\HamidParvaz\app\components\(Headers)\HeaderAutoReserve.tsx
+  14:13  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+D:\Works\Project001\sex\HamidParvaz\app\components\(Headers)\HeaderBuyRoom.tsx
+  14:13  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+D:\Works\Project001\sex\HamidParvaz\app\components\(filters)\Filters.tsx
+  190:28  warning  'id' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\components\Blog.tsx
+  183:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\components\Blog.tsx:183:5
+  181 |
+  182 |   useEffect(() => {
+> 183 |     setIsAdmin(localStorage.getItem("blog_admin") === "true");
+      |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  184 |   }, []);
+  185 |
+  186 |   const handleAdminLogin = () => {  react-hooks/set-state-in-effect
+  217:10  warning  'isSubscribing' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\components\HotelListPage.tsx
+  120:38  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  120:54  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  120:67  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\Works\Project001\sex\HamidParvaz\app\components\TourDetailFull.tsx
+    3:20  warning  'useEffect' is defined but never used       @typescript-eslint/no-unused-vars
+   14:3   warning  'faUser' is defined but never used          @typescript-eslint/no-unused-vars
+   15:3   warning  'faChild' is defined but never used         @typescript-eslint/no-unused-vars
+   16:3   warning  'faBaby' is defined but never used          @typescript-eslint/no-unused-vars
+  103:9   warning  'toast' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\data\articles.ts
+  18:36  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  20:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  23:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  24:10  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\Works\Project001\sex\HamidParvaz\app\error.tsx
+  75:11  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+D:\Works\Project001\sex\HamidParvaz\app\flight-info\page.tsx
+  5:10  warning  'useRouter' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\flightch\page.tsx
+  132:11  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\flightch\page.tsx:132:11
+  130 |   const [passengers, setPassengers] = useState<PassengerData[]>([
+  131 |     {
+> 132 |       id: Date.now(),
+      |           ^^^^^^^^^^ Cannot call impure function
+  133 |       type: "adult",
+  134 |       typeLabel: "بزرگسال",
+  135 |       gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                     react-hooks/purity
+  143:7   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\flightch\page.tsx:143:7
+  141 |   useEffect(() => {
+  142 |     if (timeLeft <= 0) {
+> 143 |       setShowTimeoutModal(true);
+      |       ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  144 |       return;
+  145 |     }
+  146 |     const timer = setInterval(() => {  react-hooks/set-state-in-effect
+  181:13  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\flightch\page.tsx:181:13
+  179 |       ...passengers,
+  180 |       {
+> 181 |         id: Date.now() + Math.random(),
+      |             ^^^^^^^^^^ Cannot call impure function
+  182 |         type: type,
+  183 |         typeLabel: label,
+  184 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/purity
+  181:26  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\flightch\page.tsx:181:26
+  179 |       ...passengers,
+  180 |       {
+> 181 |         id: Date.now() + Math.random(),
+      |                          ^^^^^^^^^^^^^ Cannot call impure function
+  182 |         type: type,
+  183 |         typeLabel: label,
+  184 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                          react-hooks/purity
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\flightse\page.tsx
+  438:9  warning  'handleMinChange' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  442:9  warning  'handleMaxChange' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  449:9  warning  'progressLeft' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  450:9  warning  'progressWidth' is assigned a value but never used    @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\reserve\form\page.tsx
+    4:8   warning  'Link' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  153:10  warning  'formatPrice' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  180:11  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\reserve\form\page.tsx:180:11
+  178 |   const [passengers, setPassengers] = useState([
+  179 |     {
+> 180 |       id: Date.now(),
+      |           ^^^^^^^^^^ Cannot call impure function
+  181 |       type: "adult",
+  182 |       typeLabel: "بزرگسال",
+  183 |       gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                      react-hooks/purity
+  201:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\reserve\form\page.tsx:201:7
+  199 |   useEffect(() => {
+  200 |     if (timeLeft <= 0) {
+> 201 |       setShowTimeoutModal(true);
+      |       ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  202 |       return;
+  203 |     }
+  204 |     const timer = setInterval(() => {  react-hooks/set-state-in-effect
+  237:13  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\reserve\form\page.tsx:237:13
+  235 |       ...passengers,
+  236 |       {
+> 237 |         id: Date.now() + Math.random(),
+      |             ^^^^^^^^^^ Cannot call impure function
+  238 |         type: type,
+  239 |         typeLabel: label,
+  240 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/purity
+  237:26  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\reserve\form\page.tsx:237:26
+  235 |       ...passengers,
+  236 |       {
+> 237 |         id: Date.now() + Math.random(),
+      |                          ^^^^^^^^^^^^^ Cannot call impure function
+  238 |         type: type,
+  239 |         typeLabel: label,
+  240 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                          react-hooks/purity
+
+D:\Works\Project001\sex\HamidParvaz\app\flight\reserve\prepay\page.tsx
+    9:3  warning  'faClock' is defined but never used                                                                       @typescript-eslint/no-unused-vars
+   15:3  warning  'faBuilding' is defined but never used                                                                    @typescript-eslint/no-unused-vars
+  162:6  warning  React Hook useEffect has a missing dependency: 'toast'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\Works\Project001\sex\HamidParvaz\app\hotel\hotelch\page.tsx
+   21:3   warning  'faUser' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   22:3   warning  'faChild' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+   23:3   warning  'faBaby' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   35:37  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  145:21  warning  'jy' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  159:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\hotel\hotelch\page.tsx:159:7
+  157 |   useEffect(() => {
+  158 |     if (!id) {
+> 159 |       setLoading(false);
+      |       ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  160 |       return;
+  161 |     }
+  162 |     fetch(`/api/hotels/${id}`)  react-hooks/set-state-in-effect
+
+D:\Works\Project001\sex\HamidParvaz\app\hotel\hotelse\page.tsx
+    8:3   warning  'faAngleDown' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   29:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-empty-object-type
+  170:9   warning  'adultCount' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  171:9   warning  'childCount' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  190:10  warning  'priceRangeProgress' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  205:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\hotel\hotelse\page.tsx:205:5
+  203 |     const right =
+  204 |       ((maxPrice - globalMinPrice) / (globalMaxPrice - globalMinPrice)) * 100;
+> 205 |     setPriceRangeProgress({ left, width: right - left });
+      |     ^^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  206 |   }, [minPrice, maxPrice]);
+  207 |
+  208 |   const filteredHotels = hotelsData  react-hooks/set-state-in-effect
+  298:9   warning  'handleMinChange' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  302:9   warning  'handleMaxChange' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\hotel\reserve\form\page.tsx
+    4:8   warning  'Link' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+   13:3   warning  'faUserClock' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+  184:11  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\hotel\reserve\form\page.tsx:184:11
+  182 |   const [passengers, setPassengers] = useState([
+  183 |     {
+> 184 |       id: Date.now(),
+      |           ^^^^^^^^^^ Cannot call impure function
+  185 |       type: "adult",
+  186 |       typeLabel: "بزرگسال",
+  187 |       gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                      react-hooks/purity
+  205:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\hotel\reserve\form\page.tsx:205:7
+  203 |   useEffect(() => {
+  204 |     if (timeLeft <= 0) {
+> 205 |       setShowTimeoutModal(true);
+      |       ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  206 |       return;
+  207 |     }
+  208 |     const timer = setInterval(() => {  react-hooks/set-state-in-effect
+  241:13  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\hotel\reserve\form\page.tsx:241:13
+  239 |       ...passengers,
+  240 |       {
+> 241 |         id: Date.now() + Math.random(),
+      |             ^^^^^^^^^^ Cannot call impure function
+  242 |         type: type,
+  243 |         typeLabel: label,
+  244 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/purity
+  241:26  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\hotel\reserve\form\page.tsx:241:26
+  239 |       ...passengers,
+  240 |       {
+> 241 |         id: Date.now() + Math.random(),
+      |                          ^^^^^^^^^^^^^ Cannot call impure function
+  242 |         type: type,
+  243 |         typeLabel: label,
+  244 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                          react-hooks/purity
+  825:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @next/next/no-img-element
+
+D:\Works\Project001\sex\HamidParvaz\app\hotel\reserve\prepay\page.tsx
+    9:3  warning  'faClock' is defined but never used                                                                       @typescript-eslint/no-unused-vars
+  123:6  warning  React Hook useEffect has a missing dependency: 'toast'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\Works\Project001\sex\HamidParvaz\app\lib\hooks\useSearchLogic.tsx
+  164:7  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\Works\Project001\sex\HamidParvaz\app\lib\hooks\useSearchLogic.tsx:164:7
+  162 |   const originDropdown = useDestinationDropdown({
+  163 |     allDestinations: baseDestinations.filter(
+> 164 |       (d) => !destInputRef.current || d.name !== destInputRef.current,
+      |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Passing a ref to a function may read its value during render
+  165 |     ),
+  166 |   });
+  167 |       react-hooks/refs
+  172:7  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\Works\Project001\sex\HamidParvaz\app\lib\hooks\useSearchLogic.tsx:172:7
+  170 |   const destination = useDestinationDropdown({
+  171 |     allDestinations: baseDestinations.filter(
+> 172 |       (d) => !originInputRef.current || d.name !== originInputRef.current,
+      |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Passing a ref to a function may read its value during render
+  173 |     ),
+  174 |   });
+  175 |  react-hooks/refs
+  178:3  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\Works\Project001\sex\HamidParvaz\app\lib\hooks\useSearchLogic.tsx:178:3
+  176 |   // Sync refs with current input values so filtering is always up to date.
+  177 |   // This runs on every render after both hooks have been called.
+> 178 |   destInputRef.current = destination.input;
+      |   ^^^^^^^^^^^^^^^^^^^^ Cannot update ref during render
+  179 |   originInputRef.current = originDropdown.input;
+  180 |
+  181 |   // Validation state      react-hooks/refs
+  179:3  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\Works\Project001\sex\HamidParvaz\app\lib\hooks\useSearchLogic.tsx:179:3
+  177 |   // This runs on every render after both hooks have been called.
+  178 |   destInputRef.current = destination.input;
+> 179 |   originInputRef.current = originDropdown.input;
+      |   ^^^^^^^^^^^^^^^^^^^^^^ Cannot update ref during render
+  180 |
+  181 |   // Validation state
+  182 |   const [errors, setErrors] = useState<FormErrors>({});                        react-hooks/refs
+
+D:\Works\Project001\sex\HamidParvaz\app\lib\useCalendar.tsx
+  148:13  warning  'dateStr' is assigned a value but never used                                                                         @typescript-eslint/no-unused-vars
+  277:6   warning  React Hook useCallback has an unnecessary dependency: 'hoverDate'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\Works\Project001\sex\HamidParvaz\app\reserve\auto-reserve\filters\page.tsx
+  72:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\Works\Project001\sex\HamidParvaz\app\reserve\form\page.tsx
+   99:11  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\reserve\form\page.tsx:99:11
+   97 |   const [passengers, setPassengers] = useState([
+   98 |     {
+>  99 |       id: Date.now(),
+      |           ^^^^^^^^^^ Cannot call impure function
+  100 |       type: "adult",
+  101 |       typeLabel: "بزرگسال",
+  102 |       gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                       react-hooks/purity
+  110:7   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\reserve\form\page.tsx:110:7
+  108 |   useEffect(() => {
+  109 |     if (timeLeft <= 0) {
+> 110 |       setShowTimeoutModal(true);
+      |       ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  111 |       return;
+  112 |     }
+  113 |     const timer = setInterval(() => {  react-hooks/set-state-in-effect
+  147:13  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\reserve\form\page.tsx:147:13
+  145 |       ...passengers,
+  146 |       {
+> 147 |         id: Date.now() + Math.random(),
+      |             ^^^^^^^^^^ Cannot call impure function
+  148 |         type: type,
+  149 |         typeLabel: label,
+  150 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/purity
+  147:26  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\reserve\form\page.tsx:147:26
+  145 |       ...passengers,
+  146 |       {
+> 147 |         id: Date.now() + Math.random(),
+      |                          ^^^^^^^^^^^^^ Cannot call impure function
+  148 |         type: type,
+  149 |         typeLabel: label,
+  150 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                          react-hooks/purity
+
+D:\Works\Project001\sex\HamidParvaz\app\reserve\prepay\page.tsx
+  4:8  warning  'Link' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\[slug]\TourDetailClient.tsx
+  143:9  error  Do not use an `<a>` element to navigate to `/tour/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\away\page.tsx
+  216:56  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-explicit-any
+  217:36  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-explicit-any
+  378:7   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @next/next/no-img-element
+  453:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @next/next/no-img-element
+  619:29  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\away\page.tsx:619:29
+  617 |
+  618 |         <div className="Left flightContent">
+> 619 |           {selectedHotel ? <HotelSummaryCard /> : null}
+      |                             ^^^^^^^^^^^^^^^^ This component is created during render
+  620 |
+  621 |           <div className="flightTopBar">
+  622 |             <div className="topRight">
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\away\page.tsx:372:28
+  370 |   );
+  371 |
+> 372 |   const HotelSummaryCard = () => (
+      |                            ^^^^^^^
+> 373 |     <div className="HotelSummaryCard">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 374 |       <div className="HotelSummaryBadge">
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 432 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 433 |   );
+      | ^^^^ The component is created during render here
+  434 |
+  435 |   const SelectedFlightCard = () => (
+  436 |     <div className="SelectedFlightCard">                     react-hooks/static-components
+  650:33  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\away\page.tsx:650:33
+  648 |
+  649 |           <div className="flightList Bottom">
+> 650 |             {isAutoSelecting ? <AutoSelectingUI /> : null}
+      |                                 ^^^^^^^^^^^^^^^ This component is created during render
+  651 |
+  652 |             {!isAutoSelecting && !showFlightList && selectedFlight ? (
+  653 |               <>
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\away\page.tsx:340:27
+  338 |   }, []);
+  339 |
+> 340 |   const AutoSelectingUI = () => (
+      |                           ^^^^^^^
+> 341 |     <div className="AutoSelectingCard">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 342 |       <div className="AutoSelectingPlane">
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 369 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 370 |   );
+      | ^^^^ The component is created during render here
+  371 |
+  372 |   const HotelSummaryCard = () => (
+  373 |     <div className="HotelSummaryCard">  react-hooks/static-components
+  654:18  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\away\page.tsx:654:18
+  652 |             {!isAutoSelecting && !showFlightList && selectedFlight ? (
+  653 |               <>
+> 654 |                 <SelectedFlightCard />
+      |                  ^^^^^^^^^^^^^^^^^^ This component is created during render
+  655 |                 <button
+  656 |                   className="NextStepBtn"
+  657 |                   onClick={() =>
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\away\page.tsx:435:30
+  433 |   );
+  434 |
+> 435 |   const SelectedFlightCard = () => (
+      |                              ^^^^^^^
+> 436 |     <div className="SelectedFlightCard">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 437 |       <div className="SelectedFlightHeader">
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 491 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 492 |   );
+      | ^^^^ The component is created during render here
+  493 |
+  494 |   return (
+  495 |     <>                              react-hooks/static-components
+  699:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @next/next/no-img-element
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\return\page.tsx
+  212:56  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-explicit-any
+  213:36  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-explicit-any
+  374:7   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @next/next/no-img-element
+  449:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @next/next/no-img-element
+  615:29  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\return\page.tsx:615:29
+  613 |
+  614 |         <div className="Left flightContent">
+> 615 |           {selectedHotel ? <HotelSummaryCard /> : null}
+      |                             ^^^^^^^^^^^^^^^^ This component is created during render
+  616 |
+  617 |           <div className="flightTopBar">
+  618 |             <div className="topRight">
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\return\page.tsx:368:28
+  366 |   );
+  367 |
+> 368 |   const HotelSummaryCard = () => (
+      |                            ^^^^^^^
+> 369 |     <div className="HotelSummaryCard">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 370 |       <div className="HotelSummaryBadge">
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 428 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 429 |   );
+      | ^^^^ The component is created during render here
+  430 |
+  431 |   const SelectedFlightCard = () => (
+  432 |     <div className="SelectedFlightCard">                                            react-hooks/static-components
+  646:33  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\return\page.tsx:646:33
+  644 |
+  645 |           <div className="flightList Bottom">
+> 646 |             {isAutoSelecting ? <AutoSelectingUI /> : null}
+      |                                 ^^^^^^^^^^^^^^^ This component is created during render
+  647 |
+  648 |             {!isAutoSelecting && !showFlightList && selectedFlight ? (
+  649 |               <>
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\return\page.tsx:336:27
+  334 |   }, []);
+  335 |
+> 336 |   const AutoSelectingUI = () => (
+      |                           ^^^^^^^
+> 337 |     <div className="AutoSelectingCard">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 338 |       <div className="AutoSelectingPlane">
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 365 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 366 |   );
+      | ^^^^ The component is created during render here
+  367 |
+  368 |   const HotelSummaryCard = () => (
+  369 |     <div className="HotelSummaryCard">                         react-hooks/static-components
+  650:18  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\return\page.tsx:650:18
+  648 |             {!isAutoSelecting && !showFlightList && selectedFlight ? (
+  649 |               <>
+> 650 |                 <SelectedFlightCard />
+      |                  ^^^^^^^^^^^^^^^^^^ This component is created during render
+  651 |                 <button
+  652 |                   className="NextStepBtn"
+  653 |                   onClick={() => router.push("/tour/make-your-own/passenger-info")}
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\flight\return\page.tsx:431:30
+  429 |   );
+  430 |
+> 431 |   const SelectedFlightCard = () => (
+      |                              ^^^^^^^
+> 432 |     <div className="SelectedFlightCard">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 433 |       <div className="SelectedFlightHeader">
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 487 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 488 |   );
+      | ^^^^ The component is created during render here
+  489 |
+  490 |   return (
+  491 |     <>  react-hooks/static-components
+  681:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @next/next/no-img-element
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\hotel\page.tsx
+   15:3   warning  'faXmark' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+   18:3   warning  'faFilter' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   20:3   warning  'faBed' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   21:3   warning  'faUtensils' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   29:3   warning  'faCheck' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  366:6   warning  React Hook useMemo has missing dependencies: 'pfMax' and 'pfMin'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  react-hooks/exhaustive-deps
+  430:9   warning  'getProgressPercent' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+  605:31  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\hotel\page.tsx:605:31
+  603 |           </div>
+  604 |
+> 605 |           {isAutoSelecting ? <AutoSelectingUI /> : null}
+      |                               ^^^^^^^^^^^^^^^ This component is created during render
+  606 |
+  607 |           {!isAutoSelecting && showHotelList ? (
+  608 |             sortedHotels.length > 0 ? (
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\hotel\page.tsx:442:27
+  440 |   };
+  441 |
+> 442 |   const AutoSelectingUI = () => (
+      |                           ^^^^^^^
+> 443 |     <div className="AutoSelectingCard">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 444 |       <div className="AutoSelectingPlane">
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 464 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 465 |   );
+      | ^^^^ The component is created during render here
+  466 |
+  467 |   return (
+  468 |     <>  react-hooks/static-components
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\hotel\room\page.tsx
+  100:52  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+  111:5   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\hotel\room\page.tsx:111:5
+  109 |
+  110 |   React.useEffect(() => {
+> 111 |     autoSelectDefaultRoom();
+      |     ^^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  112 |     setRoomCounts({});
+  113 |   }, []);
+  114 |  react-hooks/set-state-in-effect
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\passenger-info\page.tsx
+    4:8   warning  'Link' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   13:3   warning  'faUserClock' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  118:11  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\passenger-info\page.tsx:118:11
+  116 |   const [passengers, setPassengers] = useState([
+  117 |     {
+> 118 |       id: Date.now(),
+      |           ^^^^^^^^^^ Cannot call impure function
+  119 |       type: "adult",
+  120 |       typeLabel: "بزرگسال",
+  121 |       gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                      react-hooks/purity
+  139:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\passenger-info\page.tsx:139:7
+  137 |   useEffect(() => {
+  138 |     if (timeLeft <= 0) {
+> 139 |       setShowTimeoutModal(true);
+      |       ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  140 |       return;
+  141 |     }
+  142 |     const timer = setInterval(() => {  react-hooks/set-state-in-effect
+  173:13  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\passenger-info\page.tsx:173:13
+  171 |       ...passengers,
+  172 |       {
+> 173 |         id: Date.now() + Math.random(),
+      |             ^^^^^^^^^^ Cannot call impure function
+  174 |         type: type,
+  175 |         typeLabel: label,
+  176 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/purity
+  173:26  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\passenger-info\page.tsx:173:26
+  171 |       ...passengers,
+  172 |       {
+> 173 |         id: Date.now() + Math.random(),
+      |                          ^^^^^^^^^^^^^ Cannot call impure function
+  174 |         type: type,
+  175 |         typeLabel: label,
+  176 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                          react-hooks/purity
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\make-your-own\payment\page.tsx
+   10:8  warning  'Link' is defined but never used                                                                          @typescript-eslint/no-unused-vars
+  160:6  warning  React Hook useEffect has a missing dependency: 'toast'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\reserve\form\page.tsx
+    4:8   warning  'Link' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  183:11  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\reserve\form\page.tsx:183:11
+  181 |   const [passengers, setPassengers] = useState([
+  182 |     {
+> 183 |       id: Date.now(),
+      |           ^^^^^^^^^^ Cannot call impure function
+  184 |       type: "adult",
+  185 |       typeLabel: "بزرگسال",
+  186 |       gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                      react-hooks/purity
+  204:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\reserve\form\page.tsx:204:7
+  202 |   useEffect(() => {
+  203 |     if (timeLeft <= 0) {
+> 204 |       setShowTimeoutModal(true);
+      |       ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  205 |       return;
+  206 |     }
+  207 |     const timer = setInterval(() => {  react-hooks/set-state-in-effect
+  240:13  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\reserve\form\page.tsx:240:13
+  238 |       ...passengers,
+  239 |       {
+> 240 |         id: Date.now() + Math.random(),
+      |             ^^^^^^^^^^ Cannot call impure function
+  241 |         type: type,
+  242 |         typeLabel: label,
+  243 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/purity
+  240:26  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\reserve\form\page.tsx:240:26
+  238 |       ...passengers,
+  239 |       {
+> 240 |         id: Date.now() + Math.random(),
+      |                          ^^^^^^^^^^^^^ Cannot call impure function
+  241 |         type: type,
+  242 |         typeLabel: label,
+  243 |         gender: "آقا",                                                                                                                                                                                                                                                                                                                                                                                          react-hooks/purity
+  824:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @next/next/no-img-element
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\reserve\prepay\page.tsx
+  209:6   warning  React Hook useEffect has a missing dependency: 'toast'. Either include it or remove the dependency array                                                                                                                                                                                 react-hooks/exhaustive-deps
+  483:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\tourse\page.tsx
+    8:3   warning  'faAngleDown' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   46:19  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-explicit-any
+  141:9   warning  'router' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+  147:23  warning  'setDestination' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  148:10  warning  'travelDate' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  148:22  warning  'setTravelDate' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  149:10  warning  'persons' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  149:19  warning  'setPersons' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  161:10  warning  'priceRangeProgress' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  166:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\tour\tourse\page.tsx:166:5
+  164 |     const left = ((minPrice - globalMinPrice) / (globalMaxPrice - globalMinPrice)) * 100;
+  165 |     const right = ((maxPrice - globalMinPrice) / (globalMaxPrice - globalMinPrice)) * 100;
+> 166 |     setPriceRangeProgress({ left, width: right - left });
+      |     ^^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  167 |   }, [minPrice, maxPrice]);
+  168 |
+  169 |   const filteredTours = useMemo(() => {  react-hooks/set-state-in-effect
+  227:9   warning  'handleMinChange' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  232:9   warning  'handleMaxChange' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  237:9   warning  'handleSearch' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  402:66  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-explicit-any
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\change-password\page.tsx
+  16:45  warning  'isPending' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  20:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\change-password\page.tsx:20:7
+  18 |   useEffect(() => {
+  19 |     if (passwordState.success) {
+> 20 |       setSuccess(true);
+     |       ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  21 |       setTimeout(() => router.push("/userpanel"), 2000);
+  22 |     } else if (passwordState.message) {
+  23 |       setError(passwordState.message);  react-hooks/set-state-in-effect
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\club\history\page.tsx
+  56:145  warning  'selectDate' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  60:7    error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\club\history\page.tsx:60:7
+  58 |   useEffect(() => {
+  59 |     if (selectedStartDate) {
+> 60 |       setFromDate(jDateToString(selectedStartDate.jy, selectedStartDate.jm, selectedStartDate.jd));
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  61 |     }
+  62 |     if (selectedEndDate) {
+  63 |       setToDate(jDateToString(selectedEndDate.jy, selectedEndDate.jm, selectedEndDate.jd));  react-hooks/set-state-in-effect
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\club\page.tsx
+    3:15  warning  'ReactNode' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+  166:5   error    Error: This value cannot be modified
+
+Modifying a variable defined outside a component or hook is not allowed. Consider using an effect.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\club\page.tsx:166:5
+  164 |   const openModal = (reward: RewardItem) => {
+  165 |     setSelectedReward(reward);
+> 166 |     document.body.style.overflow = "hidden";
+      |     ^^^^^^^^^^^^^^^^^^^ value cannot be modified
+  167 |   };
+  168 |
+  169 |   const closeModal = () => {  react-hooks/immutability
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\club\used-score\page.tsx
+  38:145  warning  'selectDate' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  42:7    error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\club\used-score\page.tsx:42:7
+  40 |   useEffect(() => {
+  41 |     if (selectedStartDate) {
+> 42 |       setFromDate(jDateToString(selectedStartDate.jy, selectedStartDate.jm, selectedStartDate.jd));
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  43 |     }
+  44 |     if (selectedEndDate) {
+  45 |       setToDate(jDateToString(selectedEndDate.jy, selectedEndDate.jm, selectedEndDate.jd));  react-hooks/set-state-in-effect
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\gift-card\page.tsx
+  22:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\gift-card\page.tsx:22:5
+  20 |
+  21 |   useEffect(() => {
+> 22 |     setCards(PAGE_DATA.autoReserve.cards);
+     |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  23 |   }, []);
+  24 |
+  25 |   const hasCards = cards.length > 0;  react-hooks/set-state-in-effect
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\messages\page.tsx
+  22:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\messages\page.tsx:22:5
+  20 |
+  21 |   useEffect(() => {
+> 22 |     setMessages(PAGE_DATA.messages.items);
+     |     ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  23 |   }, []);
+  24 |
+  25 |   const hasMessages = messages.length > 0;  react-hooks/set-state-in-effect
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\page.tsx
+  273:10  warning  'activeInput' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  274:10  warning  'hoverDate' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  325:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\page.tsx:325:5
+  323 |
+  324 |   useEffect(() => {
+> 325 |     setPassportExpiryDate(null);
+      |     ^^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  326 |     setShowCalendar(false);
+  327 |     const now = new Date();
+  328 |     if (isGregorian) {  react-hooks/set-state-in-effect
+  541:13  warning  '_data' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx
+  104:5   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:104:5
+  102 |
+  103 |   useEffect(() => {
+> 104 |     setMounted(true);
+      |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  105 |   }, []);
+  106 |
+  107 |   useEffect(() => {                                                                                                                                                                                                                                                                                                                                                        react-hooks/set-state-in-effect
+  113:7   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:113:7
+  111 |     } else {
+  112 |       document.body.style.overflow = "auto";
+> 113 |       setIsVisible(false);
+      |       ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  114 |     }
+  115 |     return () => {
+  116 |       document.body.style.overflow = "auto";                                                                                                                                                                                                                                                                 react-hooks/set-state-in-effect
+  132:32  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  622:18  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:622:18
+  620 |             <div style={headerTitleWrapStyle}>
+  621 |               <div style={headerIconStyle}>
+> 622 |                 <Icon path={ICONS.user} size={22} />
+      |                  ^^^^ This component is created during render
+  623 |               </div>
+  624 |               <div>
+  625 |                 <h3 style={headerTitleStyle} id="paxModalTitle">
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                      react-hooks/static-components
+  643:16  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:643:16
+  641 |               aria-label="بستن"
+  642 |             >
+> 643 |               <Icon path={ICONS.close} size={18} />
+      |                ^^^^ This component is created during render
+  644 |             </button>
+  645 |           </div>
+  646 |         </div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                                                                                                                          react-hooks/static-components
+  654:18  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:654:18
+  652 |             <div style={sectionHeaderStyle}>
+  653 |               <div style={sectionIconStyle}>
+> 654 |                 <Icon path={ICONS.user} size={15} />
+      |                  ^^^^ This component is created during render
+  655 |               </div>
+  656 |               <h4 style={sectionTitleStyle}>
+  657 |                 {PAGE_DATA.modal.sectionPersonal}
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                             react-hooks/static-components
+  679:22  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:679:22
+  677 |                   />
+  678 |                   <span style={inputIconStyle} className="lux-icon">
+> 679 |                     <Icon path={ICONS.user} size={14} />
+      |                      ^^^^ This component is created during render
+  680 |                   </span>
+  681 |                 </div>
+  682 |               </div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                                                   react-hooks/static-components
+  700:22  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:700:22
+  698 |                   />
+  699 |                   <span style={inputIconStyle} className="lux-icon">
+> 700 |                     <Icon path={ICONS.user} size={14} />
+      |                      ^^^^ This component is created during render
+  701 |                   </span>
+  702 |                 </div>
+  703 |               </div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                                                   react-hooks/static-components
+  724:22  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:724:22
+  722 |                   />
+  723 |                   <span style={inputIconStyle} className="lux-icon">
+> 724 |                     <Icon path="M4:7V4h16v3 M9 20h6 M12 4v16" size={14} />
+      |                      ^^^^ This component is created during render
+  725 |                   </span>
+  726 |                 </div>
+  727 |               </div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                                 react-hooks/static-components
+  746:22  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:746:22
+  744 |                   />
+  745 |                   <span style={inputIconStyle} className="lux-icon">
+> 746 |                     <Icon path="M4:7V4h16v3 M9 20h6 M12 4v16" size={14} />
+      |                      ^^^^ This component is created during render
+  747 |                   </span>
+  748 |                 </div>
+  749 |               </div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                                 react-hooks/static-components
+  757:18  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:757:18
+  755 |             <div style={sectionHeaderStyle}>
+  756 |               <div style={sectionIconStyle}>
+> 757 |                 <Icon path={ICONS.idCard} size={15} />
+      |                  ^^^^ This component is created during render
+  758 |               </div>
+  759 |               <h4 style={sectionTitleStyle}>
+  760 |                 {PAGE_DATA.modal.sectionIdentity}
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                           react-hooks/static-components
+  772:18  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:772:18
+  770 |                 onClick={() => setFormData({ ...formData, isForeign: false })}
+  771 |               >
+> 772 |                 <Icon path={ICONS.flag} size={15} />
+      |                  ^^^^ This component is created during render
+  773 |                 ایرانی
+  774 |               </button>
+  775 |               <button
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                                                       react-hooks/static-components
+  780:18  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:780:18
+  778 |                 onClick={() => setFormData({ ...formData, isForeign: true })}
+  779 |               >
+> 780 |                 <Icon path={ICONS.globe} size={15} />
+      |                  ^^^^ This component is created during render
+  781 |                 خارجی
+  782 |               </button>
+  783 |             </div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                                                           react-hooks/static-components
+  804:24  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:804:24
+  802 |                     />
+  803 |                     <span style={inputIconStyle} className="lux-icon">
+> 804 |                       <Icon path={ICONS.idCard} size={14} />
+      |                        ^^^^ This component is created during render
+  805 |                     </span>
+  806 |                   </div>
+  807 |                 </div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                                   react-hooks/static-components
+  856:26  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:856:26
+  854 |                       />
+  855 |                       <span style={inputIconStyle} className="lux-icon">
+> 856 |                         <Icon path={ICONS.plane} size={14} />
+      |                          ^^^^ This component is created during render
+  857 |                       </span>
+  858 |                     </div>
+  859 |                   </div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                      react-hooks/static-components
+  879:26  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:879:26
+  877 |                       />
+  878 |                       <span style={inputIconStyle} className="lux-icon">
+> 879 |                         <Icon path={ICONS.calendar} size={14} />
+      |                          ^^^^ This component is created during render
+  880 |                       </span>
+  881 |                     </div>
+  882 |                   </div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                   react-hooks/static-components
+  892:18  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:892:18
+  890 |             <div style={sectionHeaderStyle}>
+  891 |               <div style={sectionIconStyle}>
+> 892 |                 <Icon path={ICONS.calendar} size={15} />
+      |                  ^^^^ This component is created during render
+  893 |               </div>
+  894 |               <h4 style={sectionTitleStyle}>{PAGE_DATA.modal.sectionBirth}</h4>
+  895 |               <div style={sectionDividerStyle}></div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",  react-hooks/static-components
+  966:14  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:966:14
+  964 |             className="lux-cancel"
+  965 |           >
+> 966 |             <Icon path={ICONS.x} size={15} />
+      |              ^^^^ This component is created during render
+  967 |             {PAGE_DATA.modal.cancelBtn}
+  968 |           </button>
+  969 |           <button
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                                                                                                         react-hooks/static-components
+  975:14  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:975:14
+  973 |             className="lux-save"
+  974 |           >
+> 975 |             <Icon path={ICONS.check} size={16} />
+      |              ^^^^ This component is created during render
+  976 |             {PAGE_DATA.modal.saveBtn}
+  977 |           </button>
+  978 |         </div>
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\pax\page.tsx:545:16
+  543 |
+  544 |   // آیکون‌های SVG به صورت کامپوننت
+> 545 |   const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |     <svg
+      | ^^^^^^^^
+> 547 |       xmlns="http://www.w3.org/2000/svg"
+      …
+      | ^^^^^^^^
+> 558 |     </svg>
+      | ^^^^^^^^
+> 559 |   );
+      | ^^^^ The component is created during render here
+  560 |
+  561 |   const ICONS = {
+  562 |     user: "M20:21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",                                                                                                                                            react-hooks/static-components
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\tel-robat\page.tsx
+   8:10  warning  'faCopy' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  44:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Works\Project001\sex\HamidParvaz\app\userpanel\tel-robat\page.tsx:44:5
+  42 |
+  43 |   useEffect(() => {
+> 44 |     setUsers(PAGE_DATA.activeUsers.users);
+     |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  45 |   }, []);
+  46 |
+  47 |   const hasUsers = users.length > 0;  react-hooks/set-state-in-effect
+
+✖ 194 problems (88 errors, 106 warnings)
+

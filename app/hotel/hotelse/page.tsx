@@ -311,13 +311,12 @@ function HotelResultsPageContent() {
           <div className="Countainer">
             <div className="Right">
               <div className="Title">
-                <div style={{ position: "relative", width: "100%", height: "200px" }}>
+                <div className="cover-img-wrapper">
                   <Image
                     src="/istockphoto-1306235331-612x612.jpg"
                     alt="hotel cover"
                     fill
                     sizes="100vw"
-                    style={{ objectFit: "cover" }}
                   />
                 </div>
                 <Link href="/hotel-on-map">
@@ -440,7 +439,7 @@ function HotelResultsPageContent() {
                             <div className={`customCheckbox ${isChecked ? "checked" : ""}`}>
                               {isChecked && <FontAwesomeIcon icon={faCheck} />}
                             </div>
-                            <input type="checkbox" onChange={() => handleCheckInChange(item.value)} checked={isChecked} style={{ display: "none" }} />
+                            <input type="checkbox" onChange={() => handleCheckInChange(item.value)} checked={isChecked} className="hidden-input" />
                             <span>{item.label}</span>
                           </label>
                         );
@@ -462,7 +461,7 @@ function HotelResultsPageContent() {
                             <div className={`customCheckbox ${isChecked ? "checked" : ""}`}>
                               {isChecked && <FontAwesomeIcon icon={faCheck} />}
                             </div>
-                            <input type="checkbox" onChange={() => handleCheckOutChange(item.value)} checked={isChecked} style={{ display: "none" }} />
+                            <input type="checkbox" onChange={() => handleCheckOutChange(item.value)} checked={isChecked} className="hidden-input" />
                             <span>{item.label}</span>
                           </label>
                         );
@@ -530,67 +529,68 @@ function HotelResultsPageContent() {
                 const totalStayPrice = pricePerNightTotal * nights;
 
                 return (
-                  <div className="MediaElementHotel" key={hotel.id} onClick={() => router.push(`/hotel/hotelch?id=${hotel.id}`)} style={{ cursor: "pointer" }}>
-                    <div style={{ position: "relative", width: "280px", flexShrink: 0, alignSelf: "stretch" }}>
-                      <Image src={hotel.image} alt={hotel.name} fill sizes="(max-width: 768px) 100vw, 280px" style={{ objectFit: "cover" }} />
+                  <div className="MediaElementHotel" key={hotel.id} onClick={() => router.push(`/hotel/hotelch?id=${hotel.id}`)}>
+                    <div className="hotel-card-img">
+                      <Image src={hotel.image} alt={hotel.name} fill sizes="(max-width: 768px) 100vw, 280px" />
+                      <div className="hotel-score-badge">
+                        <span className="score-value">{hotel.rating}</span>
+                        <span className="score-label">امتیاز</span>
+                      </div>
                     </div>
                     <div className="Down">
-                      <p>{hotel.name}</p>
-                      <div className="rating">
-                        <div className="Stars">
+                      <div className="hotel-name-row">
+                        <h3>{hotel.name}</h3>
+                        <div className="stars-group">
                           {Array(hotel.stars)
                             .fill(0)
                             .map((_, i) => (
                               <FontAwesomeIcon
                                 key={i}
                                 icon={faStar}
-                                style={{ color: "var(--gold)" }}
+                                className="star-icon"
                               />
                             ))}
                           <span>{hotel.stars} ستاره</span>
-                          <p>
-                            <FontAwesomeIcon icon={faLocationDot} />{" "}
-                            {hotel.location}
-                          </p>
                         </div>
-                        <div className="AdditionalOptions">
-                          {hotel.facilities.slice(0, 2).map((fac) => (
-                            <span key={fac}>{fac}</span>
-                          ))}
-                        </div>
-                        <div className="SmilyFace">
-                          <p>
-                            {hotel.rating}/10{" "}
-                            <FontAwesomeIcon icon={faFaceSmile} />
-                          </p>
-                        </div>
+                      </div>
+                      <div className="hotel-location">
+                        <FontAwesomeIcon icon={faLocationDot} />{" "}
+                        {hotel.location}
+                      </div>
+                      <div className="hotel-facilities">
+                        {hotel.facilities.slice(0, 3).map((fac) => (
+                          <span key={fac} className="facility-pill">
+                            <FontAwesomeIcon icon={faCheck} /> {fac}
+                          </span>
+                        ))}
                       </div>
                     </div>
                     <div className="price">
-                      <div className="titel">
-                        <p>{getPriceTitle()}</p>
+                      <div className="price-label">{getPriceTitle()}</div>
+                      <div className="price-amount">
+                        <span className="amount">
+                          {pricePerNightTotal.toLocaleString("fa-IR")}
+                        </span>
+                        <span className="currency">تومان</span>
                       </div>
-                      <div className="Choose">
-                        <p>
-                          <span>
-                            {pricePerNightTotal.toLocaleString("fa-IR")}
-                          </span>{" "}
-                          تومان
-                        </p>
-                        {nights > 1 && (
-                          <small>
-                            مجموع {nights} شب:{" "}
-                            {totalStayPrice.toLocaleString("fa-IR")} تومان
-                          </small>
-                        )}
+                      {nights > 1 && (
+                        <div className="price-total">
+                          مجموع {nights} شب:{" "}
+                          {totalStayPrice.toLocaleString("fa-IR")} تومان
+                        </div>
+                      )}
+                      <div className="btn-row">
                         <button
-                          className="viewDetailsBtn"
+                          className="btn-primary"
+                          onClick={(e) => { e.stopPropagation(); selectRoom(hotel.id); }}
+                        >
+                          انتخاب اتاق
+                        </button>
+                        <button
+                          className="btn-outline"
                           onClick={(e) => { e.stopPropagation(); setSelectedHotel(hotel); }}
                         >
-                          دیدن جزئیات هتل
-                        </button>
-                        <button onClick={(e) => { e.stopPropagation(); selectRoom(hotel.id); }}>
-                          انتخاب اتاق
+                          دیدن جزئیات
                         </button>
                       </div>
                     </div>

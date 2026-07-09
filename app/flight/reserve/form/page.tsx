@@ -543,24 +543,24 @@ const NiksaPassengerInfo = () => {
 
                     <div className="bottom">
                       {passenger.nationality === "iranian" ? (
-                        <label style={{ flex: 1 }}>
-                          {PAGE_DATA.passengerCard.labels.nationalId}{" "}
-                          <span style={{ color: "red" }}>*</span>
-                          <input
-                            type="text"
-                            placeholder="شماره ملی"
-                            value={passenger.nationalId || ""}
-                            onChange={(e) =>
-                              updatePassenger(
-                                passenger.id,
-                                "nationalId",
-                                e.target.value,
-                              )
-                            }
-                          />
-                        </label>
-                      ) : (
-                        <label className="CountrySelectors" style={{ flex: 1 }}>
+                        <label>
+                                                  {PAGE_DATA.passengerCard.labels.nationalId}{" "}
+                                                  <span style={{ color: "red" }}>*</span>
+                                                  <input
+                                                    type="text"
+                                                    placeholder="شماره ملی"
+                                                    value={passenger.nationalId || ""}
+                                                    onChange={(e) =>
+                                                      updatePassenger(
+                                                        passenger.id,
+                                                        "nationalId",
+                                                        e.target.value,
+                                                      )
+                                                    }
+                                                  />
+                                                </label>
+                                              ) : (
+                                                <label className="CountrySelectors">
                           {PAGE_DATA.passengerCard.labels.issuingCountry}
                           <select
                             value={passenger.issuingCountry}
@@ -582,7 +582,7 @@ const NiksaPassengerInfo = () => {
                         </label>
                       )}
 
-                      <label style={{ flex: 1 }}>
+                      <label>
                         {PAGE_DATA.passengerCard.labels.birthDate}{" "}
                         <span style={{ color: "red" }}>*</span>
                         <div className="dateSelectors">
@@ -638,7 +638,7 @@ const NiksaPassengerInfo = () => {
 
                     {passenger.nationality === "foreign" && (
                       <div className="bottom" style={{ marginTop: "10px" }}>
-                        <label style={{ flex: 1 }}>
+                        <label>
                           {PAGE_DATA.passengerCard.labels.passportNumber}{" "}
                           <span style={{ color: "red" }}>*</span>
                           <input
@@ -655,7 +655,7 @@ const NiksaPassengerInfo = () => {
                           />
                         </label>
 
-                        <label style={{ flex: 1 }}>
+                        <label>
                           {PAGE_DATA.passengerCard.labels.expiryDate}
                           <div className="dateSelectors">
                             <select

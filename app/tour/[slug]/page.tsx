@@ -1,16 +1,20 @@
 import { Suspense } from "react";
 import TourDetailClient from "./TourDetailClient";
 import LoadingSkeleton from "../../components/LoadingSkeleton";
+import { toursDB } from "../../data/tours";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  return toursDB.map((tour) => ({
+    slug: tour.slug,
+  }));
+}
 
 export default async function TourDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }> | { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const resolvedParams = await Promise.resolve(params);
-  const { slug } = resolvedParams;
+  const { slug } = await params;
 
   return (
     <Suspense fallback={<LoadingSkeleton type="detail" />}>

@@ -1150,20 +1150,18 @@ button {
                     display: grid;
                     gap: 25px;
                     .top {
-                        display: flex;
-                        justify-content: space-between;
-                        width: 90%;
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 12px;
                         label {
                             display: grid;
                             justify-content: start;
                             gap: 5px;
-                            margin-right: 15px;
                             font-size: 14px;
                             input[type="text"] {
                                 border: none;
                                 height: 50px;
                                 width: 100%;
-                                max-width: 400px;
                                 background-color: var(--bgLight);
                                 font-family: var(--Font);
                                 color: var(--textDark);
@@ -1173,19 +1171,18 @@ button {
                         }
                     }
                     .bottom {
-                        display: flex;
-                        justify-content: space-between;
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 12px;
                         label {
                             display: grid;
                             justify-content: start;
                             gap: 5px;
-                            margin-right: 15px;
                             font-size: 14px;
                             input[type="text"] {
                                 border: none;
                                 height: 50px;
                                 width: 100%;
-                                max-width: 400px;
                                 background-color: var(--bgLight);
                                 font-family: var(--Font);
                                 color: var(--textDark);
@@ -1727,9 +1724,19 @@ button {
 }
 
 .OtherInoformation .bottom label {
-    flex: 1;
     display: flex;
     flex-direction: column;
+}
+
+/* Single item in bottom row spans full width */
+.OtherInoformation .bottom label:only-child {
+    grid-column: 1 / -1;
+}
+
+/* Desktop: constrain input width */
+.OtherInoformation .top label input[type="text"],
+.OtherInoformation .bottom label input[type="text"] {
+    max-width: 400px;
 }
 
 /* ============ مسافران قبلی - کارت‌های انتخابی ============ */
@@ -2136,11 +2143,9 @@ button {
         width: 100% !important;
     }
 
-    /* Full-width form fields */
+    /* Stack form fields to 1 column on mobile */
     .OtherInoformation .top {
-        flex-direction: column;
-        width: 100% !important;
-        gap: 16px;
+        grid-template-columns: 1fr;
     }
 
     .OtherInoformation .top label {
@@ -2154,8 +2159,7 @@ button {
     }
 
     .OtherInoformation .bottom {
-        flex-direction: column;
-        gap: 16px;
+        grid-template-columns: 1fr;
     }
 
     .OtherInoformation .bottom label {
@@ -2164,8 +2168,18 @@ button {
     }
 
     .OtherInoformation .bottom label input[type="text"] {
-        width: 100% !important;
-        max-width: 100% !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .OtherInoformation .bottom label input[type="number"] {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* The birthDate + passport/ID row: make dateSelectors span its grid cell */
+    .OtherInoformation .bottom .dateSelectors {
+        width: 100%;
     }
 
     /* Responsive date selectors */

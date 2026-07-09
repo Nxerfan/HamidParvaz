@@ -1,728 +1,1060 @@
+/* =============================================
+   Hotel Detail Page — Fully Responsive (RTL)
+   Mobile-first, fluid, premium design
+   ============================================= */
+
+/* ── Container: mobile = stack, desktop = row ── */
 .container26 {
-  padding: 40px 0 0 0;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 16px;
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 24px;
+}
 
-  p {
+@media (min-width: 1024px) {
+  .container26 {
+    flex-direction: row;
+    padding: 40px 24px;
+    gap: 28px;
+  }
+}
+
+/* ── Right (main content) ── */
+.container26 .right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .container26 .right {
+    width: calc(100% - 380px);
+    gap: 32px;
+  }
+}
+
+/* ── Section Headings ── */
+.container26 .right h4,
+.container26 .right .section-title {
+  font-size: clamp(17px, 2.2vw, 22px);
+  font-weight: 700;
+  color: var(--goldDark);
+  margin: 0;
+}
+
+/* ── Card ── */
+.container26 .Card {
+  background: var(--bgWhite);
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .container26 .Card {
+    padding: 20px;
+  }
+}
+
+/* =============================================
+   GALLERY
+   ============================================= */
+.container26 .Card .MainImg {
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  max-height: 430px;
+  background: var(--grayBg);
+}
+
+.container26 .Card .MainImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.container26 .Card .MainImg .nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  color: var(--goldDark);
+  font-size: 28px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.container26 .Card .MainImg .nav:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.container26 .Card .MainImg .nav.prev {
+  left: 10px;
+}
+
+.container26 .Card .MainImg .nav.next {
+  right: 10px;
+}
+
+/* ── Thumbnails: horizontal scroll on mobile, grid on desktop ── */
+.container26 .Card .MoreImg {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.container26 .Card .MoreImg::-webkit-scrollbar {
+  height: 4px;
+}
+
+.container26 .Card .MoreImg::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 4px;
+}
+
+.container26 .Card .MoreImg > div {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  cursor: pointer;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.container26 .Card .MoreImg > div:hover,
+.container26 .Card .MoreImg > div.active {
+  border-color: var(--gold);
+}
+
+.container26 .Card .MoreImg img {
+  width: auto;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .container26 .Card .MoreImg {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    overflow: visible;
+    padding: 0;
+  }
+
+  .container26 .Card .MoreImg img {
+    width: 100%;
+    height: 72px;
+  }
+}
+
+/* =============================================
+   HOTEL INFO
+   ============================================= */
+.container26 .HotelInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.container26 .HotelInfo .content {
+  overflow: hidden;
+  max-height: none;
+}
+
+.container26 .HotelInfo .content p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--textDark);
+  line-height: 1.7;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.container26 .HotelInfo .content h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--goldDark);
+  margin: 0 0 4px;
+}
+
+@media (min-width: 768px) {
+  .container26 .HotelInfo .content h4 {
+    font-size: 24px;
+  }
+}
+
+/* ── Stars / meta row (replaces inline styles) ── */
+.container26 .hotel-stars {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: 10px 0 6px;
+}
+
+.container26 .hotel-stars .star-icon {
+  color: #f59e0b;
+  font-size: 15px;
+}
+
+.container26 .hotel-stars .star-label {
+  font-size: 13px;
+  color: var(--textGray);
+  margin-right: 6px;
+}
+
+.container26 .hotel-stars .rating-badge {
+  font-size: 13px;
+  color: #16a34a;
+  margin-right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.container26 .hotel-stars .location-label {
+  font-size: 13px;
+  color: var(--textGray);
+  margin-right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (max-width: 500px) {
+  .container26 .hotel-stars {
+    gap: 6px;
+  }
+  .container26 .hotel-stars .star-label,
+  .container26 .hotel-stars .rating-badge,
+  .container26 .hotel-stars .location-label {
+    margin-right: 6px;
+  }
+}
+
+/* =============================================
+   FACILITIES (Options)
+   ============================================= */
+.container26 .Options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.container26 .Options .Card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+@media (min-width: 600px) {
+  .container26 .Options .Card {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container26 .Options .Card {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.container26 .Options .Option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.container26 .Options .Option:hover {
+  border-color: var(--gold);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.1);
+}
+
+.container26 .Options .Option i {
+  color: var(--gold);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.container26 .Options .Option p {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--textDark);
+  margin: 0;
+  padding: 0;
+}
+
+/* =============================================
+   ROOMS
+   ============================================= */
+.container26 .Rooms {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.container26 .Rooms > p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--textGray);
+  margin: 0;
+  padding: 0;
+}
+
+.container26 .Rooms .Card {
+  padding: 16px;
+  transition: box-shadow 0.25s;
+}
+
+.container26 .Rooms .Card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.container26 .Rooms .Card .Top {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.container26 .Rooms .Card .room-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.container26 .Rooms .Card .room-title p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--textDark);
+}
+
+.container26 .Rooms .Card .room-title span {
+  font-size: 13px;
+  color: var(--textGray);
+  background: var(--grayBg);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.container26 .Rooms .Card .about-room {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.container26 .Rooms .Card .about-room .room-price {
+  color: var(--goldDark);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.container26 .Rooms .Card .about-room .room-price span {
+  font-size: 20px;
+}
+
+.container26 .Rooms .Card .about-room .room-price .toman-label {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--textGray);
+  margin-right: 2px;
+}
+
+.container26 .Rooms .Card .about-room button {
+  width: 100%;
+  max-width: 200px;
+  padding: 12px 20px;
+  background: var(--gold);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--Font);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.container26 .Rooms .Card .about-room button:hover {
+  background: var(--goldDark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+}
+
+@media (min-width: 768px) {
+  .container26 .Rooms .Card .room-title p {
+    font-size: 17px;
+  }
+  .container26 .Rooms .Card .about-room .room-price {
     font-size: 20px;
-    font-weight: bold;
-    color: var(--goldDark);
-    padding: 0 0 30px 0;
   }
+}
 
-  .right {
-    width: calc(100% - 350px);
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    background: none;
-    box-shadow: none;
-    h4 {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--goldDark);
-      margin-bottom: 15px;
-    }
+/* =============================================
+   RULES
+   ============================================= */
+.container26 .Rules {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 
-    .Card {
-      background-color: var(--bgWhite);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: var(--boxShadow);
-      width: 100%;
-      height: max-content;
-      display: grid;
-      gap: 20px;
-      .MainImg {
-        width: 100%;
-        max-height: 430px;
-        position: relative;
-        border-radius: 8px;
-        display: grid;
-        justify-content: center;
-        Image {
-          object-fit: cover;
-          height: 100%;
-          width: 100%;
-          border-radius: 4px;
-        }
-        .nav {
-          position: absolute;
-          top: 50%;
-          width: fit-content;
-          height: fit-content;
-          font-size: 124px;
-          background: none;
-          color: var(--gold);
-          border: none;
-          cursor: pointer;
-          z-index: 10;
-          transform: translateY(-50%);
-        }
-        .prev {
-          left: 10px;
-        }
-        .next {
-          right: 10px;
-        }
-      }
-      .MoreImg {
-        display: grid;
-        grid-auto-flow: column;
-        grid-template-columns: repeat(auto-fill, minmax(129px, 1fr));
-        gap: 8px;
-        padding: 0 20px;
-        img {
-          width: 100%;
-          object-fit: cover;
-          border-radius: 4px;
-        }
-      }
-    }
-    .Options {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      cursor: default;
-      .Card {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
+.container26 .Rules .Card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-        p {
-          font-size: 17px;
-          font-weight: bold;
-          color: var(--textDark);
-        }
+.container26 .Rules .Time {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
 
-        .Option {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 10px;
-          border: 1px solid #eee;
-          border-radius: 8px;
-          transition: 0.3s;
-
-          &:hover {
-            border-color: var(--gold);
-          }
-
-          i {
-            color: var(--gold);
-            opacity: 1;
-            height: fit-content;
-            font-size: 16px;
-          }
-
-          p {
-            font-size: 14px;
-            font-weight: normal;
-            padding: 0;
-          }
-        }
-      }
-
-      &.Mini {
-        display: -webkit-box;
-        gap: 15px;
-        margin-bottom: 10px;
-        .Option {
-          border: none;
-          background: var(--grayBg);
-          padding: 5px;
-          border-radius: 8px;
-          font-size: 12px;
-        }
-      }
-    }
-    .Rooms {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      p {
-        padding: 0;
-      }
-      .Card {
-        .Top {
-          display: grid;
-          gap: 20px;
-          justify-content: normal;
-          .Title {
-            display: flex;
-            justify-content: space-between;
-            height: fit-content;
-            i {
-              color: var(--gold);
-              font-size: 18px;
-            }
-
-            p {
-              font-size: 17px;
-            }
-
-            span {
-              color: var(--textGray);
-              font-size: 14px;
-            }
-          }
-
-          .AboutRoom {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            p {
-              display: flex;
-              justify-content: start;
-              width: calc(100% - 230px);
-              align-items: center;
-              font-size: 15px;
-              color: var(--textGray);
-              &:last-of-type {
-                justify-content: end;
-                gap: 5px;
-              }
-              span {
-                font-size: 20px;
-                color: var(--goldDark);
-              }
-            }
-
-            button {
-              width: 220px;
-              height: fit-content;
-              border: none;
-              padding: 14px 8px;
-              background: var(--gold);
-              border-radius: 8px;
-              cursor: pointer;
-              font-family: var(--Font);
-              transition: 0.3s;
-              &:hover {
-                background: var(--goldDark);
-              }
-            }
-          }
-        }
-      }
-
-      .RoomOption {
-        display: flex;
-        align-items: flex-start;
-        overflow: hidden;
-        justify-content: space-between;
-        .content {
-          display: flex;
-          flex-wrap: wrap;
-          max-height: 20px;
-          transition: max-height 0.3s ease;
-
-          &.expanded {
-            max-height: 500px;
-          }
-
-          p {
-            font-size: 12px;
-            color: var(--textGray);
-            padding: 0 10px;
-            border-left: var(--borderLight);
-          }
-        }
-
-        .toggle-btn {
-          background: none;
-          border: none;
-          color: var(--goldText);
-          cursor: pointer;
-          font-size: 12px;
-          width: fit-content;
-        }
-      }
-    }
-    .Distance {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-
-      .Card {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-
-        .Option {
-          display: flex;
-          align-items: center;
-          width: 100%;
-          justify-content: space-between;
-
-          i {
-            color: var(--textDark);
-            opacity: 1;
-            height: fit-content;
-            font-size: 16px;
-          }
-
-          p {
-            font-size: 14px;
-            font-weight: normal;
-            color: var(--textDark);
-            padding: 0;
-
-            &:last-of-type {
-              color: var(--goldDark);
-            }
-          }
-        }
-      }
-    }
-    .Rules {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-
-      .Card {
-        display: block;
-
-        .Time {
-          display: flex;
-          gap: 10px;
-          margin-bottom: 15px;
-
-          .Value {
-            display: grid;
-            height: fit-content;
-            gap: 10px;
-            background: var(--grayBg);
-            padding: 10px;
-            border-radius: 8px;
-            width: 100%;
-            p {
-              padding: 0;
-              font-size: 14px;
-              color: var(--textGray);
-              height: fit-content;
-            }
-
-            span {
-              font-size: 14px;
-              font-weight: bold;
-              color: var(--textDark);
-
-              i {
-                opacity: 1;
-                color: var(--textDark);
-              }
-            }
-          }
-        }
-
-        .rule {
-          p {
-            font-size: 14px;
-            color: var(--textDark);
-            padding: 0;
-            font-weight: normal;
-          }
-        }
-      }
-    }
-    .FAQSection {
-      display: grid;
-      gap: 20px;
-      width: 100%;
-      justify-self: center;
-      padding: 10px;
-      margin-bottom: 80px;
-
-      .SectionTitle {
-        font-size: 20px;
-        font-weight: bold;
-        color: var(--textDark);
-      }
-
-      .FAQWrapper {
-        background: var(--bgWhite);
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-
-        .FAQItem {
-          border-bottom: var(--borderLight);
-          border-color: #00000012;
-
-          &:last-child {
-            border-bottom: none;
-          }
-
-          &.active {
-            .Icon {
-              transform: rotate(45deg);
-            }
-          }
-
-          .FAQButton {
-            width: 100%;
-            padding: 20px 24px;
-            background: none;
-            border: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            text-align: right;
-            font-size: 16px;
-            color: var(--textDark);
-            font-family: inherit;
-            transition: 0.3s;
-            font-weight: 500;
-
-            &:hover {
-              background: var(--grayBgHover);
-            }
-
-            .Icon {
-              font-size: 22px;
-              color: var(--goldDark);
-              transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-          }
-
-          .FAQAnswer {
-            overflow: hidden;
-            background: var(--bgWhite);
-            transition:
-              max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.3s ease;
-
-            > * {
-              overflow: hidden;
-            }
-
-            p {
-              color: var(--textGray);
-              line-height: 1.8;
-              font-size: 14px;
-              margin: 0;
-              padding: 0 20px 20px 20px;
-            }
-          }
-        }
-      }
-    }
+@media (min-width: 500px) {
+  .container26 .Rules .Time {
+    grid-template-columns: 1fr 1fr;
   }
-  .left {
+}
+
+.container26 .Rules .Time .Value {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--grayBg);
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+
+.container26 .Rules .Time .Value p {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--textGray);
+}
+
+.container26 .Rules .Time .Value span {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--textDark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.container26 .Rules .Time .Value span i {
+  color: var(--textDark);
+  font-size: 13px;
+}
+
+.container26 .Rules .cancel-rule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--textDark);
+}
+
+.container26 .Rules .cancel-rule .cancel-icon {
+  font-size: 16px;
+}
+
+.container26 .Rules .cancel-rule .cancel-icon.yes {
+  color: #22c55e;
+}
+
+.container26 .Rules .cancel-rule .cancel-icon.no {
+  color: #ef4444;
+}
+
+/* =============================================
+   FAQ SECTION ADJUSTMENTS
+   ============================================= */
+.container26 .right .FAQSection {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.container26 .right .FAQSection .SectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--goldDark);
+  margin-bottom: 14px;
+  display: block;
+}
+
+/* =============================================
+   LEFT SIDEBAR
+   ============================================= */
+.container26 .left {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .container26 .left {
     width: 350px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    position: relative;
-    .LeftFilterCard {
-      position: sticky;
-      top: 20px;
-      z-index: 10;
-      margin-bottom: 80px;
-    }
-
-    .Card {
-      background-color: var(--bgWhite);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: var(--boxShadow);
-      width: 100%;
-      max-width: 350px;
-      display: grid;
-      gap: 20px;
-
-      .rating {
-        width: 100%;
-        height: max-content;
-        display: grid;
-        gap: 10px;
-
-        p {
-          padding: 0;
-        }
-
-        .Stars {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          .Wth {
-            display: flex;
-            height: fit-content;
-            gap: 2px;
-            font-size: 14px;
-            color: var(--textDark);
-
-            .Badge {
-              font-size: 10px;
-              padding: 4px 8px;
-              border-radius: 4px;
-              color: white;
-              margin-left: 5px;
-            }
-
-            .TourBadge {
-              background: #ff4757;
-            }
-            .CharterBadge {
-              background: #2ed573;
-            }
-
-            i {
-              display: flex;
-              align-items: center;
-              color: var(--gold);
-              opacity: 1;
-              font-size: 18px;
-            }
-          }
-
-          .Rate {
-            p {
-              display: flex;
-              height: fit-content;
-              gap: 5px;
-              align-items: center;
-              font-size: 12px;
-              color: green;
-
-              i {
-                display: flex;
-                align-items: center;
-                color: var(--gold);
-                opacity: 1;
-                height: fit-content;
-              }
-            }
-          }
-        }
-
-        p {
-          font-size: 17px;
-          color: var(--textDark);
-          font-weight: bold;
-        }
-
-        .titel {
-          display: inline-flex;
-          width: 100%;
-          justify-content: start;
-          align-items: center;
-
-          p {
-            font-size: 15px;
-            font-weight: 100;
-            color: var(--textGray);
-            text-align: center;
-
-            span {
-              color: var(--goldText);
-              font-size: 20px;
-              padding: 0 8.5px;
-            }
-
-            &:last-of-type {
-              font-size: 18px;
-            }
-          }
-        }
-      }
-
-      .price {
-        display: grid;
-        padding-top: 20px;
-        border-top: var(--borderLight);
-        gap: 15px;
-
-        .text {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-
-          i {
-            font-size: 20px;
-            color: var(--textGray);
-            opacity: 1;
-          }
-
-          p {
-            font-size: 15px;
-            color: var(--textGray);
-            padding: 0;
-          }
-        }
-
-        button {
-          background: none;
-          font-family: var(--Font);
-          font-size: 15px;
-          font-weight: bold;
-          padding: 10px 0;
-          border-radius: 8px;
-          border: 2px solid var(--gold);
-          color: var(--goldDark);
-          cursor: pointer;
-
-          &:hover {
-            background: var(--grayBgHover);
-          }
-        }
-      }
-
-      .filters {
-        display: grid;
-        width: 100%;
-        p {
-          padding: 0;
-        }
-
-        input {
-          background-color: var(--grayBg);
-          height: 48px;
-          width: 100%;
-          border: none;
-          border-radius: 8px;
-          font-size: var(--fontSize);
-          font-family: var(--Font);
-          padding: 0 10px;
-          color: var(--textGray);
-          cursor: pointer;
-          transition: var(--transition);
-          box-sizing: border-box;
-          text-align: right;
-          direction: rtl;
-          &:hover {
-            outline: none;
-            background-color: var(--grayBgHover);
-            box-shadow: 0 0 0 2px var(--gold);
-          }
-          &:focus {
-            outline: none;
-            background-color: var(--grayBgHover);
-            box-shadow: 0 0 0 2px var(--gold);
-          }
-        }
-      }
-      .Btn1 {
-        background-color: var(--gold);
-        font-family: var(--Font);
-        font-size: 15px;
-        font-weight: bold;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        padding: 10px;
-        transition: 0.5s;
-        &:hover {
-          background: var(--goldDark);
-        }
-      }
-      .PassengerFilter {
-        margin-top: 15px;
-        border-top: 1px solid #eee;
-        padding-top: 15px;
-
-        p {
-          margin-bottom: 10px;
-        }
-
-        .PassengerControl {
-          display: grid;
-          gap: 15px;
-
-          .ControlGroup {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            label {
-              font-size: 14px;
-              color: var(--textDark);
-            }
-
-            .Counter {
-              display: flex;
-              align-items: center;
-              gap: 10px;
-
-              button {
-                width: 25px;
-                height: 25px;
-                border-radius: 50%;
-                border: 1px solid var(--gold);
-                background: transparent;
-                color: var(--gold);
-                cursor: pointer;
-                font-size: 14px;
-                padding: 0;
-              }
-
-              span {
-                font-weight: bold;
-              }
-            }
-          }
-        }
-      }
-
-      button {
-        font-family: var(--Font);
-        font-size: 15px;
-        font-weight: bold;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-
-        &:hover {
-          background: var(--grayBgHover);
-        }
-      }
-    }
+    flex-shrink: 0;
   }
-  .HotelInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
 
-    .content {
-      overflow: hidden;
-      max-height: 125px;
-      transition: max-height 0.3s ease;
-
-      p {
-        font-size: 14px;
-        font-weight: normal;
-        color: var(--textDark);
-        padding: 0;
-      }
-
-      h4 {
-        font-size: 20px;
-        font-weight: bold;
-        color: var(--goldDark);
-      }
-
-      &.expanded {
-        max-height: 500px;
-      }
-    }
-
-    .toggle-btn {
-      background: none;
-      border: none;
-      color: var(--goldDark);
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      font-family: var(--Font);
-      margin-top: 6px;
-      align-self: flex-start;
-      width: max-content;
-    }
+  .container26 .left .LeftFilterCard {
+    position: sticky;
+    top: 20px;
+    z-index: 10;
   }
+}
+
+/* ── Left sidebar cards ── */
+.container26 .left .Card {
+  background: var(--bgWhite);
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  width: 100%;
+}
+
+.container26 .left .Card .rating {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.container26 .left .Card .rating p {
+  margin: 0;
+  padding: 0;
+}
+
+.container26 .left .Card .rating .Stars {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.container26 .left .Card .rating .Stars .Wth {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 14px;
+  color: var(--textDark);
+}
+
+.container26 .left .Card .rating .Stars .Wth i {
+  color: var(--gold);
+  font-size: 17px;
+}
+
+.container26 .left .Card .rating .Stars .Wth span {
+  font-size: 13px;
+  color: var(--textGray);
+  margin-right: 4px;
+}
+
+.container26 .left .Card .rating .Stars .Rate p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #16a34a;
+}
+
+.container26 .left .Card .rating .Stars .Rate p i {
+  color: var(--gold);
+}
+
+.container26 .left .Card .rating > p {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--textDark);
+}
+
+.container26 .left .Card .rating .titel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.container26 .left .Card .rating .titel p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--textGray);
+}
+
+.container26 .left .Card .rating .titel p span {
+  color: var(--goldDark);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.container26 .left .Card .rating .titel p:last-child {
+  font-size: 15px;
+}
+
+/* ── Left: price/location row ── */
+.container26 .left .Card .price {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 14px;
+  margin-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.container26 .left .Card .price .text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.container26 .left .Card .price .text i {
+  font-size: 16px;
+  color: var(--textGray);
+  flex-shrink: 0;
+}
+
+.container26 .left .Card .price .text p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--textGray);
+}
+
+/* ── Filters ── */
+.container26 .left .Card .filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.container26 .left .Card .filters > p {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--goldDark);
+}
+
+.container26 .left .Card .filters input {
+  background: var(--grayBg);
+  height: 46px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: var(--Font);
+  padding: 0 14px;
+  color: var(--textDark);
+  cursor: pointer;
+  transition: all 0.25s;
+  box-sizing: border-box;
+  text-align: right;
+  direction: rtl;
+}
+
+.container26 .left .Card .filters input:hover {
+  background: var(--grayBgHover);
+  box-shadow: 0 0 0 2px var(--gold);
+  outline: none;
+}
+
+.container26 .left .Card .filters input:focus {
+  background: var(--grayBgHover);
+  box-shadow: 0 0 0 2px var(--gold);
+  outline: none;
+}
+
+.container26 .left .Card .filters input.active {
+  box-shadow: 0 0 0 2px var(--gold);
+}
+
+/* ── Passenger filter ── */
+.container26 .left .Card .PassengerFilter {
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px solid #eee;
+}
+
+.container26 .left .Card .PassengerFilter > p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--goldDark);
+}
+
+.container26 .left .Card .PassengerFilter .PassengerControl {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup label {
+  font-size: 13px;
+  color: var(--textDark);
+  font-weight: 500;
+}
+
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter button:hover:not(:disabled) {
+  background: var(--gold);
+  color: #fff;
+}
+
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: #ccc;
+  color: #ccc;
+}
+
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter span {
+  font-weight: 700;
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ── Reserve button ── */
+.container26 .left .Card .Btn1 {
+  width: 100%;
+  padding: 12px;
+  background: var(--gold);
+  color: #fff;
+  font-family: var(--Font);
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 4px;
+}
+
+.container26 .left .Card .Btn1:hover {
+  background: var(--goldDark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
+}
+
+/* =============================================
+   CALENDAR POPUP
+   ============================================= */
+.container26 .left .calendarPopup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--bgWhite);
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  padding: 16px;
+  margin-top: 4px;
+  display: none;
+}
+
+.container26 .left .calendarPopup.show {
+  display: block;
+}
+
+.container26 .left .calendarPopup .calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.container26 .left .calendarPopup .calendarHeader .calendarNavBtn {
+  background: var(--grayBg);
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  color: var(--textDark);
+}
+
+.container26 .left .calendarPopup .calendarHeader .calendarNavBtn:hover {
+  background: var(--grayBgHover);
+}
+
+.container26 .left .calendarPopup .calendarHeader .calendarTitle {
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--goldDark);
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.container26 .left .calendarPopup .calendarHeader .calendarTitle:hover {
+  background: var(--grayBg);
+}
+
+.container26 .left .calendarPopup .calendarWeekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--textGray);
+  margin-bottom: 6px;
+  padding: 0 4px;
+}
+
+.container26 .left .calendarPopup .calendarDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.container26 .left .calendarPopup .calendarDays .calendarDay {
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.15s;
+  color: var(--textDark);
+}
+
+.container26 .left .calendarPopup .calendarDays .calendarDay:hover {
+  background: var(--grayBg);
+}
+
+.container26 .left .calendarPopup .calendarDays .calendarDay.empty {
+  cursor: default;
+  pointer-events: none;
+}
+
+.container26 .left .calendarPopup .calendarDays .calendarDay.today {
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.container26 .left .calendarPopup .calendarDays .calendarDay.selected {
+  background: var(--gold);
+  color: #fff;
+  font-weight: 700;
+}
+
+.container26 .left .calendarPopup .calendarDays .calendarDay.in-range,
+.container26 .left .calendarPopup .calendarDays .calendarDay.hover-range {
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.container26 .left .calendarPopup .monthsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.container26 .left .calendarPopup .monthsGrid .monthItem {
+  text-align: center;
+  padding: 10px 6px;
+  font-size: 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.15s;
+  color: var(--textDark);
+}
+
+.container26 .left .calendarPopup .monthsGrid .monthItem:hover {
+  background: var(--grayBg);
+}
+
+.container26 .left .calendarPopup .monthsGrid .monthItem.selected {
+  background: var(--gold);
+  color: #fff;
+  font-weight: 700;
+}
+
+.container26 .left .calendarPopup .yearsWrapper {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.container26 .left .calendarPopup .yearsWrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.container26 .left .calendarPopup .yearsWrapper::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 4px;
+}
+
+.container26 .left .calendarPopup .yearsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.container26 .left .calendarPopup .yearsGrid .yearItem {
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.15s;
+  color: var(--textDark);
+}
+
+.container26 .left .calendarPopup .yearsGrid .yearItem:hover {
+  background: var(--grayBg);
+}
+
+.container26 .left .calendarPopup .yearsGrid .yearItem.selected {
+  background: var(--gold);
+  color: #fff;
+  font-weight: 700;
+}
+
+.container26 .left .calendarPopup .calendarFooter {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.container26 .left .calendarPopup .calendarFooter .btnClose {
+  padding: 8px 28px;
+  background: var(--grayBg);
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: var(--Font);
+  cursor: pointer;
+  transition: 0.2s;
+  color: var(--textDark);
+}
+
+.container26 .left .calendarPopup .calendarFooter .btnClose:hover {
+  background: var(--grayBgHover);
+}
+
+/* =============================================
+   RESPONSIVE: SIDEBAR ON TABLET
+   ============================================= */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container26 .left {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .container26 .left .Card {
+    flex: 1;
+    min-width: 280px;
+  }
+}
+
+/* =============================================
+   FAQ SECTION OVERRIDES (keeps its own styles)
+   ============================================= */
+.container26 .right .FAQSection .FAQWrapper {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* =============================================
+   IMAGE RESPONSIVE
+   ============================================= */
+.container26 .Card .MainImg img {
+  border-radius: 4px;
+}
+
+/* ── Loading / Error states ── */
+.hotel-loading,
+.hotel-error {
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.hotel-loading p,
+.hotel-error h2 {
+  margin: 0 0 8px;
+}
+
+.hotel-back-link {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.hotel-back-link:hover {
+  color: var(--goldDark);
 }

@@ -1,531 +1,782 @@
+/* ═══════════════════════════════════════════════════════
+   Tour Search Page — Premium Responsive Design (RTL)
+   Complete rewrite: mobile-first, modern, 100× better
+   ═══════════════════════════════════════════════════════ */
+
 .tour-results-page {
+  /* ── Container ── */
   .Container {
     width: 100%;
     max-width: 1200px;
-    margin: 20px auto;
-    display: flex;
-    position: relative;
-    justify-content: space-between;
-    gap: 24px;
-    direction: rtl;
+    margin: 16px auto;
     padding: 0 16px;
-  }
-
-  .Right {
-    position: sticky;
-    top: 20px;
-    align-self: flex-start;
-    width: 300px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-
-    .Title {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      background: var(--bgWhite, #fff);
-      padding: 16px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-      justify-content: center;
-
-      img.cover {
-        width: 100%;
-        max-height: 100px;
-        object-fit: cover;
-        border-radius: 12px;
-      }
-
-      .ExperienceTrigger {
-        margin-top: 16px;
-        text-decoration: none;
-        display: block;
-        width: 100%;
-      }
-
-      .ContentWrapper {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        background: #f8f9fa;
-        padding: 12px;
-        border-radius: 12px;
-        transition: all 0.3s ease;
-        border: 1px solid transparent;
-
-        &:hover {
-          background: #fff;
-          border-color: var(--gold, #ffcb11);
-          box-shadow: 0 4px 10px rgba(255, 203, 17, 0.15);
-        }
-      }
-
-      .IconBadge {
-        background: rgba(255, 203, 17, 0.1);
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        i,
-        svg {
-          font-size: 20px;
-          color: var(--goldDark, #d4af37);
-        }
-      }
-
-      .TextBlock {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-
-      .TitleText {
-        font-size: 14px;
-        font-weight: bold;
-        color: var(--textDark, #333);
-      }
-
-      .DescText {
-        font-size: 11px;
-        color: var(--textGray, #777);
-      }
-    }
-
-    .NotifMe {
-      display: flex;
-      width: 100%;
-      background-color: var(--bgWhite, #fff);
-      padding: 16px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      align-items: center;
-      justify-content: space-between;
-
-      .Bell {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-
-        span {
-          font-size: 14px;
-          font-weight: 600;
-          color: var(--textDark, #333);
-        }
-
-        i,
-        svg {
-          color: var(--goldDark, #d4af37);
-          font-size: 18px;
-        }
-      }
-
-      .switch {
-        position: relative;
-        display: inline-block;
-        width: 44px;
-        height: 24px;
-
-        input {
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
-
-        .slider {
-          position: absolute;
-          cursor: pointer;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: #e0e0e0;
-          transition: 0.4s;
-          border-radius: 34px;
-
-          &::before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.4s;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-          }
-        }
-
-        input:checked + .slider {
-          background-color: var(--gold, #ffcb11);
-        }
-
-        input:checked + .slider::before {
-          transform: translateX(20px);
-        }
-      }
-    }
-
-    .Sort {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      background-color: var(--bgWhite, #fff);
-      padding: 16px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      gap: 12px;
-
-      > span {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--textDark, #333);
-      }
-
-      .Choosen {
-        display: flex;
-        gap: 16px;
-      }
-
-      label {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 13px;
-        color: var(--textGray, #555);
-        cursor: pointer;
-      }
-
-      input[type="radio"] {
-        appearance: none;
-        width: 16px;
-        height: 16px;
-        border: 2px solid #ccc;
-        border-radius: 50%;
-        cursor: pointer;
-        position: relative;
-
-        &:checked {
-          border-color: var(--goldDark, #d4af37);
-          background-color: white;
-          box-shadow: inset 0 0 0 4px var(--gold, #ffcb11);
-        }
-      }
-    }
-
-
+    position: relative;
+    direction: rtl;
   }
 
-  .Left {
-    flex: 1;
-    display: grid;
-    gap: 24px;
-    min-width: 0; /* Prevents grid blowout on small screens */
-    height: fit-content;
-    .SortBar {
-      background: var(--bgWhite, #fff);
-      padding: 16px 24px;
-      border-radius: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-
-      span {
-        font-size: 14px;
-        color: var(--textDark, #333);
-        font-weight: 500;
-      }
-
-      select {
-        padding: 8px 16px;
-        border-radius: 10px;
-        border: 1px solid #e0e0e0;
-        background: white;
-        font-family: inherit;
-        font-size: 13px;
-        color: #555;
-        outline: none;
-        cursor: pointer;
-        transition: border-color 0.2s;
-
-        &:focus {
-          border-color: var(--goldDark, #d4af37);
-        }
-      }
-    }
-
-    .TourCard {
-      background: var(--bgWhite, #fff);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-      display: flex;
-      transition:
-        transform 0.3s,
-        box-shadow 0.3s;
-      border: 1px solid #f0f0f0;
-
-      &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
-        border-color: var(--gold, #ffcb11);
-      }
-
-      .TourImage {
-        width: 320px;
-        position: relative;
-        flex-shrink: 0;
-        align-self: stretch;
-        background: #f5f5f5;
-
-        img {
-          width: 100% !important;
-          height: 100% !important;
-          object-fit: cover;
-          transition: transform 0.5s;
-        }
-
-        &:hover img {
-          transform: scale(1.05);
-        }
-
-        .Badge {
-          position: absolute;
-          top: 16px;
-          right: 16px;
-          background: #dc3545;
-          color: white;
-          padding: 6px 14px;
-          border-radius: 24px;
-          font-size: 12px;
-          font-weight: bold;
-          z-index: 2;
-          box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
-
-          &.Special {
-            background: linear-gradient(
-              135deg,
-              var(--gold, #ffcb11),
-              var(--goldDark, #d4af37)
-            );
-            color: #333;
-            box-shadow: 0 4px 10px rgba(255, 203, 17, 0.4);
-          }
-        }
-      }
-
-      .TourContent {
-        flex: 1;
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        .TourHeader {
-          margin-bottom: 16px;
-        }
-
-        .TourTitle {
-          font-size: 20px;
-          font-weight: bold;
-          margin: 0 0 8px 0;
-          color: var(--textDark, #222);
-          line-height: 1.4;
-        }
-
-        .TourAgency {
-          font-size: 13px;
-          color: var(--textGray, #666);
-          display: flex;
-          align-items: center;
-          gap: 8px;
-
-          i,
-          svg {
-            color: var(--goldDark, #d4af37);
-          }
-        }
-
-        .TourMeta {
-          display: flex;
-          gap: 20px;
-          flex-wrap: wrap;
-          padding: 16px 0;
-          border-top: 1px dashed #eee;
-          border-bottom: 1px dashed #eee;
-          margin-bottom: 20px;
-        }
-
-        .MetaItem {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 13px;
-          color: #555;
-          background: #f8f9fa;
-          padding: 6px 12px;
-          border-radius: 8px;
-
-          i,
-          svg {
-            color: var(--goldDark, #d4af37);
-            width: 16px;
-            text-align: center;
-          }
-        }
-
-        .TourFooter {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 16px;
-
-          .Capacity {
-            font-size: 13px;
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
-            padding: 6px 14px;
-            border-radius: 24px;
-            color: #856404;
-
-            span {
-              color: #d9534f;
-              font-weight: bold;
-              margin-left: 4px;
-            }
-          }
-
-          .PriceBox {
-            text-align: left;
-
-            .PriceLabel {
-              font-size: 12px;
-              color: #aaa;
-              text-decoration: line-through;
-              display: block;
-              margin-bottom: 2px;
-            }
-
-            .PriceValue {
-              font-size: 24px;
-              font-weight: 800;
-              color: var(--goldDark, #d4af37);
-            }
-
-            .Currency {
-              font-size: 14px;
-              font-weight: 500;
-              color: #777;
-            }
-          }
-
-          .BtnBook {
-            background: linear-gradient(
-              135deg,
-              var(--gold, #ffcb11),
-              var(--goldDark, #d4af37)
-            );
-            border: none;
-            padding: 12px 32px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-family: inherit;
-            font-size: 15px;
-            color: #333;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 12px rgba(255, 203, 17, 0.3);
-
-            &:hover {
-              transform: translateY(-2px);
-              box-shadow: 0 6px 16px rgba(212, 175, 55, 0.5);
-            }
-          }
-        }
-      }
+  @media (min-width: 1024px) {
+    .Container {
+      flex-direction: row;
+      padding: 0 24px;
+      gap: 24px;
+      margin: 24px auto;
     }
   }
-}
 
-/* Responsive Breakpoints */
-@media (max-width: 1200px) {
-  .tour-results-page .Container {
-    padding: 0 20px;
-  }
-  .tour-results-page .Right {
-    width: 280px;
-  }
-}
-
-@media (max-width: 992px) {
-  .tour-results-page .Container {
-    flex-direction: column;
-  }
-  .tour-results-page .Right {
+  /* ══════════════════════════════════════════════════
+     RIGHT SIDEBAR
+     ══════════════════════════════════════════════════ */
+  .Right {
     width: 100%;
-    position: static;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .tour-results-page .Right > * {
-    flex: 1;
-    min-width: 280px;
-  }
-  .tour-results-page .Right .sidebarFilters {
-    min-width: 100%;
-  }
-  .tour-results-page .Left {
-    width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .tour-results-page .Right {
-    flex-direction: column;
-  }
-  .tour-results-page .Right > * {
-    width: 100%;
-  }
-  .tour-results-page .TourCard {
-    flex-direction: column;
-  }
-  .tour-results-page .TourCard {
-    flex-direction: column;
-  }
-  .tour-results-page .TourImage {
-    width: 100%;
-    align-self: auto;
-    min-height: 220px;
-  }
-  .tour-results-page .TourMeta {
-    gap: 10px;
-  }
-  .tour-results-page .TourFooter {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 16px;
-  }
-  .tour-results-page .BtnBook {
-    margin-right: 0;
-    width: 100%;
-    text-align: center;
-  }
-  .tour-results-page .PriceBox {
-    text-align: center;
-  }
-  .tour-results-page .SortBar {
+    display: flex;
     flex-direction: column;
     gap: 12px;
+    order: -1;
+  }
+
+  @media (min-width: 1024px) {
+    .Right {
+      width: 300px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 20px;
+      align-self: flex-start;
+      order: 0;
+      gap: 14px;
+    }
+  }
+
+  /* ── Sidebar Card Shared ── */
+  .Right .Title,
+  .Right .NotifMe,
+  .Right .Sort,
+  .Right .sidebarFilters {
+    background: var(--bgWhite, #fff);
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  /* ── Cover Image ── */
+  .Right .Title {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
+  }
+
+  .Right .Title .cover-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .Right .Title .cover-img-wrapper img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .Right .Title .cover-img-wrapper {
+      height: 140px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .Right .Title .cover-img-wrapper {
+      height: 120px;
+    }
+  }
+
+  /* ── Experience Trigger Card ── */
+  .Right .Title .ExperienceTrigger {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+  }
+
+  .Right .Title .ExperienceTrigger .ContentWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+
+  .Right .Title .ExperienceTrigger .ContentWrapper:hover {
+    background: #fff;
+    border-color: var(--gold, #ffcb11);
+    box-shadow: 0 4px 10px rgba(255, 203, 17, 0.15);
+  }
+
+  .Right .Title .ExperienceTrigger .IconBadge {
+    background: rgba(255, 203, 17, 0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .Right .Title .ExperienceTrigger .IconBadge i,
+  .Right .Title .ExperienceTrigger .IconBadge svg {
+    font-size: 18px;
+    color: var(--goldDark, #d4af37);
+  }
+
+  .Right .Title .ExperienceTrigger .TextBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .Right .Title .ExperienceTrigger .TitleText {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--textDark, #333);
+  }
+
+  .Right .Title .ExperienceTrigger .DescText {
+    font-size: 11px;
+    color: var(--textGray, #777);
+  }
+
+  /* ── Notification ── */
+  .Right .NotifMe {
+    display: flex;
+    padding: 14px 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .Right .NotifMe .Bell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .Right .NotifMe .Bell i,
+  .Right .NotifMe .Bell svg {
+    color: var(--goldDark, #d4af37);
+    font-size: 16px;
+  }
+
+  .Right .NotifMe .Bell span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--goldDark, #d4af37);
+  }
+
+  .Right .NotifMe .switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .Right .NotifMe .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .Right .NotifMe .switch .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #ccc;
+    transition: 0.3s;
+    border-radius: 34px;
+  }
+
+  .Right .NotifMe .switch .slider::before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: #fff;
+    transition: 0.3s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .Right .NotifMe .switch input:checked + .slider {
+    background: var(--gold, #ffcb11);
+  }
+
+  .Right .NotifMe .switch input:checked + .slider::before {
+    transform: translateX(20px);
+  }
+
+  /* ── Sort Radio Buttons ── */
+  .Right .Sort {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .Right .Sort > span {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--textDark, #333);
+  }
+
+  .Right .Sort .Choosen {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .Right .Sort .Choosen label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--goldDark, #d4af37);
+    cursor: pointer;
+    padding: 6px 14px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: 0.2s;
+  }
+
+  .Right .Sort .Choosen label:has(input:checked) {
+    background: var(--gold, #ffcb11);
+    color: #333;
+  }
+
+  .Right .Sort .Choosen label input[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .Right .Sort .Choosen label input[type="radio"]:checked {
+    background: currentColor;
+  }
+
+  @media (max-width: 500px) {
+    .Right .Sort .Choosen {
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
+
+  /* ── Sidebar Filters ── */
+  .Right .sidebarFilters {
+    background: var(--bgWhite, #fff);
+    border-radius: 14px;
+    padding: 16px;
+    direction: rtl;
+  }
+
+  .Right .sidebarFilters .filterHeader {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--textDark, #333);
+  }
+
+  .Right .sidebarFilters .filterContentArea .resultsCount {
+    display: block;
+    font-size: 12px;
+    color: #757575;
+    margin-bottom: 15px;
+  }
+
+  .Right .sidebarFilters .filterDropdown {
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .Right .sidebarFilters .filterDropdown .dropdownTrigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 0 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--textDark, #333);
+  }
+
+  .Right .sidebarFilters .filterDropdown .dropdownPanel {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+  }
+
+  .Right .sidebarFilters .filterDropdown .dropdownPanel.open {
+    max-height: 1000px;
+    padding: 10px 0;
+  }
+
+  @media (max-width: 1023px) {
+    .Right .sidebarFilters .filterDropdown .dropdownPanel.open {
+      max-height: 600px;
+    }
+  }
+
+  /* ══════════════════════════════════════════════════
+     LEFT — MAIN RESULTS
+     ══════════════════════════════════════════════════ */
+  .Left {
+    width: 100%;
+    display: grid;
+    gap: 20px;
+    align-content: start;
+  }
+
+  /* ── Sort Bar ── */
+  .Left .SortBar {
+    background: var(--bgWhite, #fff);
+    padding: 14px 20px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .Left .SortBar > span {
+    font-size: 14px;
+    color: var(--textDark, #333);
+    font-weight: 600;
+  }
+
+  .Left .SortBar .sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .Left .SortBar .sort-controls .SortLabel {
+    font-size: 13px;
+    color: var(--textGray, #666);
+    font-weight: 400;
+  }
+
+  .Left .SortBar .sort-controls select {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    color: #555;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .Left .SortBar .sort-controls select:focus {
+    border-color: var(--goldDark, #d4af37);
+  }
+
+  @media (max-width: 500px) {
+    .Left .SortBar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .Left .SortBar .sort-controls {
+      justify-content: space-between;
+    }
+  }
+
+  /* ══════════════════════════════════════════════════
+     TOUR CARD — Premium Design
+     ══════════════════════════════════════════════════ */
+  .Left .TourCard {
+    background: var(--bgWhite, #fff);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid #f0f0f0;
+    position: relative;
+  }
+
+  .Left .TourCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+    border-color: var(--gold, #ffcb11);
+  }
+
+  @media (min-width: 768px) {
+    .Left .TourCard {
+      flex-direction: row;
+      min-height: 200px;
+    }
+  }
+
+  /* ── Tour Image ── */
+  .Left .TourCard .TourImage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+
+  .Left .TourCard .TourImage img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .Left .TourCard:hover .TourImage img {
+    transform: scale(1.06);
+  }
+
+  /* ── Image Gradient Overlay ── */
+  .Left .TourCard .TourImage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @media (min-width: 768px) {
+    .Left .TourCard .TourImage {
+      width: 280px;
+      aspect-ratio: auto;
+      align-self: stretch;
+    }
+    .Left .TourCard .TourImage::after {
+      background: linear-gradient(to left, rgba(0,0,0,0.2) 0%, transparent 50%);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .Left .TourCard .TourImage {
+      width: 300px;
+    }
+  }
+
+  /* ── Badge (on image) ── */
+  .Left .TourCard .TourImage .Badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+    background: #dc3545;
+    color: #fff;
+    padding: 5px 14px;
+    border-radius: 24px;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+    letter-spacing: 0.3px;
+  }
+
+  .Left .TourCard .TourImage .Badge.Special {
+    background: linear-gradient(135deg, var(--gold, #ffcb11), var(--goldDark, #d4af37));
+    color: #333;
+    box-shadow: 0 4px 10px rgba(255, 203, 17, 0.4);
+  }
+
+  /* ── Score Badge (on image, top-left) ── */
+  .Left .TourCard .TourImage .tour-score-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    padding: 5px 9px;
+    border-radius: 10px;
+    min-width: 44px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .Left .TourCard .TourImage .tour-score-badge .score-value {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #16a34a;
+  }
+
+  .Left .TourCard .TourImage .tour-score-badge .score-label {
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--textGray, #777);
+  }
+
+  /* ── Tour Content ── */
+  .Left .TourCard .TourContent {
+    flex: 1;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  /* ── Tour Header ── */
+  .Left .TourCard .TourContent .TourHeader {
+    display: flex;
+    justify-content: space-between;
     align-items: flex-start;
+    gap: 12px;
+  }
+
+  .Left .TourCard .TourContent .TourTitle {
+    font-size: clamp(16px, 1.8vw, 19px);
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: var(--textDark, #222);
+    line-height: 1.35;
+  }
+
+  .Left .TourCard .TourContent .TourAgency {
+    font-size: 13px;
+    color: var(--textGray, #666);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .Left .TourCard .TourContent .TourAgency i,
+  .Left .TourCard .TourContent .TourAgency svg {
+    color: var(--goldDark, #d4af37);
+    font-size: 13px;
+  }
+
+  /* ── Tour Meta ── */
+  .Left .TourCard .TourContent .TourMeta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .Left .TourCard .TourContent .TourMeta .MetaItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #555;
+    background: #f8f9fa;
+    padding: 6px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .Left .TourCard .TourContent .TourMeta .MetaItem i,
+  .Left .TourCard .TourContent .TourMeta .MetaItem svg {
+    color: var(--goldDark, #d4af37);
+    width: 14px;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  /* ── Tour Services ── */
+  .Left .TourCard .TourContent .TourServices {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .Left .TourCard .TourContent .TourServices .service-pill {
+    background: linear-gradient(135deg, #f0f4f8 0%, #e8edf2 100%);
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #555;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .Left .TourCard .TourContent .TourServices .service-pill i,
+  .Left .TourCard .TourContent .TourServices .service-pill svg {
+    color: #16a34a;
+    font-size: 10px;
+  }
+
+  /* ── Tour Footer ── */
+  .Left .TourCard .TourContent .TourFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+    margin-top: auto;
+  }
+
+  .Left .TourCard .TourContent .TourFooter .Capacity {
+    font-size: 12px;
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    padding: 5px 12px;
+    border-radius: 20px;
+    color: #856404;
+    white-space: nowrap;
+  }
+
+  .Left .TourCard .TourContent .TourFooter .Capacity span {
+    color: #d9534f;
+    font-weight: 700;
+    margin-left: 3px;
+  }
+
+  .Left .TourCard .TourContent .TourFooter .price-cta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .Left .TourCard .TourContent .TourFooter .PriceBox {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .Left .TourCard .TourContent .TourFooter .PriceBox .PriceLabel {
+    font-size: 11px;
+    color: #aaa;
+    text-decoration: line-through;
+    line-height: 1.3;
+  }
+
+  .Left .TourCard .TourContent .TourFooter .PriceBox .PriceValue {
+    font-size: clamp(20px, 2.5vw, 24px);
+    font-weight: 800;
+    color: var(--goldDark, #d4af37);
+    line-height: 1.2;
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+  }
+
+  .Left .TourCard .TourContent .TourFooter .PriceBox .PriceValue .Currency {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--textGray, #777);
+  }
+
+  .Left .TourCard .TourContent .TourFooter .BtnBook {
+    background: linear-gradient(135deg, var(--gold, #ffcb11), var(--goldDark, #d4af37));
+    border: none;
+    padding: 11px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(255, 203, 17, 0.3);
+    white-space: nowrap;
+  }
+
+  .Left .TourCard .TourContent .TourFooter .BtnBook:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+  }
+
+  /* ══════════════════════════════════════════════════
+     RESPONSIVE: TABLET
+     ══════════════════════════════════════════════════ */
+  @media (max-width: 991px) {
+    .Right {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .Right > * {
+      flex: 1;
+      min-width: 260px;
+    }
+    .Right .sidebarFilters {
+      min-width: 100%;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .Right {
+      flex-direction: column;
+    }
+    .Right > * {
+      width: 100%;
+    }
+
+    .TourCard .TourContent .TourFooter {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .TourCard .TourContent .TourFooter .price-cta {
+      justify-content: space-between;
+    }
+    .TourCard .TourContent .TourFooter .BtnBook {
+      width: 100%;
+      text-align: center;
+    }
+    .TourCard .TourContent .TourFooter .PriceBox {
+      align-items: center;
+    }
+    .TourCard .TourContent .TourMeta {
+      gap: 6px;
+    }
+    .SortBar {
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .Container {
+      padding: 0 10px;
+      margin: 10px auto;
+    }
+    .TourCard .TourContent {
+      padding: 14px 16px;
+    }
+    .TourCard .TourContent .TourFooter .price-cta {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .TourCard .TourContent .TourFooter .PriceBox {
+      align-items: center;
+    }
   }
 }

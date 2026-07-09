@@ -178,7 +178,6 @@ overflow-x: hidden;
             border-radius: 12px;
             border: var(--borderLight);
             text-align: center;
-            width: fit-content;
             min-width: 0;
 
             p {
@@ -186,11 +185,13 @@ overflow-x: hidden;
                 color: var(--textDark);
             }
             img {
-                justify-self: center;
+                display: block;
+                margin: 0 auto;
                 max-width: 122px;
                 max-height: 122px;
-                width: 100%;
-                object-fit: cover;
+                width: auto;
+                height: auto;
+                object-fit: contain;
                 background: var(--gold);
             }
         }
@@ -331,10 +332,13 @@ overflow-x: hidden;
             color: var(--textDark);
         }
         img {
-            justify-self: center;
-            width: 122px;
-            height: 122px;
-            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+            width: auto;
+            height: auto;
+            max-width: 122px;
+            max-height: 122px;
+            object-fit: contain;
         }
         .Options2 {
             display: flex;

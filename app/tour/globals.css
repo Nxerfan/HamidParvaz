@@ -1,6 +1,7 @@
 .offersContainer {
   padding: 20px 0;
   background: var(--bgLight);
+  overflow-x: hidden;
   .offersSection {
     display: grid;
     gap: 32px;
@@ -9,6 +10,14 @@
     justify-self: center;
     margin: 0 auto;
     gap: 12px;
+    .tourList {
+      display: grid;
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+      justify-self: center;
+      padding: 0 16px;
+    }
     .offersHeader {
       justify-content: center;
       width: 100%;
@@ -25,9 +34,9 @@
   display: grid;
   gap: 80px;
   justify-self: center;
-  margin: 0 auto;
   background-color: var(--bgWhite);
   width: 100%;
+  overflow-x: hidden;
   .destinationsHeader {
     h5 {
       font-size: 24px;
@@ -42,24 +51,25 @@
     width: 100%;
     max-width: 1200px;
     justify-self: center;
-    margin: 0 auto;
     text-align: center;
     .destinationsList {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
       height: auto;
       justify-content: center;
       gap: 12px;
-
+      @media (min-width: 769px) {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      }
       .destinationItem {
         overflow: hidden;
-        min-height: 200px;
-        width: auto;
-        height: auto;
+        width: 100%;
+        aspect-ratio: 140 / 190;
+        max-width: 180px;
         border-radius: 20px;
         position: relative;
-        max-height: 220px;
-        max-width: 140px;
+        flex-shrink: 0;
+        display: grid;
 
         &::after {
           content: "";
@@ -78,13 +88,17 @@
 
         span {
           position: absolute;
-          width: 90px;
+          width: 90%;
           text-align: center;
-          left: 22px;
-          bottom: 30px;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: 16px;
           color: var(--bgWhite);
           font-size: 15px;
           font-weight: bold;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -93,6 +107,7 @@
 .description {
   box-shadow: none;
   gap: 0;
+  overflow-x: hidden;
 }
 
 .ScrollCards {
@@ -131,19 +146,19 @@
       border-radius: 12px;
       border: var(--borderLight);
       text-align: center;
-      width: fit-content;
-      min-width: 220px;
+      min-width: 0;
       p {
         font-weight: bold;
         color: var(--textDark);
       }
       img {
-        justify-self: center;
+        display: block;
         margin: 0 auto;
         max-width: 122px;
         max-height: 122px;
-        width: 100%;
-        object-fit: cover;
+        width: auto;
+        height: auto;
+        object-fit: contain;
         background: var(--gold);
       }
     }
@@ -240,151 +255,356 @@
     }
   }
 }
+/* ===== Tour Card — Premium Redesign ===== */
 .TourCard {
-  background: var(--bgWhite);
-  display: flex;
-  border-radius: 12px;
+  background: var(--bgWhite, #fff);
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: var(--boxShadow);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 1px solid #f0f0f0;
   position: relative;
-  transition: 0.3s;
-  align-items: stretch;
-  margin-bottom: 12px;
-  height: fit-content;
+}
 
-  &:hover {
-    transform: translateY(-5px);
+.TourCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+  border-color: var(--gold, #ffcb11);
+}
+
+@media (min-width: 768px) {
+  .TourCard {
+    flex-direction: row;
+    min-height: 200px;
   }
+}
 
-  .TourImage {
+/* \u2500\u2500 Tour Image \u2500\u2500 */
+.TourCard .TourImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.TourCard .TourImage img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.TourCard:hover .TourImage img {
+  transform: scale(1.06);
+}
+
+/* \u2500\u2500 Image Gradient Overlay \u2500\u2500 */
+.TourCard .TourImage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .TourCard .TourImage {
     width: 280px;
-    flex-shrink: 0;
-    position: relative;
+    aspect-ratio: auto;
     align-self: stretch;
-
-    img {
-      width: 280px !important;
-      height: 100% !important;
-      object-fit: cover;
-      display: block;
-    }
-    @media (max-width: 768px) {
-      width: 100%;
-      img {
-        width: 100% !important;
-        height: 200px !important;
-      }
-    }
   }
+  .TourCard .TourImage::after {
+    background: linear-gradient(to left, rgba(0,0,0,0.2) 0%, transparent 50%);
+  }
+}
 
-  .TourContent {
-    padding: 20px;
-    display: grid;
+@media (min-width: 1024px) {
+  .TourCard .TourImage {
+    width: 300px;
+  }
+}
+
+/* \u2500\u2500 Badge (on image) \u2500\u2500 */
+.TourCard .TourImage .badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  background: #dc3545;
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: 24px;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+  letter-spacing: 0.3px;
+}
+
+.TourCard .TourImage .badge.lastMinute {
+  background: tomato;
+  color: #fff;
+}
+
+.TourCard .TourImage .badge.foreign {
+  background: #4b7bec;
+  color: #fff;
+}
+
+.TourCard .TourImage .badge:not(.lastMinute):not(.foreign) {
+  background: linear-gradient(135deg, var(--gold, #ffcb11), var(--goldDark, #d4af37));
+  color: #333;
+  box-shadow: 0 4px 10px rgba(255, 203, 17, 0.4);
+}
+
+/* \u2500\u2500 Score Badge (on image, top-left) \u2500\u2500 */
+.TourCard .TourImage .tour-score-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  padding: 5px 9px;
+  border-radius: 10px;
+  min-width: 44px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.TourCard .TourImage .tour-score-badge .score-value {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #16a34a;
+}
+
+.TourCard .TourImage .tour-score-badge .score-label {
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--textGray, #777);
+}
+
+/* \u2500\u2500 Tour Content \u2500\u2500 */
+.TourCard .TourContent {
+  flex: 1;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* \u2500\u2500 Tour Title & Agency \u2500\u2500 */
+.TourCard .TourContent .TourTitle {
+  font-size: clamp(16px, 1.8vw, 19px);
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: var(--textDark, #222);
+  line-height: 1.35;
+}
+
+.TourCard .TourContent .TourAgency {
+  font-size: 13px;
+  color: var(--textGray, #666);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.TourCard .TourContent .TourAgency svg {
+  color: var(--goldDark, #d4af37);
+  font-size: 13px;
+}
+
+/* \u2500\u2500 Tour Meta \u2500\u2500 */
+.TourCard .TourContent .TourMeta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.TourCard .TourContent .TourMeta .MetaItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #555;
+  background: #f8f9fa;
+  padding: 6px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.TourCard .TourContent .TourMeta .MetaItem svg {
+  color: var(--goldDark, #d4af37);
+  width: 14px;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* \u2500\u2500 Tour Description \u2500\u2500 */
+.TourCard .TourContent .tourDesc {
+  color: var(--textGray);
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 8px 0 0;
+}
+
+/* \u2500\u2500 Tour Footer \u2500\u2500 */
+.TourCard .TourContent .TourFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: auto;
+}
+
+.TourCard .TourContent .TourFooter .Capacity {
+  font-size: 12px;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: #856404;
+  white-space: nowrap;
+}
+
+.TourCard .TourContent .TourFooter .Capacity span {
+  color: #d9534f;
+  font-weight: 700;
+  margin-left: 3px;
+}
+
+.TourCard .TourContent .TourFooter .price-cta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.TourCard .TourContent .TourFooter .PriceBox {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.TourCard .TourContent .TourFooter .PriceBox .PriceValue {
+  font-size: clamp(20px, 2.5vw, 24px);
+  font-weight: 800;
+  color: var(--goldDark, #d4af37);
+  line-height: 1.2;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.TourCard .TourContent .TourFooter .PriceBox .PriceValue .Currency {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--textGray, #777);
+}
+
+.TourCard .TourContent .TourFooter .BtnBook {
+  background: linear-gradient(135deg, var(--gold, #ffcb11), var(--goldDark, #d4af37));
+  border: none;
+  padding: 11px 28px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(255, 203, 17, 0.3);
+  white-space: nowrap;
+}
+
+.TourCard .TourContent .TourFooter .BtnBook:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+/* ===== Responsive: Mobile ===== */
+@media (max-width: 767px) {
+  .offersContainer .offersSection .tourList {
+    padding: 0 12px;
+  }
+  .TourCard .TourContent .TourFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .TourCard .TourContent .TourFooter .price-cta {
+    justify-content: space-between;
+  }
+  .TourCard .TourContent .TourFooter .BtnBook {
+    width: 100%;
+    text-align: center;
+  }
+  .TourCard .TourContent .TourFooter .PriceBox {
+    align-items: center;
+  }
+  .TourCard .TourContent .TourMeta {
+    gap: 6px;
+  }
+  .destinationsContainer {
+    gap: 32px;
+    padding: 0 16px;
+  }
+  .destinationsContainer .destinationsHeader h5 {
+    font-size: 20px;
+  }
+  .destinationsContainer .destinationsSection {
+    padding: 0;
+  }
+  .destinationsContainer .destinationsList {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 8px;
-    flex: 1;
-
-    h3 {
-      color: var(--textDark);
-      font-size: 18px;
-      height: fit-content;
-    }
-
-    p {
-      height: fit-content;
-
-      i {
-        margin-left: 5px;
-      }
-    }
-
-    .tourDetails {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--textGray);
-      height: fit-content;
-
-      span {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-
-        i {
-          /* اصلاح تایپوی 'اث i' */
-          color: var(--goldDark);
-        }
-      }
-    }
-
-    .tourDesc {
-      color: var(--textGray);
-      font-size: 14px;
-    }
-
-    .tourFooter {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: none;
-      box-shadow: none;
-      padding: 0;
-      margin: 0;
-
-      .tourPrice {
-        width: auto; /* اصلاح تایپوی 'au' */
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        margin-left: 20px;
-        gap: 5px;
-
-        span {
-          color: var(--goldDark);
-          font-size: 20px;
-          font-weight: bold;
-        }
-      }
-
-      .btnPrimary {
-        padding: 10px 20px;
-        border-radius: 8px;
-        border: 2px solid var(--goldDark);
-        background: var(--gold);
-        color: var(--textDark);
-        cursor: pointer;
-        transition: var(--transition);
-        font-family: var(--Font);
-        width: 100%;
-
-        &:hover {
-          background-color: var(--goldDark);
-          color: #fff;
-          transform: translateY(-2px);
-        }
-      }
-    }
   }
-
-  .badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: var(--gold);
-    color: var(--textDark);
-    padding: 4px 10px;
-    border-radius: 8px;
+  .destinationsContainer .destinationsList .destinationItem {
+    aspect-ratio: 100 / 130;
+    max-width: none;
+  }
+  .destinationsContainer .destinationsList .destinationItem span {
     font-size: 12px;
-    font-weight: bold;
+    bottom: 8px;
+  }
+  .FAQSection {
+    padding: 0 12px;
+    margin-bottom: 40px;
+  }
+  .FAQSection .FAQButton {
+    font-size: 14px;
+    padding: 16px;
+  }
+  .FAQSection .FAQAnswer p {
+    font-size: 13px;
+    padding: 0 16px 16px 16px;
+  }
+}
 
-    &.lastMinute {
-      background: tomato;
-      color: #fff;
-    }
-
-    &.foreign {
-      background: #4b7bec;
-      color: #fff;
-    }
+@media (max-width: 400px) {
+  .TourCard .TourContent {
+    padding: 14px 16px;
+  }
+  .TourCard .TourContent .TourFooter .price-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .TourCard .TourContent .TourFooter .PriceBox {
+    align-items: center;
   }
 }

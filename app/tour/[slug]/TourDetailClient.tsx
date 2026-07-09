@@ -1,31 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import Link from "next/link";
 import TourDetailFull, { TourDetailData } from "../../components/TourDetailFull";
-
-interface Tour {
-  id: number;
-  slug: string;
-  title: string;
-  destination: string;
-  agency: string;
-  image: string;
-  images?: string[];
-  durationNights: number;
-  durationDays: number;
-  mealPlan: string;
-  hotelStars: number;
-  price: number;
-  originalPrice?: number;
-  capacity: number | string;
-  isSpecial: boolean;
-  badge?: string;
-  departureCity: string;
-  airline?: string;
-  services: string[];
-  location?: string;
-  date?: string;
-  description?: string;
-}
+import { toursDB } from "../../data/tours";
+import type { Tour } from "../../data/tours";
 
 const FALLBACK_IMG = "https://img2.taw-bio.ir/2026/498727/1lhvp9pu.jpeg";
 
@@ -111,36 +88,13 @@ function mapTourToDetailData(tour: Tour): TourDetailData {
 }
 
 export default function TourDetailClient({ slug }: { slug: string }) {
-  const [tour, setTour] = useState<Tour | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch(`/api/tours?destination=`)
-      .then((res) => res.json())
-      .then((data: Tour[]) => {
-        const found = data.find((t) => t.slug === slug);
-        setTour(found || null);
-        setLoading(false);
-      })
-      .catch(() => {
-        setTour(null);
-        setLoading(false);
-      });
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "60vh" }}>
-        <p>در حال بارگذاری...</p>
-      </div>
-    );
-  }
+  const tour = toursDB.find((t) => t.slug === slug) ?? null;
 
   if (!tour) {
     return (
-      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "60vh", gap: "1rem" }}>
+      <div className="errorContainer">
         <h2>تور مورد نظر یافت نشد</h2>
-        <a href="/tour" style={{ color: "var(--gold, #d4a843)" }}>بازگشت به لیست تورها</a>
+        <Link href="/tour">بازگشت به لیست تورها</Link>
       </div>
     );
   }

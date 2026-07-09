@@ -1599,265 +1599,6 @@ footer {
     }
 }
 
-/* ریسپانسیو */
-@media (max-width: 768px) {
-    /* ===== Header Mobile Fix ===== */
-    header .HeaderTop .Container,
-    header .HeaderTop2 .Container {
-        padding: 0 12px;
-        height: 56px;
-    }
-    header .HeaderTop .Container > nav,
-    header .HeaderTop2 .Container > nav {
-        display: none;
-    }
-    .AuthButtons .BtnPrimary {
-        padding: 6px 14px;
-        font-size: 12px;
-        gap: 4px;
-    }
-    .AuthButtons .BtnPrimary img {
-        width: 14px;
-        height: 14px;
-    }
-    header .HeaderTop .Items,
-    header .HeaderTop2 .Items {
-        gap: 16px;
-        padding: 6px 12px;
-        overflow-x: auto;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        flex-wrap: nowrap;
-    }
-    header .HeaderTop .Items::-webkit-scrollbar,
-    header .HeaderTop2 .Items::-webkit-scrollbar {
-        display: none;
-    }
-    header .HeaderTop .Items .content,
-    header .HeaderTop2 .Items .content {
-        white-space: nowrap;
-        font-size: 13px;
-    }
-    /* ===== End Header Mobile Fix ===== */
-    .List,
-    .List2,
-    .List3,
-    .List4 {
-        width: 100%;
-        padding: 0 12px;
-        margin-bottom: 20px;
-    }
-    .Form .BottomHotel {
-        flex-direction: column;
-    }
-    .Form .BottomHotel > * {
-        width: 100%;
-        min-width: 0;
-    }
-    .calendarPopup {
-        position: fixed;
-        top: auto;
-        left: 5%;
-        right: 5%;
-        width: 90%;
-    }
-    .destinationDropdown {
-        max-height: 250px;
-    }
-    .modalContent {
-        width: 95%;
-        padding: 16px;
-    }
-    .TravelCards {
-        width: 100%;
-        padding: 0 16px;
-        box-sizing: border-box;
-    }
-    .TravelCards .CardsContainer {
-        margin-left: 0;
-        margin-bottom: 0;
-        gap: 16px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 8px;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-    .TravelCards .CardsContainer::-webkit-scrollbar {
-        display: none;
-    }
-    .TravelCards .CardsContainer .TravelCard {
-        padding: 20px 16px;
-        min-width: 0;
-        width: calc((100% - 32px) / 3);
-        margin-top: 0;
-        scroll-snap-align: start;
-        flex-shrink: 0;
-    }
-    .TravelCards .CardIcon {
-        width: 40px;
-        height: 40px;
-    }
-    .TravelCards .CardText {
-        font-size: 13px;
-    }
-    .description .cards {
-        flex-direction: column;
-        align-items: center;
-        padding: 16px 12px;
-        gap: 16px;
-    }
-    .description .cards .item {
-        width: 100%;
-        min-width: 0;
-        max-width: 320px;
-        height: auto;
-        padding: 16px;
-        text-align: center;
-    }
-    .useFullWays {
-        width: 100%;
-        padding: 32px 12px;
-    }
-    .useFullWays .content {
-        flex-direction: column;
-        align-items: center;
-        gap: 24px;
-    }
-    .useFullWays .items {
-        width: 100%;
-        max-width: 320px;
-        text-align: center;
-    }
-    .Hero h1 {
-        font-size: 28px;
-    }
-    .Hero p {
-        font-size: 16px;
-    }
-    .Hero {
-        height: 180px;
-    }
-    .Hero--desktop {
-        display: none !important;
-    }
-    .Hero--mobile {
-        display: flex !important;
-        background-size: cover !important;
-        background-position: center !important;
-        height: 180px !important;
-        z-index: 1;
-    }
-    .TravelCards {
-        position: relative;
-        z-index: 2;
-        margin-top: -45px;
-    }
-    .Hero3 {
-        height: auto;
-        min-height: 160px;
-        padding: 20px 16px;
-    }
-    .Hero3 p {
-        font-size: 18px;
-    }
-    .Hero4 {
-        height: auto;
-        min-height: 100px;
-        padding: 20px 16px;
-    }
-    .Hero4 p {
-        font-size: 18px;
-    }
-    footer {
-        padding: 36px 0 0;
-    }
-
-    footer .Container {
-        padding: 0 16px;
-    }
-
-    footer .Container .TopRow {
-        grid-template-columns: 1fr;
-        gap: 28px;
-    }
-
-    footer .Container .TopRow .Contact {
-        align-items: center;
-        text-align: center;
-    }
-
-    footer .Container .TopRow .Contact .Top {
-        justify-content: center;
-    }
-
-    footer .Container .TopRow .Contact .buttom {
-        justify-content: center;
-    }
-
-    footer .Container .TopRow .Contact .buttom a {
-        font-size: 13px;
-        padding: 7px 14px;
-    }
-
-    footer .Container .TopRow .OrgBox {
-        text-align: center;
-    }
-
-    footer .Container .TopRow .OrgBox button {
-        max-width: 260px;
-    }
-
-    footer .Container .LinksRow {
-        grid-template-columns: 1fr;
-        gap: 28px;
-        text-align: center;
-    }
-
-    footer .Container .LinksRow .Links {
-        align-items: center;
-    }
-
-    footer .Container .LinksRow .Links ul {
-        align-items: center;
-    }
-
-    footer .Container .LinksRow .Links li a::after {
-        right: 50%;
-        transform: translateX(50%);
-    }
-
-    footer .Container .LinksRow .Links li a:hover::after {
-        width: 60%;
-    }
-
-    footer .Container .LinksRow .Description .Text {
-        text-align: center;
-    }
-
-    footer .Container .LinksRow .Description .Logos {
-        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-        gap: 8px;
-    }
-
-    footer .Container .LinksRow .Description .Logos a img {
-        width: 52px;
-        height: 52px;
-    }
-
-    footer .Container .Bottom {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-    }
-
-    footer .Container .Bottom .Social {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-}
-
 @media (min-width: 769px) and (max-width: 1024px) {
     .TravelCards {
         width: 100%;
@@ -2948,6 +2689,293 @@ footer {
         transform: translateY(0);
     }
 }
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    /* ===== Header Mobile Fix ===== */
+    header .HeaderTop .Container,
+    header .HeaderTop2 .Container {
+        padding: 0 12px;
+        height: 56px;
+    }
+    header .HeaderTop .Container > nav,
+    header .HeaderTop2 .Container > nav {
+        display: none;
+    }
+    .AuthButtons .BtnPrimary {
+        padding: 6px 14px;
+        font-size: 12px;
+        gap: 4px;
+    }
+    .AuthButtons .BtnPrimary img {
+        width: 14px;
+        height: 14px;
+    }
+    header .HeaderTop .Items,
+    header .HeaderTop2 .Items {
+        gap: 16px;
+        padding: 6px 12px;
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        flex-wrap: nowrap;
+    }
+    header .HeaderTop .Items::-webkit-scrollbar,
+    header .HeaderTop2 .Items::-webkit-scrollbar {
+        display: none;
+    }
+    header .HeaderTop .Items .content,
+    header .HeaderTop2 .Items .content {
+        white-space: nowrap;
+        font-size: 13px;
+    }
+    /* ===== End Header Mobile Fix ===== */
+    .List,
+    .List2,
+    .List3,
+    .List4 {
+        width: 100%;
+        padding: 0 12px;
+        margin-bottom: 20px;
+    }
+    .Form .BottomHotel {
+        flex-direction: column;
+    }
+    .Form .BottomHotel > * {
+        width: 100%;
+        min-width: 0;
+    }
+    .calendarPopup {
+        position: fixed;
+        top: auto;
+        left: 5%;
+        right: 5%;
+        width: 90%;
+    }
+    .destinationDropdown {
+        max-height: 250px;
+    }
+    .modalContent {
+        width: 95%;
+        padding: 16px;
+    }
+    .TravelCards {
+        width: 100%;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+    .TravelCards .CardsContainer {
+        margin-left: 0;
+        margin-bottom: 0;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .TravelCards .CardsContainer::-webkit-scrollbar {
+        display: none;
+    }
+    .TravelCards .CardsContainer .TravelCard {
+        padding: 20px 16px;
+        min-width: 0;
+        width: calc((100% - 32px) / 3);
+        margin-top: 0;
+        scroll-snap-align: start;
+        flex-shrink: 0;
+    }
+    .TravelCards .CardIcon {
+        width: 40px;
+        height: 40px;
+    }
+    .TravelCards .CardText {
+        font-size: 13px;
+    }
+    .description .cards {
+        flex-direction: column;
+        align-items: center;
+        padding: 16px 12px;
+        gap: 16px;
+    }
+    .description .cards .item {
+        width: 100%;
+        min-width: 0;
+        max-width: 320px;
+        height: auto;
+        padding: 16px;
+        text-align: center;
+    }
+    .useFullWays {
+        width: 100%;
+        padding: 16px 12px;
+    }
+    .useFullWays .title {
+        padding: 0;
+        margin-bottom: 6px;
+    }
+    .useFullWays .title p {
+        font-size: 14px;
+        margin: 0;
+    }
+    .useFullWays .title span {
+        display: none;
+    }
+    .useFullWays .content {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 10px 8px !important;
+        align-items: start;
+    }
+    .useFullWays .items {
+        width: 100%;
+        max-width: none;
+        text-align: center;
+    }
+    .useFullWays .items p {
+        font-size: 12px;
+        margin: 0 0 1px;
+        font-weight: 600;
+    }
+    .useFullWays .items.hide-mobile {
+        display: none;
+    }
+    .useFullWays .items a {
+        font-size: 11px;
+        padding: 1px 0;
+    }
+    .useFullWays .items a:nth-child(n+5) {
+        display: none;
+    }
+    .Hero h1 {
+        font-size: 28px;
+    }
+    .Hero p {
+        font-size: 16px;
+    }
+    .Hero {
+        height: 180px;
+    }
+    .Hero--desktop {
+        display: none !important;
+    }
+    .Hero--mobile {
+        display: flex !important;
+        background-size: cover !important;
+        background-position: center !important;
+        height: 180px !important;
+        z-index: 1;
+    }
+    .TravelCards {
+        position: relative;
+        z-index: 2;
+        margin-top: -45px;
+    }
+    .Hero3 {
+        height: auto;
+        min-height: 160px;
+        padding: 20px 16px;
+    }
+    .Hero3 p {
+        font-size: 18px;
+    }
+    .Hero4 {
+        height: auto;
+        min-height: 100px;
+        padding: 20px 16px;
+    }
+    .Hero4 p {
+        font-size: 18px;
+    }
+    footer {
+        padding: 36px 0 0;
+    }
+
+    footer .Container {
+        padding: 0 16px;
+    }
+
+    footer .Container .TopRow {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    footer .Container .TopRow .Contact {
+        align-items: center;
+        text-align: center;
+    }
+
+    footer .Container .TopRow .Contact .Top {
+        justify-content: center;
+    }
+
+    footer .Container .TopRow .Contact .buttom {
+        justify-content: center;
+    }
+
+    footer .Container .TopRow .Contact .buttom a {
+        font-size: 13px;
+        padding: 7px 14px;
+    }
+
+    footer .Container .TopRow .OrgBox {
+        text-align: center;
+    }
+
+    footer .Container .TopRow .OrgBox button {
+        max-width: 260px;
+    }
+
+    footer .Container .LinksRow {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        text-align: center;
+    }
+
+    footer .Container .LinksRow .Links {
+        align-items: center;
+    }
+
+    footer .Container .LinksRow .Links ul {
+        align-items: center;
+    }
+
+    footer .Container .LinksRow .Links li a::after {
+        right: 50%;
+        transform: translateX(50%);
+    }
+
+    footer .Container .LinksRow .Links li a:hover::after {
+        width: 60%;
+    }
+
+    footer .Container .LinksRow .Description .Text {
+        text-align: center;
+    }
+
+    footer .Container .LinksRow .Description .Logos {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 8px;
+    }
+
+    footer .Container .LinksRow .Description .Logos a img {
+        width: 52px;
+        height: 52px;
+    }
+
+    footer .Container .Bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    footer .Container .Bottom .Social {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+
 /* ============= Hamburger Menu (Mobile Nav) - Premium ============= */
 .hamburger {
     display: none;
@@ -3035,7 +3063,21 @@ footer {
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     border-radius: 20px 0 0 20px;
     box-shadow: -8px 0 40px rgba(0, 0, 0, 0.12);
+    border-left: 1px solid rgba(255, 205, 17, 0.15);
     overflow: hidden;
+}
+
+/* Premium gold accent line at the top of the drawer */
+.mobileNavDrawer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--goldDark), var(--gold));
+    z-index: 1001;
+    pointer-events: none;
 }
 .mobileNavDrawer.open {
     transform: translateX(0);
@@ -3077,9 +3119,9 @@ footer {
     color: var(--textDark);
     transform: rotate(90deg);
 }
-/* Nav grid container with custom scrollbar */
-.mobileNavGrid {
-    flex: 1;
+/* Nav grid container (premium grid, not flex) */
+.mobileNavGrid,
+#mobileNavGrid {
     overflow-y: auto;
     padding: 12px;
     -webkit-overflow-scrolling: touch;
@@ -3090,13 +3132,24 @@ footer {
     gap: 10px;
     align-content: start;
 }
-.mobileNavGrid::-webkit-scrollbar {
+
+/* Override any header nav flex interference */
+header .HeaderTop .Container nav#mobileNavGrid,
+header .HeaderTop2 .Container nav#mobileNavGrid,
+header nav.mobileNavGrid {
+    display: grid !important;
+    flex: none !important;
+}
+.mobileNavGrid::-webkit-scrollbar,
+#mobileNavGrid::-webkit-scrollbar {
     width: 4px;
 }
-.mobileNavGrid::-webkit-scrollbar-track {
+.mobileNavGrid::-webkit-scrollbar-track,
+#mobileNavGrid::-webkit-scrollbar-track {
     background: transparent;
 }
-.mobileNavGrid::-webkit-scrollbar-thumb {
+.mobileNavGrid::-webkit-scrollbar-thumb,
+#mobileNavGrid::-webkit-scrollbar-thumb {
     background: var(--gold);
     border-radius: 4px;
 }

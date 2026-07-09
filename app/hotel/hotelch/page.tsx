@@ -358,7 +358,7 @@ function HotelDetailInner() {
 
   if (loading) {
     return (
-      <div style={{ padding: "40px", textAlign: "center" }}>
+      <div className="hotel-loading">
         <p>در حال بارگذاری...</p>
       </div>
     );
@@ -366,9 +366,9 @@ function HotelDetailInner() {
 
   if (!hotel) {
     return (
-      <div style={{ padding: "40px", textAlign: "center" }}>
+      <div className="hotel-error">
         <h2>هتل مورد نظر یافت نشد</h2>
-        <a href="/hotel" style={{ color: "var(--gold)" }}>بازگشت به لیست هتل‌ها</a>
+        <a href="/hotel" className="hotel-back-link">بازگشت به لیست هتل‌ها</a>
       </div>
     );
   }
@@ -379,13 +379,12 @@ function HotelDetailInner() {
       <div className="container26">
         <div className="right">
           <div className="Card">
-            <div className="MainImg" style={{ position: "relative" }}>
+            <div className="MainImg">
               <Image
                 src={images[current]}
                 width={790}
                 height={430}
                 alt={hotel.name}
-                style={{ objectFit: "cover", borderRadius: "4px" }}
               />
               <button onClick={prevImage} className="nav prev">
                 ‹
@@ -414,49 +413,23 @@ function HotelDetailInner() {
             <div className="Card">
               <div className="content expanded">
                 <h4>{hotel.name}</h4>
-                <div
-                  className="Stars"
-                  style={{
-                    display: "flex",
-                    gap: "2px",
-                    margin: "8px 0",
-                    alignItems: "center",
-                  }}
-                >
+                <div className="hotel-stars">
                   {Array(hotel.stars)
                     .fill(0)
                     .map((_, i) => (
                       <FontAwesomeIcon
                         key={i}
                         icon={faStar}
-                        style={{ color: "#ffcd11", fontSize: "16px" }}
+                        className="star-icon"
                       />
                     ))}
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      color: "var(--textGray)",
-                      marginRight: "8px",
-                    }}
-                  >
+                  <span className="star-label">
                     {hotel.stars} ستاره
                   </span>
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      color: "green",
-                      marginRight: "16px",
-                    }}
-                  >
+                  <span className="rating-badge">
                     {hotel.rating}/10 <FontAwesomeIcon icon={faFaceSmile} />
                   </span>
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      color: "var(--textGray)",
-                      marginRight: "16px",
-                    }}
-                  >
+                  <span className="location-label">
                     <FontAwesomeIcon icon={faLocationDot} /> {hotel.location}
                   </span>
                 </div>
@@ -482,34 +455,14 @@ function HotelDetailInner() {
             {hotel.roomTypes.map((room, idx) => (
               <div className="Card HotelListItem" key={idx}>
                 <div className="Top">
-                  <div
-                    className="Title"
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
+                  <div className="room-title">
                     <p>{room.name}</p>
                     <span>{room.capacity}</span>
                   </div>
-                  <div
-                    className="AboutRoom"
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      marginTop: "12px",
-                    }}
-                  >
-                    <p
-                      style={{
-                        color: "var(--goldDark)",
-                        fontSize: "18px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      <span>{room.price.toLocaleString("fa-IR")}</span> تومان
+                  <div className="about-room">
+                    <p className="room-price">
+                      <span>{room.price.toLocaleString("fa-IR")}</span>
+                      <span className="toman-label">تومان</span>
                     </p>
                     <button onClick={handleReserve}>رزرو اتاق</button>
                   </div>
@@ -538,18 +491,16 @@ function HotelDetailInner() {
                 </div>
               </div>
               <div className="rule">
-                <p
-                  style={{ display: "flex", alignItems: "center", gap: "8px" }}
-                >
+                <p className="cancel-rule">
                   {hotel.isCancelable ? (
                     <FontAwesomeIcon
                       icon={faCheck}
-                      style={{ color: "#22c55e" }}
+                      className="cancel-icon yes"
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon={faBan}
-                      style={{ color: "#ef4444" }}
+                      className="cancel-icon no"
                     />
                   )}
                   {TEXTS.cancelLabel}:{" "}

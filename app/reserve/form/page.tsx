@@ -307,12 +307,12 @@ const NiksaPassengerInfo = () => {
 
                   <div className="bottom">
                     {passenger.nationality === "iranian" ? (
-                      <label style={{ flex: 1 }}>
-                        {PAGE_DATA.passengerCard.labels.nationalId}
-                        <input type="text" placeholder="شماره ملی" />
-                      </label>
-                    ) : (
-                      <label className="CountrySelectors" style={{ flex: 1 }}>
+                      <label>
+                                              {PAGE_DATA.passengerCard.labels.nationalId}
+                                              <input type="text" placeholder="شماره ملی" />
+                                            </label>
+                                          ) : (
+                                            <label className="CountrySelectors">
                         {PAGE_DATA.passengerCard.labels.issuingCountry}
                         <select
                           value={passenger.issuingCountry}
@@ -334,7 +334,7 @@ const NiksaPassengerInfo = () => {
                       </label>
                     )}
 
-                    <label style={{ flex: 1 }}>
+                    <label>
                       {PAGE_DATA.passengerCard.labels.birthDate}
                       <div className="dateSelectors">
                         <select>
@@ -360,12 +360,12 @@ const NiksaPassengerInfo = () => {
 
                   {passenger.nationality === "foreign" && (
                     <div className="bottom" style={{ marginTop: "10px" }}>
-                      <label style={{ flex: 1 }}>
+                      <label>
                         {PAGE_DATA.passengerCard.labels.passportNumber}
                         <input type="text" placeholder="Passport Number" />
                       </label>
 
-                      <label style={{ flex: 1 }}>
+                      <label>
                         {PAGE_DATA.passengerCard.labels.expiryDate}
                         <div className="dateSelectors">
                           <select>

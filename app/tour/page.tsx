@@ -167,37 +167,46 @@ export default function Offers() {
     toursJSX.push(
       <article key={tour.id} className="TourCard">
         <figure className="TourImage">
-          <Image src={tour.image} alt={tour.alt} width={800} height={500} style={{ objectFit: "cover" }} />
+          <Image src={tour.image} alt={tour.alt} fill sizes="(max-width: 768px) 100vw, 320px" />
+          <span className={`badge ${tour.badge.className}`}>{tour.badge.text}</span>
+          <div className="tour-score-badge">
+            <span className="score-value">۴.۵</span>
+            <span className="score-label">امتیاز</span>
+          </div>
         </figure>
         <div className="TourContent">
-          <h3>{tour.title}</h3>
-          <p>
-            <FontAwesomeIcon icon={faLocationDot} /> {tour.location}
-          </p>
-          <div className="tourDetails">
-            <span>
-              <FontAwesomeIcon icon={faCalendarDays} /> {tour.date}
-            </span>
-            <span>
-              <FontAwesomeIcon icon={faClock} /> {tour.duration}
-            </span>
-            <span>
+          <div>
+            <h3 className="TourTitle">{tour.title}</h3>
+            <div className="TourAgency">
               <FontAwesomeIcon icon={faPlane} /> {tour.airline}
-            </span>
-          </div>
-          <p className="tourDesc">{tour.description}</p>
-          <footer className="tourFooter">
-            <div className="tourPrice">
-              <span>{tour.price}</span> تومان
             </div>
-            <Link href={`/travel/${tour.slug}`}>
-              <button className="btnPrimary">مشاهده جزئیات</button>
-            </Link>
-          </footer>
+            <div className="TourMeta">
+              <div className="MetaItem">
+                <FontAwesomeIcon icon={faCalendarDays} /> {tour.date}
+              </div>
+              <div className="MetaItem">
+                <FontAwesomeIcon icon={faClock} /> {tour.duration}
+              </div>
+              <div className="MetaItem">
+                <FontAwesomeIcon icon={faLocationDot} /> {tour.location}
+              </div>
+            </div>
+            <p className="tourDesc">{tour.description}</p>
+          </div>
+          <div className="TourFooter">
+            <div className="Capacity">ظرفیت محدود</div>
+            <div className="price-cta">
+              <div className="PriceBox">
+                <span className="PriceValue">
+                  {tour.price} <span className="Currency">تومان</span>
+                </span>
+              </div>
+              <Link href={`/tour/${tour.slug}`}>
+                <button className="BtnBook">مشاهده جزئیات</button>
+              </Link>
+            </div>
+          </div>
         </div>
-        <span className={`badge ${tour.badge.className}`}>
-          {tour.badge.text}
-        </span>
       </article>,
     );
   }
@@ -206,9 +215,9 @@ export default function Offers() {
   for (const item of PAGE_DATA.destinations.list) {
     destinationsJSX.push(
       <Link key={item.id} href={`/tour/tourse?destination=${encodeURIComponent(item.alt)}`} className="destinationItem">
-        <Image src={item.src} alt={item.alt} width={140} height={140} style={{ objectFit: "cover", borderRadius: "8px", width: "auto", height: "auto" }} />
+        <Image src={item.src} alt={item.alt} width={140} height={190} />
         <span>{item.title}</span>
-      </Link>,
+      </Link>
     );
   }
 

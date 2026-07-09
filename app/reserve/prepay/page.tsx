@@ -19,27 +19,27 @@ const PAGE_DATA = {
     date: "شنبه 11 بهمن",
   },
   availableFlights: [
-    {
-      logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=TKN",
-      airline: "فلای کیش",
-      time: "ساعت‌ پرواز 17:45",
-    },
-    {
-      logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=TKN",
-      airline: "فلای کیش",
-      time: "ساعت‌ پرواز 17:45",
-    },
-    {
-      logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=TKN",
-      airline: "فلای کیش",
-      time: "ساعت‌ پرواز 17:45",
-    },
-    {
-      logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=TKN",
-      airline: "فلای کیش",
-      time: "ساعت‌ پرواز 17:45",
-    },
-  ],
+      {
+        logo: "/airlines/KIS.svg",
+        airline: "فلای کیش",
+        time: "ساعت‌ پرواز 17:45",
+      },
+      {
+        logo: "/airlines/KIS.svg",
+        airline: "فلای کیش",
+        time: "ساعت‌ پرواز 17:45",
+      },
+      {
+        logo: "/airlines/KIS.svg",
+        airline: "فلای کیش",
+        time: "ساعت‌ پرواز 17:45",
+      },
+      {
+        logo: "/airlines/KIS.svg",
+        airline: "فلای کیش",
+        time: "ساعت‌ پرواز 17:45",
+      },
+    ],
   passengerTitle: "مشخصات مسافر",
   passengerTable: {
     headers: [

@@ -147,9 +147,9 @@ const PAGE_DATA = {
       {
         id: 1,
         airline: {
-          name: "چابهار",
-          logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=IRU",
-        },
+                  name: "چابهار",
+                  logo: "/airlines/IRU.svg",
+                },
         departure: { time: "6:00", city: "تهران", hour: 6 },
         arrival: { time: "7:00", city: "مشهد", hour: 7 },
         classType: "economy",
@@ -170,9 +170,9 @@ const PAGE_DATA = {
       {
         id: 2,
         airline: {
-          name: "فلای کیش",
-          logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=IRU",
-        },
+                  name: "فلای کیش",
+                  logo: "/airlines/KIS.svg",
+                },
         departure: { time: "10:30", city: "تهران", hour: 10 },
         arrival: { time: "12:00", city: "مشهد", hour: 12 },
         classType: "business",
@@ -193,9 +193,9 @@ const PAGE_DATA = {
       {
         id: 3,
         airline: {
-          name: "آسمان",
-          logo: "https://mrbilit.com/_ipx/_/logo/flight%3FproviderCode=IRU",
-        },
+                  name: "آسمان",
+                  logo: "/airlines/ASM.svg",
+                },
         departure: { time: "14:15", city: "تهران", hour: 14 },
         arrival: { time: "15:45", city: "مشهد", hour: 15 },
         classType: "economy",

@@ -1,849 +1,901 @@
+/* ═══════════════════════════════════════════════════════
+   Tour Detail Page — Premium Responsive Design (RTL)
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Loading & Error States ── */
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+.loadingContainer p {
+  font-size: 18px;
+  color: var(--textGray, #777);
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  gap: 1rem;
+  text-align: center;
+}
+.errorContainer h2 {
+  font-size: 22px;
+  color: var(--textDark, #333);
+}
+.errorContainer a {
+  color: var(--goldDark, #d4a843);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: 0.3s;
+}
+.errorContainer a:hover {
+  color: var(--gold, #ffcb11);
+}
+
+/* ═══════════════════════════════════════════════════════
+   Layout Container
+   ═══════════════════════════════════════════════════════ */
 .container26 {
-  padding: 40px 0 0 0;
+  padding: 40px 16px 0;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  gap: 20px;
-
-  p {
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--goldDark);
-    padding: 0 0 30px 0;
-  }
-
-  .right {
-    width: calc(100% - 350px);
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    background: none;
-    box-shadow: none;
-    h4 {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--goldDark);
-    }
-
-    .Card {
-      background-color: var(--bgWhite);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: var(--boxShadow);
-      width: 100%;
-      height: max-content;
-      display: grid;
-      gap: 20px;
-      .MainImg {
-        width: 100%;
-        max-height: 430px;
-        position: relative;
-        border-radius: 8px;
-        display: grid;
-        justify-content: center;
-        Image {
-          object-fit: cover;
-          height: 100%;
-          width: 100%;
-          border-radius: 4px;
-        }
-        .nav {
-          position: absolute;
-          top: 50%;
-          width: fit-content;
-          height: fit-content;
-          font-size: 124px;
-          background: none;
-          color: var(--gold);
-          border: none;
-          cursor: pointer;
-          z-index: 10;
-          transform: translateY(-50%);
-        }
-        .prev {
-          left: 10px;
-        }
-        .next {
-          right: 10px;
-        }
-      }
-      .MoreImg {
-        display: grid;
-        grid-auto-flow: column;
-        grid-template-columns: repeat(auto-fill, minmax(129px, 1fr));
-        gap: 8px;
-        padding: 0 20px;
-        img {
-          width: 100%;
-          object-fit: cover;
-          border-radius: 4px;
-        }
-      }
-    }
-    .Options {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      cursor: default;
-      .Card {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
-
-        p {
-          font-size: 17px;
-          font-weight: bold;
-          color: var(--textDark);
-        }
-
-        .Option {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 10px;
-          border: 1px solid #eee;
-          border-radius: 8px;
-          transition: 0.3s;
-
-          &:hover {
-            border-color: var(--gold);
-          }
-
-          i {
-            color: var(--gold);
-            opacity: 1;
-            height: fit-content;
-            font-size: 16px;
-          }
-
-          p {
-            font-size: 14px;
-            font-weight: normal;
-            padding: 0;
-          }
-        }
-      }
-
-      &.Mini {
-        display: -webkit-box;
-        gap: 15px;
-        margin-bottom: 10px;
-        .Option {
-          border: none;
-          background: var(--grayBg);
-          padding: 5px;
-          border-radius: 8px;
-          font-size: 12px;
-        }
-      }
-    }
-    .Rooms {
-      display: flex;
-      flex-direction: column;
-      p {
-        padding: 0;
-      }
-      .Card {
-        .Top {
-          display: grid;
-          gap: 20px;
-
-          .Title {
-            display: flex;
-            justify-content: space-between;
-            height: fit-content;
-            i {
-              color: var(--gold);
-              font-size: 18px;
-            }
-
-            p {
-              font-size: 17px;
-            }
-
-            span {
-              color: var(--textGray);
-              font-size: 14px;
-            }
-          }
-
-          .AboutRoom {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            p {
-              display: flex;
-              justify-content: start;
-              width: calc(100% - 230px);
-              align-items: center;
-              font-size: 15px;
-              color: var(--textGray);
-              &:last-of-type {
-                justify-content: end;
-                gap: 5px;
-              }
-              span {
-                font-size: 20px;
-                color: var(--goldDark);
-              }
-            }
-
-            button {
-              width: 220px;
-              height: fit-content;
-              border: none;
-              padding: 14px 8px;
-              background: var(--gold);
-              border-radius: 8px;
-              cursor: pointer;
-              font-family: var(--Font);
-              transition: 0.3s;
-              &:hover {
-                background: var(--goldDark);
-              }
-            }
-          }
-        }
-      }
-
-      .RoomOption {
-        display: flex;
-        align-items: flex-start;
-        overflow: hidden;
-        justify-content: space-between;
-        .content {
-          display: flex;
-          flex-wrap: wrap;
-          max-height: 20px;
-          transition: max-height 0.3s ease;
-
-          &.expanded {
-            max-height: 500px;
-          }
-
-          p {
-            font-size: 12px;
-            color: var(--textGray);
-            padding: 0 10px;
-            border-left: var(--borderLight);
-          }
-        }
-
-        .toggle-btn {
-          background: none;
-          border: none;
-          color: var(--goldText);
-          cursor: pointer;
-          font-size: 12px;
-          width: fit-content;
-        }
-      }
-      .RoomOption {
-        display: flex;
-        align-items: flex-start;
-        overflow: hidden;
-
-        .content {
-          display: flex;
-          flex-wrap: wrap;
-          max-height: 20px;
-          transition: max-height 0.3s ease;
-
-          p {
-            font-size: 12px;
-            color: var(--textGray);
-            padding: 0 10px;
-            border-left: var(--borderLight);
-          }
-
-          &.expanded {
-            max-height: 500px;
-          }
-        }
-
-        .toggle-btn {
-          background: none;
-          border: none;
-          color: var(--goldText);
-          cursor: pointer;
-          font-size: 12px;
-          font-family: var(--Font);
-          align-self: flex-start;
-          width: 30%;
-        }
-      }
-
-      .HotelListItem {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-
-        .Top {
-          .Title p {
-            font-size: 17px;
-            font-weight: bold;
-            color: var(--textDark);
-          }
-
-          .Title i {
-            color: var(--gold);
-          }
-        }
-
-        .HotelDetails {
-          .Desc {
-            font-size: 14px;
-            color: var(--textGray);
-          }
-        }
-      }
-    }
-    .Distance {
-      display: flex;
-      flex-direction: column;
-      .Card {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-
-        .Option {
-          display: flex;
-          align-items: center;
-          width: 100%;
-          justify-content: space-between;
-
-          i {
-            color: var(--textDark);
-            opacity: 1;
-            height: fit-content;
-            font-size: 16px;
-          }
-
-          p {
-            font-size: 14px;
-            font-weight: normal;
-            color: var(--textDark);
-            padding: 0;
-
-            &:last-of-type {
-              color: var(--goldDark);
-            }
-          }
-        }
-      }
-    }
-    .Rules {
-      display: flex;
-      flex-direction: column;
-      .Card {
-        display: block;
-
-        .Time {
-          display: flex;
-          gap: 10px;
-          margin-bottom: 15px;
-
-          .Value {
-            display: grid;
-            height: fit-content;
-            gap: 10px;
-            background: var(--grayBg);
-            padding: 10px;
-            border-radius: 8px;
-            width: 100%;
-            p {
-              padding: 0;
-              font-size: 14px;
-              color: var(--textGray);
-              height: fit-content;
-            }
-
-            span {
-              font-size: 14px;
-              font-weight: bold;
-              color: var(--textDark);
-
-              i {
-                opacity: 1;
-                color: var(--textDark);
-              }
-            }
-          }
-        }
-
-        .rule {
-          p {
-            font-size: 14px;
-            color: var(--textDark);
-            padding: 0;
-            font-weight: normal;
-          }
-        }
-      }
-    }
-    .FAQSection {
-      display: grid;
-      gap: 20px;
-      width: 100%;
-      justify-self: center;
-      padding: 10px;
-      margin-bottom: 80px;
-
-      .SectionTitle {
-        font-size: 20px;
-        font-weight: bold;
-        color: var(--textDark);
-      }
-
-      .FAQWrapper {
-        background: var(--bgWhite);
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-
-        .FAQItem {
-          border-bottom: var(--borderLight);
-          border-color: #00000012;
-
-          &:last-child {
-            border-bottom: none;
-          }
-
-          &.active {
-            .Icon {
-              transform: rotate(45deg);
-            }
-          }
-
-          .FAQButton {
-            width: 100%;
-            padding: 20px 24px;
-            background: none;
-            border: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            text-align: right;
-            font-size: 16px;
-            color: var(--textDark);
-            font-family: inherit;
-            transition: 0.3s;
-            font-weight: 500;
-
-            &:hover {
-              background: var(--grayBgHover);
-            }
-
-            .Icon {
-              font-size: 22px;
-              color: var(--goldDark);
-              transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-          }
-
-          .FAQAnswer {
-            overflow: hidden;
-            background: var(--bgWhite);
-            transition:
-              max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.3s ease;
-
-            > * {
-              overflow: hidden;
-            }
-
-            p {
-              color: var(--textGray);
-              line-height: 1.8;
-              font-size: 14px;
-              margin: 0;
-              padding: 0 20px 20px 20px;
-            }
-          }
-        }
-      }
-    }
-    .ItinerarySection {
-      .ItineraryCard {
-        position: relative;
-        padding-right: 20px;
-
-        &::before {
-          content: "";
-          position: absolute;
-          right: 56px;
-          top: 30px;
-          bottom: 30px;
-          width: 2px;
-          background: #eee;
-        }
-      }
-
-      .DayItem {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 20px;
-        position: relative;
-
-        .DayMarker {
-          background: var(--gold);
-          color: white;
-          padding: 5px 15px;
-          border-radius: 20px;
-          font-size: 12px;
-          font-weight: bold;
-          height: fit-content;
-          z-index: 1;
-          position: relative;
-          width: 75px;
-          text-align: center;
-          &::after {
-            content: "";
-            position: absolute;
-            right: 0;
-            left: 0;
-            margin: auto;
-            bottom: -8px;
-            width: 10px;
-            height: 10px;
-            background: var(--goldDark);
-            border-radius: 50%;
-            border: 2px solid white;
-          }
-        }
-
-        .DayContent {
-          h5 {
-            color: var(--textDark);
-            margin-bottom: 5px;
-          }
-
-          p {
-            font-size: 14px;
-            color: var(--textGray);
-            padding: 0;
-            font-weight: normal;
-            line-height: 1.6;
-          }
-        }
-      }
-    }
-  }
-  .left {
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    position: relative;
-    .LeftFilterCard {
-      position: sticky;
-      top: 20px;
-      z-index: 10;
-      margin-bottom: 80px;
-    }
-
-    .Card {
-      background-color: var(--bgWhite);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: var(--boxShadow);
-      width: 100%;
-      max-width: 350px;
-      display: grid;
-      gap: 20px;
-
-      .rating {
-        width: 100%;
-        height: max-content;
-        display: grid;
-        gap: 10px;
-
-        p {
-          padding: 0;
-        }
-
-        .Stars {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          .Wth {
-            display: flex;
-            height: fit-content;
-            gap: 2px;
-            font-size: 14px;
-            color: var(--textDark);
-
-            .Badge {
-              font-size: 10px;
-              padding: 4px 8px;
-              border-radius: 4px;
-              color: white;
-              margin-left: 5px;
-            }
-
-            .TourBadge {
-              background: #ff4757;
-            }
-            .CharterBadge {
-              background: #2ed573;
-            }
-
-            i {
-              display: flex;
-              align-items: center;
-              color: var(--gold);
-              opacity: 1;
-              font-size: 18px;
-            }
-          }
-
-          .Rate {
-            p {
-              display: flex;
-              height: fit-content;
-              gap: 5px;
-              align-items: center;
-              font-size: 12px;
-              color: green;
-
-              i {
-                display: flex;
-                align-items: center;
-                color: var(--gold);
-                opacity: 1;
-                height: fit-content;
-              }
-            }
-          }
-        }
-
-        p {
-          font-size: 17px;
-          color: var(--textDark);
-          font-weight: bold;
-        }
-
-        .titel {
-          display: inline-flex;
-          width: 100%;
-          justify-content: start;
-          align-items: center;
-
-          p {
-            font-size: 15px;
-            font-weight: 100;
-            color: var(--textGray);
-            text-align: center;
-
-            span {
-              color: var(--goldText);
-              font-size: 20px;
-              padding: 0 8.5px;
-            }
-
-            &:last-of-type {
-              font-size: 18px;
-            }
-          }
-        }
-      }
-
-      .price {
-        display: grid;
-        padding-top: 20px;
-        border-top: var(--borderLight);
-        gap: 15px;
-
-        .text {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-
-          i {
-            font-size: 20px;
-            color: var(--textGray);
-            opacity: 1;
-          }
-
-          p {
-            font-size: 15px;
-            color: var(--textGray);
-            padding: 0;
-          }
-        }
-
-        button {
-          background: none;
-          font-family: var(--Font);
-          font-size: 15px;
-          font-weight: bold;
-          padding: 10px 0;
-          border-radius: 8px;
-          border: 2px solid var(--gold);
-          color: var(--goldDark);
-          cursor: pointer;
-
-          &:hover {
-            background: var(--grayBgHover);
-          }
-        }
-      }
-
-      .filters {
-        display: grid;
-        width: 100%;
-        p {
-          padding: 0;
-        }
-
-        input {
-          background-color: var(--grayBg);
-          height: 48px;
-          width: 100%;
-          border: none;
-          border-radius: 8px;
-          font-size: var(--fontSize);
-          font-family: var(--Font);
-          padding: 0 10px;
-          color: var(--textGray);
-          cursor: pointer;
-          transition: var(--transition);
-          box-sizing: border-box;
-          text-align: right;
-          direction: rtl;
-          &:hover {
-            outline: none;
-            background-color: var(--grayBgHover);
-            box-shadow: 0 0 0 2px var(--gold);
-          }
-          &:focus {
-            outline: none;
-            background-color: var(--grayBgHover);
-            box-shadow: 0 0 0 2px var(--gold);
-          }
-        }
-      }
-      .Btn1 {
-        background-color: var(--gold);
-        font-family: var(--Font);
-        font-size: 15px;
-        font-weight: bold;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        padding: 10px;
-        &:hover {
-          background: var(--goldDark);
-        }
-      }
-      .PassengerFilter {
-        margin-top: 15px;
-        border-top: 1px solid #eee;
-        padding-top: 15px;
-
-        p {
-          margin-bottom: 10px;
-        }
-
-        .PassengerControl {
-          display: grid;
-          gap: 15px;
-
-          .ControlGroup {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            label {
-              font-size: 14px;
-              color: var(--textDark);
-            }
-
-            .Counter {
-              display: flex;
-              align-items: center;
-              gap: 10px;
-
-              button {
-                width: 25px;
-                height: 25px;
-                border-radius: 50%;
-                border: 1px solid var(--gold);
-                background: transparent;
-                color: var(--gold);
-                cursor: pointer;
-                font-size: 14px;
-                padding: 0;
-              }
-
-              span {
-                font-weight: bold;
-              }
-            }
-          }
-        }
-      }
-
-      button {
-        font-family: var(--Font);
-        font-size: 15px;
-        font-weight: bold;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-
-        &:hover {
-          background: var(--grayBgHover);
-        }
-      }
-    }
-  }
-  .HotelInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-
-    .content {
-      overflow: hidden;
-      max-height: 125px;
-      transition: max-height 0.3s ease;
-
-      p {
-        font-size: 14px;
-        font-weight: normal;
-        color: var(--textDark);
-        padding: 0;
-      }
-
-      h4 {
-        font-size: 20px;
-        font-weight: bold;
-        color: var(--goldDark);
-      }
-
-      &.expanded {
-        max-height: 500px;
-      }
-    }
-
-    .toggle-btn {
-      background: none;
-      border: none;
-      color: var(--goldDark);
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      font-family: var(--Font);
-      margin-top: 6px;
-      align-self: flex-start;
-      width: max-content;
-    }
+  flex-direction: column;
+  gap: 24px;
+}
+@media (min-width: 1024px) {
+  .container26 {
+    flex-direction: row;
+    padding: 40px 24px 0;
+    gap: 28px;
   }
 }
 
-h4{
+/* ── Right Column ── */
+.container26 .right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background: none;
+  box-shadow: none;
+}
+@media (min-width: 1024px) {
+  .container26 .right {
+    width: calc(100% - 380px);
+  }
+}
+.container26 .right h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--goldDark, #cea500);
+  margin: 0;
+}
+
+/* ── Shared Card ── */
+.container26 .right .Card {
+  background-color: var(--bgWhite, #fff);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  height: max-content;
+  display: grid;
+  gap: 20px;
+  border: 1px solid #f0f0f0;
+}
+
+/* ── Main Image Gallery ── */
+.container26 .right .Card .MainImg {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 430px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+@media (min-width: 768px) {
+  .container26 .right .Card .MainImg {
+    aspect-ratio: 790 / 430;
+  }
+}
+.container26 .right .Card .MainImg img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Nav Arrows ── */
+.container26 .right .Card .MainImg .nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(4px);
+  color: var(--textDark, #333);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+.container26 .right .Card .MainImg .nav:hover {
+  background: var(--gold, #ffcb11);
+  color: #333;
+  transform: translateY(-50%) scale(1.1);
+}
+.container26 .right .Card .MainImg .prev {
+  left: 14px;
+}
+.container26 .right .Card .MainImg .next {
+  right: 14px;
+}
+
+/* ── Thumbnail Strip ── */
+.container26 .right .Card .MoreImg {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+  padding: 0 4px;
+}
+.container26 .right .Card .MoreImg > div {
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 129 / 73;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.container26 .right .Card .MoreImg > div:hover {
+  border-color: var(--gold, #ffcb11);
+}
+.container26 .right .Card .MoreImg > div.active {
+  border-color: var(--goldDark, #cea500);
+  box-shadow: 0 0 0 2px var(--gold, #ffcb11);
+}
+.container26 .right .Card .MoreImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Options / Features ── */
+.container26 .right .Options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  cursor: default;
+}
+.container26 .right .Options .Card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 600px) {
+  .container26 .right .Options .Card {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.container26 .right .Options .Card .Option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+.container26 .right .Options .Card .Option:hover {
+  border-color: var(--gold, #ffcb11);
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(255, 203, 17, 0.1);
+}
+.container26 .right .Options .Card .Option i,
+.container26 .right .Options .Card .Option svg {
+  color: var(--goldDark, #cea500);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.container26 .right .Options .Card .Option p {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--textDark, #333);
+  padding: 0;
+  margin: 0;
+}
+
+/* ── Mini Options (used in hotel) ── */
+.container26 .right .Options.Mini {
+  display: flex;
+  gap: 10px;
   margin-bottom: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.container26 .right .Options.Mini .Option {
+  border: none;
+  background: var(--grayBg, #f5f5f5);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  display: inline-flex;
+}
+
+/* ── Rooms Section ── */
+.container26 .right .Rooms {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.container26 .right .Rooms .Card .Top {
+  display: grid;
+  gap: 16px;
+}
+.container26 .right .Rooms .Card .Top .Title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: fit-content;
+}
+.container26 .right .Rooms .Card .Top .Title i,
+.container26 .right .Rooms .Card .Top .Title svg {
+  color: var(--gold, #ffcb11);
+  font-size: 16px;
+}
+.container26 .right .Rooms .Card .Top .Title p {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--textDark, #333);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.container26 .right .Rooms .Card .Top .Title span {
+  color: var(--textGray, #777);
+  font-size: 14px;
+}
+.container26 .right .Rooms .Card .Top .AboutRoom {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.container26 .right .Rooms .Card .Top .AboutRoom p {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 14px;
+  color: var(--textGray, #777);
+  margin: 0;
+  flex: 1;
+  min-width: 140px;
+}
+.container26 .right .Rooms .Card .Top .AboutRoom p span {
+  font-size: 20px;
+  color: var(--goldDark, #cea500);
+  font-weight: 700;
+}
+.container26 .right .Rooms .Card .Top .AboutRoom button {
+  width: auto;
+  min-width: 140px;
+  border: none;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, var(--gold, #ffcb11), var(--goldDark, #cea500));
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 203, 17, 0.3);
+}
+.container26 .right .Rooms .Card .Top .AboutRoom button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+/* ── Room Option Toggle ── */
+.container26 .right .Rooms .RoomOption {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  overflow: hidden;
+  gap: 10px;
+}
+.container26 .right .Rooms .RoomOption .content {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 20px;
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+  gap: 6px;
+}
+.container26 .right .Rooms .RoomOption .content.expanded {
+  max-height: 500px;
+}
+.container26 .right .Rooms .RoomOption .content p {
+  font-size: 12px;
+  color: var(--textGray, #777);
+  padding: 0 10px;
+  border-left: 1px solid #eee;
+  margin: 0;
+}
+.container26 .right .Rooms .RoomOption .toggle-btn {
+  background: none;
+  border: none;
+  color: var(--goldDark, #cea500);
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  width: fit-content;
+  flex-shrink: 0;
+}
+
+/* ── Hotel List Item ── */
+.container26 .right .Rooms .HotelListItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.container26 .right .Rooms .HotelListItem .Top .Title p {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--textDark, #333);
+}
+.container26 .right .Rooms .HotelListItem .Top .Title i,
+.container26 .right .Rooms .HotelListItem .Top .Title svg {
+  color: var(--gold, #ffcb11);
+}
+.container26 .right .Rooms .HotelListItem .HotelDetails .Desc {
+  font-size: 14px;
+  color: var(--textGray, #777);
+  line-height: 1.6;
+}
+
+/* ── Rules Section ── */
+.container26 .right .Rules {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.container26 .right .Rules .Card {
+  display: block;
+}
+.container26 .right .Rules .Card .Time {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.container26 .right .Rules .Card .Time .Value {
+  display: grid;
+  gap: 8px;
+  background: var(--grayBg, #f5f5f5);
+  padding: 14px;
+  border-radius: 10px;
+  flex: 1;
+  min-width: 160px;
+}
+.container26 .right .Rules .Card .Time .Value p {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  color: var(--textGray, #777);
+  font-weight: 500;
+}
+.container26 .right .Rules .Card .Time .Value span {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--textDark, #333);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.container26 .right .Rules .Card .Time .Value span i,
+.container26 .right .Rules .Card .Time .Value span svg {
+  color: var(--goldDark, #cea500);
+}
+.container26 .right .Rules .Card .rule {
+  display: grid;
+  gap: 10px;
+}
+.container26 .right .Rules .Card .rule p {
+  font-size: 14px;
+  color: var(--textDark, #333);
+  padding: 0;
+  font-weight: 400;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Itinerary Section ── */
+.container26 .right .ItinerarySection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.container26 .right .ItinerarySection .ItineraryCard {
+  position: relative;
+  padding-right: 24px;
+}
+@media (min-width: 768px) {
+  .container26 .right .ItinerarySection .ItineraryCard {
+    padding-right: 20px;
+  }
+}
+.container26 .right .ItinerarySection .ItineraryCard::before {
+  content: "";
+  position: absolute;
+  right: 56px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: #eee;
+}
+.container26 .right .ItinerarySection .DayItem {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.container26 .right .ItinerarySection .DayItem:last-child {
+  margin-bottom: 0;
+}
+.container26 .right .ItinerarySection .DayItem .DayMarker {
+  background: linear-gradient(135deg, var(--gold, #ffcb11), var(--goldDark, #cea500));
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  height: fit-content;
+  z-index: 1;
+  position: relative;
+  width: 80px;
+  text-align: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(255, 203, 17, 0.3);
+}
+.container26 .right .ItinerarySection .DayItem .DayMarker::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: auto;
+  bottom: -8px;
+  width: 10px;
+  height: 10px;
+  background: var(--goldDark, #cea500);
+  border-radius: 50%;
+  border: 2px solid white;
+}
+.container26 .right .ItinerarySection .DayItem .DayContent h5 {
+  color: var(--textDark, #333);
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+.container26 .right .ItinerarySection .DayItem .DayContent p {
+  font-size: 14px;
+  color: var(--textGray, #777);
+  padding: 0;
+  font-weight: 400;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── FAQ Section ── */
+.container26 .right .FAQSection {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 40px;
+}
+.container26 .right .FAQSection .SectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--goldDark, #cea500);
+  margin: 0;
+}
+.container26 .right .FAQSection .FAQWrapper {
+  background: var(--bgWhite, #fff);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+.container26 .right .FAQSection .FAQItem {
+  border-bottom: 1px solid #00000012;
+}
+.container26 .right .FAQSection .FAQItem:last-child {
+  border-bottom: none;
+}
+.container26 .right .FAQSection .FAQItem.active .Icon {
+  transform: rotate(45deg);
+}
+.container26 .right .FAQSection .FAQButton {
+  width: 100%;
+  padding: 20px 24px;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  text-align: right;
+  font-size: 16px;
+  color: var(--textDark, #333);
+  font-family: inherit;
+  transition: 0.3s;
+  font-weight: 500;
+}
+.container26 .right .FAQSection .FAQButton:hover {
+  background: var(--grayBgHover, #f5f0de);
+}
+.container26 .right .FAQSection .FAQButton .Icon {
+  font-size: 22px;
+  color: var(--goldDark, #cea500);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.container26 .right .FAQSection .FAQAnswer {
+  overflow: hidden;
+  background: var(--bgWhite, #fff);
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+.container26 .right .FAQSection .FAQAnswer > * {
+  overflow: hidden;
+}
+.container26 .right .FAQSection .FAQAnswer p {
+  color: var(--textGray, #777);
+  line-height: 1.8;
+  font-size: 14px;
+  margin: 0;
+  padding: 0 24px 24px;
+}
+
+/* ══════════════════════════════════════════════════
+   LEFT SIDEBAR
+   ══════════════════════════════════════════════════ */
+.container26 .left {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media (min-width: 1024px) {
+  .container26 .left {
+    width: 350px;
+    flex-shrink: 0;
+  }
+}
+.container26 .left .LeftFilterCard {
+  position: static;
+}
+@media (min-width: 1024px) {
+  .container26 .left .LeftFilterCard {
+    position: sticky;
+    top: 20px;
+    z-index: 10;
+  }
+}
+.container26 .left .Card {
+  background-color: var(--bgWhite, #fff);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  display: grid;
+  gap: 20px;
+  border: 1px solid #f0f0f0;
+}
+
+/* ── Tour Header ── */
+.container26 .left .Card .rating {
+  width: 100%;
+  display: grid;
+  gap: 12px;
+}
+.container26 .left .Card .rating > p {
+  margin: 0;
+  padding: 0;
+}
+.container26 .left .Card .Stars {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container26 .left .Card .Stars .Wth {
+  display: flex;
+  height: fit-content;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--textDark, #333);
+}
+.container26 .left .Card .Stars .Wth .Badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+}
+.container26 .left .Card .Stars .Wth .TourBadge {
+  background: linear-gradient(135deg, #ff4757, #ff6b81);
+}
+.container26 .left .Card .Stars .Wth .CharterBadge {
+  background: linear-gradient(135deg, #2ed573, #7bed9f);
+  color: #333;
+}
+.container26 .left .Card .Stars .Wth i,
+.container26 .left .Card .Stars .Wth svg {
+  display: flex;
+  align-items: center;
+  color: var(--gold, #ffcb11);
+}
+.container26 .left .Card .Stars .Rate p {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #16a34a;
+  margin: 0;
+}
+.container26 .left .Card .Stars .Rate p i,
+.container26 .left .Card .Stars .Rate p svg {
+  color: var(--gold, #ffcb11);
+}
+
+/* ── Tour Title & Price ── */
+.container26 .left .Card .rating > p:nth-child(2) {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--textDark, #333);
+}
+.container26 .left .Card .rating .titel {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.container26 .left .Card .rating .titel p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--textGray, #777);
+  margin: 0;
+}
+.container26 .left .Card .rating .titel p span {
+  color: var(--goldText, #5c4b00);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+/* ── Flight Info ── */
+.container26 .left .Card .price {
+  display: grid;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+  gap: 16px;
+}
+.container26 .left .Card .price .text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.container26 .left .Card .price .text i,
+.container26 .left .Card .price .text svg {
+  font-size: 18px;
+  color: var(--goldDark, #cea500);
+}
+.container26 .left .Card .price .text p {
+  font-size: 14px;
+  color: var(--textDark, #333);
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ── Passenger Filter ── */
+.container26 .left .Card .PassengerFilter {
+  margin-top: 8px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 16px;
+}
+.container26 .left .Card .PassengerFilter > p {
+  margin: 0 0 14px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--textDark, #333);
+}
+.container26 .left .Card .PassengerFilter .PassengerControl {
+  display: grid;
+  gap: 14px;
+}
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup label {
+  font-size: 14px;
+  color: var(--textDark, #333);
+  font-weight: 500;
+}
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold, #ffcb11);
+  background: transparent;
+  color: var(--goldDark, #cea500);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter button:hover {
+  background: var(--gold, #ffcb11);
+  color: #333;
+}
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.container26 .left .Card .PassengerFilter .PassengerControl .ControlGroup .Counter span {
+  font-weight: 700;
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ── Primary CTA Button ── */
+.container26 .left .Card .Btn1 {
+  background: linear-gradient(135deg, var(--gold, #ffcb11), var(--goldDark, #cea500));
+  border: none;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(255, 203, 17, 0.3);
+  width: 100%;
+  text-align: center;
+}
+.container26 .left .Card .Btn1:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE: TABLET
+   ══════════════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  .container26 .right {
+    gap: 28px;
+  }
+  .container26 .left .LeftFilterCard {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .container26 {
+    padding: 20px 12px 0;
+    gap: 20px;
+  }
+  .container26 .right {
+    gap: 24px;
+  }
+  .container26 .right h4 {
+    font-size: 17px;
+  }
+  .container26 .right .Card {
+    padding: 16px;
+    border-radius: 12px;
+    gap: 14px;
+  }
+  .container26 .right .Card .MainImg .nav {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+  .container26 .right .Card .MoreImg {
+    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  }
+  .container26 .right .Options .Card .Option {
+    padding: 10px;
+  }
+  .container26 .right .Options .Card .Option p {
+    font-size: 12px;
+  }
+  .container26 .right .Rooms .Card .Top .AboutRoom {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .container26 .right .Rooms .Card .Top .AboutRoom p {
+    min-width: 0;
+  }
+  .container26 .right .Rules .Card .Time {
+    flex-direction: column;
+  }
+  .container26 .right .Rules .Card .Time .Value {
+    min-width: 0;
+  }
+  .container26 .right .ItinerarySection .DayItem {
+    gap: 12px;
+  }
+  .container26 .right .ItinerarySection .DayItem .DayMarker {
+    width: 65px;
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+  .container26 .right .FAQSection .FAQButton {
+    font-size: 14px;
+    padding: 16px;
+  }
+  .container26 .right .FAQSection .FAQAnswer p {
+    padding: 0 16px 16px;
+    font-size: 13px;
+  }
+  .container26 .left .Card {
+    padding: 18px;
+    border-radius: 12px;
+  }
+  .container26 .left .Card .rating .titel p span {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container26 {
+    padding: 12px 10px 0;
+  }
+  .container26 .right .Card {
+    padding: 12px;
+  }
+  .container26 .right .Card .MoreImg {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 6px;
+  }
+  .container26 .right .Options .Card {
+    gap: 8px;
+  }
+  .container26 .right .Options .Card .Option {
+    padding: 8px;
+    gap: 6px;
+  }
+  .container26 .left .Card .Btn1 {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
 }
