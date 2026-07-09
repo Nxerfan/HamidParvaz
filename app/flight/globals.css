@@ -16,8 +16,10 @@
         gap: 20px;
         justify-content: space-between;
         img {
-            width: 592px;
-            height: 270px;
+            width: 100%;
+            max-width: 592px;
+            height: auto;
+            aspect-ratio: 592/270;
         }
         @media (max-width: 768px) {
             flex-direction: column;
@@ -29,6 +31,14 @@
     }
     .bottomHotel {
         display: grid;
+    }
+}
+.offerImageWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 592 / 270;
+    @media (max-width: 768px) {
+        aspect-ratio: 16 / 9;
     }
 }
 .main {
@@ -46,6 +56,7 @@
     justify-self: center;
     background-color: var(--bgWhite);
     width: 100%;
+    overflow-x: hidden;
 
     .destinationsHeader {
         h5 {
@@ -65,20 +76,25 @@
         text-align: center;
 
         .destinationsList {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             height: auto;
             justify-content: center;
             gap: 12px;
 
+            @media (min-width: 769px) {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+
             .destinationItem {
                 overflow: hidden;
-                width: auto;
-                height: 190px;
-                max-width: 140px;
+                width: 100%;
+                aspect-ratio: 140 / 190;
+                max-width: 180px;
                 border-radius: 20px;
                 position: relative;
                 flex-shrink: 0;
+                display: grid;
 
                 &::after {
                     content: "";
@@ -97,13 +113,17 @@
 
                 span {
                     position: absolute;
-                    width: 90px;
+                    width: 90%;
                     text-align: center;
-                    left: 22px;
-                    bottom: 30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    bottom: 16px;
                     color: var(--bgWhite);
                     font-size: 15px;
                     font-weight: bold;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
         }
@@ -113,34 +133,43 @@
 .description {
     box-shadow: none;
     gap: 0;
+    overflow-x: hidden;
 }
 
 .ScrollCards {
+display: grid;
+gap: 20px;
+margin-bottom: 20px;
+width: 100%;
+max-width: 1200px;
+justify-self: center;
+overflow-x: hidden;
+.SectionTitle {
+    margin: 0 20px 10px;
+    font-weight: bold;
+    color: var(--textDark);
+    text-align: center;
+}
+.MediaScroller {
     display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 22%;
     gap: 20px;
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 1200px;
-    justify-self: center;
-    .SectionTitle {
-        margin: 0 20px 10px;
-        font-weight: bold;
-        color: var(--textDark);
-        text-align: center;
+    padding: 0 20px 20px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+    scroll-padding-inline: 20px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
     }
-    .MediaScroller {
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: 22%;
-        padding: 0 20px 20px;
-        overflow-x: auto;
-        overscroll-behavior-inline: contain;
-        scroll-snap-type: inline mandatory;
-        scroll-padding-inline: 20px;
-        @media (max-width: 768px) {
-            grid-auto-columns: 70%;
-            padding: 0 12px 12px;
-        }
+    @media (max-width: 768px) {
+        grid-auto-columns: 75%;
+        padding: 0 12px 12px;
+        gap: 12px;
+    }
         .MediaElement {
             display: grid;
             gap: 20px;
@@ -150,7 +179,7 @@
             border: var(--borderLight);
             text-align: center;
             width: fit-content;
-            min-width: 230px;
+            min-width: 0;
 
             p {
                 font-weight: bold;
@@ -278,9 +307,15 @@
     max-width: 1200px;
     width: 100%;
     justify-self: center;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
     @media (max-width: 768px) {
-        grid-auto-columns: 70%;
+        grid-auto-columns: 75%;
         padding: 0 12px 12px;
+        gap: 12px;
     }
     .MediaElement {
         display: grid;
@@ -290,6 +325,7 @@
         border-radius: 12px;
         border: var(--borderLight);
         text-align: center;
+        min-width: 0;
         p {
             font-weight: bold;
             color: var(--textDark);
@@ -298,11 +334,13 @@
             justify-self: center;
             width: 122px;
             height: 122px;
-            width: 100%;
             object-fit: cover;
         }
         .Options2 {
             display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
             a {
                 display: flex;
                 flex-wrap: nowrap;
@@ -329,8 +367,9 @@
 /* ===== Flight Page Mobile Fixes ===== */
 @media (max-width: 768px) {
     .main {
-        padding: 16px 16px 0;
-        gap: 28px;
+        padding: 16px;
+        gap: 24px;
+        overflow-x: hidden;
     }
     /* 1. ImgForOfer mobile */
     .ImgForOfer {
@@ -342,14 +381,13 @@
     .ImgForOfer .bottom {
         gap: 16px;
     }
-    .ImgForOfer .bottom img {
-        height: auto;
-        max-height: 200px;
+    .offerImageWrapper {
+        aspect-ratio: 16 / 9;
     }
     /* 2. destinationsSection mobile */
     .destinationsContainer {
         gap: 32px;
-        padding: 0;
+        padding: 0 16px;
     }
     .destinationsContainer .destinationsHeader h5 {
         font-size: 20px;
@@ -357,27 +395,26 @@
     .destinationsContainer .destinationsSection {
         padding: 0;
     }
+    .destinationsContainer .destinationsList {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+    }
     .destinationsContainer .destinationsList .destinationItem {
-        max-width: 110px;
-        height: 150px;
+        aspect-ratio: 100 / 130;
+        max-width: none;
+        min-height: 0;
     }
     .destinationsContainer .destinationsList .destinationItem span {
-        font-size: 13px;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 16px;
-        width: auto;
-        max-width: 90%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        font-size: 12px;
+        bottom: 8px;
     }
-    /* 3. description mobile (global fix already applies, verify /flight override) */
+    /* 3. description mobile */
     .description {
         box-shadow: none;
     }
     .description .cards .item {
-        max-width: 320px;
+        max-width: 100%;
+        width: 100%;
     }
     /* 4. MediaScroller mobile */
     .MediaScroller .MediaElement .Options2 {
@@ -400,5 +437,10 @@
     .FAQSection .FAQButton {
         font-size: 14px;
         padding: 16px;
+        min-height: 48px;
+    }
+    .FAQSection .FAQAnswer p {
+        padding: 0 16px 16px 16px;
+        font-size: 13px;
     }
 }

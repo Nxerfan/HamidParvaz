@@ -18,9 +18,6 @@ import {
   faBan,
   faPlus,
   faMinus,
-  faUser,
-  faChild,
-  faBaby,
 } from "@fortawesome/free-solid-svg-icons";
 import SecondHeader from "../../components/(Headers)/SecondHeader";
 import FAQSection from "../../components/FAQSection";
@@ -32,7 +29,9 @@ interface HotelFromApi extends Hotel {
 }
 import "./globals.css";
 
-const facilityIcons: Record<string, any> = {
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+
+const facilityIcons: Record<string, IconDefinition> = {
   "اینترنت رایگان": faWifi,
   "ترانسفر رایگان": faCar,
   استخر: faSwimmingPool,
@@ -142,7 +141,7 @@ const jalaali = {
     if (jm <= 11) return 30;
     return 29;
   },
-  isLeapJalaaliYear(jy: number) {
+  isLeapJalaaliYear() {
     return true;
   },
 };
@@ -156,8 +155,8 @@ function HotelDetailInner() {
 
   useEffect(() => {
     if (!id) {
-      setLoading(false);
-      return;
+      const tid = setTimeout(() => setLoading(false), 0);
+      return () => clearTimeout(tid);
     }
     fetch(`/api/hotels/${id}`)
       .then((res) => res.json())
@@ -324,7 +323,7 @@ function HotelDetailInner() {
     const daysInMonth = jalaali.jMonthLength(currentJy, currentJm);
     const gDate = jalaali.toGregorian(currentJy, currentJm, 1);
     const dateObj = new Date(gDate.gy, gDate.gm - 1, gDate.gd);
-    let startDayOfWeek = (dateObj.getDay() + 1) % 7;
+    const startDayOfWeek = (dateObj.getDay() + 1) % 7;
     const cells = [];
     for (let i = 0; i < startDayOfWeek; i++)
       cells.push(<div key={`e-${i}`} className="calendarDay empty" />);

@@ -3,6 +3,7 @@ import { Suspense, useState, useEffect, useActionState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createBooking } from "../../../actions/booking";
 import type { BookingState } from "../../../actions/booking";
+import Image from "next/image";
 import { useToast } from "../../../lib/hooks/useToast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -206,7 +207,7 @@ function TourReviewContent() {
     } else if (bookingState.message) {
       toast.error(bookingState.message);
     }
-  }, [bookingState, router]);
+  }, [bookingState, router, toast]);
 
   const handleConfirm = () => {
     const fd = new FormData();
@@ -480,9 +481,11 @@ function TourReviewContent() {
                     className="ChoosedHotel"
                     onClick={() => setIsHotelOpen(!isHotelOpen)}
                   >
-                    <img
+                    <Image
                       src={PAGE_DATA.hotelCard.image}
                       alt={PAGE_DATA.hotelCard.alt}
+                      width={400}
+                      height={300}
                     />
                     <h4>{PAGE_DATA.hotelCard.name}</h4>
                     <FontAwesomeIcon icon={PAGE_DATA.icons.angleDown} />

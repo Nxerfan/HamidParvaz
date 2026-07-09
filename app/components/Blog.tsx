@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -176,12 +176,14 @@ const Blog = () => {
   const [email, setEmail] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
-  const toast = useToast();
+  const [isAdmin, setIsAdmin] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("blog_admin") === "true";
+    }
+    return false;
+  });
 
-  useEffect(() => {
-    setIsAdmin(localStorage.getItem("blog_admin") === "true");
-  }, []);
+  const toast = useToast();
 
   const handleAdminLogin = () => {
     const pwd = prompt("رمز ادمین را وارد کنید:");
@@ -214,12 +216,9 @@ const Blog = () => {
     setTimeout(() => setIsLoadingMore(false), 1000);
   };
 
-  const [isSubscribing, setIsSubscribing] = useState(false);
-
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      setIsSubscribing(true);
       try {
         const { subscribeNewsletter } = await import("../actions/contact");
         const formData = new FormData();
@@ -229,8 +228,6 @@ const Blog = () => {
         setEmail("");
       } catch {
         toast.error("خطا در ارسال درخواست");
-      } finally {
-        setIsSubscribing(false);
       }
     }
   };

@@ -10,16 +10,7 @@ const page = () => {
       <Header />
       <TravelCards />
       <main>
-        <p
-          style={{
-            textAlign: "center",
-            fontSize: "24px",
-            fontWeight: "bold",
-            marginBottom: "24px",
-          }}
-        >
-          رزرو پرواز
-        </p>
+        <p className="page-heading">رزرو پرواز</p>
         <Form />
         <Description />
         <p

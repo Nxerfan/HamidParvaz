@@ -25,6 +25,7 @@ import FilterAccordion from "../../../../components/(filters)/FilterAccordion";
 import PriceRangeFilter from "../../../../components/(filters)/PriceRangeFilter";
 import CheckboxFilter from "../../../../components/(filters)/CheckboxFilter";
 import "../../../../components/(filters)/FiltersGlobal.css";
+import Image from "next/image";
 
 interface FilterItem {
   id: string;
@@ -35,6 +36,40 @@ interface FilterItem {
   step?: number;
   options?: { value: string; label: string }[];
   groups?: { title: string; options: { value: string; label: string }[] }[];
+}
+
+interface Flight {
+  id: number;
+  airline: { name: string; logo: string };
+  departure: { time: string; city: string; hour: number };
+  arrival: { time: string; city: string; hour: number };
+  classType: string;
+  classLabel: string;
+  seatsLeft: string;
+  baggage: string;
+  price: number;
+  priceText: string;
+  duration: string;
+  details: {
+    date: string;
+    classCode: string;
+    originAirport: string;
+    destinationAirport: string;
+    totalPrice: string;
+  };
+}
+
+interface Hotel {
+  id: number;
+  image: string;
+  name: string;
+  stars: number;
+  location: string;
+  options: string[];
+  score: number;
+  price: number;
+  priceLabel: string;
+  priceValue: string;
 }
 
 const PAGE_DATA = {
@@ -200,6 +235,170 @@ const SELECTED_HOTEL = {
   priceValue: "۴,۸۰۰,۰۰۰",
 };
 
+function AutoSelectingUI() {
+  return (
+    <div className="AutoSelectingCard">
+      <div className="AutoSelectingPlane">
+        <div className="PlaneTrack">
+          <FontAwesomeIcon
+            icon={faPlane}
+            className="PlaneIcon"
+            flip="horizontal"
+          />
+        </div>
+      </div>
+      <div className="AutoSelectingContent">
+        <h3>در حال انتخاب بهترین پرواز برای شما</h3>
+        <div className="AutoSelectingDots">
+          <span className="dot" style={{ animationDelay: "0s" }}></span>
+          <span className="dot" style={{ animationDelay: "0.2s" }}></span>
+          <span className="dot" style={{ animationDelay: "0.4s" }}></span>
+        </div>
+      </div>
+      <div className="AutoSelectingProgress">
+        <div className="ProgressBar"></div>
+      </div>
+      <div className="AutoSelectingHint">
+        <FontAwesomeIcon icon={faStar} />
+        <span>
+          کم‌یاب‌ترین و بهترین پرواز با توجه به قیمت و امکانات برای شما انتخاب
+          می‌شود
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function HotelSummaryCard({ hotel }: { hotel: Hotel }) {
+  const router = useRouter();
+  return (
+    <div className="HotelSummaryCard">
+      <div className="HotelSummaryBadge">
+        <FontAwesomeIcon icon={faHotel} />
+        <span>هتل منتخب شما</span>
+      </div>
+      <Image
+        src={hotel.image}
+        alt={hotel.name}
+        className="HotelSummaryImage"
+        width={400}
+        height={300}
+      />
+      <div className="HotelSummaryInfo">
+        <div className="HotelSummaryNameRow">
+          <h4 className="HotelSummaryName">{hotel.name}</h4>
+          <div className="HotelSummaryStars">
+            {[...Array(hotel.stars)].map((_, i) => (
+              <FontAwesomeIcon key={i} icon={faStar} />
+            ))}
+            <span>{hotel.stars} ستاره</span>
+          </div>
+        </div>
+        <div className="HotelSummaryLocation">
+          <FontAwesomeIcon icon={faLocationDot} />
+          <span>{hotel.location}</span>
+        </div>
+        <div className="HotelSummaryMeta">
+          {hotel.options.map((opt: string, i: number) => (
+            <span key={i} className="HotelSummaryOption">
+              {opt}
+            </span>
+          ))}
+          <div className="HotelSummaryScore">
+            <FontAwesomeIcon icon={faFaceSmile} />
+            <span>{hotel.score}</span>
+          </div>
+        </div>
+      </div>
+      <div className="HotelSummaryPrice">
+        <p className="HotelSummaryPriceLabel">{hotel.priceLabel}</p>
+        <p className="HotelSummaryPriceValue">
+          {hotel.priceValue}
+          <span className="HotelSummaryPriceUnit"> تومان</span>
+        </p>
+      </div>
+      <div className="HotelSummaryActions">
+        <button
+          className="HotelSummaryViewBtn"
+          onClick={() => router.push("/tour/make-your-own/hotel")}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+          مشاهده هتل
+        </button>
+        <button
+          className="HotelSummaryChangeBtn"
+          onClick={() => router.push("/tour/make-your-own/hotel")}
+        >
+          <FontAwesomeIcon icon={faRotateRight} />
+          تغییر هتل
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function SelectedFlightCard({ flight, onChangeFlight }: { flight: Flight; onChangeFlight: () => void }) {
+  return (
+    <div className="SelectedFlightCard">
+      <div className="SelectedFlightHeader">
+        <h3>پرواز رفت انتخاب شده شما</h3>
+        <button
+          className="ChangeSelectionBtn"
+          onClick={() => {
+            onChangeFlight();
+          }}
+        >
+          <FontAwesomeIcon icon={faRotateRight} /> تغییر پرواز
+        </button>
+      </div>
+      <div className="SelectedFlightContent">
+        <div className="SelectedFlightInfo">
+          <div className="SelectedFlightMain">
+            <div className="FlightIcon">
+              <Image
+                src={flight.airline.logo}
+                alt={flight.airline.name}
+                width={60}
+                height={60}
+              />
+              <span>{flight.airline.name}</span>
+            </div>
+            <div className="FlightTime">
+              <div className="Form">
+                <span>{flight.departure.time}</span>
+                <p>{flight.departure.city}</p>
+              </div>
+              <div className="i">
+                <FontAwesomeIcon icon={faCircleDot} />
+                <hr className="line-divider" />
+                <FontAwesomeIcon
+                  icon={faPlane}
+                  className="fa-flip-horizontal"
+                />
+              </div>
+              <div className="Form">
+                <span>{flight.arrival.time}</span>
+                <p>{flight.arrival.city}</p>
+              </div>
+            </div>
+          </div>
+          <div className="FlightDetails">
+            <div className="Class">
+              <span>{flight.classLabel}</span>
+              <p>{flight.seatsLeft}</p>
+            </div>
+            <div className="Bottom">
+              <p>
+                <span>{flight.priceText}</span> تومان
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function FlightAwaySelection() {
   const router = useRouter();
   const [openFilter, setOpenFilter] = useState<string | null>(null);
@@ -213,8 +412,8 @@ export default function FlightAwaySelection() {
     Record<string, string[]>
   >({});
   const [showFlightList, setShowFlightList] = useState(false);
-  const [selectedFlight, setSelectedFlight] = useState<any>(null);
-  const [selectedHotel] = useState<any>(SELECTED_HOTEL);
+  const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
+  const [selectedHotel] = useState<Hotel>(SELECTED_HOTEL);
   const [isAutoSelecting, setIsAutoSelecting] = useState(true);
 
   const toPersianNumber = (num: number | string) =>
@@ -336,160 +535,6 @@ export default function FlightAwaySelection() {
 
     return () => clearTimeout(timer);
   }, []);
-
-  const AutoSelectingUI = () => (
-    <div className="AutoSelectingCard">
-      <div className="AutoSelectingPlane">
-        <div className="PlaneTrack">
-          <FontAwesomeIcon
-            icon={faPlane}
-            className="PlaneIcon"
-            flip="horizontal"
-          />
-        </div>
-      </div>
-      <div className="AutoSelectingContent">
-        <h3>در حال انتخاب بهترین پرواز برای شما</h3>
-        <div className="AutoSelectingDots">
-          <span className="dot" style={{ animationDelay: "0s" }}></span>
-          <span className="dot" style={{ animationDelay: "0.2s" }}></span>
-          <span className="dot" style={{ animationDelay: "0.4s" }}></span>
-        </div>
-      </div>
-      <div className="AutoSelectingProgress">
-        <div className="ProgressBar"></div>
-      </div>
-      <div className="AutoSelectingHint">
-        <FontAwesomeIcon icon={faStar} />
-        <span>
-          کم‌یاب‌ترین و بهترین پرواز با توجه به قیمت و امکانات برای شما انتخاب
-          می‌شود
-        </span>
-      </div>
-    </div>
-  );
-
-  const HotelSummaryCard = () => (
-    <div className="HotelSummaryCard">
-      <div className="HotelSummaryBadge">
-        <FontAwesomeIcon icon={faHotel} />
-        <span>هتل منتخب شما</span>
-      </div>
-      <img
-        src={selectedHotel.image}
-        alt={selectedHotel.name}
-        className="HotelSummaryImage"
-      />
-      <div className="HotelSummaryInfo">
-        <div className="HotelSummaryNameRow">
-          <h4 className="HotelSummaryName">{selectedHotel.name}</h4>
-          <div className="HotelSummaryStars">
-            {[...Array(selectedHotel.stars)].map((_, i) => (
-              <FontAwesomeIcon key={i} icon={faStar} />
-            ))}
-            <span>{selectedHotel.stars} ستاره</span>
-          </div>
-        </div>
-        <div className="HotelSummaryLocation">
-          <FontAwesomeIcon icon={faLocationDot} />
-          <span>{selectedHotel.location}</span>
-        </div>
-        <div className="HotelSummaryMeta">
-          {selectedHotel.options.map((opt: string, i: number) => (
-            <span key={i} className="HotelSummaryOption">
-              {opt}
-            </span>
-          ))}
-          <div className="HotelSummaryScore">
-            <FontAwesomeIcon icon={faFaceSmile} />
-            <span>{selectedHotel.score}</span>
-          </div>
-        </div>
-      </div>
-      <div className="HotelSummaryPrice">
-        <p className="HotelSummaryPriceLabel">{selectedHotel.priceLabel}</p>
-        <p className="HotelSummaryPriceValue">
-          {selectedHotel.priceValue}
-          <span className="HotelSummaryPriceUnit"> تومان</span>
-        </p>
-      </div>
-      <div className="HotelSummaryActions">
-        <button
-          className="HotelSummaryViewBtn"
-          onClick={() => router.push("/tour/make-your-own/hotel")}
-        >
-          <FontAwesomeIcon icon={faArrowLeft} />
-          مشاهده هتل
-        </button>
-        <button
-          className="HotelSummaryChangeBtn"
-          onClick={() => router.push("/tour/make-your-own/hotel")}
-        >
-          <FontAwesomeIcon icon={faRotateRight} />
-          تغییر هتل
-        </button>
-      </div>
-    </div>
-  );
-
-  const SelectedFlightCard = () => (
-    <div className="SelectedFlightCard">
-      <div className="SelectedFlightHeader">
-        <h3>پرواز رفت انتخاب شده شما</h3>
-        <button
-          className="ChangeSelectionBtn"
-          onClick={() => {
-            setSelectedFlight(null);
-            setShowFlightList(true);
-          }}
-        >
-          <FontAwesomeIcon icon={faRotateRight} /> تغییر پرواز
-        </button>
-      </div>
-      <div className="SelectedFlightContent">
-        <div className="SelectedFlightInfo">
-          <div className="SelectedFlightMain">
-            <div className="FlightIcon">
-              <img
-                src={selectedFlight.airline.logo}
-                alt={selectedFlight.airline.name}
-              />
-              <span>{selectedFlight.airline.name}</span>
-            </div>
-            <div className="FlightTime">
-              <div className="Form">
-                <span>{selectedFlight.departure.time}</span>
-                <p>{selectedFlight.departure.city}</p>
-              </div>
-              <div className="i">
-                <FontAwesomeIcon icon={faCircleDot} />
-                <hr className="line-divider" />
-                <FontAwesomeIcon
-                  icon={faPlane}
-                  className="fa-flip-horizontal"
-                />
-              </div>
-              <div className="Form">
-                <span>{selectedFlight.arrival.time}</span>
-                <p>{selectedFlight.arrival.city}</p>
-              </div>
-            </div>
-          </div>
-          <div className="FlightDetails">
-            <div className="Class">
-              <span>{selectedFlight.classLabel}</span>
-              <p>{selectedFlight.seatsLeft}</p>
-            </div>
-            <div className="Bottom">
-              <p>
-                <span>{selectedFlight.priceText}</span> تومان
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 
   return (
     <>
@@ -616,7 +661,7 @@ export default function FlightAwaySelection() {
         </div>
 
         <div className="Left flightContent">
-          {selectedHotel ? <HotelSummaryCard /> : null}
+          {selectedHotel ? <HotelSummaryCard hotel={selectedHotel} /> : null}
 
           <div className="flightTopBar">
             <div className="topRight">
@@ -651,7 +696,7 @@ export default function FlightAwaySelection() {
 
             {!isAutoSelecting && !showFlightList && selectedFlight ? (
               <>
-                <SelectedFlightCard />
+                <SelectedFlightCard flight={selectedFlight} onChangeFlight={() => { setSelectedFlight(null); setShowFlightList(true); }} />
                 <button
                   className="NextStepBtn"
                   onClick={() =>
@@ -696,9 +741,11 @@ export default function FlightAwaySelection() {
                     <div className="RightCard">
                       <div className="About">
                         <div className="Icon">
-                          <img
+                          <Image
                             src={flight.airline.logo}
                             alt={flight.airline.name}
+                            width={60}
+                            height={60}
                           />
                           <span>{flight.airline.name}</span>
                         </div>

@@ -187,7 +187,7 @@ interface FilterAccordionProps {
   children: ReactNode;
 }
 
-function FilterAccordion({ id, title, children }: FilterAccordionProps) {
+function FilterAccordion({ title, children }: FilterAccordionProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

@@ -23,12 +23,15 @@ const NAV_ITEMS: NavItem[] = [
       { label: "رزرو پرواز", href: "/flight" },
       { label: "تور مسافرتی", href: "/tour" },
       { label: "تور دلخواه خود را بسازید", href: "/tour/make-your-own" },
+      { label: "هتل روی نقشه", href: "/hotel-on-map" },
+      { label: "اطلاعات پرواز", href: "/flight-info" },
     ],
   },
   {
     label: "درباره ما",
     iconSrc: "/user_groups-درباره ما.svg",
     children: [
+      { label: "درباره شرکت", href: "/company" },
       { label: "تماس با ما", href: "/about-us" },
       { label: "همکاری با ما", href: "/cooperation" },
     ],
@@ -119,71 +122,65 @@ export default function MobileNavDrawer() {
           </button>
         </div>
 
-        {/* Drawer Nav */}
-        <nav className="mobileNavList">
+        {/* Drawer Nav - Grid */}
+        <nav className="mobileNavGrid">
           {NAV_ITEMS.map((item, index) => {
             const hasChildren = item.children && item.children.length > 0;
             const isExpanded = expandedItem === index;
+            const delay = `${0.06 * index}s`;
 
+            // Direct link card
             if (!hasChildren) {
               return (
                 <Link
                   key={index}
                   href={item.href || "#"}
-                  className="mobileNavItem"
+                  className="mobileNavGridCard"
+                  style={{ animationDelay: delay }}
                   onClick={() => setIsOpen(false)}
                 >
-                  {item.iconSrc && (
-                    <Image
-                      src={item.iconSrc}
-                      alt=""
-                      width={20}
-                      height={20}
-                    />
-                  )}
-                  {item.icon === "envelope" && (
-                    <FontAwesomeIcon
-                      icon={faEnvelope}
-                      style={{ width: 18, height: 18 }}
-                    />
-                  )}
-                  <span>{item.label}</span>
+                  <span className="mobileNavGridIcon">
+                    {item.iconSrc && (
+                      <Image src={item.iconSrc} alt="" width={22} height={22} />
+                    )}
+                    {item.icon === "envelope" && (
+                      <FontAwesomeIcon icon={faEnvelope} style={{ width: 18, height: 18 }} />
+                    )}
+                  </span>
+                  <span className="mobileNavGridLabel">{item.label}</span>
                 </Link>
               );
             }
 
+            // Expandable card
             return (
-              <div key={index} className="mobileNavGroup">
+              <div
+                key={index}
+                className={`mobileNavGridCard hasSub ${isExpanded ? "isExpanded" : ""}`}
+                style={{ animationDelay: delay }}
+              >
                 <button
-                  className="mobileNavItem mobileNavToggle"
-                  onClick={() =>
-                    setExpandedItem(isExpanded ? null : index)
-                  }
+                  className="mobileNavGridBtn"
+                  onClick={() => setExpandedItem(isExpanded ? null : index)}
                   aria-expanded={isExpanded}
                 >
-                  {item.iconSrc && (
-                    <Image
-                      src={item.iconSrc}
-                      alt=""
-                      width={20}
-                      height={20}
-                    />
-                  )}
-                  <span>{item.label}</span>
-                  <span
-                    className={`mobileNavArrow ${isExpanded ? "rotated" : ""}`}
-                  >
+                  <span className="mobileNavGridIcon">
+                    {item.iconSrc && (
+                      <Image src={item.iconSrc} alt="" width={22} height={22} />
+                    )}
+                  </span>
+                  <span className="mobileNavGridLabel">{item.label}</span>
+                  <span className={`mobileNavGridArrow ${isExpanded ? "rotated" : ""}`}>
                     ▾
                   </span>
                 </button>
-                <div
-                  className={`mobileNavSubItems ${isExpanded ? "expanded" : ""}`}
-                >
-                  {item.children!.map((child, childIndex) => (
+                <div className={`mobileNavGridSub ${isExpanded ? "expanded" : ""}`}>
+                  {item.children!.map((child, childIdx) => (
                     <Link
-                      key={childIndex}
+                      key={child.href}
                       href={child.href}
-                      className="mobileNavSubItem"
+                      className="mobileNavGridSubItem"
+                      style={{ animationDelay: `${0.04 * childIdx}s` }}
                       onClick={() => setIsOpen(false)}
                     >
                       {child.label}

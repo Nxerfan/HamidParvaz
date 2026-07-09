@@ -15,9 +15,7 @@ export async function updateProfile(
   formData: FormData,
 ): Promise<ProfileState> {
   const firstName = formData.get("firstName") as string;
-  const lastName = formData.get("lastName") as string;
   const email = formData.get("email") as string;
-  const phone = formData.get("phone") as string;
 
   if (!firstName) {
     return { success: false, message: "نام الزامی است" };

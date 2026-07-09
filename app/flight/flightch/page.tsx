@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -121,15 +121,17 @@ const PAGE_DATA = {
   },
 };
 
+let nextPassengerId = 1;
+
 const NiksaPassengerInfo = () => {
   const router = useRouter();
   const [timeLeft, setTimeLeft] = useState(600);
   const [showTimeoutModal, setShowTimeoutModal] = useState(false);
   const toast = useToast();
 
-  const [passengers, setPassengers] = useState<PassengerData[]>([
+  const [passengers, setPassengers] = useState<PassengerData[]>(() => [
     {
-      id: Date.now(),
+      id: nextPassengerId++,
       type: "adult",
       typeLabel: "بزرگسال",
       gender: "آقا",
@@ -140,7 +142,7 @@ const NiksaPassengerInfo = () => {
 
   useEffect(() => {
     if (timeLeft <= 0) {
-      setShowTimeoutModal(true);
+      startTransition(() => setShowTimeoutModal(true));
       return;
     }
     const timer = setInterval(() => {
@@ -175,10 +177,10 @@ const NiksaPassengerInfo = () => {
   };
 
   const addNew = (type: string, label: string) => {
-    setPassengers([
-      ...passengers,
+    setPassengers((prev) => [
+      ...prev,
       {
-        id: Date.now() + Math.random(),
+        id: nextPassengerId++,
         type: type,
         typeLabel: label,
         gender: "آقا",

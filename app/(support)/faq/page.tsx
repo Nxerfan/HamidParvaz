@@ -59,12 +59,11 @@ export default function FAQPage() {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };  const [isSubmitting, setIsSubmitting] = useState(false);
+  };
   const toast = useToast();
 
   const handleSubmitTicket = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     try {
       const { sendContactMessage } = await import("../../actions/contact");
       const fd = new FormData();
@@ -78,8 +77,6 @@ export default function FAQPage() {
       setFormData({ name: "", contact: "", subject: "", message: "" });
     } catch {
       toast.error("خطا در ارسال تیکت");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 

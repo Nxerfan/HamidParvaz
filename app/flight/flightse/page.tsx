@@ -14,6 +14,7 @@ import {
   faCheck,
   faXmark,
   faArrowLeft,
+  faSuitcase,
   faWallet,
   faMagnifyingGlass,
   faTicket,
@@ -435,19 +436,9 @@ function FlightResultsPageContent() {
     setSelectedTags((prev) =>
       prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val],
     );
-  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
-    if (val <= maxPrice) setMinPrice(val);
-  };
-  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
-    if (val >= minPrice) setMaxPrice(val);
-  };
 
-  const minPercent = ((minPrice - globalMin) / (globalMax - globalMin)) * 100;
-  const maxPercent = ((maxPrice - globalMin) / (globalMax - globalMin)) * 100;
-  const progressLeft = minPercent;
-  const progressWidth = maxPercent - minPercent;
+
+
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -463,171 +454,228 @@ function FlightResultsPageContent() {
 
   const cheapDays = Array(14).fill({ day: "سه‌شنبه 10/2", price: "1,082,000" });
 
-  const renderFlightCard = (flight: Flight) => (
-    <div
-      className={`Cards ${!flight.available ? "CardsOfline" : ""}`}
-      key={flight.id}
-    >
-      <div className="RightCard">
-        <div className="About">
-          <div className="Icon">
-            <Image src={flight.logo} alt={flight.airline} width={40} height={40} />
-            <span>{flight.airline}</span>
-          </div>
-          <div className="Time">
-            <div className="Form">
-              <span>{flight.departureTime}</span>
-              <p>{flight.origin}</p>
-            </div>
-            <div className="i">
-              <FontAwesomeIcon icon={faCircleDot} />
-              <hr className="line-divider" />
-              <hr className="line-divider" />
-              <hr className="line-divider" />
-              <hr className="line-divider" />
-              <hr className="line-divider" />
-              <FontAwesomeIcon icon={faPlane} className="fa-flip-horizontal" />
-            </div>
-            <div className="Form">
-              <span>{flight.arrivalTime}</span>
-              <p>{flight.destination}</p>
-            </div>
-          </div>
-        </div>
-        <div className="discriptions">
-          <div
-            className={`More ${activeDetailId === flight.id ? "active" : ""}`}
-            onClick={() =>
-              setActiveDetailId(activeDetailId === flight.id ? null : flight.id)
-            }
-          >
-            <span>
-              جزئیات <FontAwesomeIcon icon={faAngleDown} />
-            </span>
-          </div>
-          <div
-            className={`More ${activeRuleId === flight.id ? "active" : ""}`}
-            onClick={() =>
-              setActiveRuleId(activeRuleId === flight.id ? null : flight.id)
-            }
-          >
-            <span>
-              قوانین پرواز <FontAwesomeIcon icon={faAngleDown} />
-            </span>
-          </div>
-          <div className="Avablity">
-            <span>
-              {flight.flightClass === "economy" ? "اکونومی" : "بیزنس"}
-            </span>
-            {flight.available ? (
-              <p>{flight.seats} صندلی</p>
-            ) : (
-              <p style={{ color: "#999" }}>ظرفیت تکمیل</p>
-            )}
-          </div>
-        </div>
-      </div>
-      <div className="LeftCard">
-        <div className="Top">
-          <FontAwesomeIcon icon={faBell} />
-        </div>
-        <div className="Bottom">
-          <p>
-            <span>{flight.price.toLocaleString("fa-IR")}</span> تومان
-          </p>
-          {flight.available ? (
-            <Link href="/flight/reserve/form">
-              <button className="BtnPrimary">رزرو آنلاین</button>
-            </Link>
-          ) : (
-            <button className="BtnAuto" onClick={() => setShowPopup(true)}>
-              <FontAwesomeIcon icon={faBolt} />
-              <span>رزرو خودکار</span>
-            </button>
-          )}
-        </div>
-      </div>
+  const renderFlightCard = (flight: Flight) => {
+    const hasForeignRestriction = flight.tags.includes("foreign-restriction");
+
+    // Calculate flight duration
+    const [depH, depM] = flight.departureTime.split(":").map(Number);
+    const [arrH, arrM] = flight.arrivalTime.split(":").map(Number);
+    let durationMin = (arrH * 60 + arrM) - (depH * 60 + depM);
+    if (durationMin < 0) durationMin += 1440;
+    const durationHours = Math.floor(durationMin / 60);
+    const durationMins = durationMin % 60;
+    const durationText = durationHours > 0
+      ? `${durationHours}h ${durationMins}m`
+      : `${durationMins}m`;
+
+    // Seat gauge level based on remaining seats (assuming max ~60)
+    const seatRatio = flight.seats / 60;
+    const seatLevel = seatRatio < 0.2 ? "low" : seatRatio < 0.5 ? "med" : "high";
+
+    return (
       <div
-        className={`FlightDetails ${activeDetailId === flight.id ? "active" : ""}`}
+        className={`Cards ${!flight.available ? "CardsOfline" : ""}`}
+        key={flight.id}
       >
-        <div className="DetailsContent">
-          <div className="row">
-            <div className="title">
-              <p>
-                سه‌شنبه 2 دی ← چهارشنبه 3 دی <span></span> کلاس نرخی{" "}
-                {flight.classRate}
-              </p>
-            </div>
-              <div className="contet">
-                      <div className="right">
-                        <p>ساعت ورود به فرودگاه: </p>
-                        <span>
-                          ساعت حرکت <FontAwesomeIcon icon={faClock} />:
-                        </span>
-                        <p>ساعت رسیدن به مقصد:</p>
-                      </div>
-                      <div className="left">
-                        <p>
-                          {flight.departureTime} — {flight.origin}، فرودگاه مهرآباد ({flight.originCode}) -
-                          ترمینال 1
-                        </p>
-                        <span>هواپیمای شما</span>
-                        <p>
-                          {flight.arrivalTime} — {flight.destination}، فرودگاه کیش ({flight.destinationCode})
-                        </p>
-                      </div>
-                    </div>
-          </div>
-          <div className="orw">
-            <div className="top">
-              <p>
-                بزرگسال × 1{" "}
-                <span>{flight.price.toLocaleString("fa-IR")} تومان</span>
-              </p>
-              <p>
-                مجموع <span>{flight.price.toLocaleString("fa-IR")} تومان</span>
-              </p>
-            </div>
-            <div className="bottom">
-              <button>
-                <FontAwesomeIcon icon={faBell} />{" "}
-                {flight.available ? "ارزان شد خبرم کن" : "موجود شد خبرم کن"}
-              </button>
-              <button onClick={() => setShowPopup(true)}>
-                <FontAwesomeIcon icon={faBolt} />{" "}
-                {flight.available ? "ارزان شد رزرو کن" : "موجود شد رزرو کن"}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className={`FlightRules ${activeRuleId === flight.id ? "active" : ""}`}
-      >
-        <div className="RulesContent">
-          {flightRulesData.map((rule, rIdx) => {
-            const isRuleOpen = activeRuleId === flight.id && openRuleItem === rIdx;
-            return (
-              <div key={rIdx} className="RuleItem">
-                <div
-                  className={`RuleHeader ${isRuleOpen ? "active" : ""}`}
-                  onClick={() =>
-                    setOpenRuleItem(isRuleOpen ? null : rIdx)
-                  }
-                >
-                  <span>{rule.title}</span>
-                  <FontAwesomeIcon icon={faAngleDown} />
+        <div className="cardInner">
+          {/* Main section: flight info + pricing */}
+          <div className="cardMain">
+            {/* Left: Airline + Timeline */}
+            <div className="cardFlightInfo">
+              {/* Airline row */}
+              <div className="cardAirlineRow">
+                <div className="airlineLogo">
+                  <Image src={flight.logo} alt={flight.airline} width={44} height={44} />
+                  <div className="airlineDetails">
+                    <span className="airlineName">{flight.airline}</span>
+                    <span className="airlineCode">{flight.airlineCode}</span>
+                  </div>
                 </div>
-                <div className={`RuleBody ${isRuleOpen ? "active" : ""}`}>
-                  <p>{rule.content}</p>
+                {hasForeignRestriction && (
+                  <span className="tagBadge tagRestricted">
+                    <FontAwesomeIcon icon={faBell} style={{ fontSize: 10 }} />
+                    محدودیت خرید اتباع
+                  </span>
+                )}
+              </div>
+
+              {/* Flight timeline */}
+              <div className="flightTimeline">
+                <div className="timelinePoint">
+                  <span className="timelineTime">{flight.departureTime}</span>
+                  <span className="timelineCity">{flight.origin}</span>
+                  <span className="timelineCode">{flight.originCode}</span>
+                </div>
+                <div className="timelineVisual">
+                  <span className="durationBadge">{durationText}</span>
+                  <span className="timelineDot" />
+                  <span className="timelineLine" />
+                  <span className="timelinePlane">
+                    <FontAwesomeIcon icon={faPlane} className="fa-flip-horizontal" />
+                  </span>
+                  <span className="timelineLine" />
+                  <span className="timelineDot" />
+                </div>
+                <div className="timelinePoint">
+                  <span className="timelineTime">{flight.arrivalTime}</span>
+                  <span className="timelineCity">{flight.destination}</span>
+                  <span className="timelineCode">{flight.destinationCode}</span>
                 </div>
               </div>
-            );
-          })}
+            </div>
+
+            {/* Right: Pricing + CTA */}
+            <div className="cardPricing">
+              <div className="priceSection">
+                <span className="priceValue">{flight.price.toLocaleString("fa-IR")}</span>
+                <span className="priceLabel">تومان</span>
+              </div>
+              <span className="pricePerPerson">قیمت هر نفر</span>
+              {flight.available ? (
+                <Link href="/flight/reserve/form">
+                  <button className="btnReserve">
+                    <span>رزرو آنلاین</span>
+                    <FontAwesomeIcon icon={faArrowLeft} style={{ fontSize: 12 }} />
+                  </button>
+                </Link>
+              ) : (
+                <button className="btnAutoReserve" onClick={() => setShowPopup(true)}>
+                  <FontAwesomeIcon icon={faBolt} />
+                  <span>رزرو خودکار</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Meta info row */}
+          <div className="cardMetaRow">
+            <span className="metaItem">
+              <FontAwesomeIcon icon={faCircleDot} style={{ fontSize: 10, color: flight.flightClass === "economy" ? "#4caf50" : "#ff9800" }} />
+              {flight.flightClass === "economy" ? "اکونومی" : "بیزنس"}
+            </span>
+            <span className="metaItem">
+              <FontAwesomeIcon icon={faSuitcase} style={{ fontSize: 10 }} />
+              {flight.baggage}
+            </span>
+            <span className="metaItem">
+              <FontAwesomeIcon icon={faClock} style={{ fontSize: 10 }} />
+              {durationHours} ساعت {durationMins} دقیقه
+            </span>
+            {flight.available ? (
+              <span className={`seatGauge seatGauge${seatLevel.charAt(0).toUpperCase() + seatLevel.slice(1)}`}>
+                <div className="seatGaugeBar">
+                  <div className="seatGaugeFill" style={{ width: `${Math.max(5, seatRatio * 100)}%` }} />
+                </div>
+                {flight.seats} صندلی
+              </span>
+            ) : (
+              <span className="metaItem metaSoldOut">
+                <FontAwesomeIcon icon={faXmark} style={{ fontSize: 10 }} />
+                ظرفیت تکمیل
+              </span>
+            )}
+          </div>
+
+          {/* Toggle actions */}
+          <div className="cardActions">
+            <button
+              className={`actionToggle ${activeDetailId === flight.id ? "active" : ""}`}
+              onClick={() => setActiveDetailId(activeDetailId === flight.id ? null : flight.id)}
+            >
+              <FontAwesomeIcon icon={faAngleDown} />
+              جزئیات پرواز
+            </button>
+            <button
+              className={`actionToggle ${activeRuleId === flight.id ? "active" : ""}`}
+              onClick={() => setActiveRuleId(activeRuleId === flight.id ? null : flight.id)}
+            >
+              <FontAwesomeIcon icon={faAngleDown} />
+              قوانین پرواز
+            </button>
+          </div>
+        </div>
+
+        {/* Expandable flight details */}
+        <div className={`flightDetails ${activeDetailId === flight.id ? "active" : ""}`}>
+          <div className="detailsContent">
+            <div className="detailsInfo">
+              <div className="detailsHeader">
+                {flight.origin} به {flight.destination} — {flight.departureTime} تا {flight.arrivalTime}
+                <span style={{ marginRight: 8, borderRight: "1px solid #ddd", paddingRight: 8 }}>
+                  کلاس نرخی {flight.classRate}
+                </span>
+              </div>
+              <div className="detailsBody">
+                <div className="detailCol">
+                  <span className="detailLabel">ساعت حرکت</span>
+                  <span className="detailValue">
+                    {flight.departureTime} — {flight.origin}، فرودگاه مهرآباد ({flight.originCode})
+                  </span>
+                  <span className="detailLabel">ساعت رسیدن</span>
+                  <span className="detailValue">
+                    {flight.arrivalTime} — {flight.destination}، فرودگاه کیش ({flight.destinationCode})
+                  </span>
+                </div>
+                <div className="detailCol">
+                  <span className="detailLabel">مدت پرواز</span>
+                  <span className="detailValue">{durationHours} ساعت و {durationMins} دقیقه</span>
+                  <span className="detailLabel">نوع پرواز</span>
+                  <span className="detailValue">سیستمی</span>
+                </div>
+              </div>
+            </div>
+            <div className="detailsSummary">
+              <div className="summaryRow">
+                <span>بزرگسال × 1</span>
+                <span className="summaryValue">{flight.price.toLocaleString("fa-IR")} تومان</span>
+              </div>
+              <div className="summaryRow">
+                <span>مالیات و عوارض</span>
+                <span className="summaryValue">شامل</span>
+              </div>
+              <div className="summaryRow summaryTotal">
+                <span className="summaryLabel">مجموع</span>
+                <span className="summaryValue">{flight.price.toLocaleString("fa-IR")} تومان</span>
+              </div>
+              <div className="detailsActions">
+                <button onClick={() => setShowPopup(true)}>
+                  <FontAwesomeIcon icon={faBell} />{" "}
+                  {flight.available ? "ارزان شد خبرم کن" : "موجود شد خبرم کن"}
+                </button>
+                <button onClick={() => setShowPopup(true)}>
+                  <FontAwesomeIcon icon={faBolt} />{" "}
+                  {flight.available ? "ارزان شد رزرو کن" : "موجود شد رزرو کن"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Expandable flight rules */}
+        <div className={`flightRules ${activeRuleId === flight.id ? "active" : ""}`}>
+          <div className="rulesContent">
+            {flightRulesData.map((rule, rIdx) => {
+              const isRuleOpen = activeRuleId === flight.id && openRuleItem === rIdx;
+              return (
+                <div key={rIdx} className="ruleItem">
+                  <div
+                    className={`ruleHeader ${isRuleOpen ? "active" : ""}`}
+                    onClick={() => setOpenRuleItem(isRuleOpen ? null : rIdx)}
+                  >
+                    <span>{rule.title}</span>
+                    <FontAwesomeIcon icon={faAngleDown} />
+                  </div>
+                  <div className={`ruleBody ${isRuleOpen ? "active" : ""}`}>
+                    <p>{rule.content}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const chanceStatus =
     chancePercent < 35 ? "low" : chancePercent < 70 ? "mid" : "high";

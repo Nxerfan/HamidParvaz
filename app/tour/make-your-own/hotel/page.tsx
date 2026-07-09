@@ -12,13 +12,9 @@ import {
   faHotel,
   faSliders,
   faFaceSmile,
-  faXmark,
   faArrowDownWideShort,
   faArrowUpWideShort,
-  faFilter,
   faMagnifyingGlass,
-  faBed,
-  faUtensils,
   faWifi,
   faDumbbell,
   faSpa,
@@ -26,7 +22,6 @@ import {
   faSwimmingPool,
   faMugHot,
   faRotate,
-  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderMakeYourTour from "../../../components/(Headers)/HeaderMakeYourTour";
 import FilterSidebar from "../../../components/(filters)/FilterSidebar";
@@ -256,6 +251,31 @@ const PAGE_DATA = {
   },
 };
 
+const AutoSelectingUI = () => (
+    <div className="AutoSelectingCard">
+      <div className="AutoSelectingPlane">
+        <div className="PlaneTrack">
+          <FontAwesomeIcon icon={faHotel} className="HotelBounceIcon" />
+        </div>
+      </div>
+      <div className="AutoSelectingContent">
+        <h3>در حال انتخاب بهترین هتل برای شما</h3>
+        <div className="AutoSelectingDots">
+          <span className="dot" style={{ animationDelay: "0s" }}></span>
+          <span className="dot" style={{ animationDelay: "0.2s" }}></span>
+          <span className="dot" style={{ animationDelay: "0.4s" }}></span>
+        </div>
+      </div>
+      <div className="AutoSelectingProgress">
+        <div className="ProgressBar"></div>
+      </div>
+      <div className="AutoSelectingHint">
+        <FontAwesomeIcon icon={faStar} />
+        <span>بهترین هتل با توجه به امتیاز، امکانات و قیمت برای شما انتخاب می‌شود</span>
+      </div>
+    </div>
+  );
+
 export default function HotelList() {
   const [openFilters, setOpenFilters] = useState<Record<string, boolean>>({
     price: true,
@@ -363,7 +383,7 @@ export default function HotelList() {
       if (arr.length > 0) count++;
     });
     return count;
-  }, [priceRange, checkedOptions, priceFilter]);
+  }, [priceRange, checkedOptions, pfMin, pfMax]);
 
   // فیلترینگ واقعی هتل‌ها
   const filteredHotels = useMemo(() => {
@@ -427,42 +447,7 @@ export default function HotelList() {
     }
   }, [filteredHotels, activeSort]);
 
-  const getProgressPercent = () => {
-    const minPercent =
-      ((priceRange.min - pfMin) /
-        (pfMax - pfMin)) *
-      100;
-    const maxPercent =
-      ((priceRange.max - pfMin) /
-        (pfMax - pfMin)) *
-      100;
-    return { minPercent, maxPercent };
-  };
 
-  const AutoSelectingUI = () => (
-    <div className="AutoSelectingCard">
-      <div className="AutoSelectingPlane">
-        <div className="PlaneTrack">
-          <FontAwesomeIcon icon={faHotel} className="HotelBounceIcon" />
-        </div>
-      </div>
-      <div className="AutoSelectingContent">
-        <h3>در حال انتخاب بهترین هتل برای شما</h3>
-        <div className="AutoSelectingDots">
-          <span className="dot" style={{ animationDelay: "0s" }}></span>
-          <span className="dot" style={{ animationDelay: "0.2s" }}></span>
-          <span className="dot" style={{ animationDelay: "0.4s" }}></span>
-        </div>
-      </div>
-      <div className="AutoSelectingProgress">
-        <div className="ProgressBar"></div>
-      </div>
-      <div className="AutoSelectingHint">
-        <FontAwesomeIcon icon={faStar} />
-        <span>بهترین هتل با توجه به امتیاز، امکانات و قیمت برای شما انتخاب می‌شود</span>
-      </div>
-    </div>
-  );
 
   return (
     <>

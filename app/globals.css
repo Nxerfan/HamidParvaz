@@ -1,104 +1,115 @@
 /* ================= Variables ================= */
 :root {
-  --gold: #ffcd11;
-  --goldDark: #cea500;
-  --goldText: #5c4b00;
-  --grayBg: #0000000c;
-  --grayBgHover: #f5f0de;
-  --textDark: #333;
-  --textGray: #727272;
-  --bgLight: #f5f5f5;
-  --bgWhite: #fff;
-  --transition: all 0.3s ease;
-  --fontSize: 15px;
-  --boxShadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 -1px 4px rgba(0, 0, 0, 0.02);
-  --borderLight: 1px solid #00000030;
-  --Font: "Sahel", sans-serif;
+    --gold: #ffcd11;
+    --goldDark: #cea500;
+    --goldText: #5c4b00;
+    --grayBg: #0000000c;
+    --grayBgHover: #f5f0de;
+    --textDark: #333;
+    --textGray: #727272;
+    --bgLight: #f5f5f5;
+    --bgWhite: #fff;
+    --transition: all 0.3s ease;
+    --fontSize: 15px;
+    --boxShadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 -1px 4px rgba(0, 0, 0, 0.02);
+    --borderLight: 1px solid #00000030;
+    --Font: "Sahel", sans-serif;
 }
 /* ================= Font ================= */
 @font-face {
-  font-family: "Sahel";
-  src: url("/sahel-font-v1.0.0-alpha9/Sahel.woff") format("woff"),
-       url("/sahel-font-v1.0.0-alpha9/Sahel.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+    font-family: "Sahel";
+    src:
+        url("/sahel-font-v1.0.0-alpha9/Sahel.woff") format("woff"),
+        url("/sahel-font-v1.0.0-alpha9/Sahel.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 @font-face {
-  font-family: "Sahel";
-  src: url("/sahel-font-v1.0.0-alpha9/Sahel-Bold.woff") format("woff"),
-       url("/sahel-font-v1.0.0-alpha9/Sahel-Bold.ttf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
+    font-family: "Sahel";
+    src:
+        url("/sahel-font-v1.0.0-alpha9/Sahel-Bold.woff") format("woff"),
+        url("/sahel-font-v1.0.0-alpha9/Sahel-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
 }
 @font-face {
-  font-family: "Sahel";
-  src: url("/sahel-font-v1.0.0-alpha9/Sahel-Black.woff") format("woff"),
-       url("/sahel-font-v1.0.0-alpha9/Sahel-Black.ttf") format("truetype");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
+    font-family: "Sahel";
+    src:
+        url("/sahel-font-v1.0.0-alpha9/Sahel-Black.woff") format("woff"),
+        url("/sahel-font-v1.0.0-alpha9/Sahel-Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
 }
 /* ================= Reset ================= */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 body {
-  font-family: var(--Font);
-  color: var(--textDark);
-  background: var(--bgLight);
-  direction: rtl;
-  overflow-x: hidden;
-  max-width: 100%;
+    font-family: var(--Font);
+    color: var(--textDark);
+    background: var(--bgLight);
+    direction: rtl;
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 /* ================= Focus Indicators (WCAG 2.4.7) ================= */
 :focus-visible {
-  outline: 2px solid var(--goldDark);
-  outline-offset: 2px;
+    outline: 2px solid var(--goldDark);
+    outline-offset: 2px;
 }
 
 /* Remove outline only for mouse users */
 :focus:not(:focus-visible) {
-  outline: none;
+    outline: none;
 }
 
 /* ================= Reduced Motion (WCAG 2.3.3) ================= */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* ================= Accessibility Utilities ================= */
+/* ================= Page Heading ================= */
+.page-heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
 fieldset {
-  border: none;
-  padding: 0;
-  margin: 0;
-  min-width: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
 }
 
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }

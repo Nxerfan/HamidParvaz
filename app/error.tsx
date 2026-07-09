@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import styles from "./error.module.css";
 
 interface ErrorProps {
@@ -72,7 +73,7 @@ export default function Error({ error, reset }: ErrorProps) {
             </svg>
             تلاش دوباره
           </button>
-          <a href="/" className={styles.btnSecondary}>
+          <Link href="/" className={styles.btnSecondary}>
             <svg
               width="16"
               height="16"
@@ -86,7 +87,7 @@ export default function Error({ error, reset }: ErrorProps) {
               <polyline points="15 18 9 12 15 6" />
             </svg>
             بازگشت به صفحه اصلی
-          </a>
+          </Link>
         </div>
       </div>
     </div>

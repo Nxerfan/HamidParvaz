@@ -110,7 +110,7 @@ const jalaali = {
       2192, 2262, 2324, 2394, 2456, 3178,
     ];
     const bl = breaks.length;
-    let gy = jy + 621;
+    const gy = jy + 621;
     let leapJ = -14;
     let jp = breaks[0]!;
     let jump = 0;
@@ -270,17 +270,9 @@ export default function ProfileManagement() {
 
   const [passportExpiryDate, setPassportExpiryDate] = useState<string | null>(null);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [activeInput, setActiveInput] = useState<string | null>(null);
-  const [hoverDate, setHoverDate] = useState<JalaaliResult | null>(null);
-  const [currentYear, setCurrentYear] = useState(1403);
-  const [currentMonth, setCurrentMonth] = useState(1);
-  const [currentView, setCurrentView] = useState<CalendarView>("days");
-  const [birthDay, setBirthDay] = useState("");
-  const [birthMonth, setBirthMonth] = useState("");
-  const [birthYear, setBirthYear] = useState("");
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [shakeFields, setShakeFields] = useState<FormErrors>({});
-  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const [, setActiveInput] = useState<string | null>(null);
+  const [, setHoverDate] = useState<JalaaliResult | null>(null);
 
   const today = new Date();
   const jToday = jalaali.toJalaali(
@@ -288,6 +280,15 @@ export default function ProfileManagement() {
     today.getMonth() + 1,
     today.getDate(),
   );
+  const [currentYear, setCurrentYear] = useState(isGregorian ? today.getFullYear() : jToday.jy);
+  const [currentMonth, setCurrentMonth] = useState(isGregorian ? today.getMonth() + 1 : jToday.jm);
+  const [currentView, setCurrentView] = useState<CalendarView>("days");
+  const [birthDay, setBirthDay] = useState("");
+  const [birthMonth, setBirthMonth] = useState("");
+  const [birthYear, setBirthYear] = useState("");
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [shakeFields, setShakeFields] = useState<FormErrors>({});
+  const calendarRef = useRef<HTMLDivElement>(null);
 
   const currentGregYear = new Date().getFullYear();
   const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
@@ -316,28 +317,7 @@ export default function ProfileManagement() {
     setProgressPercent(percent);
   };
 
-  useEffect(() => {
-    calculateProgress();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  useEffect(() => {
-    setPassportExpiryDate(null);
-    setShowCalendar(false);
-    const now = new Date();
-    if (isGregorian) {
-      setCurrentYear(now.getFullYear());
-      setCurrentMonth(now.getMonth() + 1);
-    } else {
-      const j = jalaali.toJalaali(
-        now.getFullYear(),
-        now.getMonth() + 1,
-        now.getDate(),
-      );
-      setCurrentYear(j.jy);
-      setCurrentMonth(j.jm);
-    }
-  }, [isGregorian]);
 
   const jDateToString = useCallback((jy: number, jm: number, jd: number): string => {
     return `${jy}/${String(jm).padStart(2, "0")}/${String(jd).padStart(2, "0")}`;
@@ -398,7 +378,7 @@ export default function ProfileManagement() {
       setShowCalendar(true);
       setHoverDate(null);
     },
-    [passportExpiryDate, jToday, stringToJDate, isGregorian],
+    [passportExpiryDate, jToday, stringToJDate, isGregorian, setCurrentYear, setCurrentMonth, setCurrentView, setShowCalendar, setHoverDate, setActiveInput],
   );
 
   const closeCalendar = useCallback(() => {
@@ -537,8 +517,22 @@ export default function ProfileManagement() {
 
     setErrors({});
     if (formRef.current) {
-      const formData = new FormData(formRef.current);
-      const _data = Object.fromEntries(formData.entries());
+    }
+  };
+
+  const handleNationalityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setNationality(value);
+    setPassportExpiryDate(null);
+    setShowCalendar(false);
+    const now = new Date();
+    if (value === "خارجی") {
+      setCurrentYear(now.getFullYear());
+      setCurrentMonth(now.getMonth() + 1);
+    } else {
+      const j = jalaali.toJalaali(now.getFullYear(), now.getMonth() + 1, now.getDate());
+      setCurrentYear(j.jy);
+      setCurrentMonth(j.jm);
     }
   };
 
@@ -593,7 +587,7 @@ export default function ProfileManagement() {
                   <select
                     className="MiniSelect"
                     value={nationality}
-                    onChange={(e) => setNationality(e.target.value)}
+                    onChange={handleNationalityChange}
                   >
                     {PAGE_DATA.nationalityOptions.map((n, i) => (
                       <option key={i} value={n}>

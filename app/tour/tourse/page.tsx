@@ -1,11 +1,10 @@
 "use client";
 import { useState, useEffect, useMemo, Suspense } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
-  faAngleDown,
   faVrCardboard,
   faPlaneDeparture,
   faClock,
@@ -43,7 +42,7 @@ interface Tour {
   badge?: string;
   departureCity: string;
   airline?: string;
-  transportIcon?: any;
+  transportIcon?: React.ComponentProps<typeof FontAwesomeIcon>['icon'];
   services: string[];
 }
 
@@ -138,15 +137,10 @@ const durationOptions = [
 const serviceOptions = ["ویزا در تور", "ترانسفر فرودگاهی", "لیدر فارسی زبان"];
 
 function TourResultsPageContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const destinationQuery = searchParams.get("destination") || "";
-  const dateQuery = searchParams.get("date") || "";
-  const personsQuery = searchParams.get("persons") || "";
 
-  const [destination, setDestination] = useState(destinationQuery);
-  const [travelDate, setTravelDate] = useState(dateQuery);
-  const [persons, setPersons] = useState(personsQuery);
+  const [destination] = useState(destinationQuery);
 
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(30000000);
@@ -158,16 +152,9 @@ function TourResultsPageContent() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<"price_asc" | "price_desc" | "date_asc">("price_asc");
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [priceRangeProgress, setPriceRangeProgress] = useState({ left: 0, width: 100 });
-
-  useEffect(() => {
-    const left = ((minPrice - globalMinPrice) / (globalMaxPrice - globalMinPrice)) * 100;
-    const right = ((maxPrice - globalMinPrice) / (globalMaxPrice - globalMinPrice)) * 100;
-    setPriceRangeProgress({ left, width: right - left });
-  }, [minPrice, maxPrice]);
 
   const filteredTours = useMemo(() => {
-    let results = toursData.filter((tour) => {
+    const results = toursData.filter((tour) => {
       if (tour.price < minPrice || tour.price > maxPrice) return false;
 
       if (selectedDurations.length) {
@@ -222,20 +209,6 @@ function TourResultsPageContent() {
 
   const handleServiceChange = (service: string) => {
     setSelectedServices((prev) => (prev.includes(service) ? prev.filter((s) => s !== service) : [...prev, service]));
-  };
-
-  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
-    if (val <= maxPrice) setMinPrice(val);
-  };
-
-  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
-    if (val >= minPrice) setMaxPrice(val);
-  };
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
   };
 
   const activeFiltersCount = (minPrice > globalMinPrice || maxPrice < globalMaxPrice ? 1 : 0) + selectedDurations.length + selectedHotelStars.length + selectedServices.length;
@@ -399,7 +372,7 @@ function TourResultsPageContent() {
                   <span className="SortLabel">مرتب‌سازی: </span>
                   <select
                     value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as any)}
+                    onChange={(e) => setSortBy(e.target.value as "price_asc" | "price_desc" | "date_asc")}
                     style={{
                       border: "1px solid #ddd",
                       padding: "5px",

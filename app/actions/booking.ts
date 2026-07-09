@@ -19,8 +19,7 @@ export async function createBooking(
   const itemId = formData.get("itemId") as string;
   const passengerName = formData.get("passengerName") as string;
   const passengerPhone = formData.get("passengerPhone") as string;
-  const date = formData.get("date") as string;
-  const passengers = formData.get("passengers") as string;
+
 
   if (!type) {
     return { success: false, message: "نوع رزرو الزامی است" };

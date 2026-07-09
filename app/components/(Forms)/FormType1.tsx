@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchLogic } from "../../lib/hooks/useSearchLogic";
 import { useToast } from "../../lib/hooks/useToast";
@@ -108,8 +108,8 @@ function autoDistributeBeds(totalBeds: number, numRooms: number): number[] {
 
 export default function Form1() {
   const [numRooms, setNumRooms] = useState(1);
-  const [bedDistribution, setBedDistribution] = useState<number[]>([1]);
   const [isManualDistribution, setIsManualDistribution] = useState(false);
+  const [manualDistribution, setManualDistribution] = useState<number[]>([1]);
   const [showRoomEditor, setShowRoomEditor] = useState(false);
   const [tempDistribution, setTempDistribution] = useState<number[]>([]);
   const guestDropdownRef = useRef<HTMLDivElement>(null);
@@ -132,7 +132,6 @@ export default function Form1() {
     errors,
     setErrors,
     shakeFields,
-    setShakeFields,
     triggerErrorShake,
     renderMonthsGrid,
     renderYearsGrid,
@@ -140,24 +139,48 @@ export default function Form1() {
     endDateInputValue,
   } = logic;
 
+  // Destructure calendar (contains refs)
+  const {
+    calendarRef,
+    activeInput,
+    showCalendar,
+    currentView,
+    currentJy,
+    currentJm,
+    selectedStartDate,
+    selectedEndDate,
+    openCalendar,
+    closeCalendar,
+    setHoverDate,
+    handleCalendarTitleClick,
+    handlePrevMonth,
+    handleNextMonth,
+    renderCalendarDays,
+    jDateToString,
+  } = calendar;
+
+  // Destructure destination (contains refs)
+  const {
+    input: destInput,
+    setInput: setDestInput,
+    showDropdown: destShowDropdown,
+    dropdownRef: destDropdownRef,
+    inputRef: destInputRef,
+    filteredItems: destFilteredItems,
+    filteredRecent: destFilteredRecent,
+    handleSelect: destHandleSelect,
+    handleInputFocus: destHandleInputFocus,
+    clearInput: destClearInput,
+  } = destination;
+
   const totalBedsNeeded = guest.adultCount + guest.childCount;
 
-  useEffect(() => {
-    setBedDistribution((prev) => {
-      if (!isManualDistribution) {
-        return autoDistributeBeds(totalBedsNeeded, numRooms);
-      }
-      const currentTotal = prev.reduce((a, b) => a + b, 0);
-      if (
-        currentTotal !== totalBedsNeeded ||
-        prev.length !== numRooms
-      ) {
-        setIsManualDistribution(false);
-        return autoDistributeBeds(totalBedsNeeded, numRooms);
-      }
-      return prev;
-    });
-  }, [totalBedsNeeded, numRooms, isManualDistribution]);
+  const bedDistribution = useMemo(() => {
+    if (!isManualDistribution) {
+      return autoDistributeBeds(totalBedsNeeded, numRooms);
+    }
+    return manualDistribution;
+  }, [totalBedsNeeded, numRooms, isManualDistribution, manualDistribution]);
 
   const toast = useToast();
 
@@ -174,9 +197,9 @@ export default function Form1() {
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
-    if (!destination.input.trim()) newErrors.destination = true;
-    if (!calendar.selectedStartDate) newErrors.startDate = true;
-    if (!calendar.selectedEndDate) newErrors.endDate = true;
+    if (!destInput.trim()) newErrors.destination = true;
+    if (!selectedStartDate) newErrors.startDate = true;
+    if (!selectedEndDate) newErrors.endDate = true;
     if (numRooms > guest.adultCount) newErrors.rooms = true;
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
@@ -207,7 +230,7 @@ export default function Form1() {
       triggerErrorShake("roomDistribution");
       return;
     }
-    setBedDistribution(tempDistribution);
+    setManualDistribution(tempDistribution);
     setIsManualDistribution(true);
     setShowRoomEditor(false);
   };
@@ -215,7 +238,7 @@ export default function Form1() {
   const router = useRouter();
 
   // Close guest dropdown on outside click
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (guestDropdownRef.current && !guestDropdownRef.current.contains(event.target as Node)) {
@@ -224,30 +247,30 @@ export default function Form1() {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [guest]);
 
   const handleSearch = () => {
     if (!validateForm()) return;
     const searchParams = new URLSearchParams();
     searchParams.set("type", "hotel");
-    searchParams.set("destination", destination.input);
-    if (calendar.selectedStartDate) {
+    searchParams.set("destination", destInput);
+    if (selectedStartDate) {
       searchParams.set(
         "startDate",
-        calendar.jDateToString(
-          calendar.selectedStartDate.jy,
-          calendar.selectedStartDate.jm,
-          calendar.selectedStartDate.jd,
+        jDateToString(
+          selectedStartDate.jy,
+          selectedStartDate.jm,
+          selectedStartDate.jd,
         ),
       );
     }
-    if (calendar.selectedEndDate) {
+    if (selectedEndDate) {
       searchParams.set(
         "endDate",
-        calendar.jDateToString(
-          calendar.selectedEndDate.jy,
-          calendar.selectedEndDate.jm,
-          calendar.selectedEndDate.jd,
+        jDateToString(
+          selectedEndDate.jy,
+          selectedEndDate.jm,
+          selectedEndDate.jd,
         ),
       );
     }
@@ -282,7 +305,7 @@ export default function Form1() {
             </div>
 
             <div className="BottomHotel">
-              <div className="LocationPicker" ref={destination.dropdownRef}>
+              <div className="LocationPicker" ref={destDropdownRef}>
                 <div className="inputWithIcon">
                   <FontAwesomeIcon
                     icon={PAGE_DATA.searchIcon}
@@ -293,33 +316,33 @@ export default function Form1() {
                     type="text"
                     id="dest-input-1"
                     placeholder={PAGE_DATA.destinationPlaceholder}
-                    value={destination.input}
-                    onChange={(e) => destination.setInput(e.target.value)}
-                    onFocus={destination.handleInputFocus}
-                    ref={destination.inputRef}
+                    value={destInput}
+                    onChange={(e) => setDestInput(e.target.value)}
+                    onFocus={destHandleInputFocus}
+                    ref={destInputRef}
                     className={errors.destination ? "error" : ""}
                   />
-                  {destination.input && (
+                  {destInput && (
                     <FontAwesomeIcon
                       icon={PAGE_DATA.closeIcon}
                       className="clearIcon"
-                      onClick={destination.clearInput}
+                      onClick={destClearInput}
                     />
                   )}
                 </div>
-                {destination.showDropdown && (
+                {destShowDropdown && (
                   <div className="destinationDropdown">
-                    {destination.filteredRecent.length > 0 && (
+                    {destFilteredRecent.length > 0 && (
                       <div className="dropdownSection">
                         <div className="sectionTitle">
                           <FontAwesomeIcon icon={PAGE_DATA.historyIcon} />
                           <span>{PAGE_DATA.recentSearchesTitle}</span>
                         </div>
                         <ul>
-                          {destination.filteredRecent.map((item) => (
+                          {destFilteredRecent.map((item) => (
                             <li
                               key={item.id}
-                              onClick={() => destination.handleSelect(item)}
+                              onClick={() => destHandleSelect(item)}
                             >
                               <FontAwesomeIcon icon={PAGE_DATA.locationIcon} />
                               <span>{item.name}</span>
@@ -334,16 +357,16 @@ export default function Form1() {
                         <span>{PAGE_DATA.popularDestinationsTitle}</span>
                       </div>
                       <ul>
-                        {destination.filteredItems.map((item) => (
+                        {destFilteredItems.map((item) => (
                           <li
                             key={item.id}
-                            onClick={() => destination.handleSelect(item)}
+                            onClick={() => destHandleSelect(item)}
                           >
                             <FontAwesomeIcon icon={PAGE_DATA.locationIcon} />
                             <span>{item.name}</span>
                           </li>
                         ))}
-                        {destination.filteredItems.length === 0 && (
+                        {destFilteredItems.length === 0 && (
                           <li className="noResult">{PAGE_DATA.noResultText}</li>
                         )}
                       </ul>
@@ -353,7 +376,7 @@ export default function Form1() {
               </div>
 
               <div className="DatePicker">
-                <div className="dateInputWrapper" ref={calendar.calendarRef}>
+                <div className="dateInputWrapper" ref={calendarRef}>
                   <label className="sr-only" htmlFor="startDateInput">{PAGE_DATA.datePlaceholders.start}</label>
                   <input
                     type="text"
@@ -361,8 +384,8 @@ export default function Form1() {
                     placeholder={PAGE_DATA.datePlaceholders.start}
                     value={startDateInputValue}
                     readOnly
-                    onClick={() => calendar.openCalendar("start")}
-                    className={`${calendar.activeInput === "start" ? "active" : ""} ${
+                    onClick={() => openCalendar("start")}
+                    className={`${activeInput === "start" ? "active" : ""} ${
                       errors.startDate ? "error" : ""
                     } ${shakeFields.startDate ? "shake" : ""}`}
                   />
@@ -373,50 +396,50 @@ export default function Form1() {
                     placeholder={PAGE_DATA.datePlaceholders.end}
                     value={endDateInputValue}
                     readOnly
-                    onClick={() => calendar.openCalendar("end")}
-                    className={`${calendar.activeInput === "end" ? "active" : ""} ${
+                    onClick={() => openCalendar("end")}
+                    className={`${activeInput === "end" ? "active" : ""} ${
                       errors.endDate ? "error" : ""
                     } ${shakeFields.endDate ? "shake" : ""}`}
                   />
-                  {calendar.showCalendar && (
+                  {showCalendar && (
                     <div
                       className="calendarPopup show"
-                      onMouseLeave={() => calendar.setHoverDate(null)}
+                      onMouseLeave={() => setHoverDate(null)}
                     >
                       <div
                         className="calendarHeader"
                         style={{
                           visibility:
-                            calendar.currentView === "days" ? "visible" : "hidden",
+                            currentView === "days" ? "visible" : "hidden",
                         }}
                       >
                         <button
                           className="calendarNavBtn"
                           aria-label="ماه بعد"
-                          onClick={calendar.handlePrevMonth}
+                          onClick={handlePrevMonth}
                         >
                           &gt;
                         </button>
                         <span
                           className="calendarTitle"
-                          onClick={calendar.handleCalendarTitleClick}
+                          onClick={handleCalendarTitleClick}
                         >
-                          {calendar.currentView === "days"
-                            ? `${calendar.currentJy} ${PAGE_DATA.monthNames[calendar.currentJm - 1]}`
-                            : calendar.currentView === "months"
-                              ? `${calendar.currentJy} - انتخاب ماه`
+                          {currentView === "days"
+                            ? `${currentJy} ${PAGE_DATA.monthNames[currentJm - 1]}`
+                            : currentView === "months"
+                              ? `${currentJy} - انتخاب ماه`
                               : "انتخاب سال"}
                         </span>
                         <button
                           className="calendarNavBtn"
                           aria-label="ماه قبل"
-                          onClick={calendar.handleNextMonth}
+                          onClick={handleNextMonth}
                         >
                           &lt;
                         </button>
                       </div>
 
-                      {calendar.currentView === "days" && (
+                      {currentView === "days" && (
                         <div className="calendarView active">
                           <div className="calendarWeekdays">
                             {PAGE_DATA.weekDays.map((d, i) => (
@@ -424,18 +447,18 @@ export default function Form1() {
                             ))}
                           </div>
                           <div className="calendarDays">
-                            {calendar.renderCalendarDays()}
+                            {renderCalendarDays()}
                           </div>
                         </div>
                       )}
 
-                      {calendar.currentView === "months" && (
+                      {currentView === "months" && (
                         <div className="calendarView active">
                           <div className="monthsGrid">{renderMonthsGrid()}</div>
                         </div>
                       )}
 
-                      {calendar.currentView === "years" && (
+                      {currentView === "years" && (
                         <div className="calendarView active">
                           <div className="yearsWrapper">
                             <div className="yearsGrid">{renderYearsGrid()}</div>
@@ -444,7 +467,7 @@ export default function Form1() {
                       )}
 
                       <div className="calendarFooter">
-                        <button className="btnClose" onClick={calendar.closeCalendar}>
+                        <button className="btnClose" onClick={closeCalendar}>
                           {PAGE_DATA.calendarCloseText}
                         </button>
                       </div>
@@ -565,7 +588,7 @@ export default function Form1() {
                         <FontAwesomeIcon icon={PAGE_DATA.bedIcon} />
                         <span>
                           {bedDistribution
-                            .map((_b, _idx) => `${_b} تخته`)
+                            .map((_b) => `${_b} تخته`)
                             .join(" و ")}{" "}
                           ({bedDistribution.length} اتاق)
                         </span>

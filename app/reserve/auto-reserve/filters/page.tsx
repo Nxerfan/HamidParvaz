@@ -69,7 +69,7 @@ const NiksaChooseFilter = () => {
   };
 
   // انتخاب گزینه قیمت
-  const handleSelectPrice = (option: any) => {
+  const handleSelectPrice = (option: typeof PAGE_DATA.priceAccordion.options[number]) => {
     setSelectedPriceOption(option);
   };
 

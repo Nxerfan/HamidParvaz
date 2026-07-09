@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { createBooking } from "../../../actions/booking";
 import type { BookingState } from "../../../actions/booking";
 import { useToast } from "../../../lib/hooks/useToast";
-import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHotel,
@@ -157,7 +156,7 @@ export default function CheckoutPage() {
     } else if (bookingState.message) {
       toast.error(bookingState.message);
     }
-  }, [bookingState, router]);
+  }, [bookingState, router, toast]);
 
   const handleConfirm = () => {
     const fd = new FormData();

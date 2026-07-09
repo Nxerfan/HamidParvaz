@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import "../globals.css";
 
 interface HeaderBuyRoomProps {
@@ -11,9 +12,9 @@ function HeaderBuyRoom({ currentStep = 1 }: HeaderBuyRoomProps) {
       <header>
         <div className="HeaderTop2">
           <div className="Container">
-            <a href="/" className="Logo">
+            <Link href="/" className="Logo">
               <Image src="/Media/لوگو حمید پرواز (2).png" alt="Niksa Logo" width={48} height={48} priority />
-            </a>
+            </Link>
 
             <div className="AuthButtons">
               <svg

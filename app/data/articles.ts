@@ -1,4 +1,33 @@
 // 📁 app/data/articles.ts
+
+interface ShareLink {
+  platform: string;
+  url: string;
+}
+
+interface ArticleContentBlock {
+  type: string;
+  id?: string;
+  content?: string;
+  items?: string[];
+}
+
+interface RelatedPost {
+  id: number;
+  slug: string;
+  title: string;
+  image: string;
+  category: string;
+  readTime: string;
+}
+
+interface CTA {
+  title: string;
+  text: string;
+  buttonText: string;
+  href: string;
+}
+
 export type Article = {
   id: number;
   slug: string;
@@ -15,13 +44,13 @@ export type Article = {
     date: string;
     views: string;
     featuredImage: { src: string; alt: string; caption: string };
-    share: { title: string; links: any[] };
+    share: { title: string; links: ShareLink[] };
     highlight: { title: string; items: string[] };
-    articleContent: any[];
+    articleContent: ArticleContentBlock[];
     tags: string[];
     toc: { id: string; title: string }[];
-    relatedPosts: any[];
-    cta: any;
+    relatedPosts: RelatedPost[];
+    cta: CTA;
   };
 };
 

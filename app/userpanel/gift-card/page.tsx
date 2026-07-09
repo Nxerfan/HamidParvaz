@@ -1,7 +1,7 @@
 "use client";
 
 import "../global.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FilterUserPannel from "../../components/(filters)/FilterUserPannel";
 import UserPannelHeader from "../../components/(Headers)/UserPannelHeader";
 const PAGE_DATA = {
@@ -16,11 +16,7 @@ const PAGE_DATA = {
 };
 
 export default function Page() {
-  const [cards, setCards] = useState<string[]>([]);
-
-  useEffect(() => {
-    setCards(PAGE_DATA.autoReserve.cards);
-  }, []);
+  const [cards] = useState<string[]>(PAGE_DATA.autoReserve.cards);
 
   const hasCards = cards.length > 0;
 

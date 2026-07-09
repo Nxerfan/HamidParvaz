@@ -145,7 +145,6 @@ export function useCalendar(
         return;
       }
 
-      const dateStr = jDateToString(jy, jm, jd);
       if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
         setSelectedStartDate({ jy, jm, jd });
         setSelectedEndDate(null);
@@ -177,7 +176,6 @@ export function useCalendar(
       mode,
       selectedStartDate,
       selectedEndDate,
-      jDateToString,
       getDateValue,
     ],
   );
@@ -225,7 +223,7 @@ export function useCalendar(
     const daysInMonth = jMonthLength(currentJy, currentJm);
     const gDate = toGregorian(currentJy, currentJm, 1);
     const dateObj = new Date(gDate.gy, gDate.gm - 1, gDate.gd);
-    let startDayOfWeek = (dateObj.getDay() + 1) % 7;
+    const startDayOfWeek = (dateObj.getDay() + 1) % 7;
 
     const cells: React.ReactNode[] = [];
     for (let i = 0; i < startDayOfWeek; i++) {
@@ -279,7 +277,6 @@ export function useCalendar(
     currentJm,
     selectedStartDate,
     selectedEndDate,
-    hoverDate,
     jToday,
     isDateInRange,
     isDateInHoverRange,

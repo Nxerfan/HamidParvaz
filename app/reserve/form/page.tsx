@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -91,12 +91,12 @@ const NiksaPassengerInfo = () => {
   const router = useRouter();
   const [isBillOpen, setIsBillOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState(600);
-  const [showTimeoutModal, setShowTimeoutModal] = useState(false);
   const toast = useToast();
+  const uid = useId();
 
   const [passengers, setPassengers] = useState([
     {
-      id: Date.now(),
+      id: `${uid}-adult-0`,
       type: "adult",
       typeLabel: "بزرگسال",
       gender: "آقا",
@@ -106,15 +106,14 @@ const NiksaPassengerInfo = () => {
   ]);
 
   useEffect(() => {
-    if (timeLeft <= 0) {
-      setShowTimeoutModal(true);
-      return;
-    }
+    if (timeLeft <= 0) return;
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
     return () => clearInterval(timer);
   }, [timeLeft]);
+
+  const showTimeoutModal = timeLeft <= 0;
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -141,10 +140,10 @@ const NiksaPassengerInfo = () => {
   };
 
   const addNew = (type: string, label: string) => {
-    setPassengers([
-      ...passengers,
+    setPassengers((prev) => [
+      ...prev,
       {
-        id: Date.now() + Math.random(),
+        id: `${uid}-${type}-${prev.length}`,
         type: type,
         typeLabel: label,
         gender: "آقا",
@@ -154,13 +153,13 @@ const NiksaPassengerInfo = () => {
     ]);
   };
 
-  const updatePassenger = (id: number, field: string, value: string) => {
+  const updatePassenger = (id: string, field: string, value: string) => {
     setPassengers((prev) =>
       prev.map((p) => (p.id === id ? { ...p, [field]: value } : p)),
     );
   };
 
-  const removePassenger = (id: number) => {
+  const removePassenger = (id: string) => {
     if (passengers.length > 1) {
       setPassengers((prev) => prev.filter((p) => p.id !== id));
     }

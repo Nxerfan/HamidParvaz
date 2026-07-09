@@ -11,33 +11,33 @@ export default function ChangePasswordPage() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [passwordState, passwordFormAction, isPending] = useActionState(changePassword, { success: false, message: "" } as PasswordState);
+  const [validationError, setValidationError] = useState("");
+  const [passwordState, passwordFormAction] = useActionState(changePassword, { success: false, message: "" } as PasswordState);
+
+  const success = passwordState.success;
+  const error = validationError || passwordState.message;
 
   useEffect(() => {
     if (passwordState.success) {
-      setSuccess(true);
-      setTimeout(() => router.push("/userpanel"), 2000);
-    } else if (passwordState.message) {
-      setError(passwordState.message);
+      const timer = setTimeout(() => router.push("/userpanel"), 2000);
+      return () => clearTimeout(timer);
     }
-  }, [passwordState, router]);
+  }, [passwordState.success, router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setValidationError("");
 
     if (!currentPassword.trim()) {
-      setError("لطفاً رمز عبور فعلی را وارد کنید.");
+      setValidationError("لطفاً رمز عبور فعلی را وارد کنید.");
       return;
     }
     if (newPassword.length < 6) {
-      setError("رمز عبور جدید باید حداقل ۶ کاراکتر باشد.");
+      setValidationError("رمز عبور جدید باید حداقل ۶ کاراکتر باشد.");
       return;
     }
     if (newPassword !== confirmPassword) {
-      setError("رمز عبور جدید و تکرار آن یکسان نیستند.");
+      setValidationError("رمز عبور جدید و تکرار آن یکسان نیستند.");
       return;
     }
 

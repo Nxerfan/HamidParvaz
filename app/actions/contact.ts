@@ -37,7 +37,6 @@ export async function sendContactMessage(
 ): Promise<ContactState> {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
-  const subject = formData.get("subject") as string;
   const message = formData.get("message") as string;
 
   if (!name || !email || !message) {

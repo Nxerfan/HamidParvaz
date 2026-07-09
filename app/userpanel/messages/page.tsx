@@ -3,7 +3,7 @@
 import "../global.css";
 import FilterUserPannel from "../../components/(filters)/FilterUserPannel";
 import UserPannelHeader from "../../components/(Headers)/UserPannelHeader";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const PAGE_DATA = {
   title: "صندوق پیام‌ها",
@@ -16,11 +16,7 @@ const PAGE_DATA = {
 };
 
 export default function Page() {
-  const [messages, setMessages] = useState<string[]>([]);
-
-  useEffect(() => {
-    setMessages(PAGE_DATA.messages.items);
-  }, []);
+  const [messages] = useState<string[]>(PAGE_DATA.messages.items);
 
   const hasMessages = messages.length > 0;
 

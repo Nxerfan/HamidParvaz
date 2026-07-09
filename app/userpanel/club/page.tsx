@@ -1,6 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
-import type { ReactNode } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -163,13 +162,19 @@ export default function Page() {
 
   const openModal = (reward: RewardItem) => {
     setSelectedReward(reward);
-    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setSelectedReward(null);
-    document.body.style.overflow = "auto";
   };
+
+  // Manage body scroll based on modal visibility
+  useEffect(() => {
+    document.body.style.overflow = selectedReward ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [selectedReward]);
 
   const filteredRewards =
     activeOption === "all"

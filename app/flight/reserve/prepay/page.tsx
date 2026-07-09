@@ -6,13 +6,11 @@ import type { BookingState } from "../../../actions/booking";
 import { useToast } from "../../../lib/hooks/useToast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faClock,
   faArrowLeft,
   faPlane,
   faPlus,
   faChevronDown,
   faUsers,
-  faBuilding,
   faGem,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCircleDot } from "@fortawesome/free-solid-svg-icons";
@@ -159,7 +157,7 @@ function BookingReviewContent() {
     } else if (bookingState.message) {
       toast.error(bookingState.message);
     }
-  }, [bookingState, router]);
+  }, [bookingState, router, toast]);
 
   const handleConfirm = () => {
     const fd = new FormData();

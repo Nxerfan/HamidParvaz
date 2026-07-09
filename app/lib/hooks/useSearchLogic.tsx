@@ -1,11 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useCalendar, type UseCalendarReturn } from "../useCalendar";
-import {
-  useGuestCounter,
-  type UseGuestCounterReturn,
-} from "./useGuestCounter";
+import { useGuestCounter, type UseGuestCounterReturn } from "./useGuestCounter";
 import {
   useDestinationDropdown,
   type Destination,
@@ -108,8 +105,39 @@ export function useSearchLogic(
   // Trip direction
   const [tripDirection, setTripDirection] = useState("roundTrip");
 
-  // Calendar
-  const calendar = useCalendar({ mode: calendarMode });
+  // Calendar – destructure immediately so property access doesn't trigger react-hooks/refs
+  const {
+    calendarRef,
+    activeInput,
+    setActiveInput,
+    showCalendar,
+    setShowCalendar,
+    hoverDate,
+    setHoverDate,
+    currentJy,
+    setCurrentJy,
+    currentJm,
+    setCurrentJm,
+    currentView,
+    setCurrentView,
+    selectedStartDate,
+    setSelectedStartDate,
+    selectedEndDate,
+    setSelectedEndDate,
+    jToday,
+    jDateToString,
+    stringToJDate,
+    getDateValue,
+    isDateInRange,
+    isDateInHoverRange,
+    selectDate,
+    openCalendar,
+    closeCalendar,
+    handleCalendarTitleClick,
+    handlePrevMonth,
+    handleNextMonth,
+    renderCalendarDays,
+  } = useCalendar({ mode: calendarMode });
 
   // Guest counter
   const guest = useGuestCounter({
@@ -119,36 +147,31 @@ export function useSearchLogic(
 
   // Base destinations (all or filtered by trip type)
   const baseDestinations = tripType
-    ? destinations[tripType] ?? []
+    ? (destinations[tripType] ?? [])
     : Object.values(destinations).flat();
 
-  // Refs to break circular dependency between origin ↔ destination filtering.
-  // Each dropdown needs the other's input to exclude matching cities.
-  // We store the current inputs in refs so the filtering computation
-  // can read the other dropdown's value without a render-time dependency.
-  const destInputRef = useRef("");
-  const originInputRef = useRef("");
+  // Cross-filtering: each dropdown should exclude the other's current input.
+  // originDropdown uses the previous render's destination.input (stored in state).
+  // destination uses the current originDropdown.input (available at creation time).
+  // This avoids refs/setState issues and the one-render delay is imperceptible.
+  const [prevDestInput, setPrevDestInput] = useState("");
 
-  // Origin dropdown (always create the hook call to preserve hook order)
-  // Excludes the current destination input value from its list
   const originDropdown = useDestinationDropdown({
-    allDestinations: baseDestinations.filter(
-      (d) => !destInputRef.current || d.name !== destInputRef.current,
-    ),
+    allDestinations: baseDestinations,
+    filterOutValue: prevDestInput,
   });
 
-  // Destination dropdown (always create the hook call to preserve hook order)
-  // Excludes the current origin input value from its list
   const destination = useDestinationDropdown({
-    allDestinations: baseDestinations.filter(
-      (d) => !originInputRef.current || d.name !== originInputRef.current,
-    ),
+    allDestinations: baseDestinations,
+    filterOutValue: originDropdown.input,
   });
 
-  // Sync refs with current input values so filtering is always up to date.
-  // This runs on every render after both hooks have been called.
-  destInputRef.current = destination.input;
-  originInputRef.current = originDropdown.input;
+  // Store previous destination.input for the next render's origin filter.
+  // Conditional state update during render — the pattern React recommends
+  // for storing information from previous renders.
+  if (destination.input !== prevDestInput) {
+    setPrevDestInput(destination.input);
+  }
 
   // Validation state
   const [errors, setErrors] = useState<FormErrors>({});
@@ -174,7 +197,7 @@ export function useSearchLogic(
   const handleDirectionChange = (value: string) => {
     setTripDirection(value);
     if (value === "oneWay") {
-      calendar.setSelectedEndDate(null);
+      setSelectedEndDate(null);
     }
     setErrors((prev) => {
       const newErrors = { ...prev };
@@ -207,14 +230,14 @@ export function useSearchLogic(
   const renderMonthsGrid = () => {
     return monthNames.map((name, index) => {
       const month = index + 1;
-      const isSelected = month === calendar.currentJm;
+      const isSelected = month === currentJm;
       return (
         <div
           key={month}
           className={`monthItem${isSelected ? " selected" : ""}`}
           onClick={() => {
-            calendar.setCurrentJm(month);
-            calendar.setCurrentView("days");
+            setCurrentJm(month);
+            setCurrentView("days");
           }}
         >
           {name}
@@ -226,16 +249,16 @@ export function useSearchLogic(
   // Calendar grid: years
   const renderYearsGrid = () => {
     const startYear = 1300;
-    const endYear = calendar.jToday.jy;
+    const endYear = jToday.jy;
     const years = [];
     for (let y = endYear; y >= startYear; y--) {
       years.push(
         <div
           key={y}
-          className={`yearItem${y === calendar.currentJy ? " selected" : ""}`}
+          className={`yearItem${y === currentJy ? " selected" : ""}`}
           onClick={() => {
-            calendar.setCurrentJy(y);
-            calendar.setCurrentView("months");
+            setCurrentJy(y);
+            setCurrentView("months");
           }}
         >
           {y}
@@ -246,19 +269,15 @@ export function useSearchLogic(
   };
 
   // Date input values
-  const startDateInputValue = calendar.selectedStartDate
-    ? calendar.jDateToString(
-        calendar.selectedStartDate.jy,
-        calendar.selectedStartDate.jm,
-        calendar.selectedStartDate.jd,
+  const startDateInputValue = selectedStartDate
+    ? jDateToString(
+        selectedStartDate.jy,
+        selectedStartDate.jm,
+        selectedStartDate.jd,
       )
     : "";
-  const endDateInputValue = calendar.selectedEndDate
-    ? calendar.jDateToString(
-        calendar.selectedEndDate.jy,
-        calendar.selectedEndDate.jm,
-        calendar.selectedEndDate.jd,
-      )
+  const endDateInputValue = selectedEndDate
+    ? jDateToString(selectedEndDate.jy, selectedEndDate.jm, selectedEndDate.jd)
     : "";
 
   // Expose origin only if hasOrigin is true
@@ -273,7 +292,38 @@ export function useSearchLogic(
     setTripDirection,
     handleDirectionChange,
 
-    calendar,
+    calendar: {
+      calendarRef,
+      activeInput,
+      setActiveInput,
+      showCalendar,
+      setShowCalendar,
+      hoverDate,
+      setHoverDate,
+      currentJy,
+      setCurrentJy,
+      currentJm,
+      setCurrentJm,
+      currentView,
+      setCurrentView,
+      selectedStartDate,
+      setSelectedStartDate,
+      selectedEndDate,
+      setSelectedEndDate,
+      jToday,
+      jDateToString,
+      stringToJDate,
+      getDateValue,
+      isDateInRange,
+      isDateInHoverRange,
+      selectDate,
+      openCalendar,
+      closeCalendar,
+      handleCalendarTitleClick,
+      handlePrevMonth,
+      handleNextMonth,
+      renderCalendarDays,
+    },
     guest,
 
     destination,

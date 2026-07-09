@@ -189,7 +189,10 @@ const PAGE_DATA = {
 const Page = () => {
   return (
     <>
-      <Header banner="/FlightBanner.png" bannerMobile="/FlightBanner-mobile.png" />
+      <Header
+        banner="/FlightBanner.png"
+        bannerMobile="/FlightBanner-mobile.png"
+      />
       <TravelCards />
       <Form2 />
       <main>
@@ -201,9 +204,19 @@ const Page = () => {
               </div>
               <div className="bottom">
                 {PAGE_DATA.offerSection.links.map((link) => (
-                  <Link key={link.id} href={link.href} style={{ display: "block" }}>
-                    <div style={{ position: "relative", width: "100%", height: "270px" }}>
-                      <Image src={link.src} alt={link.alt} fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: "cover" }} />
+                  <Link
+                    key={link.id}
+                    href={link.href}
+                    style={{ display: "block" }}
+                  >
+                    <div className="offerImageWrapper">
+                      <Image
+                        src={link.src}
+                        alt={link.alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        style={{ objectFit: "cover" }}
+                      />
                     </div>
                   </Link>
                 ))}
@@ -230,7 +243,12 @@ const Page = () => {
                         alt={item.alt}
                         width={140}
                         height={140}
-                        style={{ objectFit: "cover", borderRadius: "8px", width: "auto", height: "auto" }}
+                        style={{
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                          width: "auto",
+                          height: "auto",
+                        }}
                       />
                       <span>{item.title}</span>
                     </Link>
@@ -249,8 +267,20 @@ const Page = () => {
             <div className="MediaScroller">
               {PAGE_DATA.airlinesSection.list.map((item, i) => (
                 <div key={i} className="MediaElement">
-                  <div style={{ position: "relative", width: "100px", height: "100px" }}>
-                    <Image src={item.src} alt={item.alt} fill sizes="100px" style={{ objectFit: "contain" }} />
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "100px",
+                      height: "100px",
+                    }}
+                  >
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      sizes="100px"
+                      style={{ objectFit: "contain" }}
+                    />
                   </div>
                   <p>{item.name}</p>
                   <div className="Options2">

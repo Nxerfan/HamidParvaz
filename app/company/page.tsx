@@ -67,6 +67,19 @@ function useCounter(end: number, duration = 2200) {
   return { count, ref };
 }
 
+/* ===== Animated Counter with ref ===== */
+function StatCounter({ value, suffix }: { value: number; suffix: string }) {
+  const { count, ref } = useCounter(value, 2200);
+  return (
+    <div className={styles.statItem} ref={ref}>
+      <div className={styles.statNumber}>
+        {count.toLocaleString("fa-IR")}
+        <span className={styles.statSuffix}>{suffix}</span>
+      </div>
+    </div>
+  );
+}
+
 /* ===== Data ===== */
 const STATS = [
   { value: 18, suffix: "+", label: "سال تجربه" },
@@ -78,7 +91,14 @@ const STATS = [
 const VALUES = [
   {
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       </svg>
     ),
@@ -87,7 +107,14 @@ const VALUES = [
   },
   {
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <circle cx="12" cy="12" r="10" />
         <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
       </svg>
@@ -97,7 +124,14 @@ const VALUES = [
   },
   {
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
       </svg>
     ),
@@ -106,7 +140,14 @@ const VALUES = [
   },
   {
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
       </svg>
     ),
@@ -145,12 +186,11 @@ const TIMELINE = [
 
 /* ===== Component ===== */
 export default function CompanyPage() {
-  const statCounters = STATS.map((s) => useCounter(s.value, 2200));
-  const storyAnim = useInView(0.15);
-  const valuesAnim = useInView(0.1);
-  const parallaxAnim = useInView(0.2);
-  const timelineAnim = useInView(0.1);
-  const ctaAnim = useInView(0.15);
+  const { ref: storyRef, visible: storyVisible } = useInView(0.15);
+  const { ref: valuesRef, visible: valuesVisible } = useInView(0.1);
+  const { ref: parallaxRef, visible: parallaxVisible } = useInView(0.2);
+  const { ref: timelineRef, visible: timelineVisible } = useInView(0.1);
+  const { ref: ctaRef, visible: ctaVisible } = useInView(0.15);
 
   return (
     <>
@@ -181,11 +221,11 @@ export default function CompanyPage() {
 
       {/* ── Story ── */}
       <div
-        ref={storyAnim.ref}
+        ref={storyRef}
         className={`${styles.section} ${styles.story}`}
         style={{
-          opacity: storyAnim.visible ? 1 : 0,
-          transform: storyAnim.visible ? "translateY(0)" : "translateY(24px)",
+          opacity: storyVisible ? 1 : 0,
+          transform: storyVisible ? "translateY(0)" : "translateY(24px)",
           transition: "all 1s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
@@ -196,12 +236,12 @@ export default function CompanyPage() {
               <span className={styles.sectionLabel}>داستان ما</span>
               <h3>از یک آژانس کوچک تا برندی معتبر در صنعت گردشگری</h3>
               <p>
-                حمید پرواز در سال ۱۳۸۶ با هدف ساده‌ای بزرگ تأسیس شد:
-                تبدیل تجربه سفر به یک خاطره فراموش‌نشدنی برای هر ایرانی.
+                حمید پرواز در سال ۱۳۸۶ با هدف ساده‌ای بزرگ تأسیس شد: تبدیل تجربه
+                سفر به یک خاطره فراموش‌نشدنی برای هر ایرانی.
               </p>
               <p>
-                ما باور داریم سفر حق هر انسانی است. با ارائه خدمات باکیفیت
-                و نرخ‌های مناسب، این باور را هر روز محقق می‌کنیم.
+                ما باور داریم سفر حق هر انسانی است. با ارائه خدمات باکیفیت و
+                نرخ‌های مناسب، این باور را هر روز محقق می‌کنیم.
               </p>
             </div>
             <div className={styles.storyVisual}>
@@ -217,19 +257,16 @@ export default function CompanyPage() {
       <div className={`${styles.section} ${styles.stats}`}>
         <div className={styles.sectionWide}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <span className={styles.sectionLabel} style={{ color: "var(--gold)" }}>
+            <span
+              className={styles.sectionLabel}
+              style={{ color: "var(--gold)" }}
+            >
               در اعداد
             </span>
           </div>
           <div className={styles.statsGrid}>
             {STATS.map((stat, i) => (
-              <div key={i} className={styles.statItem} ref={statCounters[i].ref}>
-                <div className={styles.statNumber}>
-                  {statCounters[i].count.toLocaleString("fa-IR")}
-                  <span className={styles.statSuffix}>{stat.suffix}</span>
-                </div>
-                <div className={styles.statLabel}>{stat.label}</div>
-              </div>
+              <StatCounter key={i} value={stat.value} suffix={stat.suffix} />
             ))}
           </div>
         </div>
@@ -237,11 +274,11 @@ export default function CompanyPage() {
 
       {/* ── Values ── */}
       <div
-        ref={valuesAnim.ref}
+        ref={valuesRef}
         className={`${styles.section} ${styles.values}`}
         style={{
-          opacity: valuesAnim.visible ? 1 : 0,
-          transform: valuesAnim.visible ? "translateY(0)" : "translateY(24px)",
+          opacity: valuesVisible ? 1 : 0,
+          transform: valuesVisible ? "translateY(0)" : "translateY(24px)",
           transition: "all 1s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
@@ -266,10 +303,10 @@ export default function CompanyPage() {
 
       {/* ── Parallax Quote ── */}
       <div
-        ref={parallaxAnim.ref}
+        ref={parallaxRef}
         className={styles.parallax}
         style={{
-          opacity: parallaxAnim.visible ? 1 : 0,
+          opacity: parallaxVisible ? 1 : 0,
           transition: "opacity 1.2s ease",
         }}
       >
@@ -287,11 +324,11 @@ export default function CompanyPage() {
 
       {/* ── Timeline ── */}
       <div
-        ref={timelineAnim.ref}
+        ref={timelineRef}
         className={`${styles.section} ${styles.timeline}`}
         style={{
-          opacity: timelineAnim.visible ? 1 : 0,
-          transform: timelineAnim.visible ? "translateY(0)" : "translateY(24px)",
+          opacity: timelineVisible ? 1 : 0,
+          transform: timelineVisible ? "translateY(0)" : "translateY(24px)",
           transition: "all 1s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
@@ -321,11 +358,11 @@ export default function CompanyPage() {
 
       {/* ── CTA ── */}
       <div
-        ref={ctaAnim.ref}
+        ref={ctaRef}
         className={`${styles.section} ${styles.cta}`}
         style={{
-          opacity: ctaAnim.visible ? 1 : 0,
-          transform: ctaAnim.visible ? "translateY(0)" : "translateY(24px)",
+          opacity: ctaVisible ? 1 : 0,
+          transform: ctaVisible ? "translateY(0)" : "translateY(24px)",
           transition: "all 1s cubic-bezier(0.4,0,0.2,1)",
         }}
       >

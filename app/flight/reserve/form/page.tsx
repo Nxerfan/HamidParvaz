@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import React, { useState, useEffect, useRef } from "react";
+
 import { useRouter } from "next/navigation";
 import { usePassengersContext } from "../../../lib/PassengerContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -150,10 +150,6 @@ const PAGE_DATA = {
   continueBtn: "تایید و ادامه",
 };
 
-function formatPrice(price: number) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 const NiksaPassengerInfo = () => {
   const router = useRouter();
   const [isInvoiceExpanded, setIsInvoiceExpanded] = useState(false);
@@ -162,6 +158,7 @@ const NiksaPassengerInfo = () => {
   const [timeLeft, setTimeLeft] = useState(600);
   const [showTimeoutModal, setShowTimeoutModal] = useState(false);
   const [contactMobile, setContactMobile] = useState("");
+  const nextPassengerId = useRef(1);
   const toast = useToast();
 
   const {
@@ -177,7 +174,7 @@ const NiksaPassengerInfo = () => {
 
   const [passengers, setPassengers] = useState([
     {
-      id: Date.now(),
+      id: 0,
       type: "adult",
       typeLabel: "بزرگسال",
       gender: "آقا",
@@ -198,8 +195,8 @@ const NiksaPassengerInfo = () => {
 
   useEffect(() => {
     if (timeLeft <= 0) {
-      setShowTimeoutModal(true);
-      return;
+      const id = setTimeout(() => setShowTimeoutModal(true), 0);
+      return () => clearTimeout(id);
     }
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
@@ -231,10 +228,11 @@ const NiksaPassengerInfo = () => {
   };
 
   const addNew = (type: string, label: string) => {
-    setPassengers([
-      ...passengers,
+    const id = nextPassengerId.current++;
+    setPassengers((prev) => [
+      ...prev,
       {
-        id: Date.now() + Math.random(),
+        id,
         type: type,
         typeLabel: label,
         gender: "آقا",

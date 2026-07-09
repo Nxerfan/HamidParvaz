@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
-  faAngleDown,
+
   faStar,
   faLocationDot,
   faFaceSmile,
@@ -26,9 +26,7 @@ import HotelDetailModal, {
   HotelDetail,
 } from "../../components/HotelDetailModal";
 
-interface Hotel extends HotelDetail {
-  // همه فیلدهای HotelDetail را دارد
-}
+type Hotel = HotelDetail;
 
 const hotelsData: Hotel[] = [
   {
@@ -167,8 +165,7 @@ function HotelResultsPageContent() {
   const checkInDate = searchParams.get("checkIn") || "";
   const checkOutDate = searchParams.get("checkOut") || "";
   const roomCount = parseInt(searchParams.get("rooms") || "1", 10);
-  const adultCount = parseInt(searchParams.get("adults") || "2", 10);
-  const childCount = parseInt(searchParams.get("children") || "0", 10);
+
 
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(13000000);
@@ -187,24 +184,11 @@ function HotelResultsPageContent() {
   const [sortBy, setSortBy] = useState<"time" | "price" | null>(null);
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [priceRangeProgress, setPriceRangeProgress] = useState({
-    left: 0,
-    width: 100,
-  });
 
   // 👇 state جدید برای modal
   const [selectedHotel, setSelectedHotel] = useState<HotelDetail | null>(null);
 
   const nights = calculateNights(checkInDate, checkOutDate);
-
-  useEffect(() => {
-    const left =
-      ((minPrice - globalMinPrice) / (globalMaxPrice - globalMinPrice)) * 100;
-    const right =
-      ((maxPrice - globalMinPrice) / (globalMaxPrice - globalMinPrice)) * 100;
-    setPriceRangeProgress({ left, width: right - left });
-  }, [minPrice, maxPrice]);
-
   const filteredHotels = hotelsData
     .filter((hotel) => {
       if (destination && !hotel.location.includes(destination)) return false;
@@ -295,14 +279,6 @@ function HotelResultsPageContent() {
       prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val],
     );
 
-  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
-    if (val <= maxPrice) setMinPrice(val);
-  };
-  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
-    if (val >= minPrice) setMaxPrice(val);
-  };
 
   const selectRoom = (hotelId: number) => {
     router.push(`/hotel/hotelch?id=${hotelId}`);

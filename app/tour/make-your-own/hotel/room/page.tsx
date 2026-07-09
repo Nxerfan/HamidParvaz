@@ -21,6 +21,14 @@ import {
 import Image from "next/image";
 import HeaderMakeYourTour from "../../../../components/(Headers)/HeaderMakeYourTour";
 
+interface Room {
+  id: number;
+  type: string;
+  meal: string;
+  capacity: string;
+  bedType: string;
+}
+
 const PAGE_DATA = {
   hotelInfo: {
     name: "هتل خاور مشهد",
@@ -97,20 +105,12 @@ export default function HotelDetailsPage() {
   >({});
   const [activeImage, setActiveImage] = useState(0);
   const [showRoomList, setShowRoomList] = useState(false);
-  const [selectedRoom, setSelectedRoom] = useState<any>(null);
-
-  const autoSelectDefaultRoom = () => {
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(() => {
     if (PAGE_DATA.roomsSection.rooms.length > 0) {
-      const firstRoom = PAGE_DATA.roomsSection.rooms[0];
-      setSelectedRoom(firstRoom);
-      setShowRoomList(false);
+      return PAGE_DATA.roomsSection.rooms[0];
     }
-  };
-
-  React.useEffect(() => {
-    autoSelectDefaultRoom();
-    setRoomCounts({});
-  }, []);
+    return null;
+  });
 
   const handleCounter = (
     roomId: number,

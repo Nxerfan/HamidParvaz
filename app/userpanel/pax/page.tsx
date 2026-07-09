@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore, startTransition } from "react";
 import { createPortal } from "react-dom";
 import "../global.css";
 import FilterUserPannel from "../../components/(filters)/FilterUserPannel";
@@ -91,18 +91,53 @@ const initialPassengers = [
   },
 ];
 
+// Icon component defined outside render to avoid react-hooks/static-components
+function Icon({ path, size = 16 }: { path: string; size?: number }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d={path} />
+    </svg>
+  );
+}
+
+const ICONS = {
+  user: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
+  idCard:
+    "M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6z M6 10h4 M6 14h4 M14 10h4 M14 14h4",
+  calendar:
+    "M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
+  globe:
+    "M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z M2 12h20 M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z",
+  close: "M18 6L6 18 M6 6l12 12",
+  check: "M20 6L9 17l-5-5",
+  plane:
+    "M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z",
+  flag: "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z M4 22v-7",
+  x: "M18 6L6 18 M6 6l12 12",
+};
+
 export default function PassengerManagement() {
   const [passengers, setPassengers] = useState(initialPassengers);
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState(defaultForm);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (isModalOpen) {
@@ -110,7 +145,7 @@ export default function PassengerManagement() {
       setTimeout(() => setIsVisible(true), 10);
     } else {
       document.body.style.overflow = "auto";
-      setIsVisible(false);
+      startTransition(() => setIsVisible(false));
     }
     return () => {
       document.body.style.overflow = "auto";
@@ -129,7 +164,11 @@ export default function PassengerManagement() {
     setIsModalOpen(true);
   };
 
-  const openEdit = (passenger: any) => {
+  const openEdit = (passenger: (typeof initialPassengers)[number] & {
+    passportNum?: string;
+    passportExpiry?: string;
+    passportCountry?: string;
+  }) => {
     setEditingId(passenger.id);
     setFormData({
       firstName: passenger.firstName,
@@ -542,38 +581,6 @@ export default function PassengerManagement() {
   });
 
   // آیکون‌های SVG به صورت کامپوننت
-  const Icon = ({ path, size = 16 }: { path: string; size?: number }) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d={path} />
-    </svg>
-  );
-
-  const ICONS = {
-    user: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
-    idCard:
-      "M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6z M6 10h4 M6 14h4 M14 10h4 M14 14h4",
-    calendar:
-      "M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
-    globe:
-      "M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z M2 12h20 M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z",
-    close: "M18 6L6 18 M6 6l12 12",
-    check: "M20 6L9 17l-5-5",
-    plane:
-      "M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z",
-    flag: "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z M4 22v-7",
-    x: "M18 6L6 18 M6 6l12 12",
-  };
-
   const ModalContent = (
     <div style={backdropStyle} onClick={closeModal} role="presentation">
       <style>{`

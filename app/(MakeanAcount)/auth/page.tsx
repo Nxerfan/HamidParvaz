@@ -262,13 +262,21 @@ function AuthContent() {
   // Show server action feedback — use refs for toast to avoid infinite re-renders
   useEffect(() => {
     if (loginState.message) {
-      loginState.success ? toast.success(loginState.message) : toast.error(loginState.message);
+      if (loginState.success) {
+        toast.success(loginState.message);
+      } else {
+        toast.error(loginState.message);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginState]);
   useEffect(() => {
     if (registerState.message) {
-      registerState.success ? toast.success(registerState.message) : toast.error(registerState.message);
+      if (registerState.success) {
+        toast.success(registerState.message);
+      } else {
+        toast.error(registerState.message);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [registerState]);

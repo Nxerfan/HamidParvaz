@@ -2,10 +2,9 @@
 
 import "../global.css";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTelegram } from "@fortawesome/free-brands-svg-icons";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import FilterUserPannel from "../../components/(filters)/FilterUserPannel";
 import UserPannelHeader from "../../components/(Headers)/UserPannelHeader";
 const PAGE_DATA = {
@@ -38,11 +37,7 @@ const PAGE_DATA = {
 };
 
 export default function Page() {
-  const [users, setUsers] = useState<string[]>([]);
-
-  useEffect(() => {
-    setUsers(PAGE_DATA.activeUsers.users);
-  }, []);
+  const [users] = useState<string[]>(PAGE_DATA.activeUsers.users);
 
   const hasUsers = users.length > 0;
 

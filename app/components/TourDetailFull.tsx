@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
@@ -11,16 +11,12 @@ import {
   faPlaneArrival,
   faPlus,
   faMinus,
-  faUser,
-  faChild,
-  faBaby,
 } from "@fortawesome/free-solid-svg-icons";
 import { FaCar, FaSwimmingPool, FaSink } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import SecondHeader from "./(Headers)/SecondHeader";
 import FAQSection from "./FAQSection";
 import "../tour/tourch/globals.css";
-import { useToast } from "../lib/hooks/useToast";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 
@@ -100,7 +96,6 @@ export type TourDetailData = {
 
 export default function TourDetailFull({ data }: { data: TourDetailData }) {
   const router = useRouter();
-  const toast = useToast();
   const [current, setCurrent] = useState(0);
 
   const images = data.images;

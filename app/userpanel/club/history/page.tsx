@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import "../../global.css";
 import FilterUserPannel from "../../../components/(filters)/FilterUserPannel";
@@ -47,22 +47,14 @@ const PAGE_DATA = {
 };
 
 export default function Page() {
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
   const [scoreType, setScoreType] = useState("");
 
   const calendar = useCalendar({ mode: "range" });
 
-  const { selectedStartDate, selectedEndDate, showCalendar, activeInput, currentJy, currentJm, currentView, calendarRef, jDateToString, jToday, selectDate, openCalendar, closeCalendar, handleCalendarTitleClick, handlePrevMonth, handleNextMonth, renderCalendarDays, setCurrentJy, setCurrentJm, setCurrentView, setHoverDate } = calendar;
+  const { selectedStartDate, selectedEndDate, showCalendar, activeInput, currentJy, currentJm, currentView, calendarRef, jDateToString, jToday, openCalendar, closeCalendar, handleCalendarTitleClick, handlePrevMonth, handleNextMonth, renderCalendarDays, setCurrentJy, setCurrentJm, setCurrentView, setHoverDate } = calendar;
 
-  useEffect(() => {
-    if (selectedStartDate) {
-      setFromDate(jDateToString(selectedStartDate.jy, selectedStartDate.jm, selectedStartDate.jd));
-    }
-    if (selectedEndDate) {
-      setToDate(jDateToString(selectedEndDate.jy, selectedEndDate.jm, selectedEndDate.jd));
-    }
-  }, [selectedStartDate, selectedEndDate, jDateToString]);
+  const fromDate = selectedStartDate ? jDateToString(selectedStartDate.jy, selectedStartDate.jm, selectedStartDate.jd) : "";
+  const toDate = selectedEndDate ? jDateToString(selectedEndDate.jy, selectedEndDate.jm, selectedEndDate.jd) : "";
 
   const handleSearch = () => {
   };

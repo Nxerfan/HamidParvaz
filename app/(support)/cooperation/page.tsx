@@ -263,16 +263,6 @@ export default function CooperationPage() {
 
     if (!validateForm()) return;
 
-    const _formDataToSend = {
-      fullName: formValues.fullName.trim(),
-      phone: formValues.phone.trim(),
-      email: formValues.email.trim(),
-      position: formValues.position,
-      portfolio: formValues.portfolio.trim(),
-      description: formValues.description.trim(),
-      resume: resumeFile,
-    };
-
     setShowSuccess(true);
   };
 

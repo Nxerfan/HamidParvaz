@@ -1,44 +1,51 @@
 import Link from "next/link";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInstagram,
+  faTelegramPlane,
+} from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faPhone, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import "./globals.css";
 
 export default function Footer() {
   return (
     <footer>
       <div className="Container">
+        {/* Top Row: Contact + OrgBox */}
         <div className="TopRow">
           <div className="Contact">
             <div className="Top">
               <a
                 href="tel:+9838118025"
-                style={{ color: "inherit", textDecoration: "none" }}
+                className="contactItem"
+                aria-label="تماس با پشتیبانی"
               >
-                <span>تلفن پشتیبانی: 38118-025</span>
+                <FontAwesomeIcon icon={faPhone} />
+                <span>پشتیبانی: 38118-025</span>
               </a>
-              <span>ایمیل پشتیبانی: hamidparvazagency@gmail.com </span>
+              <a
+                href="mailto:hamidparvazagency@gmail.com"
+                className="contactItem"
+                aria-label="ارسال ایمیل"
+              >
+                <FontAwesomeIcon icon={faEnvelope} />
+                <span>hamidparvazagency@gmail.com</span>
+              </a>
             </div>
 
             <div className="buttom">
-              <Link href="/flight">
-                <p>بلیط هواپیما</p>
-              </Link>
-              <Link href="/hotel">
-                <p>رزرو هتل</p>
-              </Link>
-              <Link href="/tour">
-                <p>مشاهده ی تورها</p>
-              </Link>
-              <Link href="/tour/make-your-own">
-                <p>تور دلخواه خود را بسازید</p>
-              </Link>
-              <Link href="/reserve/auto-reserve">
-                <p>رزرو خودکار</p>
-              </Link>
+              <Link href="/flight">بلیط هواپیما</Link>
+              <Link href="/hotel">رزرو هتل</Link>
+              <Link href="/tour">مشاهده تورها</Link>
+              <Link href="/tour/make-your-own">تور دلخواه خود را بسازید</Link>
+              <Link href="/reserve/auto-reserve">رزرو خودکار</Link>
             </div>
 
             <div className="canccel">
               <Link href="/cancellation">
-                <p>پیگیری و کنسلی بلیط</p>
+                <FontAwesomeIcon icon={faAngleLeft} />
+                پیگیری و کنسلی بلیط
               </Link>
             </div>
           </div>
@@ -54,19 +61,14 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Links Row */}
         <div className="LinksRow">
           <div className="Links">
             <h4>راهنمایی و پشتیبانی</h4>
             <ul>
-              <Link href="/faq">
-                <li>پرسش‌های متداول</li>
-              </Link>
-              <Link href="/rules">
-                <li>شرایط و مقررات</li>
-              </Link>
-              <Link href="/blog">
-                <li>مجله حمید پرواز</li>
-              </Link>
+              <li><Link href="/faq">پرسش‌های متداول</Link></li>
+              <li><Link href="/rules">شرایط و مقررات</Link></li>
+              <li><Link href="/blog">مجله حمید پرواز</Link></li>
             </ul>
           </div>
 
@@ -110,7 +112,7 @@ export default function Footer() {
               <Link href="/">
                 <Image
                   src={"/CAO.png"}
-                  alt="نماد سازمان هواپیمایی "
+                  alt="نماد سازمان هواپیمایی"
                   width={80}
                   height={80}
                 />
@@ -118,7 +120,7 @@ export default function Footer() {
               <Link href="/">
                 <Image
                   src={"/qr.png"}
-                  alt="نماد حقوق مسافر "
+                  alt="نماد حقوق مسافر"
                   width={80}
                   height={80}
                 />
@@ -143,8 +145,11 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Bottom Bar */}
         <div className="Bottom">
-          <p>تمامی حقوق این وب‌سایت محفوظ است.</p>
+          <p className="copyright">
+            &copy; تمامی حقوق این وب‌سایت محفوظ است.
+          </p>
           <div className="Social">
             <a
               href="https://www.instagram.com/"
@@ -152,9 +157,9 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="SocialLink"
               aria-label="حمید پرواز در اینستاگرام"
-              style={{ color: "inherit", textDecoration: "none" }}
             >
-              <span aria-hidden="true">📷</span> اینستاگرام
+              <FontAwesomeIcon icon={faInstagram} />
+              <span>اینستاگرام</span>
             </a>
             <a
               href="https://t.me/"
@@ -162,17 +167,17 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="SocialLink"
               aria-label="حمید پرواز در تلگرام"
-              style={{ color: "inherit", textDecoration: "none" }}
             >
-              <span aria-hidden="true">✈️</span> تلگرام
+              <FontAwesomeIcon icon={faTelegramPlane} />
+              <span>تلگرام</span>
             </a>
             <a
               href="mailto:hamidparvazagency@gmail.com"
               className="SocialLink"
               aria-label="ارسال ایمیل به حمید پرواز"
-              style={{ color: "inherit", textDecoration: "none" }}
             >
-              <span aria-hidden="true">📧</span> جیمیل
+              <FontAwesomeIcon icon={faEnvelope} />
+              <span>جیمیل</span>
             </a>
           </div>
         </div>

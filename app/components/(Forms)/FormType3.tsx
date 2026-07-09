@@ -80,7 +80,9 @@ interface TourSearchFormProps {
   showOrigin?: boolean;
 }
 
-export default function TourSearchForm({ showOrigin = false }: TourSearchFormProps) {
+export default function TourSearchForm({
+  showOrigin = false,
+}: TourSearchFormProps) {
   const logic = useSearchLogic({
     destinations: TOUR_DATA.destinations,
     monthNames: TOUR_DATA.monthNames,
@@ -105,6 +107,53 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
     startDateInputValue,
   } = logic;
 
+  const {
+    calendarRef,
+    showCalendar,
+    currentView,
+    currentJy,
+    currentJm,
+    selectedStartDate,
+    openCalendar,
+    closeCalendar,
+    setShowCalendar,
+    handleCalendarTitleClick,
+    handlePrevMonth,
+    handleNextMonth,
+    renderCalendarDays,
+    jDateToString,
+  } = calendar;
+
+  // Destructure origin (contains refs) – defaults for when origin is null
+  const {
+    input: originInput = "",
+    setInput: setOriginInput = () => {},
+    showDropdown: originShowDropdown = false,
+    setShowDropdown: setOriginShowDropdown = () => {},
+    dropdownRef: originDropdownRef = null,
+    inputRef: originInputRef = null,
+    filteredItems: originFilteredItems = [],
+    recentSearches: originRecentSearches = [],
+    handleSelect: originHandleSelect = () => {},
+    handleInputFocus: originHandleInputFocus = () => {},
+    clearInput: originClearInput = () => {},
+  } = origin ?? {};
+
+  // Destructure destination (contains refs)
+  const {
+    input: destInput,
+    setInput: setDestInput,
+    showDropdown: destShowDropdown,
+    setShowDropdown: setDestShowDropdown,
+    dropdownRef: destDropdownRef,
+    inputRef: destInputRef,
+    filteredItems: destFilteredItems,
+    recentSearches: destRecentSearches,
+    handleSelect: destHandleSelect,
+    handleInputFocus: destHandleInputFocus,
+    clearInput: destClearInput,
+  } = destination;
+
   const [durationNights, setDurationNights] = useState(5);
   const [showDurationDropdown, setShowDurationDropdown] = useState(false);
   const durationRef = useRef<HTMLDivElement>(null);
@@ -127,9 +176,9 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
   const validateForm = (): boolean => {
     const newErrors: Record<string, boolean | undefined> = {};
     if (!tripType) newErrors.tourType = true;
-    if (showOrigin && origin && !origin.input.trim()) newErrors.origin = true;
-    if (!destination.input.trim()) newErrors.destination = true;
-    if (!calendar.selectedStartDate) newErrors.startDate = true;
+    if (showOrigin && origin && !originInput.trim()) newErrors.origin = true;
+    if (!destInput.trim()) newErrors.destination = true;
+    if (!selectedStartDate) newErrors.startDate = true;
 
     if (Object.keys(newErrors).length) {
       logic.setErrors(newErrors);
@@ -147,16 +196,16 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
     searchParams.set("type", "tour");
     searchParams.set("tourType", tripType);
     if (showOrigin && origin) {
-      searchParams.set("origin", origin.input);
+      searchParams.set("origin", originInput);
     }
-    searchParams.set("destination", destination.input);
-    if (calendar.selectedStartDate) {
+    searchParams.set("destination", destInput);
+    if (selectedStartDate) {
       searchParams.set(
         "startDate",
-        calendar.jDateToString(
-          calendar.selectedStartDate.jy,
-          calendar.selectedStartDate.jm,
-          calendar.selectedStartDate.jd,
+        jDateToString(
+          selectedStartDate.jy,
+          selectedStartDate.jm,
+          selectedStartDate.jd,
         ),
       );
     }
@@ -167,28 +216,27 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
     router.push(`/tour/tourse?${searchParams.toString()}`);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         showOrigin &&
         origin &&
-        origin.dropdownRef.current &&
-        !origin.dropdownRef.current.contains(event.target as Node)
+        originDropdownRef?.current &&
+        !originDropdownRef.current.contains(event.target as Node)
       ) {
-        origin.setShowDropdown(false);
+        setOriginShowDropdown(false);
       }
       if (
-        destination.dropdownRef.current &&
-        !destination.dropdownRef.current.contains(event.target as Node)
+        destDropdownRef.current &&
+        !destDropdownRef.current.contains(event.target as Node)
       ) {
-        destination.setShowDropdown(false);
+        setDestShowDropdown(false);
       }
       if (
-        calendar.calendarRef.current &&
-        !calendar.calendarRef.current.contains(event.target as Node)
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
       ) {
-        calendar.setShowCalendar(false);
+        setShowCalendar(false);
       }
       if (
         durationRef.current &&
@@ -202,7 +250,7 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showOrigin]);
+  }, [showOrigin, calendarRef, destDropdownRef, guest, origin, originDropdownRef, setDestShowDropdown, setOriginShowDropdown, setShowCalendar]);
 
   return (
     <div className="List2">
@@ -229,44 +277,46 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
 
         <div className="BottomHotel">
           {showOrigin && origin && (
-            <div className="LocationPicker" ref={origin.dropdownRef}>
+            <div className="LocationPicker" ref={originDropdownRef}>
               <div className="inputWithIcon">
                 <FontAwesomeIcon
                   icon={TOUR_DATA.originIcon}
                   className="inputIcon"
                 />
-                <label className="sr-only" htmlFor="origin-input-3">{TOUR_DATA.originPlaceholder}</label>
+                <label className="sr-only" htmlFor="origin-input-3">
+                  {TOUR_DATA.originPlaceholder}
+                </label>
                 <input
                   type="text"
                   id="origin-input-3"
                   placeholder={TOUR_DATA.originPlaceholder}
-                  value={origin.input}
-                  onChange={(e) => origin.setInput(e.target.value)}
-                  onFocus={origin.handleInputFocus}
-                  ref={origin.inputRef}
+                  value={originInput}
+                  onChange={(e) => setOriginInput(e.target.value)}
+                  onFocus={originHandleInputFocus}
+                  ref={originInputRef}
                   className={`${errors.origin ? "error" : ""} ${shakeFields.origin ? "shake" : ""}`}
                 />
-                {origin.input && (
+                {originInput && (
                   <FontAwesomeIcon
                     icon={TOUR_DATA.closeIcon}
                     className="clearIcon"
-                    onClick={origin.clearInput}
+                    onClick={originClearInput}
                   />
                 )}
               </div>
-              {origin.showDropdown && (
+              {originShowDropdown && (
                 <div className="destinationDropdown">
-                  {origin.recentSearches.length > 0 && (
+                  {originRecentSearches.length > 0 && (
                     <div className="dropdownSection">
                       <div className="sectionTitle">
                         <FontAwesomeIcon icon={TOUR_DATA.historyIcon} />
                         <span>{TOUR_DATA.recentSearchesTitle}</span>
                       </div>
                       <ul>
-                        {origin.recentSearches.map((item) => (
+                        {originRecentSearches.map((item) => (
                           <li
                             key={item.id}
-                            onClick={() => origin.handleSelect(item)}
+                            onClick={() => originHandleSelect(item)}
                           >
                             <FontAwesomeIcon icon={TOUR_DATA.locationIcon} />
                             <span>{item.name}</span>
@@ -281,16 +331,16 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
                       <span>{TOUR_DATA.popularDestinationsTitle}</span>
                     </div>
                     <ul>
-                      {origin.filteredItems.map((item) => (
+                      {originFilteredItems.map((item) => (
                         <li
                           key={item.id}
-                          onClick={() => origin.handleSelect(item)}
+                          onClick={() => originHandleSelect(item)}
                         >
                           <FontAwesomeIcon icon={TOUR_DATA.locationIcon} />
                           <span>{item.name}</span>
                         </li>
                       ))}
-                      {origin.filteredItems.length === 0 && (
+                      {originFilteredItems.length === 0 && (
                         <li className="noResult">{TOUR_DATA.noResultText}</li>
                       )}
                     </ul>
@@ -300,44 +350,46 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
             </div>
           )}
 
-          <div className="LocationPicker" ref={destination.dropdownRef}>
+          <div className="LocationPicker" ref={destDropdownRef}>
             <div className="inputWithIcon">
               <FontAwesomeIcon
                 icon={TOUR_DATA.searchIcon}
                 className="inputIcon"
               />
-              <label className="sr-only" htmlFor="dest-input-3">{TOUR_DATA.destinationPlaceholder}</label>
+              <label className="sr-only" htmlFor="dest-input-3">
+                {TOUR_DATA.destinationPlaceholder}
+              </label>
               <input
                 type="text"
                 id="dest-input-3"
                 placeholder={TOUR_DATA.destinationPlaceholder}
-                value={destination.input}
-                onChange={(e) => destination.setInput(e.target.value)}
-                onFocus={destination.handleInputFocus}
-                ref={destination.inputRef}
+                value={destInput}
+                onChange={(e) => setDestInput(e.target.value)}
+                onFocus={destHandleInputFocus}
+                ref={destInputRef}
                 className={`${errors.destination ? "error" : ""} ${shakeFields.destination ? "shake" : ""}`}
               />
-              {destination.input && (
+              {destInput && (
                 <FontAwesomeIcon
                   icon={TOUR_DATA.closeIcon}
                   className="clearIcon"
-                  onClick={destination.clearInput}
+                  onClick={destClearInput}
                 />
               )}
             </div>
-            {destination.showDropdown && (
+            {destShowDropdown && (
               <div className="destinationDropdown">
-                {destination.recentSearches.length > 0 && (
+                {destRecentSearches.length > 0 && (
                   <div className="dropdownSection">
                     <div className="sectionTitle">
                       <FontAwesomeIcon icon={TOUR_DATA.historyIcon} />
                       <span>{TOUR_DATA.recentSearchesTitle}</span>
                     </div>
                     <ul>
-                      {destination.recentSearches.map((item) => (
+                      {destRecentSearches.map((item) => (
                         <li
                           key={item.id}
-                          onClick={() => destination.handleSelect(item)}
+                          onClick={() => destHandleSelect(item)}
                         >
                           <FontAwesomeIcon icon={TOUR_DATA.locationIcon} />
                           <span>{item.name}</span>
@@ -352,16 +404,16 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
                     <span>{TOUR_DATA.popularDestinationsTitle}</span>
                   </div>
                   <ul>
-                    {destination.filteredItems.map((item) => (
+                    {destFilteredItems.map((item) => (
                       <li
                         key={item.id}
-                        onClick={() => destination.handleSelect(item)}
+                        onClick={() => destHandleSelect(item)}
                       >
                         <FontAwesomeIcon icon={TOUR_DATA.locationIcon} />
                         <span>{item.name}</span>
                       </li>
                     ))}
-                    {destination.filteredItems.length === 0 && (
+                    {destFilteredItems.length === 0 && (
                       <li className="noResult">{TOUR_DATA.noResultText}</li>
                     )}
                   </ul>
@@ -371,59 +423,70 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
           </div>
 
           <div className="DatePicker">
-            <div className="dateInputWrapper" ref={calendar.calendarRef}>
-              <label className="sr-only" htmlFor="date-input-3">تاریخ حرکت</label>
+            <div className="dateInputWrapper" ref={calendarRef}>
+              <label className="sr-only" htmlFor="date-input-3">
+                تاریخ حرکت
+              </label>
               <input
                 type="text"
                 id="date-input-3"
                 placeholder="تاریخ حرکت"
                 value={startDateInputValue}
                 readOnly
-                onClick={() => calendar.openCalendar("start")}
+                onClick={() => openCalendar("start")}
                 className={`${errors.startDate ? "error" : ""} ${shakeFields.startDate ? "shake" : ""}`}
               />
             </div>
-            {calendar.showCalendar && (
+            {showCalendar && (
               <div className="calendarPopup show">
                 <div
                   className="calendarHeader"
                   style={{
-                    visibility: calendar.currentView === "days" ? "visible" : "hidden",
+                    visibility:
+                      currentView === "days" ? "visible" : "hidden",
                   }}
                 >
-                  <button className="calendarNavBtn" aria-label="ماه بعد" onClick={calendar.handlePrevMonth}>
+                  <button
+                    className="calendarNavBtn"
+                    aria-label="ماه بعد"
+                    onClick={handlePrevMonth}
+                  >
                     &gt;
                   </button>
                   <span
                     className="calendarTitle"
-                    onClick={calendar.handleCalendarTitleClick}
+                    onClick={handleCalendarTitleClick}
                   >
-                    {calendar.currentView === "days"
-                      ? `${calendar.currentJy} ${TOUR_DATA.monthNames[calendar.currentJm - 1]}`
-                      : calendar.currentView === "months"
-                        ? `${calendar.currentJy} - انتخاب ماه`
+                    {currentView === "days"
+                      ? `${currentJy} ${TOUR_DATA.monthNames[currentJm - 1]}`
+                      : currentView === "months"
+                        ? `${currentJy} - انتخاب ماه`
                         : "انتخاب سال"}
                   </span>
-                  <button className="calendarNavBtn" aria-label="ماه قبل" onClick={calendar.handleNextMonth}>
+                  <button
+                    className="calendarNavBtn"
+                    aria-label="ماه قبل"
+                    onClick={handleNextMonth}
+                  >
                     &lt;
                   </button>
                 </div>
-                {calendar.currentView === "days" && (
+                {currentView === "days" && (
                   <div className="calendarView active">
                     <div className="calendarWeekdays">
                       {TOUR_DATA.weekDays.map((d, i) => (
                         <div key={i}>{d}</div>
                       ))}
                     </div>
-                    <div className="calendarDays">{calendar.renderCalendarDays()}</div>
+                    <div className="calendarDays">{renderCalendarDays()}</div>
                   </div>
                 )}
-                {calendar.currentView === "months" && (
+                {currentView === "months" && (
                   <div className="calendarView active">
                     <div className="monthsGrid">{renderMonthsGrid()}</div>
                   </div>
                 )}
-                {calendar.currentView === "years" && (
+                {currentView === "years" && (
                   <div className="calendarView active">
                     <div className="yearsWrapper">
                       <div className="yearsGrid">{renderYearsGrid()}</div>
@@ -431,7 +494,7 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
                   </div>
                 )}
                 <div className="calendarFooter">
-                  <button className="btnClose" onClick={calendar.closeCalendar}>
+                  <button className="btnClose" onClick={closeCalendar}>
                     {TOUR_DATA.calendarCloseText}
                   </button>
                 </div>
@@ -475,7 +538,12 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
           </div>
 
           <div className="PaxPicker" ref={paxRef}>
-            <button type="button" aria-label="انتخاب مسافران" aria-expanded={guest.showGuests} onClick={() => guest.setShowGuests(!guest.showGuests)}>
+            <button
+              type="button"
+              aria-label="انتخاب مسافران"
+              aria-expanded={guest.showGuests}
+              onClick={() => guest.setShowGuests(!guest.showGuests)}
+            >
               <FontAwesomeIcon icon={TOUR_DATA.adultIcon} /> {guest.adultCount}{" "}
               بزرگسال ، <FontAwesomeIcon icon={TOUR_DATA.childIcon} />{" "}
               {childCountN} کودک
@@ -496,7 +564,10 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
                       <FontAwesomeIcon icon={TOUR_DATA.minusIcon} />
                     </button>
                     <span>{guest.adultCount}</span>
-                    <button aria-label="افزایش بزرگسال" onClick={() => guest.changeAdult(1)}>
+                    <button
+                      aria-label="افزایش بزرگسال"
+                      onClick={() => guest.changeAdult(1)}
+                    >
                       <FontAwesomeIcon icon={TOUR_DATA.plusIcon} />
                     </button>
                   </div>
@@ -509,13 +580,18 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
                   <div className="AdultAndChildCount">
                     <button
                       aria-label="کاهش کودک"
-                      onClick={() => guest.setChildCount((prev) => Math.max(0, prev - 1))}
+                      onClick={() =>
+                        guest.setChildCount((prev) => Math.max(0, prev - 1))
+                      }
                       disabled={guest.childCount <= 0}
                     >
                       <FontAwesomeIcon icon={TOUR_DATA.minusIcon} />
                     </button>
                     <span>{guest.childCount}</span>
-                    <button aria-label="افزایش کودک" onClick={() => guest.setChildCount((prev) => prev + 1)}>
+                    <button
+                      aria-label="افزایش کودک"
+                      onClick={() => guest.setChildCount((prev) => prev + 1)}
+                    >
                       <FontAwesomeIcon icon={TOUR_DATA.plusIcon} />
                     </button>
                   </div>
@@ -528,13 +604,18 @@ export default function TourSearchForm({ showOrigin = false }: TourSearchFormPro
                   <div className="AdultAndChildCount">
                     <button
                       aria-label="کاهش نوزاد"
-                      onClick={() => guest.setInfantCount((prev) => Math.max(0, prev - 1))}
+                      onClick={() =>
+                        guest.setInfantCount((prev) => Math.max(0, prev - 1))
+                      }
                       disabled={guest.infantCount <= 0}
                     >
                       <FontAwesomeIcon icon={TOUR_DATA.minusIcon} />
                     </button>
                     <span>{guest.infantCount}</span>
-                    <button aria-label="افزایش نوزاد" onClick={() => guest.setInfantCount((prev) => prev + 1)}>
+                    <button
+                      aria-label="افزایش نوزاد"
+                      onClick={() => guest.setInfantCount((prev) => prev + 1)}
+                    >
                       <FontAwesomeIcon icon={TOUR_DATA.plusIcon} />
                     </button>
                   </div>
