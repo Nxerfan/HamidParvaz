@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -481,6 +481,19 @@ function cardToDetail(card: HotelCardType): HotelDetail {
 export default function HotelsPage() {
   const router = useRouter();
   const [selectedHotel, setSelectedHotel] = useState<HotelDetail | null>(null);
+
+  // Make MediaScroller scroll horizontally with mouse wheel
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      const target = e.currentTarget as HTMLElement;
+      if (!target) return;
+      target.scrollLeft += e.deltaY;
+      e.preventDefault();
+    };
+    const els = document.querySelectorAll<HTMLElement>(".MediaScroller, .MediaScrollerHotel");
+    els.forEach((el) => el.addEventListener("wheel", handleWheel, { passive: false }));
+    return () => els.forEach((el) => el.removeEventListener("wheel", handleWheel));
+  }, []);
 
   const hotelSectionsJSX: React.ReactElement[] = [];
   for (const section of PAGE_DATA.hotelSections) {

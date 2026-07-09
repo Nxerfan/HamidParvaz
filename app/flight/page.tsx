@@ -181,7 +181,29 @@ const PAGE_DATA = {
   },
 };
 
+import { useEffect } from "react";
+
 const Page = () => {
+  // Make MediaScroller scroll horizontally with mouse wheel
+  useEffect(() => {
+    const scrollers = document.querySelectorAll<HTMLElement>(".MediaScroller");
+    const handleWheel = (e: WheelEvent) => {
+      const target = e.currentTarget as HTMLElement;
+      if (!target) return;
+      const delta = e.deltaY || e.detail;
+      target.scrollLeft += delta;
+      e.preventDefault();
+    };
+    scrollers.forEach((el) => {
+      el.addEventListener("wheel", handleWheel, { passive: false });
+    });
+    return () => {
+      scrollers.forEach((el) => {
+        el.removeEventListener("wheel", handleWheel);
+      });
+    };
+  }, []);
+
   return (
     <>
       <Header
