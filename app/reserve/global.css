@@ -1951,3 +1951,414 @@ button {
     font-size: 13px;
   }
 }
+
+/* ===================== Reserve Forms - Premium & Responsive Upgrades ===================== */
+
+/* === Container Responsive === */
+.container {
+    flex-wrap: wrap;
+}
+
+/* === Premium Card Styling === */
+.container .Right .Card,
+.container .Right .AddMember,
+.container .left .card1,
+.container .left .card2,
+.container .left .hotelCard {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container .Right .Card:hover,
+.container .Right .AddMember:hover,
+.container .left .card1:hover,
+.container .left .card2:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* === Premium Input Focus States === */
+.OtherInoformation input[type="text"],
+.OtherInoformation input[type="number"],
+.OtherInoformation .dateSelectors input,
+.OtherInoformation .dateSelectors select {
+    transition: box-shadow 0.25s ease, transform 0.2s ease !important;
+}
+
+.OtherInoformation input[type="text"]:focus,
+.OtherInoformation input[type="number"]:focus,
+.OtherInoformation .dateSelectors input:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2.5px rgba(255, 205, 17, 0.35) !important;
+    transform: scale(1.01);
+}
+
+.OtherInoformation select:focus,
+.OtherInoformation .dateSelectors select:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2.5px rgba(255, 205, 17, 0.35) !important;
+}
+
+/* === Premium Buttons === */
+.container .left button,
+.container .left2 button {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--goldDark) 100%) !important;
+    padding: 14px 10px !important;
+    font-size: 15px;
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 16px rgba(255, 205, 17, 0.25) !important;
+}
+
+.container .left button:hover,
+.container .left2 button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 24px rgba(255, 205, 17, 0.35) !important;
+    background: linear-gradient(135deg, var(--goldDark) 0%, var(--gold) 100%) !important;
+}
+
+.container .left button:active,
+.container .left2 button:active {
+    transform: translateY(0) scale(0.98) !important;
+}
+
+/* === Invoice Premium === */
+.invoiceHeader {
+    background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+    padding: 14px 18px;
+    transition: background 0.3s ease;
+}
+
+.invoiceHeader:hover {
+    background: linear-gradient(135deg, rgba(255, 205, 17, 0.05) 0%, #ffffff 100%);
+}
+
+.invoiceDivider {
+    height: 1px;
+    background: linear-gradient(to left, var(--gold), transparent);
+    margin: 6px 0;
+}
+
+/* === Payment Options Premium === */
+.paymentOption {
+    padding: 10px 12px;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+}
+
+.paymentOption.active {
+    background: rgba(255, 205, 17, 0.06);
+}
+
+.paymentOption:hover {
+    background: rgba(255, 205, 17, 0.04);
+}
+
+.bankList {
+    flex-wrap: wrap;
+}
+
+.bankItem {
+    padding: 8px 14px !important;
+    border-radius: 8px !important;
+    transition: all 0.25s ease !important;
+}
+
+.bankItem:hover {
+    background: rgba(255, 205, 17, 0.08) !important;
+    border-color: var(--gold) !important;
+}
+
+/* === Accordion Premium === */
+.accordionItem {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    padding: 4px 12px;
+    transition: all 0.25s ease;
+}
+
+.accordionItem:hover {
+    border-color: rgba(255, 205, 17, 0.2);
+}
+
+.accordionBody input {
+    padding: 10px 12px !important;
+    width: calc(100% - 24px) !important;
+}
+
+.accordionBody .primaryButton {
+    padding: 10px 16px !important;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.25s ease !important;
+}
+
+.accordionBody .primaryButton:hover {
+    background: var(--gold) !important;
+    border-color: var(--gold) !important;
+}
+
+/* === AddMember Premium === */
+.AddMember .AddOptions button {
+    padding: 8px 14px !important;
+    border: 1.5px dashed rgba(255, 205, 17, 0.3) !important;
+    border-radius: 10px !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px !important;
+    transition: all 0.25s ease !important;
+}
+
+.AddMember .AddOptions button:hover {
+    border-color: var(--gold) !important;
+    background: rgba(255, 205, 17, 0.04) !important;
+}
+
+.AddMember .AddOptions button:active {
+    transform: scale(0.97);
+}
+
+/* === Prev Passengers Premium === */
+.prevPassengerCard {
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease !important;
+}
+
+.prevPassengerCard:hover {
+    border-color: rgba(255, 205, 17, 0.2) !important;
+    background: rgba(255, 205, 17, 0.03) !important;
+}
+
+/* ========== Responsive: Tablet & Mobile ========== */
+@media (max-width: 768px) {
+    /* Stack main layout */
+    .container .left,
+    .container .left2 {
+        width: 100% !important;
+    }
+
+    /* Full-width form fields */
+    .OtherInoformation .top {
+        flex-direction: column;
+        width: 100% !important;
+        gap: 16px;
+    }
+
+    .OtherInoformation .top label {
+        width: 100%;
+        margin-right: 0 !important;
+    }
+
+    .OtherInoformation .top label input[type="text"] {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .OtherInoformation .bottom {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .OtherInoformation .bottom label {
+        width: 100%;
+        margin-right: 0 !important;
+    }
+
+    .OtherInoformation .bottom label input[type="text"] {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Responsive date selectors */
+    .dateSelectors {
+        width: 100%;
+    }
+
+    .dateSelectors input,
+    .dateSelectors select {
+        width: calc(33.33% - 4px) !important;
+        min-width: 0 !important;
+        font-size: 13px !important;
+    }
+
+    /* Gender & nationality row */
+    .container .Right .Card .bottomCard .gender {
+        flex-direction: column;
+        gap: 16px;
+        width: 100% !important;
+    }
+
+    .container .Right .Card .bottomCard .gender .nationality {
+        flex-wrap: wrap;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .container .Right .Card .bottomCard .gender .nationality p {
+        width: 100%;
+    }
+
+    .container .Right .Card .bottomCard .gender .nationality .gender-radios {
+        gap: 16px;
+    }
+
+    .container .Right .Card .bottomCard .gender .nationality select {
+        width: 100%;
+    }
+
+    /* Add New section */
+    .container .Right .Card .bottomCard .gender .addNew {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+
+    /* TopCard */
+    .TopCard p {
+        font-size: 16px !important;
+    }
+
+    .TopCard .Clock p {
+        font-size: 14px !important;
+    }
+
+    /* AddMember */
+    .AddMember {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 12px;
+    }
+
+    .AddMember .AddOptions {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .AddMember .AddOptions button {
+        flex: 1;
+        justify-content: center;
+        min-width: calc(50% - 6px);
+    }
+
+    /* Timer modal on mobile */
+    div[style*="position: fixed"][style*="z-index: 1000"] > div {
+        margin: 0 16px !important;
+        padding: 30px 20px !important;
+    }
+
+    /* Tables in prepay */
+    .table {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table table {
+        min-width: 600px;
+    }
+
+    /* Accordion mobile */
+    .accordionBody input {
+        width: calc(100% - 24px) !important;
+    }
+
+    .accordionBody .primaryButton {
+        width: 100%;
+        margin-top: 8px;
+        margin-right: 0 !important;
+    }
+
+    /* Payment options mobile */
+    .paymentOptions .bankList {
+        flex-wrap: wrap;
+    }
+
+    .paymentOptions .bankList .bankItem {
+        flex: 1;
+        min-width: calc(50% - 5px);
+        text-align: center;
+    }
+}
+
+/* ========== Responsive: Small Mobile ========== */
+@media (max-width: 480px) {
+    /* Smaller padding */
+    .container {
+        padding: 0 12px;
+        gap: 12px;
+    }
+
+    .container .Right .Card,
+    .container .Right .AddMember,
+    .container .left .card1,
+    .container .left .card2,
+    .container .left .hotelCard {
+        padding: 14px !important;
+    }
+
+    /* Smaller typography */
+    .TopCard p {
+        font-size: 15px !important;
+    }
+
+    .container .Right .Card .bottomCard .gender .nationality p {
+        font-size: 13px !important;
+    }
+
+    .OtherInoformation label {
+        font-size: 13px !important;
+    }
+
+    /* Full-width add member buttons */
+    .AddMember .AddOptions button {
+        min-width: 100%;
+    }
+
+    /* Invoice */
+    .invoiceHeader {
+        padding: 12px 14px !important;
+    }
+
+    .invoiceHeaderTitle {
+        font-size: 14px !important;
+    }
+
+    .invoiceHeaderPrice {
+        font-size: 14px !important;
+    }
+
+    .invoiceBodyInner {
+        padding: 0 14px 12px !important;
+    }
+
+    .invoiceRow {
+        padding: 8px 0 !important;
+    }
+
+    /* Premium button smaller */
+    .container .left button,
+    .container .left2 button {
+        padding: 12px 10px !important;
+        font-size: 14px !important;
+    }
+
+    /* Flight info card */
+    .card1 .Time .Form span {
+        font-size: 20px !important;
+    }
+
+    /* Date selectors on small screens */
+    .dateSelectors input,
+    .dateSelectors select {
+        height: 44px !important;
+        font-size: 12px !important;
+    }
+
+    /* Bottom card padding */
+    .bottomCard {
+        padding-top: 14px !important;
+        gap: 14px !important;
+    }
+
+    /* TopCard padding */
+    .container .Right .Card .TopCard {
+        padding-bottom: 14px !important;
+    }
+}
