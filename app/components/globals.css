@@ -3632,6 +3632,20 @@ header nav.mobileNavGrid {
     }
 }
 
+/* ============= Unified Card - MediaElementHotel ============= */
+.MediaElementHotel {
+    background: var(--bgWhite);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.MediaElementHotel:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+}
+
 /* Media Queries برای نمایش/مخفی کردن دکمه‌ها */
 @media (max-width: 768px) {
     /* مخفی کردن sidebar دسکتاپ در موبایل */

@@ -138,34 +138,22 @@
       grid-auto-columns: 70%;
       padding: 0 12px 12px;
     }
-    .MediaElement {
-      display: grid;
-      gap: 20px;
-      padding: 20px;
-      background: var(--bgWhite);
-      border-radius: 12px;
-      border: var(--borderLight);
-      text-align: center;
-      min-width: 0;
-      p {
-        font-weight: bold;
-        color: var(--textDark);
-      }
-      img {
-        display: block;
-        margin: 0 auto;
-        max-width: 122px;
-        max-height: 122px;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-      }
-    }
+
   }
 
   .MediaScroller > * {
     scroll-snap-align: start;
   }
+}
+
+.MediaElementHotel {
+    text-align: center;
+    padding: 20px;
+    min-width: 0;
+}
+.MediaElementHotel p {
+    font-weight: bold;
+    color: var(--textDark);
 }
 
 .FAQSection {

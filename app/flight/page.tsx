@@ -266,7 +266,7 @@ const Page = () => {
             <h2 className="SectionTitle">{PAGE_DATA.airlinesSection.title}</h2>
             <div className="MediaScroller">
               {PAGE_DATA.airlinesSection.list.map((item, i) => (
-                <div key={i} className="MediaElement">
+                <div key={i} className="MediaElementHotel">
                   <div
                     style={{
                       position: "relative",

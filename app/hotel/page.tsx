@@ -516,7 +516,7 @@ export default function HotelsPage() {
   const groupsJSX: React.ReactElement[] = [];
   for (const item of PAGE_DATA.hotelGroupsData.list) {
     groupsJSX.push(
-      <div key={item.id} className="MediaElement">
+      <div key={item.id} className="MediaElementHotel">
         <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
           <Image src={item.src} alt={item.alt} fill sizes="(max-width: 768px) 100vw, 300px" style={{ objectFit: "cover" }} />
         </div>

@@ -222,46 +222,33 @@
       grid-auto-columns: 70%;
       padding: 0 12px 12px;
     }
-    .MediaElement {
-      display: grid;
-      gap: 20px;
-      padding: 20px;
-      background: var(--bgWhite);
-      border-radius: 12px;
-      border: var(--borderLight);
-      text-align: center;
-      min-width: 0;
 
-      .Options {
-        display: grid;
-        font-size: 14px;
-        a {
-          text-decoration: none;
-          p {
-            color: var(--textDark);
-            transition: 0.3s;
-            font-weight: bold;
-            &:hover {
-              color: var(--goldText);
-            }
-          }
-        }
-        img {
-          display: block;
-          margin: 0 auto;
-          max-width: 122px;
-          max-height: 122px;
-          width: auto;
-          height: auto;
-          object-fit: contain;
-        }
-      }
-    }
   }
 
   .MediaScroller > * {
     scroll-snap-align: start;
   }
+}
+
+.MediaElementHotel {
+    text-align: center;
+    padding: 20px;
+    min-width: 0;
+}
+.MediaElementHotel .Options {
+    display: grid;
+    font-size: 14px;
+}
+.MediaElementHotel .Options a {
+    text-decoration: none;
+}
+.MediaElementHotel .Options a p {
+    color: var(--textDark);
+    transition: 0.3s;
+    font-weight: bold;
+}
+.MediaElementHotel .Options a:hover p {
+    color: var(--goldText);
 }
 
 .FAQSection {
