@@ -279,7 +279,7 @@ const Page = () => {
                       alt={item.alt}
                       fill
                       sizes="100px"
-                      style={{ objectFit: "contain" }}
+                      style={{ objectFit: "contain", left: "-150%" }}
                     />
                   </div>
                   <p>{item.name}</p>

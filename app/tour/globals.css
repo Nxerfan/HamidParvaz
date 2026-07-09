@@ -159,7 +159,6 @@
         width: auto;
         height: auto;
         object-fit: contain;
-        background: var(--gold);
       }
     }
   }
