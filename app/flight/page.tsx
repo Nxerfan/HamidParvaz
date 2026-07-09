@@ -60,12 +60,7 @@ const PAGE_DATA = {
         alt: "شیراز",
         title: "بلیط هواپیما شیراز",
       },
-      {
-        id: 6,
-        src: "/masghat city.jpg",
-        alt: "مسقط ",
-        title: "بلیط هواپیما مسقط ",
-      },
+
       {
         id: 7,
         src: "/istabul city.jpg",
