@@ -283,7 +283,7 @@ header {
 }
 .Hero,
 .Hero2 {
-    height: 350px;
+    min-height: 40vh;
     background: url("/Untitled.png") center / cover no-repeat;
     display: flex;
     align-items: center;
@@ -311,7 +311,7 @@ header {
 .Hero2 {
     background: url("/Gemini_Generated_Image_g4jgxtg4jgxtg4jg_2026-06-21_12_39_23.696787.webp")
         center / cover no-repeat;
-    height: 270px;
+    min-height: 30vh;
 }
 .Hero3 {
     display: grid;
@@ -2904,7 +2904,7 @@ footer {
         font-size: 16px;
     }
     .Hero {
-        height: 180px;
+        min-height: 20vh;
     }
     .Hero--desktop {
         display: none !important;
@@ -2913,7 +2913,7 @@ footer {
         display: flex !important;
         background-size: cover !important;
         background-position: center !important;
-        height: 180px !important;
+        min-height: 20vh !important;
         z-index: 1;
     }
     .TravelCards {
